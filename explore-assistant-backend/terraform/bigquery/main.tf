@@ -15,6 +15,11 @@ resource "google_bigquery_connection" "connection" {
   project       = var.project_id
   location      = var.deployment_region
   cloud_resource {}
+
+    # Add this block to handle the case when the connection already exists
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 # IAM for connection to be able to execute vertex ai queries through BQ
@@ -42,5 +47,10 @@ EOF
   }
 
   location = var.deployment_region
+
+   # Add this block to handle the case when the model already exists
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
