@@ -18,3 +18,12 @@ include: "/views/**/*.view.lkml"              # include all views in the views/ 
 #     sql_on: ${users.id} = ${orders.user_id} ;;
 #   }
 # }
+
+datagroup: gemini_explore_assistant_default_datagroup {
+  # sql_trigger: SELECT MAX(id) FROM etl_log;;
+  max_cache_age: "1 hour"
+}
+
+persist_with: gemini_explore_assistant_default_datagroup
+
+explore: lookertestv8 {}
