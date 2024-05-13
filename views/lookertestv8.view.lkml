@@ -9,26 +9,16 @@ view: lookertestv8 {
 
     # Here's what a typical dimension looks like in LookML.
     # A dimension is a groupable field that can be used to filter query results.
-    # This dimension will be called " 3 P Fit Percentile " in Explore.
+    # This dimension will be called "Activation Count 5mi" in Explore.
 
-  dimension: _3_p_fit__percentile_ {
+  dimension: activation_count_5mi {
     type: number
-    sql: ${TABLE}._3P_Fit__Percentile_ ;;
+    sql: ${TABLE}.Activation_Count_5mi ;;
   }
 
-  dimension: __of_reviews {
+  dimension: activation_count_per_store_5mi {
     type: number
-    sql: ${TABLE}.__of_Reviews ;;
-  }
-
-  dimension: activation_count___5mi__ {
-    type: number
-    sql: ${TABLE}.Activation_Count___5mi__ ;;
-  }
-
-  dimension: activation_count___store___log_store_count_5mi_ {
-    type: number
-    sql: ${TABLE}.Activation_Count___Store___Log_Store_Count_5mi_ ;;
+    sql: ${TABLE}.Activation_Count_Per_Store_5mi ;;
   }
 
   dimension: address {
@@ -41,29 +31,29 @@ view: lookertestv8 {
     sql: ${TABLE}.Advocate_Count ;;
   }
 
-  dimension: all_partner_store_count__5mi_ {
+  dimension: all_partner_store_count_5mi {
     type: number
-    sql: ${TABLE}.All_Partner_Store_Count__5mi_ ;;
+    sql: ${TABLE}.All_Partner_Store_Count_5mi ;;
   }
 
-  dimension: android_volume__5mi_ {
+  dimension: android_volume_5mi {
     type: number
-    sql: ${TABLE}.Android_Volume__5mi_ ;;
+    sql: ${TABLE}.Android_Volume_5mi ;;
   }
 
-  dimension: android_volume___store___log_store_count_5mi__ {
+  dimension: android_volume_per_store_5mi_ {
     type: number
-    sql: ${TABLE}.Android_Volume___Store___Log_Store_Count_5mi__ ;;
+    sql: ${TABLE}.Android_Volume_Per_Store_5mi_ ;;
   }
 
-  dimension: apple_store_count___5mi_ {
+  dimension: apple_store_count_5mi {
     type: number
-    sql: ${TABLE}.Apple_Store_Count___5mi_ ;;
+    sql: ${TABLE}.Apple_Store_Count_5mi ;;
   }
 
-  dimension: buying_power__percentile_ {
+  dimension: buying_power_percentile {
     type: number
-    sql: ${TABLE}.Buying_Power__Percentile_ ;;
+    sql: ${TABLE}.Buying_Power_Percentile ;;
   }
 
   dimension: campaign_count_20_yy {
@@ -96,9 +86,9 @@ view: lookertestv8 {
     sql: ${TABLE}.Daytime_Population ;;
   }
 
-  dimension: daytime_population___store___log_store_count_ {
+  dimension: daytime_population_per_store {
     type: number
-    sql: ${TABLE}.Daytime_Population___Store___Log_Store_Count_ ;;
+    sql: ${TABLE}.Daytime_Population_Per_Store ;;
   }
 
   dimension: dma {
@@ -106,9 +96,9 @@ view: lookertestv8 {
     sql: ${TABLE}.DMA ;;
   }
 
-  dimension: employment_rate__5mi_ {
+  dimension: employment_rate_5mi {
     type: number
-    sql: ${TABLE}.Employment_Rate__5mi_ ;;
+    sql: ${TABLE}.Employment_Rate_5mi ;;
   }
 
   dimension: field_team_coverage {
@@ -116,29 +106,34 @@ view: lookertestv8 {
     sql: ${TABLE}.Field_Team_Coverage ;;
   }
 
+  dimension: fit_percentile_3_p {
+    type: number
+    sql: ${TABLE}.Fit_Percentile_3P ;;
+  }
+
   dimension: footfall {
     type: number
     sql: ${TABLE}.Footfall ;;
   }
 
-  dimension: footfall__percentile_ {
+  dimension: footfall_percentile {
     type: number
-    sql: ${TABLE}.Footfall__Percentile_ ;;
+    sql: ${TABLE}.Footfall_Percentile ;;
   }
 
-  dimension: google_influence__non_scoring_signal_ {
+  dimension: google_influence_non_scoring_signal {
     type: number
-    sql: ${TABLE}.Google_Influence__Non_Scoring_Signal_ ;;
+    sql: ${TABLE}.Google_Influence_Non_Scoring_Signal ;;
   }
 
-  dimension: gstore_sales__5mi_ {
+  dimension: gstore_sales_5mi {
     type: number
-    sql: ${TABLE}.Gstore_Sales__5mi_ ;;
+    sql: ${TABLE}.Gstore_Sales_5mi ;;
   }
 
-  dimension: gstore_sales___store___log_store_count_5mi_ {
+  dimension: gstore_sales_per_store_5mi {
     type: number
-    sql: ${TABLE}.Gstore_Sales___Store___Log_Store_Count_5mi_ ;;
+    sql: ${TABLE}.Gstore_Sales_Per_Store_5mi ;;
   }
 
   dimension: i_phone_share {
@@ -156,24 +151,34 @@ view: lookertestv8 {
     sql: ${TABLE}.Latitude ;;
   }
 
+  dimension: location {
+    type: string
+    sql: ${TABLE}.location ;;
+  }
+  dimension: mappinglocation {
+    type: location
+    sql_latitude:${TABLE}.Latitude ;;
+    sql_longitude:${TABLE}.Longitude ;;
+  }
+
   dimension: longitude {
     type: number
     sql: ${TABLE}.Longitude ;;
   }
 
-  dimension: lulu_store_count___5mi_ {
+  dimension: lulu_store_count_5mi {
     type: number
-    sql: ${TABLE}.Lulu_Store_Count___5mi_ ;;
+    sql: ${TABLE}.Lulu_Store_Count_5mi ;;
   }
 
-  dimension: median_income_for_families__5mi_ {
+  dimension: median_income_for_families_5mi {
     type: number
-    sql: ${TABLE}.Median_Income_For_Families__5mi_ ;;
+    sql: ${TABLE}.Median_Income_For_Families_5mi ;;
   }
 
-  dimension: median_income_for_nonfamilies__5mi_ {
+  dimension: median_income_for_nonfamilies_5mi {
     type: number
-    sql: ${TABLE}.Median_Income_For_Nonfamilies__5mi_ ;;
+    sql: ${TABLE}.Median_Income_For_Nonfamilies_5mi ;;
   }
 
   dimension: merch_display {
@@ -181,21 +186,26 @@ view: lookertestv8 {
     sql: ${TABLE}.Merch_Display ;;
   }
 
-  dimension: number_of_stores___chain {
+  dimension: number_of_reviews {
     type: number
-    sql: ${TABLE}.Number_Of_Stores___Chain ;;
+    sql: ${TABLE}.Number_Of_Reviews ;;
   }
 
   # A measure is a field that uses a SQL aggregate function. Here are defined sum and average
   # measures for this dimension, but you can also add measures of many different aggregates.
   # Click on the type parameter to see all the options in the Quick Help panel on the right.
 
-  measure: total_number_of_stores___chain {
+  measure: total_number_of_reviews {
     type: sum
-    sql: ${number_of_stores___chain} ;;  }
-  measure: average_number_of_stores___chain {
+    sql: ${number_of_reviews} ;;  }
+  measure: average_number_of_reviews {
     type: average
-    sql: ${number_of_stores___chain} ;;  }
+    sql: ${number_of_reviews} ;;  }
+
+  dimension: number_of_stores_per_chain {
+    type: number
+    sql: ${TABLE}.Number_Of_Stores_Per_Chain ;;
+  }
 
   dimension: overall_rating {
     type: number
@@ -207,14 +217,14 @@ view: lookertestv8 {
     sql: ${TABLE}.Partner ;;
   }
 
-  dimension: past_pixel_sales__percentile_ {
+  dimension: past_pixel_sales_percentile {
     type: number
-    sql: ${TABLE}.Past_Pixel_Sales__Percentile_ ;;
+    sql: ${TABLE}.Past_Pixel_Sales_Percentile ;;
   }
 
-  dimension: past_pixel_sales__unit_ {
+  dimension: past_pixel_sales_unit {
     type: number
-    sql: ${TABLE}.Past_Pixel_Sales__Unit_ ;;
+    sql: ${TABLE}.Past_Pixel_Sales_Unit ;;
   }
 
   dimension: persona_budget {
@@ -242,39 +252,39 @@ view: lookertestv8 {
     sql: ${TABLE}.Persona_Value_Seekers ;;
   }
 
-  dimension: pixel_awareness__percentile_ {
+  dimension: pixel_awareness_percentile {
     type: number
-    sql: ${TABLE}.Pixel_Awareness__Percentile_ ;;
+    sql: ${TABLE}.Pixel_Awareness_Percentile ;;
   }
 
-  dimension: pixel_consideration__percentile_ {
+  dimension: pixel_consideration_percentile {
     type: number
-    sql: ${TABLE}.Pixel_Consideration__Percentile_ ;;
+    sql: ${TABLE}.Pixel_Consideration_Percentile ;;
   }
 
-  dimension: pixel_fit__percentile_ {
+  dimension: pixel_fit_percentile {
     type: number
-    sql: ${TABLE}.Pixel_Fit__Percentile_ ;;
+    sql: ${TABLE}.Pixel_Fit_Percentile ;;
   }
 
-  dimension: pixel_growth_potential___percentile_ {
+  dimension: pixel_growth_potential_percentile {
     type: number
-    sql: ${TABLE}.Pixel_Growth_Potential___Percentile_ ;;
+    sql: ${TABLE}.Pixel_Growth_Potential_Percentile ;;
   }
 
-  dimension: pixel_purchase__percentile_ {
+  dimension: pixel_purchase_percentile {
     type: number
-    sql: ${TABLE}.Pixel_Purchase__Percentile_ ;;
+    sql: ${TABLE}.Pixel_Purchase_Percentile ;;
   }
 
-  dimension: pixel_search__5mi_ {
+  dimension: pixel_search_5mi {
     type: number
-    sql: ${TABLE}.Pixel_Search__5mi_ ;;
+    sql: ${TABLE}.Pixel_Search_5mi ;;
   }
 
-  dimension: pixel_search___store___log_store_count_5mi_ {
+  dimension: pixel_search_per_store_5mi {
     type: number
-    sql: ${TABLE}.Pixel_Search___Store___Log_Store_Count_5mi_ ;;
+    sql: ${TABLE}.Pixel_Search_Per_Store_5mi ;;
   }
 
   dimension: pixel_share {
@@ -282,9 +292,9 @@ view: lookertestv8 {
     sql: ${TABLE}.Pixel_Share ;;
   }
 
-  dimension: population_density__5mi_ {
+  dimension: population_density_5mi {
     type: number
-    sql: ${TABLE}.Population_Density__5mi_ ;;
+    sql: ${TABLE}.Population_Density_5mi ;;
   }
 
   dimension: rolling_all_partners_three_years_activations {
@@ -292,24 +302,19 @@ view: lookertestv8 {
     sql: ${TABLE}.Rolling_All_Partners_Three_Years_Activations ;;
   }
 
-  dimension: same_partner_store_count__5mi_ {
+  dimension: same_partner_store_count_5mi {
     type: number
-    sql: ${TABLE}.Same_Partner_Store_Count__5mi_ ;;
+    sql: ${TABLE}.Same_Partner_Store_Count_5mi ;;
   }
 
-  dimension: samsung_share_ {
+  dimension: samsung_share {
     type: number
-    sql: ${TABLE}.Samsung_Share_ ;;
+    sql: ${TABLE}.Samsung_Share ;;
   }
 
-  dimension: samsung_store_count___5mi_ {
+  dimension: samsung_store_count_5mi {
     type: number
-    sql: ${TABLE}.Samsung_Store_Count___5mi_ ;;
-  }
-
-  dimension: seg_no_ {
-    type: number
-    sql: ${TABLE}.Seg_No_ ;;
+    sql: ${TABLE}.Samsung_Store_Count_5mi ;;
   }
 
   dimension: segment_name {
@@ -317,19 +322,24 @@ view: lookertestv8 {
     sql: ${TABLE}.Segment_Name ;;
   }
 
-  dimension: sephora_store_count___5mi_ {
+  dimension: segment_number {
     type: number
-    sql: ${TABLE}.Sephora_Store_Count___5mi_ ;;
+    sql: ${TABLE}.Segment_Number ;;
   }
 
-  dimension: smartphone_hh___store__log_store_count_5mi_ {
+  dimension: sephora_store_count__5mi {
     type: number
-    sql: ${TABLE}.Smartphone_HH___Store__Log_Store_Count_5mi_ ;;
+    sql: ${TABLE}.Sephora_Store_Count__5mi ;;
   }
 
-  dimension: smartphone_households__5mi_ {
+  dimension: smartphone_households_5mi {
     type: number
-    sql: ${TABLE}.Smartphone_Households__5mi_ ;;
+    sql: ${TABLE}.Smartphone_Households_5mi ;;
+  }
+
+  dimension: smartphone_households_per_store_5mi {
+    type: number
+    sql: ${TABLE}.Smartphone_Households_Per_Store_5mi ;;
   }
 
   dimension: state {
@@ -337,9 +347,9 @@ view: lookertestv8 {
     sql: ${TABLE}.State ;;
   }
 
-  dimension: store_performance__percentile_ {
+  dimension: store_performance_percentile {
     type: number
-    sql: ${TABLE}.Store_Performance__Percentile_ ;;
+    sql: ${TABLE}.Store_Performance_Percentile ;;
   }
 
   dimension: store_review {
@@ -357,9 +367,9 @@ view: lookertestv8 {
     sql: ${TABLE}.Strategic_Tiering ;;
   }
 
-  dimension: target_market__percentile_ {
+  dimension: target_market_percentile {
     type: number
-    sql: ${TABLE}.Target_Market__Percentile_ ;;
+    sql: ${TABLE}.Target_Market_Percentile ;;
   }
 
   dimension: tier {
@@ -367,19 +377,19 @@ view: lookertestv8 {
     sql: ${TABLE}.Tier ;;
   }
 
-  dimension: top_store_covered___30mi_ {
+  dimension: top_store_covered_30mi {
     type: number
-    sql: ${TABLE}.Top_Store_Covered___30mi_ ;;
+    sql: ${TABLE}.Top_Store_Covered_30mi ;;
   }
 
-  dimension: top_stores_uncovered___30mi_ {
+  dimension: top_stores_uncovered_30mi {
     type: number
-    sql: ${TABLE}.Top_Stores_Uncovered___30mi_ ;;
+    sql: ${TABLE}.Top_Stores_Uncovered_30mi ;;
   }
 
-  dimension: user_volume___percentile_ {
+  dimension: user_volume_percentile {
     type: number
-    sql: ${TABLE}.User_Volume___Percentile_ ;;
+    sql: ${TABLE}.User_Volume_Percentile ;;
   }
 
   dimension: zip {
