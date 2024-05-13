@@ -36,33 +36,19 @@ def load_data_from_file(json_file_path):
         return json.load(file)
 
 def insert_data_into_bigquery(client, dataset_id, table_id, explore_id, data):
-    """Insert data into BigQuery using a SQL INSERT statement."""
-    # Convert the data to a JSON string
-    data_json = json.dumps(data)
+    """Insert data into BigQuery using the streaming API."""
+    table_ref = client.dataset(dataset_id).table(table_id)
 
-    # Create a BigQuery SQL INSERT statement
-    insert_query = f"""
-    INSERT INTO `{dataset_id}.{table_id}` (explore_id, examples)
-    VALUES (@explore_id, @examples)
-    """
+    rows_to_insert = []
+    for example in data:
+        row = {"explore_id": explore_id, "examples": json.dumps(example)}
+        rows_to_insert.append(row)
 
-    # Set up query parameters to prevent SQL injection
-    job_config = bigquery.QueryJobConfig(
-        query_parameters=[
-            bigquery.ScalarQueryParameter("explore_id", "STRING", explore_id),
-            bigquery.ScalarQueryParameter("examples", "STRING", data_json)
-        ]
-    )
-
-    # Execute the query
-    query_job = client.query(insert_query, job_config=job_config)
-    query_job.result()  # Wait for the query to complete
-
-    # Check if the query resulted in any errors
-    if query_job.errors is None:
+    errors = client.insert_rows_json(table_ref, rows_to_insert)
+    if errors == []:
         print("Data has been successfully inserted.")
     else:
-        print(f"Encountered errors while inserting data: {query_job.errors}")
+        print(f"Encountered errors while inserting data: {errors}")
 
 def main():
     args = parse_arguments()

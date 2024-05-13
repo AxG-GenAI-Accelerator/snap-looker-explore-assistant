@@ -66,14 +66,14 @@ const LandingPage = () => {
     },
   ]
 
-  const handleChatClick = () => {
-    console.log('User clicked the chat button')
-    // Add any additional logic or actions you want to perform when the chat button is clicked
-  }
-
   return (
     <SpaceVertical>
-      <SpaceVertical paddingTop={'10rem'} maxWidth={'30rem'} margin={'auto'} gap={'none'}>
+      <SpaceVertical
+        paddingTop={'10rem'}
+        maxWidth={'30rem'}
+        margin={'auto'}
+        gap={'none'}
+      >
         <Heading fontSize={'xxxxlarge'} fontWeight={'bold'}>
           Explore Assistant Demo
         </Heading>
@@ -85,11 +85,10 @@ const LandingPage = () => {
             <Button marginTop={'u8'}>Assistant</Button>
           </NavLink>
           <NavLink to="/chat">
-            <Button marginTop={'u8'} onClick={handleChatClick}>
-              Chat
-            </Button>
+            <Button marginTop={'u8'}>Chat</Button>
           </NavLink>
         </Space>
+
         <SpaceVertical marginTop={'u8'} gap={'u14'}>
           {docs.map((doc, index) => {
             return (

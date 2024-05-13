@@ -42,60 +42,46 @@ const Chat = () => {
     setIsSendingMessage(true)
     setTextAreaValue('')
 
-    try {
-      console.log('Summarizing prompts...')
-      const promptSummary = await summarizePrompts(promptList)
-      console.log('Prompt summary:', promptSummary)
+    const [promptSummary, isSummary, isDataQuestion] =
+      await Promise.all([
+        summarizePrompts(promptList),
+        isSummarizationPrompt(prompt),
+        isDataQuestionPrompt(prompt),
+      ])
+    const newExploreUrl = await generateExploreUrl(promptSummary)
+    setIsSendingMessage(false)
 
-      console.log('Checking if summarization prompt...')
-      const isSummary = await isSummarizationPrompt(prompt)
-      console.log('Is summarization prompt:', isSummary)
-
-      console.log('Checking if data question prompt...')
-      const isDataQuestion = await isDataQuestionPrompt(prompt)
-      console.log('Is data question prompt:', isDataQuestion)
-
-      console.log('Generating explore URL...')
-      const newExploreUrl = await generateExploreUrl(promptSummary)
-      console.log('New explore URL:', newExploreUrl)
-
-      setIsSendingMessage(false)
+    dispatch(
+      addMessage({
+        message: textAreaValue,
+        actor: 'user',
+        createdAt: Date.now(),
+        intent: isDataQuestion ? 'dataQuestion' : (isSummary ? 'summarize' : 'exploreRefinement'),
+        type: 'text',
+      }),
+    )
+    
+    if (isSummary) {
+      dispatch(
+        addMessage({
+          exploreUrl: exploreUrl,
+          actor: 'system',
+          createdAt: Date.now(),
+          type: 'summarize',
+        }),
+      )
+    } else {
+      dispatch(setExploreUrl(newExploreUrl))
 
       dispatch(
         addMessage({
-          message: textAreaValue,
-          actor: 'user',
+          exploreUrl: newExploreUrl,
+          summarizedPrompt: promptSummary,
+          actor: 'system',
           createdAt: Date.now(),
-          intent: isDataQuestion ? 'dataQuestion' : (isSummary ? 'summarize' : 'exploreRefinement'),
-          type: 'text',
+          type: 'explore',
         }),
       )
-      
-      if (isSummary) {
-        dispatch(
-          addMessage({
-            exploreUrl: exploreUrl,
-            actor: 'system',
-            createdAt: Date.now(),
-            type: 'summarize',
-          }),
-        )
-      } else {
-        dispatch(setExploreUrl(newExploreUrl))
-
-        dispatch(
-          addMessage({
-            exploreUrl: newExploreUrl,
-            summarizedPrompt: promptSummary,
-            actor: 'system',
-            createdAt: Date.now(),
-            type: 'explore',
-          }),
-        )
-      }
-    } catch (error) {
-      console.error('Error in onSubmitMessage:', error)
-      setIsSendingMessage(false)
     }
   }, [messageThread, textAreaValue, query])
 

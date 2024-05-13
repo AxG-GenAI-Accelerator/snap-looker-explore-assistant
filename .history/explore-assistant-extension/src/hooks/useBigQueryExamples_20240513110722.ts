@@ -26,7 +26,7 @@ export const useBigQueryExamples = () => {
         sql: sql,
       }),
     )
-    console.log('RunExample create_sql_query sql:', sql);
+    console.log('Example create_sql_query sql:', sql);
     console.log('Example create_sql_query connection:', connectionName);
 
 

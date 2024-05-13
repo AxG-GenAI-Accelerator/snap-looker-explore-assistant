@@ -30,8 +30,6 @@ import GeminiLogo from '../../components/GeminiLogo'
 import { ExploreEmbed } from '../../components/ExploreEmbed'
 
 const ExploreChatPage = () => {
-  console.log('ExploreChatPage component rendered')
-
   const dispatch = useDispatch()
   const [loading, setLoading] = React.useState<boolean>(true)
   const [isQueryPending, setIsQueryPending] = React.useState<boolean>(false)
@@ -42,17 +40,12 @@ const ExploreChatPage = () => {
   const { generateExploreUrl } = useSendVertexMessage()
 
   useEffect(() => {
-    console.log('dimensions:', dimensions)
-    console.log('measures:', measures)
-    console.log('exploreGenerationExamples:', examples.exploreGenerationExamples)
-    console.log('exploreRefinementExamples:', examples.exploreRefinementExamples)
-  
     if (
       dimensions.length > 0 &&
       measures.length > 0 &&
-      examples.exploreGenerationExamples.length > 0
+      examples.exploreGenerationExamples.length > 0 &&
+      examples.exploreRefinementExamples.length > 0
     ) {
-      console.log('Data loaded, setting loading to false')
       setLoading(false)
     }
   }, [dimensions, measures, examples])
@@ -61,13 +54,11 @@ const ExploreChatPage = () => {
     if (query.trim() === '') return
     if (isQuerying) return
 
-    console.log('Generating explore URL for query:', query)
     generateExploreUrl(query)
   }, [query])
 
   useEffect(() => {
     if (isQueryPending) {
-      console.log('Query pending, submitting explore')
       setIsQueryPending(false)
       handleExploreSubmit()
     }
@@ -77,13 +68,11 @@ const ExploreChatPage = () => {
     if (textAreaValue.trim() === '') return
     const query = textAreaValue.trim()
 
-    console.log('Submitting explore for query:', query)
     dispatch(setIsQuerying(true))
     dispatch(setQuery(query))
     dispatch(setExploreUrl(''))
 
     const newExploreUrl = await generateExploreUrl(query)
-    console.log('Generated new explore URL:', newExploreUrl)
 
     dispatch(
       addMessage({
@@ -100,7 +89,6 @@ const ExploreChatPage = () => {
   }, [textAreaValue])
 
   const handlePromptSubmit = (prompt: string) => {
-    console.log('Prompt submitted:', prompt)
     dispatch(setQuery(prompt))
     setTextAreaValue(prompt)
     setIsQueryPending(true)
@@ -111,7 +99,6 @@ const ExploreChatPage = () => {
   }
 
   const reset = () => {
-    console.log('Resetting chat')
     dispatch(resetChat())
     setTextAreaValue('')
   }

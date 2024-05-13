@@ -42,15 +42,11 @@ const ExploreChatPage = () => {
   const { generateExploreUrl } = useSendVertexMessage()
 
   useEffect(() => {
-    console.log('dimensions:', dimensions)
-    console.log('measures:', measures)
-    console.log('exploreGenerationExamples:', examples.exploreGenerationExamples)
-    console.log('exploreRefinementExamples:', examples.exploreRefinementExamples)
-  
     if (
       dimensions.length > 0 &&
       measures.length > 0 &&
-      examples.exploreGenerationExamples.length > 0
+      examples.exploreGenerationExamples.length > 0 &&
+      examples.exploreRefinementExamples.length > 0
     ) {
       console.log('Data loaded, setting loading to false')
       setLoading(false)

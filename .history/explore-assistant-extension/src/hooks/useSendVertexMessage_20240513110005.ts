@@ -79,12 +79,13 @@ const useSendVertexMessage = () => {
   ) => {
     console.log('VERTEX BQ Connection:', VERTEX_BIGQUERY_LOOKER_CONNECTION_NAME);
     console.log('VERTEX BQ Model:', VERTEX_BIGQUERY_MODEL_ID);
-  
+    console.log('Contents:', contents);
+    console.log('Parameters:', parameters);
   
     try {
       const generatedSQL = generateSQL(VERTEX_BIGQUERY_MODEL_ID, contents, parameters);
       console.log('Generated SQL query:', generatedSQL);
-
+  
       const createSQLQuery = await core40SDK.ok(
         core40SDK.create_sql_query({
           connection_name: VERTEX_BIGQUERY_LOOKER_CONNECTION_NAME,

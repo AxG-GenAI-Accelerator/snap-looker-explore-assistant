@@ -28,8 +28,6 @@ import { RootState } from '../../store'
 import useFetchData from '../../hooks/useSendVertexMessage'
 
 const ExploreAssistantPage = () => {
-  console.log('ExploreAssistantPage component rendered');
-
   const dispatch = useDispatch()
   const { generateExploreUrl } = useFetchData()
   const [textAreaValue, setTextAreaValue] = React.useState<string>('')
@@ -65,13 +63,11 @@ const ExploreAssistantPage = () => {
 
   const handleExploreUrl = useCallback(
     async (query: string) => {
-      console.log('handleExploreUrl called with query:', query);
       dispatch(setIsQuerying(true))
       dispatch(setQuery(query))
       dispatch(setExploreUrl(''))
 
       const newExploreUrl = await generateExploreUrl(query)
-      console.log('Generated new explore URL:', newExploreUrl);
 
       dispatch(setExploreUrl(newExploreUrl))
       dispatch(setIsQuerying(false))
@@ -88,7 +84,6 @@ const ExploreAssistantPage = () => {
   )
 
   const handleSubmit = useCallback(async () => {
-    console.log('handleSubmit called with textAreaValue:', textAreaValue);
     handleExploreUrl(textAreaValue)
   }, [textAreaValue])
 
@@ -97,7 +92,6 @@ const ExploreAssistantPage = () => {
   }
 
   const handlePromptSubmit = (prompt: string) => {
-    console.log('handlePromptSubmit called with prompt:', prompt);
     setTextAreaValue(prompt)
     handleExploreUrl(prompt)
   }
