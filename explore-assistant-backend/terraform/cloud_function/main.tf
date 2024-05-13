@@ -54,11 +54,6 @@ resource "google_secret_manager_secret" "vertex_cf_auth_token" {
   }
 }
 
-resource "google_secret_manager_secret_version" "vertex_cf_auth_token_version" {
-  secret      = google_secret_manager_secret.vertex_cf_auth_token.name
-  secret_data = file("${path.module}/../../../.vertex_cf_auth_token")
-}
-
 resource "google_secret_manager_secret_iam_binding" "vertex_cf_auth_token_accessor" {
   secret_id = google_secret_manager_secret.vertex_cf_auth_token.secret_id
   role      = "roles/secretmanager.secretAccessor"

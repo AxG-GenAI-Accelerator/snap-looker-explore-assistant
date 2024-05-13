@@ -79,17 +79,33 @@ const useSendVertexMessage = () => {
   ) => {
     console.log('VERTEX BQ Connection:', VERTEX_BIGQUERY_LOOKER_CONNECTION_NAME);
     console.log('VERTEX BQ Model:', VERTEX_BIGQUERY_MODEL_ID);
-  
+    console.log('Contents:', contents);
+    console.log('Parameters:', parameters);
   
     try {
       const generatedSQL = generateSQL(VERTEX_BIGQUERY_MODEL_ID, contents, parameters);
       console.log('Generated SQL query:', generatedSQL);
 
+      const sql = `
+      SELECT examples
+      FROM \`$oxjytxr-mss-mkt-genai-accel.explore_assistant.explore_assistant_examples\`
+      WHERE explore_id = '$geminimodel:lookertestv8'
+    `
+  
+        const createSQLQuery = await core40SDK.ok(
+          core40SDK.create_sql_query({
+            connection_name: VERTEX_BIGQUERY_LOOKER_CONNECTION_NAME,
+            sql: sql,
+          }),
+
+          
+/*
       const createSQLQuery = await core40SDK.ok(
         core40SDK.create_sql_query({
           connection_name: VERTEX_BIGQUERY_LOOKER_CONNECTION_NAME,
           sql: generatedSQL,
         }),
+        */
       );
   
       console.log('create_sql_query response:', createSQLQuery);
