@@ -1,0 +1,42 @@
+[{
+  "input": "Top 100 T-Mobile Stores by Growth Potential",
+  "output": "fields=lookertestv8.ice_store_id,lookertestv8.partner,lookertestv8.city,lookertestv8.state,lookertestv8.pixel_growth_potential_percentile&sorts=lookertestv8.pixel_growth_potential_percentile desc 0&limit=100&column_limit=10"
+}, {
+    "input": "Show me these stores on a map",
+    "output": "fields=lookertestv8.ice_store_id,lookertestv8.partner,lookertestv8.location,lookertestv8.city,lookertestv8.state,lookertestv8.pixel_growth_potential_percentile&sorts=lookertestv8.pixel_growth_potential_percentile desc 0&limit=100&column_limit=10&vis={\"type\""
+}, {
+    "input": "Show me the top 100 t-mobile stores by growth potential on a map",
+    "output": "fields=lookertestv8.ice_store_id,lookertestv8.partner,lookertestv8.location,lookertestv8.city,lookertestv8.state,lookertestv8.pixel_growth_potential_percentile&sorts=lookertestv8.pixel_growth_potential_percentile desc 0&limit=100&column_limit=10&vis={\"type\""
+}, {
+    "input": "Which DMA has the highest number of tier 1 stores by population?",
+    "output": "fields=lookertestv8.DMA,lookertestv8.tier,count(lookertestv8.ice_store_id),lookertestv8.daytime_population&f[lookertestv8.tier]=Tier 1&sorts=lookertestv8.daytime_population desc 0&limit=20&column_limit=10"
+}, {
+    "input": "Whats the employeement rate by DMA?",
+    "output": "fields=lookertestv8.DMA,lookertestv8.employment_rate_5mi&sorts=lookertestv8.employment_rate_5mi desc 0&limit=20&column_limit=10&vis={\"type\":\"looker_grid\"}"
+}, { 
+    "input": "Which DMA has the highest concentration of pixel target audience male age between 20-40?", 
+    "output": "fields=lookertestv8.DMA,MAX(lookertestv8.Target_Market_Percentile) AS max_target_market&sorts=max_target_market desc&limit=1&column_limit=10&vis={\"type\":\"looker_bar\"}" 
+}, { 
+    "input": "Which DMA has the highest concentration of pixel target audience in the Technophile persona?", 
+    "output": "fields=lookertestv8.DMA,MAX(lookertestv8.Persona_Technophile) AS max_technophile_persona&sorts=max_technophile_persona desc&limit=1&column_limit=10" 
+}, { 
+    "input": "What are the tier 1 stores for each partner? Where are they located?", 
+    "output": "fields=lookertestv8.ICE_Store_ID,lookertestv8.Partner,lookertestv8.City,lookertestv8.State,lookertestv8.Strategic_Tiering,lookertestv8.location&f[lookertestv8.Strategic_Tiering]=1&sorts=lookertestv8.Partner&limit=500&column_limit=10&vis={\"type\":\"looker_map\"}" 
+}, { 
+    "input": "What's the average Pixel sale by tier?", 
+    "output": "fields=lookertestv8.Strategic_Tiering AS tier,AVG(lookertestv8.Past_Pixel_Sales_Unit) AS avg_pixel_sales&sorts=tier&limit=500&column_limit=10&vis={\"type\":\"looker_column\"}" 
+}, { 
+    "input": "What does tier 1 store contribute to in terms of total sale?", 
+    "output": "fields=lookertestv8.Strategic_Tiering,SUM(lookertestv8.Past_Pixel_Sales_Unit) AS total_sales,lookertestv8.location&f[lookertestv8.Strategic_Tiering]=1&sorts=total_sales desc&limit=500&column_limit=10" 
+}, { 
+    "input": "What's the coverage by tier & partner?", 
+    "output": "fields=lookertestv8.Strategic_Tiering,lookertestv8.Partner,COUNT(lookertestv8.ICE_Store_ID) AS store_count,lookertestv8.location&sorts=lookertestv8.Strategic_Tiering,lookertestv8.Partner&limit=500&column_limit=10&vis={\"type\":\"looker_grid\"}" 
+}, { 
+    "input": "How many stores are surrounding BBY store in San Francisco?", 
+    "output": "fields=COUNT(lookertestv8.ICE_Store_ID) AS surrounding_stores,lookertestv8.location&f[lookertestv8.Partner]=BBY&f[lookertestv8.City]=San Francisco&sorts=surrounding_stores desc&limit=500&column_limit=10&vis={\"type\":\"looker_map\"}" 
+}]
+
+
+
+	
+

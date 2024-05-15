@@ -1,0 +1,24 @@
+[{
+  "input": "Top 100 T-Mobile Stores by Growth Potential",
+  "output": "fields=lookertestv8.ice_store_id,lookertestv8.partner,lookertestv8.city,lookertestv8.state,lookertestv8.pixel_growth_potential_percentile&sorts=lookertestv8.pixel_growth_potential_percentile desc 0&limit=100&column_limit=10"
+}, {
+    "input": "Show me these stores on a map",
+    "output": "fields=lookertestv8.ice_store_id,lookertestv8.partner,lookertestv8.location,lookertestv8.city,lookertestv8.state,lookertestv8.pixel_growth_potential_percentile&sorts=lookertestv8.pixel_growth_potential_percentile desc 0&limit=100&column_limit=10&vis={\"type\""
+}, {
+    "input": "Show me the top 100 t-mobile stores by growth potential on a map",
+    "output": "fields=lookertestv8.ice_store_id,lookertestv8.partner,lookertestv8.location,lookertestv8.city,lookertestv8.state,lookertestv8.pixel_growth_potential_percentile&sorts=lookertestv8.pixel_growth_potential_percentile desc 0&limit=100&column_limit=10&vis={\"type\""
+}, {
+    "input": "Which DMA has the highest number of tier 1 stores by population?",
+    "output": "fields=lookertestv8.DMA,lookertestv8.tier,count(lookertestv8.ice_store_id),lookertestv8.daytime_population&f[lookertestv8.tier]=Tier 1&sorts=lookertestv8.daytime_population desc 0&limit=20&column_limit=10"
+}, {
+    "input": "Whats the employeement rate by DMA?",
+    "output": "fields=lookertestv8.DMA,lookertestv8.employment_rate_5mi&sorts=lookertestv8.employment_rate_5mi desc 0&limit=20&column_limit=10&vis={\"type\":\"looker_grid\"}"
+}]
+
+
+
+
+
+
+	
+
