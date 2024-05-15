@@ -7,20 +7,20 @@ interface SamplePromptsProps {
 const SamplePrompts = ({ handleSubmit }: SamplePromptsProps) => {
   const categorizedPrompts = [
     {
-      category: 'Business Analysis',
-      prompt: 'What are the top 100 T-Mobile Stores by Growth Potential?',
+      category: 'Cohorting',
+      prompt: 'Count of Users by first purchase date',
       color: 'blue',
     },
     {
-      category: 'Demographics',
+      category: 'Audience Building',
       prompt:
-        'What is the employeement rate by DMA?',
+        'Users who have purchased more than 100 dollars worth of Calvin Klein products and have purchased in the last 30 days',
       color: 'green',
     },
     {
-      category: 'Cohorting',
+      category: 'Period Comparison',
       prompt:
-        'Which DMA has the highest concentration of pixel target audience male age between 20-40?,
+        'Total revenue by category this year compared to last year in a line chart with year pivoted',
       color: 'red',
     },
   ]
