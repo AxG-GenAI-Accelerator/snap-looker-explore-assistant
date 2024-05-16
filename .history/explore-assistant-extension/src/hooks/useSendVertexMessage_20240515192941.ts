@@ -96,14 +96,14 @@ const useSendVertexMessage = () => {
   
       if (createSQLQuery.slug) {
         console.log('create_sql_query slug:', createSQLQuery.slug);
-  //something in here is throwing an error but it doesn't break stuff
+  
         try {
           const runSQLQuery = await core40SDK.ok(
             core40SDK.run_sql_query(createSQLQuery.slug, 'json'),
           );
   
           console.log('run_sql_query response:', runSQLQuery);
-          console.log('ERROR:',runSQLQuery[0]['generated_content']);
+  
           if (runSQLQuery.length > 0 && runSQLQuery[0]['generated_content']) {
             const exploreData = await runSQLQuery[0]['generated_content'];
             console.log('Explore data:', exploreData);

@@ -20,7 +20,7 @@ const SamplePrompts = ({ handleSubmit }: SamplePromptsProps) => {
     {
       category: 'Cohorting',
       prompt:
-        'Which DMA has the highest concentration of pixel target audience male age between 20-40?',
+        'Which DMA has the highest concentration of pixel target audience male age between 20-40?,
       color: 'red',
     },
   ]

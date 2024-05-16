@@ -82,11 +82,14 @@ export const useBigQueryExamples = () => {
   ;
   try {
     const response: Array<{ examples: string }> = await runExampleQuery(sql);
+    console.log('CONNECTION_NAME:', connectionName)
+    console.log('Model ID:', LOOKER_MODEL)
+    console.log('Explore ID:', LOOKER_EXPLORE)
     console.log('Refinement query sql:', sql);
     console.log('Refinement query response:', response);
 
     if (response.length === 0) {
-      console.log('No refinement examples found for the specified model and explore.');
+      console.log('No examples found for the specified model and explore.');
       return;
     }
 

@@ -1,6 +1,6 @@
 [{
-  "input": "What are the top 100 T-Mobile stores by growth potential",
-  "output": "fields=lookertestv8.ice_store_id,lookertestv8.partner,lookertestv8.city,lookertestv8.state,lookertestv8.pixel_growth_potential_percentile&sorts=lookertestv8.pixel_growth_potential_percentile desc 0&limit=100&column_limit=100"
+  "input": "What are the top 100 T-Mobile Stores by Growth Potential",
+  "output": "fields=lookertestv8.ice_store_id,lookertestv8.partner,lookertestv8.city,lookertestv8.state,lookertestv8.pixel_growth_potential_percentile&sorts=lookertestv8.pixel_growth_potential_percentile desc 0&limit=100&column_limit=10"
 }, {
     "input": "Show me these stores on a map",
     "output": "fields=lookertestv8.ice_store_id,lookertestv8.partner,lookertestv8.location,lookertestv8.city,lookertestv8.state,lookertestv8.pixel_growth_potential_percentile&sorts=lookertestv8.pixel_growth_potential_percentile desc 0&limit=100&column_limit=10&vis={\"type\""
