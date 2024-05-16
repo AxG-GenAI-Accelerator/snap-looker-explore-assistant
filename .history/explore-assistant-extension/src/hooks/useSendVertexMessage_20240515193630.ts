@@ -103,7 +103,7 @@ const useSendVertexMessage = () => {
           );
   
           console.log('run_sql_query response:', runSQLQuery);
-          console.log('ERROR:',runSQLQuery[0]['generated_content']);
+  
           if (runSQLQuery.length > 0 && runSQLQuery[0]['generated_content']) {
             const exploreData = await runSQLQuery[0]['generated_content'];
             console.log('Explore data:', exploreData);

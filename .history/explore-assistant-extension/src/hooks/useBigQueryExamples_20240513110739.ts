@@ -26,8 +26,8 @@ export const useBigQueryExamples = () => {
         sql: sql,
       }),
     )
-    console.log('RunExample create_sql_query sql:', sql);
-    console.log('Example create_sql_query connection:', connectionName);
+//    console.log('RunExample Refinement create_sql_query sql:', sql);
+//    console.log('Example create_sql_query connection:', connectionName);
 
 
     const { slug } = await createSqlQuery
@@ -84,14 +84,11 @@ export const useBigQueryExamples = () => {
   ;
   try {
     const response: Array<{ examples: string }> = await runExampleQuery(sql);
-    console.log('CONNECTION_NAME:', connectionName)
-    console.log('Model ID:', LOOKER_MODEL)
-    console.log('Explore ID:', LOOKER_EXPLORE)
-    console.log('Example query sql:', sql);
-    console.log('Example query response:', response);
+    console.log('Refinement query sql:', sql);
+    console.log('Refinement query response:', response);
 
     if (response.length === 0) {
-      console.log('No examples found for the specified model and explore.');
+      console.log('No refinement examples found for the specified model and explore.');
       return;
     }
 

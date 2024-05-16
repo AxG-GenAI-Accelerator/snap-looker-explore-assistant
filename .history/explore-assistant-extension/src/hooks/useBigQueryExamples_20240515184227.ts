@@ -26,6 +26,8 @@ export const useBigQueryExamples = () => {
         sql: sql,
       }),
     )
+    console.log('RunExample create_sql_query sql:', sql);
+
     const { slug } = await createSqlQuery
     if (slug) {
       const runSQLQuery = await core40SDK.ok(
@@ -80,6 +82,9 @@ export const useBigQueryExamples = () => {
   ;
   try {
     const response: Array<{ examples: string }> = await runExampleQuery(sql);
+    console.log('CONNECTION_NAME:', connectionName)
+    console.log('Model ID:', LOOKER_MODEL)
+    console.log('Explore ID:', LOOKER_EXPLORE)
     console.log('Refinement query sql:', sql);
     console.log('Refinement query response:', response);
 

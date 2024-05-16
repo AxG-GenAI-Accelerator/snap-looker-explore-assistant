@@ -37,7 +37,6 @@ const ExploreChatPage = () => {
   const [isQueryPending, setIsQueryPending] = React.useState<boolean>(false)
   const { isQuerying, exploreUrl, query, dimensions, measures, examples } =
     useSelector((state: RootState) => state.assistant)
-    console.log('query:', query);
     console.log('examples:', examples);
   const [textAreaValue, setTextAreaValue] = React.useState<string>(query)
 
