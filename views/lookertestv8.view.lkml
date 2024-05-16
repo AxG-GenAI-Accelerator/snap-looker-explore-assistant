@@ -155,11 +155,7 @@ view: lookertestv8 {
     type: string
     sql: ${TABLE}.location ;;
   }
-  dimension: mappinglocation {
-    type: location
-    sql_latitude:${TABLE}.Latitude ;;
-    sql_longitude:${TABLE}.Longitude ;;
-  }
+
 
   dimension: longitude {
     type: number
