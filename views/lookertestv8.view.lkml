@@ -11,6 +11,30 @@ view: lookertestv8 {
     # A dimension is a groupable field that can be used to filter query results.
     # This dimension will be called "Activation Count 5mi" in Explore.
 
+
+  dimension: segmentcolor {
+    type: number
+    case: {
+      when: {
+        sql: ${segment_name} = "No Regret" ;;
+        label: "4"
+      }
+      when: {
+        sql:${segment_name} = "No Regret +" ;;
+        label: "5"
+      }
+      when: {
+        sql: ${segment_name} = "Potential Upside" ;;
+        label: "3"
+      }
+      when: {
+        sql: ${segment_name} = "Sustain" ;;
+        label: "2"
+      }
+      else: "1"
+    }
+  }
+
   dimension: activation_count_5mi {
     type: number
     sql: ${TABLE}.Activation_Count_5mi ;;
