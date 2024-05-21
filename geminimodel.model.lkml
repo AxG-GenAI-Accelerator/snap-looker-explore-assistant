@@ -27,4 +27,4 @@ datagroup: gemini_explore_assistant_default_datagroup {
 persist_with: gemini_explore_assistant_default_datagroup
 
 #explore: lookertestv8 {}
-explore: demo_gemini_retail_data {}
+explore: chat_demo_explored{ view: demo_gemini_retail_data {} }
