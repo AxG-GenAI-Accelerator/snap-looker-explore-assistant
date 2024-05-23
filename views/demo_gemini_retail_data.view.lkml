@@ -16,6 +16,13 @@ view: demo_gemini_retail_data {
     sql: ${TABLE}.Branch ;;
   }
 
+
+  dimension: mapLocation {
+    type: location
+    sql_latitude:${TABLE}.Latitude ;;
+    sql_longitude:${TABLE}.Longitude ;;
+  }
+
   dimension: city {
     type: string
     sql: ${TABLE}.City ;;
@@ -62,6 +69,10 @@ view: demo_gemini_retail_data {
     type: average
     sql: ${gross_margin} ;;  }
 
+  dimension: gross_margin_percent {
+    type: number
+    sql: ${TABLE}.Gross_Margin_Percent ;;
+  }
 
   dimension: invoice_id {
     type: string
