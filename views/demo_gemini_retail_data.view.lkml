@@ -62,10 +62,6 @@ view: demo_gemini_retail_data {
     type: average
     sql: ${gross_margin} ;;  }
 
-  dimension: gross_margin__ {
-    type: number
-    sql: ${TABLE}.Gross_Margin__ ;;
-  }
 
   dimension: invoice_id {
     type: string
