@@ -33,7 +33,6 @@ const ExploreMessage = ({ prompt, queryArgs }: ExploreMessageProps) => {
   const openExplore = () => {
     extensionSDK.openBrowserWindow(exploreHref, '_blank')
   }
-  
   //RG: update paragraph for output message
   return (
     <>
@@ -51,7 +50,7 @@ const ExploreMessage = ({ prompt, queryArgs }: ExploreMessageProps) => {
           </Space>
         </Box>
         <Section>
-          <Paragraph>Here is the link to your explore:</Paragraph>
+          <Paragraph>Test output: XXX Here is the link to your explore:</Paragraph>
           <Box mb="u4">
             <Link href="#" onClick={openExplore} isExternal>
               Visit Explore

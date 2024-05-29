@@ -33,7 +33,6 @@ const ExploreMessage = ({ prompt, queryArgs }: ExploreMessageProps) => {
   const openExplore = () => {
     extensionSDK.openBrowserWindow(exploreHref, '_blank')
   }
-  
   //RG: update paragraph for output message
   return (
     <>

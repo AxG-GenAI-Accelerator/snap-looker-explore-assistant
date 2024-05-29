@@ -92,7 +92,6 @@ const useSendVertexMessage = () => {
         }),
       );
   
-      
       console.log('create_sql_query response:', createSQLQuery);
   
       if (createSQLQuery.slug) {
@@ -112,7 +111,7 @@ const useSendVertexMessage = () => {
             // clean up the data by removing backticks
             const cleanExploreData = exploreData.replace(/```json/g, '').replace(/```/g, '').trim();
             console.log('Clean explore data:', cleanExploreData);
-  //trying to force output
+  
             return cleanExploreData;
           } else {
             console.error('Invalid run_sql_query response:', runSQLQuery);
@@ -136,6 +135,11 @@ const useSendVertexMessage = () => {
     contents: string,
     parameters: ModelParameters,
   ) => {
+    console.log('VERTEX BQ Connection:', VERTEX_BIGQUERY_LOOKER_CONNECTION_NAME);
+    console.log('VERTEX BQ Model:', VERTEX_BIGQUERY_MODEL_ID);
+    console.log('Contents:', contents);
+    console.log('Parameters:', parameters);
+
     try {
       console.log('Generated SQL query:', generateSQL(VERTEX_BIGQUERY_MODEL_ID, contents, parameters));
 
@@ -167,8 +171,8 @@ const useSendVertexMessage = () => {
       
      
 
-      //const exploreData = 'https://accenture.looker.com/explore/lookertestv8/lookertestv8/ice_store_performance?fields\u003dlookertestv8.ice_store_id,lookertestv8.city,lookertestv8.latitude,lookertestv8.longitude\u0026sorts\u003dlookertestv8.past_pixel_sales__percentile_'
-      //'https://accenture.looker.com/explore/lookertestv8/lookertestv8/stores?fields\u003dlookertestv8.ice_store_id,lookertestv8.city\u0026sorts\u003dlookertestv8.count%20desc\u0026limit\u003d5' /*await runSQLQuery[0]['generated_content']
+      //const exploreData = 'https://accenture.looker.com/explore/geminimodel/lookertestv8/ice_store_performance?fields\u003dlookertestv8.ice_store_id,lookertestv8.city,lookertestv8.latitude,lookertestv8.longitude\u0026sorts\u003dlookertestv8.past_pixel_sales__percentile_'
+      //'https://accenture.looker.com/explore/geminimodel/lookertestv8/stores?fields\u003dlookertestv8.ice_store_id,lookertestv8.city\u0026sorts\u003dlookertestv8.count%20desc\u0026limit\u003d5' /*await runSQLQuery[0]['generated_content']
       
 
       //const cleanExploreData = exploreData.replace(/```json/g, '').replace(/```/g, '').trim();

@@ -7,21 +7,22 @@ interface SamplePromptsProps {
 const SamplePrompts = ({ handleSubmit }: SamplePromptsProps) => {
   const categorizedPrompts = [
     {
-      category: 'Business Analysis',
-      prompt: 'What are the top 100 T-Mobile Stores by Growth Potential?',
-      color: 'blue',
+      category: 'Top Store Analysis',
+      prompt: 'What are the top 100 T-Mobile Stores by Sales?',
+      color: 'black',
     },
     {
-      category: 'Demographics',
+      category: 'Detailed Drill-Down',
       prompt:
-        'What is the employeement rate by DMA?',
-      color: 'green',
+        'What is the employeement rate and income by tier?',
+
+      color: 'black',
     },
     {
-      category: 'Cohorting',
+      category: 'Targeting Prioritization',
       prompt:
-        'Which DMA has the highest concentration of pixel target audience male age between 20-40?,
-      color: 'red',
+        'Which DMA has the highest concentration of pixel target audience male age between 20-40?',
+      color: 'black',
     },
   ]
   return (

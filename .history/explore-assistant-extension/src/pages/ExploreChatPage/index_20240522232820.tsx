@@ -37,6 +37,8 @@ const ExploreChatPage = () => {
   const [isQueryPending, setIsQueryPending] = React.useState<boolean>(false)
   const { isQuerying, exploreUrl, query, dimensions, measures, examples } =
     useSelector((state: RootState) => state.assistant)
+    console.log('query:', query);
+    console.log('examples:', examples);
   const [textAreaValue, setTextAreaValue] = React.useState<string>(query)
 
   const { generateExploreUrl } = useSendVertexMessage()
@@ -50,8 +52,8 @@ const ExploreChatPage = () => {
     if (
       dimensions.length > 0 &&
       measures.length > 0 &&
-      examples.exploreGenerationExamples.length > 0 &&
-      examples.exploreRefinementExamples.length > 0
+      //examples.exploreGenerationExamples.length > 0 
+     // && examples.exploreRefinementExamples.length > 0
     ) {
       console.log('Data loaded, setting loading to false')
       setLoading(false)

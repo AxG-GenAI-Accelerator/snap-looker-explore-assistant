@@ -92,7 +92,6 @@ const useSendVertexMessage = () => {
         }),
       );
   
-      
       console.log('create_sql_query response:', createSQLQuery);
   
       if (createSQLQuery.slug) {

@@ -27,13 +27,12 @@ const ExploreMessage = ({ prompt, queryArgs }: ExploreMessageProps) => {
   const { extensionSDK } = useContext(ExtensionContext)
   const exploreHref = `/explore/${exploreId}?${queryArgs}`
 
-  console.log('exploreID in explore message.tsx: ', exploreId)
-  console.log('extensionSDK in explore message.tsx:', extensionSDK)
-  console.log('exploreHref in explore message.tsx: ', exploreHref)
+  console.log('exploreID in explore message.tsx', exploreId)
+  console.log('extensionSDK in explore message.tsx', extensionSDK)
+  console.log('exploreHref in explore message.tsx', exploreHref)
   const openExplore = () => {
     extensionSDK.openBrowserWindow(exploreHref, '_blank')
   }
-  
   //RG: update paragraph for output message
   return (
     <>
