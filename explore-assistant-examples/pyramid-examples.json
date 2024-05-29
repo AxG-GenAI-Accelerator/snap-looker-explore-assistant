@@ -1,15 +1,23 @@
 [{
-  "input": "What are the top 100 T-Mobile stores by growth potential",
-  "output": "fields=lookertestv8.ice_store_id,lookertestv8.partner,lookertestv8.city,lookertestv8.state,lookertestv8.pixel_growth_potential_percentile&sorts=lookertestv8.pixel_growth_potential_percentile desc 0&limit=100&column_limit=100"
+    "input": "What are the top 100 T-Mobile stores in the US",
+    "output": "fields=lookertestv8.ice_store_id,lookertestv8.partner,lookertestv8.DMA,lookertestv8.location,lookertestv8.pixel_growth_potential_percentile,lookertestv8.past_pixel_sales_unit&f[lookertestv8.partner]=T-Mobile&sorts=lookertestv8.past_pixel_sales_unit desc,lookertestv8.pixel_growth_potential_percentile desc 0&limit=100&column_limit=100&map_plot_mode=points&map_lat_col=lookertestv8.location_latitude&map_lon_col=lookertestv8.location_longitude"},{
+    "input": "What are the top 100 T-Mobile stores by growth potential",
+    "output": "fields=lookertestv8.ice_store_id,lookertestv8.partner,lookertestv8.DMA,lookertestv8.location,lookertestv8.pixel_growth_potential_percentile&f[lookertestv8.partner]=T-Mobile&sorts=lookertestv8.pixel_growth_potential_percentile desc&limit=100&column_limit=100"
 }, {
-    "input": "Show me these stores on a map",
-    "output": "fields=lookertestv8.ice_store_id,lookertestv8.partner,lookertestv8.location,lookertestv8.city,lookertestv8.state,lookertestv8.pixel_growth_potential_percentile&sorts=lookertestv8.pixel_growth_potential_percentile desc 0&limit=100&column_limit=10&vis={\"type\""
-}, {
-    "input": "Show me the top 100 t-mobile stores by growth potential on a map",
-    "output": "fields=lookertestv8.ice_store_id,lookertestv8.partner,lookertestv8.location,lookertestv8.city,lookertestv8.state,lookertestv8.pixel_growth_potential_percentile&sorts=lookertestv8.pixel_growth_potential_percentile desc 0&limit=100&column_limit=10&vis={\"type\""
+    "input": "What are the top 100 T-Mobile stores by growth potential",
+    "output": "fields=lookertestv8.ice_store_id,lookertestv8.partner,lookertestv8.DMA,lookertestv8.location,lookertestv8.pixel_growth_potential_percentile&f[lookertestv8.partner]=T-Mobile&sorts=lookertestv8.pixel_growth_potential_percentile desc&limit=100&column_limit=100&map_plot_mode=points&map_lat_col=lookertestv8.location_latitude&map_lon_col=lookertestv8.location_longitude"
+},{
+    "input": "What are the top 100 AT&T stores in the US by footfall",
+    "output": "fields=lookertestv8.ice_store_id,lookertestv8.partner,lookertestv8.DMA,lookertestv8.location,lookertestv8.footfall&f[lookertestv8.partner]="AT&T"&sorts=lookertestv8.footfall desc&limit=100&column_limit=100&map_plot_mode=points&map_lat_col=lookertestv8.location_latitude&map_lon_col=lookertestv8.location_longitude"
+},{
+    "input": "What are the top 100 Verizon stores in the US by strategic tier",
+    "output": "fields=lookertestv8.ice_store_id,lookertestv8.partner,lookertestv8.DMA,lookertestv8.location,lookertestv8.strategic_tiering&f[lookertestv8.partner]=Verizon&sorts=lookertestv8.strategic_tiering desc&limit=100&column_limit=100&map_plot_mode=points&map_lat_col=lookertestv8.location_latitude&map_lon_col=lookertestv8.location_longitude"
+},{
+    "input": "What are the top 100 BestBuy stores in the US by population density",
+    "output": "fields=lookertestv8.ice_store_id,lookertestv8.partner,lookertestv8.DMA,lookertestv8.location,lookertestv8.population_density_5mi,lookertestv8.location&f[lookertestv8.partner]=BestBuy&sorts=lookertestv8.population_density_5mi desc&limit=100&column_limit=100&map_plot_mode=points&map_lat_col=lookertestv8.location_latitude&map_lon_col=lookertestv8.location_longitude"
 }, {
     "input": "Which DMA has the highest number of tier 1 stores by population?",
-    "output": "fields=lookertestv8.DMA,lookertestv8.tier,count(lookertestv8.ice_store_id),lookertestv8.daytime_population&f[lookertestv8.tier]=Tier 1&sorts=lookertestv8.daytime_population desc 0&limit=20&column_limit=10"
+    "output": "fields=lookertestv8.DMA,lookertestv8.strategic_tiering,count(lookertestv8.ice_store_id),lookertestv8.daytime_population&f[lookertestv8.tier]=Tier 1&sorts=lookertestv8.daytime_population desc 0&limit=20&column_limit=10"
 }, {
     "input": "What is the employeement rate by DMA?",
     "output": "fields=lookertestv8.DMA,lookertestv8.employment_rate_5mi&sorts=lookertestv8.employment_rate_5mi desc 0&limit=20&column_limit=10&vis={\"type\":\"looker_grid\"}"
@@ -28,12 +36,6 @@
 }, { 
     "input": "What does tier 1 store contribute to in terms of total sale?", 
     "output": "fields=lookertestv8.Strategic_Tiering,SUM(lookertestv8.Past_Pixel_Sales_Unit) AS total_sales,lookertestv8.location&f[lookertestv8.Strategic_Tiering]=1&sorts=total_sales desc&limit=500&column_limit=10" 
-}, { 
-    "input": "What's the coverage by tier & partner?", 
-    "output": "fields=lookertestv8.Strategic_Tiering,lookertestv8.Partner,COUNT(lookertestv8.ICE_Store_ID) AS store_count,lookertestv8.location&sorts=lookertestv8.Strategic_Tiering,lookertestv8.Partner&limit=500&column_limit=10&vis={\"type\":\"looker_grid\"}" 
-}, { 
-    "input": "How many stores are surrounding BBY store in San Francisco?", 
-    "output": "fields=COUNT(lookertestv8.ICE_Store_ID) AS surrounding_stores,lookertestv8.location&f[lookertestv8.Partner]=BBY&f[lookertestv8.City]=San Francisco&sorts=surrounding_stores desc&limit=500&column_limit=10&vis={\"type\":\"looker_map\"}" 
 }]
 
 
