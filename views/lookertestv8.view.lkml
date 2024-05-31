@@ -517,7 +517,10 @@ view: lookertestv8 {
   dimension: strategic_tiering {
     type: string
     description: "Strategic tier the store falls into (e.g. Pyramid Tier 1, Pyramid Tier 2, etc.)"
-    sql: ${TABLE}.Strategic_Tiering ;;
+    sql: CASE
+        WHEN ${TABLE}.Strategic_Tiering != 'Pyramid Tier 6' THEN ${TABLE}.Strategic_Tiering
+        ELSE NULL
+      END ;;
     label: "Strategic Tiering"
     tags: ["store", "tier"]
   }
