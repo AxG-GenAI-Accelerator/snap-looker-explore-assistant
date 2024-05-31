@@ -423,23 +423,9 @@ view: lookertestv8 {
     label: "Samsung Store Count (5mi)"
     tags: ["5_miles", "samsung", "count"]
   }
-  dimension: segment_name {
-    type: string
-    description: "Name of the segment the store is assigned to (e.g. No Regrets, Potential Upside, etc)"
-    sql: ${TABLE}.Segment_Name ;;
-    label: "Segment Name"
-    tags: ["segment"]
-  }
-  dimension: segment_number {
-    type: number
-    description: "Number corresponding to the segment the store is in"
-    sql: ${TABLE}.Segment_Number ;;
-    label: "Segment Number"
-    tags: ["segment"]
-  }
   dimension: tier_color {
     type: number
-    description: "Number corresponding to the color of the segment the store is in"
+    description: "Color corresponding to each possible tier a store could be in"
     case: {
       when: {
         sql: ${strategic_tiering} = "Pyramid Tier 1" ;;
@@ -462,7 +448,7 @@ view: lookertestv8 {
         label: "5"
       }
     }
-    label: "Segment Color"
+    label: "Color association for each tier"
     tags: ["tier", "color", "map"]
   }
   dimension: sephora_store_count_5mi {
@@ -531,13 +517,6 @@ view: lookertestv8 {
     label: "Target Market Percentile"
     tags: ["percentile"]
   }
-  dimension: tier {
-    type: string
-    description: "Tier level of the store (Corporate, Dealer, etc.)"
-    sql: ${TABLE}.Tier ;;
-    label: "Tier"
-    tags: ["store", "tier"]
-  }
   dimension: top_store_covered_30mi {
     type: number
     description: "Indicates if it is one of the top ranked stores covered within a 30 mile radius"
@@ -568,8 +547,8 @@ view: lookertestv8 {
   }
   measure: count {
     type: count
-    description: "Count of stores, can be used to get the number of stores in a segment, chain, etc."
-    drill_fields: [segment_name, chain_name]
+    description: "Count of stores, can be used to get the number of stores in a tier, partner, etc."
+    drill_fields: [chain_name]
     label: "Store Count"
     tags: ["count", "store"]
   }
