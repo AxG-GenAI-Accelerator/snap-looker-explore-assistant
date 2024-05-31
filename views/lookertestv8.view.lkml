@@ -201,7 +201,7 @@ view: lookertestv8 {
     description: "Combined latitude and longitude of the store location"
     sql_latitude:${TABLE}.Latitude ;;
     sql_longitude:${TABLE}.Longitude ;;
-    label: "Location"
+    label: "Location used for maps"
     tags: ["geography", "store", "map"]
   }
   dimension: store_longitude {
