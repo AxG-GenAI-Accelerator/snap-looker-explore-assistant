@@ -111,7 +111,6 @@ view: lookertestv8 {
     sql: ${TABLE}.Daytime_Population_Per_Store ;;
     label: "Daytime Population per Store"
     tags: ["population", "per_store"]
-
   }
   dimension: dma {
     type: string
@@ -228,7 +227,6 @@ view: lookertestv8 {
   }
   dimension: median_income_for_nonfamilies_5mi {
     type: number
-
     description: "Median income for non-families within a 5 mile radius"
     sql: ${TABLE}.Median_Income_For_Nonfamilies_5mi ;;
     label: "Median Income for Non-Families (5mi)"
@@ -269,10 +267,8 @@ view: lookertestv8 {
     label: "Number of Stores per Chain"
     tags: ["chain", "per_chain", "count"]
   }
-
   dimension: store_overall_rating {
     type: number
-
     description: "Overall Google review rating score for the store"
     sql: ${TABLE}.Overall_Rating ;;
     label: "Overall Rating"
@@ -289,13 +285,11 @@ view: lookertestv8 {
     description: "Percentile rank of historical Pixel sales performance"
     sql: ${TABLE}.Past_Pixel_Sales_Percentile ;;
     label: "Past Pixel Sales Percentile"
-
     tags: ["pixel", "sales", "percentile"]
   }
   dimension: past_pixel_sales_unit {
     type: number
     description: "Number of Pixel units sold historically"
-
     sql: ${TABLE}.Past_Pixel_Sales_Unit ;;
     label: "Past Pixel Sales Unit"
     tags: ["pixel", "sales"]
@@ -316,7 +310,6 @@ view: lookertestv8 {
   }
   dimension: persona_minimalist {
     type: number
-
     description: "Persona score for minimalist phone users"
     sql: ${TABLE}.Persona_Minimalist ;;
     label: "Persona Minimalist"
@@ -338,7 +331,6 @@ view: lookertestv8 {
   }
   dimension: pixel_awareness_percentile {
     type: number
-
     description: "Percentile rank of Pixel awareness in the area"
     sql: ${TABLE}.Pixel_Awareness_Percentile ;;
     label: "Pixel Awareness Percentile"
@@ -351,7 +343,6 @@ view: lookertestv8 {
     label: "Pixel Consideration Percentile"
     tags: ["pixel", "consideration", "percentile"]
   }
-
   dimension: pixel_fit_percentile {
     type: number
     description: "Percentile rank of Pixel fit (positioning to drive sales)"
@@ -362,7 +353,6 @@ view: lookertestv8 {
   dimension: pixel_growth_potential_percentile {
     type: number
     description: "Percentile rank of Pixel growth potential"
-
     sql: ${TABLE}.Pixel_Growth_Potential_Percentile ;;
     label: "Pixel Growth Potential Percentile"
     tags: ["pixel", "growth_potential", "percentile"]
@@ -388,7 +378,6 @@ view: lookertestv8 {
     label: "Pixel Search per Store (5mi)"
     tags: ["5_miles", "pixel", "search", "per_store"]
   }
-
   dimension: pixel_share {
     type: number
     description: "Pixel market share in the area"
@@ -396,7 +385,6 @@ view: lookertestv8 {
     label: "Pixel Share"
     tags: ["pixel", "share"]
   }
-
   dimension: population_density_5mi {
     type: number
     description: "Population density within a 5 mile radius"
@@ -417,7 +405,6 @@ view: lookertestv8 {
     sql: ${TABLE}.Same_Partner_Store_Count_5mi ;;
     label: "Same Partner Store Count (5mi)"
     tags: ["5_miles", "partner", "count"]
-
   }
   dimension: samsung_share {
     type: number
@@ -445,7 +432,6 @@ view: lookertestv8 {
     description: "Number corresponding to the segment the store is in"
     sql: ${TABLE}.Segment_Number ;;
     label: "Segment Number"
-
     tags: ["segment"]
   }
   dimension: tier_color {
@@ -464,7 +450,6 @@ view: lookertestv8 {
         sql: ${strategic_tiering} = "Pyramid Tier 3" ;;
         label: "3"
       }
-
       when: {
         sql: ${strategic_tiering} = "Pyramid Tier 4" ;;
         label: "4"
@@ -524,7 +509,6 @@ view: lookertestv8 {
     description: "Percentile rank of the store's review score"
     sql: ${TABLE}.Store_Review_Percentile ;;
     label: "Store Review Percentile"
-
     tags: ["store", "review", "percentile"]
   }
   dimension: strategic_tiering {
@@ -537,7 +521,6 @@ view: lookertestv8 {
   dimension: target_market_percentile {
     type: number
     description: "Percentile rank of the target market fit"
-
     sql: ${TABLE}.Target_Market_Percentile ;;
     label: "Target Market Percentile"
     tags: ["percentile"]
