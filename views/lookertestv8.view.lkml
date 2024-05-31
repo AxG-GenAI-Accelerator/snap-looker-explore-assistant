@@ -277,7 +277,10 @@ view: lookertestv8 {
   dimension: partner {
     type: string
     description: "Name of the carrier partner"
-    sql: ${TABLE}.Partner ;;
+    sql: CASE
+        WHEN ${partner} IN ('Best buy', 'T-mobile', 'Verizon', 'ATT') THEN ${partner}
+        ELSE NULL
+      END ;;
     label: "Partner"
   }
   dimension: past_pixel_sales_percentile {
