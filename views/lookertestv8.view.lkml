@@ -7,19 +7,19 @@ view: lookertestv8 {
     label: "Activation Count (5mi)"
     tags: ["activation", "5_miles"]
   }
-  dimension: activation_count_per_store_5mi {
+  dimension: activation_per_store_5mi {
     type: number
-    description: "Average number of activations per store within a 5 mile radius"
+    description: "Number of activations per store within a 5 mile radius"
     sql: ${TABLE}.Activation_Count_Per_Store_5mi ;;
     label: "Activation Count per Store (5mi)"
     tags: ["activation", "5_miles", "per_store"]
   }
-  dimension: address {
+  dimension: store_address {
     type: string
     description: "Street address of the store"
     sql: ${TABLE}.Address ;;
     label: "Address"
-    tags: ["geography"]
+    tags: ["geography","store"]
   }
   dimension: advocate_count {
     type: string
@@ -44,10 +44,10 @@ view: lookertestv8 {
   }
   dimension: android_volume_per_store_5mi {
     type: number
-    description: "Average Android device volume per store within a 5 mile radius"
+    description: "Android device volume per store within a 5 mile radius"
     sql: ${TABLE}.Android_Volume_Per_Store_5mi ;;
     label: "Android Volume per Store (5mi)"
-    tags: ["5_miles", "android", "per_store"]
+    tags: ["5_miles", "android", "per_store", "volume"]
   }
   dimension: apple_store_count_5mi {
     type: number
@@ -84,12 +84,12 @@ view: lookertestv8 {
     label: "Chain Type"
     tags: ["chain"]
   }
-  dimension: city {
+  dimension: store_city {
     type: string
     description: "City the store is located in"
     sql: ${TABLE}.City ;;
     label: "City"
-    tags: ["geography"]
+    tags: ["geography","store"]
   }
   dimension: date_range {
     type: string
@@ -107,7 +107,7 @@ view: lookertestv8 {
   }
   dimension: daytime_population_per_store {
     type: number
-    description: "Average daytime population per store in the area"
+    description: "Daytime population per store in the area"
     sql: ${TABLE}.Daytime_Population_Per_Store ;;
     label: "Daytime Population per Store"
     tags: ["population", "per_store"]
@@ -123,7 +123,6 @@ view: lookertestv8 {
   dimension: employment_rate_5mi {
     type: number
     description: "Employment rate within a 5 mile radius"
-
     sql: ${TABLE}.Employment_Rate_5mi ;;
     label: "Employment Rate (5mi)"
     tags: ["5_miles", "budget"]
@@ -139,13 +138,12 @@ view: lookertestv8 {
     type: number
     description: "3P carrier fit percentile rank (how well positioned the store is to sell Pixel)"
     sql: ${TABLE}.Fit_Percentile_3P ;;
-
     label: "Fit Percentile (3P)"
     tags: ["3p", "fit", "percentile"]
   }
   dimension: footfall {
     type: number
-    description: "Foot traffic volume in the store"
+    description: "Foot traffic in the store"
     sql: ${TABLE}.Footfall ;;
     label: "Footfall"
     tags: ["footfall"]
@@ -162,65 +160,64 @@ view: lookertestv8 {
     description: "Google's influence in the area (non-scoring signal)"
     sql: ${TABLE}.Google_Influence_Non_Scoring_Signal ;;
     label: "Google Influence (Non-Scoring Signal)"
-    tags: ["google", "influence"]
+    tags: ["gstore","google", "influence"]
   }
   dimension: gstore_sales_5mi {
     type: number
     description: "Google Store sales within a 5 mile radius"
     sql: ${TABLE}.Gstore_Sales_5mi ;;
     label: "Google Store Sales (5mi)"
-    tags: ["5_miles", "gstore", "sales"]
+    tags: ["5_miles", "gstore", "google", "sales"]
   }
   dimension: gstore_sales_per_store_5mi {
     type: number
-
-    description: "Average Google Store sales per store within a 5 mile radius"
+    description: "Google Store sales per store within a 5 mile radius"
     sql: ${TABLE}.Gstore_Sales_Per_Store_5mi ;;
     label: "Google Store Sales per Store (5mi)"
-    tags: ["5_miles", "gstore", "sales", "per_store"]
+    tags: ["5_miles", "gstore", "google", "sales", "per_store"]
   }
-  dimension: i_phone_share {
+  dimension: iphone_share {
     type: number
     description: "iPhone market share in the area"
     sql: ${TABLE}.iPhone_Share ;;
     label: "iPhone Share"
-    tags: ["share"]
+    tags: ["share","apple"]
   }
-  dimension: ice_store_id {
+  dimension: store_id {
     type: string
     description: "Unique identifier for each store"
     sql: ${TABLE}.ICE_Store_ID ;;
     label: "ICE Store ID"
     tags: ["store"]
   }
-  dimension: latitude {
+  dimension: store_latitude {
     type: number
     description: "Latitude coordinate of the store location"
     sql: ${TABLE}.Latitude ;;
     label: "Latitude"
-    tags: ["geography"]
+    tags: ["geography","store"]
   }
-  dimension: location {
+  dimension: store_location {
     type: location
     description: "Combined latitude and longitude of the store location"
     sql_latitude:${TABLE}.Latitude ;;
     sql_longitude:${TABLE}.Longitude ;;
     label: "Location"
-    tags: ["geography"]
+    tags: ["geography", "store", "map"]
   }
-  dimension: longitude {
+  dimension: store_longitude {
     type: number
     description: "Longitude coordinate of the store location"
     sql: ${TABLE}.Longitude ;;
     label: "Longitude"
-    tags: ["geography"]
+    tags: ["geography", "store"]
   }
-  dimension: lulu_store_count_5mi {
+  dimension: lululemon_store_count_5mi {
     type: number
     description: "Number of Lululemon stores within a 5 mile radius"
     sql: ${TABLE}.Lulu_Store_Count_5mi ;;
     label: "Lululemon Store Count (5mi)"
-    tags: ["5_miles", "lulu", "count"]
+    tags: ["5_miles", "lululemon", "count"]
   }
   dimension: median_income_for_families_5mi {
     type: number
@@ -237,32 +234,33 @@ view: lookertestv8 {
     label: "Median Income for Non-Families (5mi)"
     tags: ["5_miles", "nonfamily", "median_income", "budget"]
   }
-  dimension: merch_display {
+  dimension: store_merch_display {
     type: string
     description: "Indicates if the store has a merchandising display"
     sql: ${TABLE}.Merch_Display ;;
     label: "Merch Display"
+    tags: ["merch", "store"]
   }
-  dimension: number_of_reviews {
+  dimension: store_number_of_reviews {
     type: number
     description: "Number of Google reviews for the store"
     sql: ${TABLE}.Number_Of_Reviews ;;
     label: "Number of Reviews"
-    tags: ["reviews", "count"]
+    tags: ["reviews", "count", "store"]
   }
   measure: total_number_of_reviews {
     type: sum
     description: "Total number of Google reviews across all stores"
-    sql: ${number_of_reviews} ;;
+    sql: ${TABLE}.Number_Of_Reviews ;;
     label: "Total Number of Reviews"
     tags: ["reviews", "count"]
   }
   measure: average_number_of_reviews {
     type: average
     description: "Average number of Google reviews per store"
-    sql: ${number_of_reviews} ;;
+    sql: ${TABLE}.Number_Of_Reviews;;
     label: "Average Number of Reviews"
-    tags: ["reviews", "count"]
+    tags: ["reviews", "count", "average"]
   }
   dimension: number_of_stores_per_chain {
     type: number
@@ -272,13 +270,13 @@ view: lookertestv8 {
     tags: ["chain", "per_chain", "count"]
   }
 
-  dimension: overall_rating {
+  dimension: store_overall_rating {
     type: number
 
     description: "Overall Google review rating score for the store"
     sql: ${TABLE}.Overall_Rating ;;
     label: "Overall Rating"
-    tags: ["rating"]
+    tags: ["rating","store"]
   }
   dimension: partner {
     type: string
@@ -385,7 +383,7 @@ view: lookertestv8 {
   }
   dimension: pixel_search_per_store_5mi {
     type: number
-    description: "Average Pixel search volume per store within a 5 mile radius"
+    description: "Pixel search volume per store within a 5 mile radius"
     sql: ${TABLE}.Pixel_Search_Per_Store_5mi ;;
     label: "Pixel Search per Store (5mi)"
     tags: ["5_miles", "pixel", "search", "per_store"]
@@ -450,7 +448,7 @@ view: lookertestv8 {
 
     tags: ["segment"]
   }
-  dimension: segmentcolor {
+  dimension: tier_color {
     type: number
     description: "Number corresponding to the color of the segment the store is in"
     case: {
@@ -477,9 +475,9 @@ view: lookertestv8 {
       }
     }
     label: "Segment Color"
-    tags: ["segment"]
+    tags: ["tier", "color", "map"]
   }
-  dimension: sephora_store_count__5mi {
+  dimension: sephora_store_count_5mi {
     type: number
     description: "Number of Sephora stores within a 5 mile radius"
     sql: ${TABLE}.Sephora_Store_Count__5mi ;;
@@ -495,17 +493,17 @@ view: lookertestv8 {
   }
   dimension: smartphone_households_per_store_5mi {
     type: number
-    description: "Average number of households with smartphones per store within a 5 mile radius"
+    description: "Number of households with smartphones per store within a 5 mile radius"
     sql: ${TABLE}.Smartphone_Households_Per_Store_5mi ;;
     label: "Smartphone Households per Store (5mi)"
     tags: ["5_miles", "smartphone", "per_store"]
   }
-  dimension: state {
+  dimension: store_state {
     type: string
     description: "State the store is located in"
     sql: ${TABLE}.State ;;
     label: "State"
-    tags: ["geography"]
+    tags: ["geography", "store"]
   }
   dimension: store_performance_percentile {
     type: number
@@ -516,7 +514,7 @@ view: lookertestv8 {
   }
   dimension: store_review {
     type: number
-    description: "Average review score for the store"
+    description: "Review score for the store"
     sql: ${TABLE}.Store_Review ;;
     label: "Store Review"
     tags: ["store", "review"]
@@ -572,12 +570,12 @@ view: lookertestv8 {
     label: "User Volume Percentile"
     tags: ["percentile", "volume"]
   }
-  dimension: zip {
+  dimension: store_zip {
     type: zipcode
     description: "ZIP code of the store's location"
     sql: ${TABLE}.Zip ;;
     label: "ZIP Code"
-    tags: ["geography", "zip"]
+    tags: ["geography", "zip", "store"]
   }
   measure: count {
     type: count
