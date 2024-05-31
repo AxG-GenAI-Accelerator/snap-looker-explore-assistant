@@ -191,18 +191,18 @@ view: lookertestv8 {
   }
   dimension: store_latitude {
     type: number
-    description: "Latitude coordinate of the store location"
+    description: "Latitude coordinate of the store"
     sql: ${TABLE}.Latitude ;;
     label: "Latitude"
     tags: ["geography","store"]
   }
-  dimension: store_location {
+  dimension: store_location_map {
     type: location
-    description: "Combined latitude and longitude of the store location"
+    description: "Combined map latitude and longitude of the store location used to creat maps"
     sql_latitude:${TABLE}.Latitude ;;
     sql_longitude:${TABLE}.Longitude ;;
     label: "Location used for maps"
-    tags: ["geography", "store", "map"]
+    tags: ["geography", "store", "map", "on a map"]
   }
   dimension: store_longitude {
     type: number
