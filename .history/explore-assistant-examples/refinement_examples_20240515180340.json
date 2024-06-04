@@ -12,5 +12,5 @@
   },
   {
     "input": ["summarize"],
-    "output": "summarization"
+    "output": "summerization"
   }]
