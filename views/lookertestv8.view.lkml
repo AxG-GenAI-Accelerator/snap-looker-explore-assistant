@@ -277,7 +277,7 @@ view: lookertestv8 {
   dimension: partner {
     type: string
     description: "Name of the carrier partner"
-    sql:${TABLE}.Partner
+    sql:${TABLE}.Partner;;
     label: "Name of the partner selling the phone"
     tags: ["partner"]
   }
