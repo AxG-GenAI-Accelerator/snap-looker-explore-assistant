@@ -18,7 +18,7 @@ view: lookertestv8 {
     type: string
     description: "Street address of the store"
     sql: ${TABLE}.Address ;;
-    label: "Address"
+    label: "Store Address"
     tags: ["geography","store"]
   }
   dimension: advocate_count {
@@ -127,7 +127,7 @@ view: lookertestv8 {
     tags: ["5_miles", "budget"]
   }
   dimension: field_team_coverage {
-    type: string
+    type: yesno
     description: "Indicates if the store has field team coverage"
     sql: ${TABLE}.Field_Team_Coverage ;;
     label: "Field Team Coverage"
@@ -186,23 +186,23 @@ view: lookertestv8 {
     type: string
     description: "Unique identifier for each store"
     sql: ${TABLE}.ICE_Store_ID ;;
-    label: "ICE Store ID"
+    label: "Store ID"
     tags: ["store"]
   }
   dimension: store_latitude {
     type: number
-    description: "Latitude coordinate of the store"
+    description: "Latitude coordinate of the store location"
     sql: ${TABLE}.Latitude ;;
     label: "Latitude"
     tags: ["geography","store"]
   }
-  dimension: store_location_map {
+  dimension: store_location {
     type: location
-    description: "Combined map latitude and longitude of the store location used to creat maps"
+    description: "Combined latitude and longitude of the store location"
     sql_latitude:${TABLE}.Latitude ;;
     sql_longitude:${TABLE}.Longitude ;;
-    label: "Location used for maps"
-    tags: ["geography", "store", "map", "on a map"]
+    label: "Location"
+    tags: ["geography", "store", "map"]
   }
   dimension: store_longitude {
     type: number
@@ -236,7 +236,7 @@ view: lookertestv8 {
     type: string
     description: "Indicates if the store has a merchandising display"
     sql: ${TABLE}.Merch_Display ;;
-    label: "Merch Display"
+    label: "Is Merch Displayed"
     tags: ["merch", "store"]
   }
   dimension: store_number_of_reviews {
@@ -278,13 +278,13 @@ view: lookertestv8 {
     type: string
     description: "Name of the carrier partner"
     sql:${TABLE}.Partner;;
-    label: "Name of the partner selling the phone"
+    label: "Partner"
     tags: ["partner"]
   }
   dimension: past_pixel_sales_percentile {
     type: number
     description: "Percentile rank of historical Pixel sales performance"
-    sql: ${TABLE}.Past_Pixel_Sales_Percentile ;;
+    sql: ${TABLE}.Past_Pixel_Sales_Percentile;;
     label: "Past Pixel Sales Percentile"
     tags: ["pixel", "sales", "percentile"]
   }
