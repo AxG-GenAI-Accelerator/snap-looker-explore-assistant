@@ -536,23 +536,16 @@ view: lookertestv8 {
     label: "count"
     tags: ["count", "store"]
   }
-  measure: coverage_count_true {
+  measure: coverage_count_true1 {
     type: count
     description: "Count of stores that are covered"
     sql: CASE WHEN ${TABLE}.Field_Team_Coverage THEN 1 ELSE NULL END ;;
     label: "coverage_count_true"
     tags: ["count", "coverage"]
   }
-  measure: coverage_count_false {
-    type: count
-    description: "Count of stores that are covered"
-    sql: CASE WHEN ${TABLE}.Field_Team_Coverage THEN 0 ELSE NULL END ;;
-    label: "coverage_count_true"
-    tags: ["count", "coverage"]
-  }
   measure: coverage_percentage {
     type: percent_of_total
-    sql: ${coverage_count_true};;
+    sql: ${coverage_count_true1};;
     description: "Percentage of rows where coverage is true"
     label: "coverage_percentage"
     tags: ["percentage", "coverage"]
