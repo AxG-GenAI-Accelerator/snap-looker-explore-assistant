@@ -538,7 +538,8 @@ view: lookertestv8 {
   }
   measure: sum_coverage {
     type: sum
-    sql: ${TABLE}.Field_Team_Coverage;;
+    sql:CASE WHEN ${TABLE}.Field_Team_Coverage THEN 1 ELSE 0 END ;;
+    value_format_name: usd
     description: "Sum of rows where coverage is true"
     label: "Sum Percentage"
     tags: ["sum", "coverage"]
