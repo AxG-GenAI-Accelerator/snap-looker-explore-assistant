@@ -532,8 +532,8 @@ view: lookertestv8 {
   measure: sum_coverage {
     type: sum
     sql: CASE
-      WHEN ${TABLE}.Field_Team_Coverage = 'TRUE' THEN 1
-      WHEN ${TABLE}.Field_Team_Coverage = 'FALSE' THEN 0
+      WHEN ${TABLE}.Field_Team_Coverage = 'TRUE' THEN CAST(${TABLE}.Field_Team_Coverage AS INT64)
+      WHEN ${TABLE}.Field_Team_Coverage = 'FALSE' THEN CAST(${TABLE}.Field_Team_Coverage AS INT64)
       ELSE 0
     END ;;
     description: "Sum of rows where coverage is true"
