@@ -147,6 +147,13 @@ view: lookertestv8 {
     label: "footfall_percentile"
     tags: ["footfall", "percentile"]
   }
+  dimension: field_team_coverage {
+    type: number
+    description: "Indicates if the store has field team coverage"
+    sql: ${TABLE}.Field_Team_Coverage ;;
+    label: "field_team_coverage"
+    tags: ["coverage"]
+  }
   dimension: google_influence_non_scoring_signal {
     type: number
     description: "Google's influence in the area (non-scoring signal)"
@@ -533,6 +540,13 @@ view: lookertestv8 {
     type: count
     description: "Count of stores that are covered"
     sql: CASE WHEN ${TABLE}.Field_Team_Coverage THEN 1 ELSE NULL END ;;
+    label: "coverage_count_true"
+    tags: ["count", "coverage"]
+  }
+  measure: coverage_count_false {
+    type: count
+    description: "Count of stores that are covered"
+    sql: CASE WHEN ${TABLE}.Field_Team_Coverage THEN 0 ELSE NULL END ;;
     label: "coverage_count_true"
     tags: ["count", "coverage"]
   }
