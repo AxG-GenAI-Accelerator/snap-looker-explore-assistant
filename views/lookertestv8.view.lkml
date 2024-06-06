@@ -529,15 +529,18 @@ view: lookertestv8 {
     label: "count"
     tags: ["count", "store"]
   }
-  measure: sum_coverage {
-    type: sum
-    sql: CASE
-      WHEN ${TABLE}.Field_Team_Coverage = 'TRUE' THEN CAST(${TABLE}.Field_Team_Coverage AS INT64)
-      WHEN ${TABLE}.Field_Team_Coverage = 'FALSE' THEN CAST(${TABLE}.Field_Team_Coverage AS INT64)
-      ELSE 0
-    END ;;
-    description: "Sum of rows where coverage is true"
-    label: "Sum Coverage"
-    tags: ["sum", "coverage"]
+  measure: coverage_count_true {
+    type: count
+    description: "Count of stores that are covered"
+    sql: CASE WHEN ${TABLE}.Field_Team_Coverage THEN 1 ELSE NULL END ;;
+    label: "coverage_count_true"
+    tags: ["count", "coverage"]
+  }
+  measure: coverage_percentage {
+    type: percent_of_total
+    sql: ${coverage_count_true};;
+    description: "Percentage of rows where coverage is true"
+    label: "coverage_percentage"
+    tags: ["percentage", "coverage"]
   }
 }
