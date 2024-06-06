@@ -126,13 +126,6 @@ view: lookertestv8 {
     label: "employment_rate_5mi"
     tags: ["5_miles", "budget"]
   }
-  dimension: field_team_coverage {
-    type: yesno
-    description: "Indicates if the store has field team coverage"
-    sql: ${TABLE}.Field_Team_Coverage ;;
-    label: "field_team_coverage"
-    tags: ["coverage"]
-  }
   dimension: fit_percentile_3_p {
     type: number
     description: "3P carrier fit percentile rank (how well positioned the store is to sell Pixel)"
@@ -538,7 +531,7 @@ view: lookertestv8 {
   }
   measure: sum_coverage {
     type: sum
-    sql: ${field_team_coverage} ;;
+    sql: ${TABLE}.Field_Team_Coverage ;;
     description: "Sum of rows where coverage is true"
     label: "Sum Coverage"
     tags: ["sum", "coverage"]
