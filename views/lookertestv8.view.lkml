@@ -538,10 +538,13 @@ view: lookertestv8 {
   }
   measure: sum_coverage {
     type: sum
-    sql:CAST(${TABLE}.Field_Team_Coverage AS INT64) ;;
-    value_format_name: usd
+    sql: CASE
+            WHEN ${field_team_coverage} = 'TRUE' THEN 1
+            WHEN ${field_team_coverage} = 'FALSE' THEN 0
+            ELSE 0
+         END ;;
     description: "Sum of rows where coverage is true"
-    label: "Sum Percentage"
+    label: "Sum Coverage"
     tags: ["sum", "coverage"]
   }
 }
