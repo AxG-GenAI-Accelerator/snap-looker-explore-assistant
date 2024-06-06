@@ -537,8 +537,8 @@ view: lookertestv8 {
     tags: ["count", "store"]
   }
   measure: sum_coverage {
-    type: number
-    sql: SUM(${TABLE}.Field_Team_Coverage);;
+    type: sum
+    sql: ${TABLE}.Field_Team_Coverage;;
     description: "Sum of rows where coverage is true"
     label: "Sum Percentage"
     tags: ["sum", "coverage"]
