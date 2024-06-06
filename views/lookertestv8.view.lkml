@@ -189,13 +189,6 @@ view: lookertestv8 {
     label: "store_id"
     tags: ["store"]
   }
-  dimension: store_latitude {
-    type: number
-    description: "Latitude coordinate of the store location"
-    sql: ${TABLE}.Latitude ;;
-    label: "store_latitude"
-    tags: ["geography","store"]
-  }
   dimension: store_location {
     type: location
     description: "Combined latitude and longitude of the store location"
@@ -203,13 +196,6 @@ view: lookertestv8 {
     sql_longitude:${TABLE}.Longitude ;;
     label: "store_location"
     tags: ["geography", "store", "map"]
-  }
-  dimension: store_longitude {
-    type: number
-    description: "Longitude coordinate of the store location"
-    sql: ${TABLE}.Longitude ;;
-    label: "store_longitude"
-    tags: ["geography", "store"]
   }
   dimension: lululemon_store_count_5mi {
     type: number
