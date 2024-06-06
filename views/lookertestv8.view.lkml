@@ -553,9 +553,8 @@ view: lookertestv8 {
   measure: sum_coverage {
     type: number
     sql: SUM(${TABLE}.Field_Team_Coverage);;
-    description: "Percentage of rows where coverage is true"
-    label: "Coverage Percentage"
-    value_format: "0.00%"
-    tags: ["coverage", "percentage"]
+    description: "Sum of rows where coverage is true"
+    label: "Sum Percentage"
+    tags: ["sum", "coverage"]
   }
 }
