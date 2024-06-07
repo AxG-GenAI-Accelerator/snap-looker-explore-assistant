@@ -1,6 +1,6 @@
 [{
-    "input": ["make a chart of sales by region", "make it a an area chart", "make it a table"],
-    "output": "make a chart of sales by region make it a table"
+    "input": ["make it a table"],
+    "output": "make a table of the sales information"
   },
   {
     "input": ["show me sales by region", "by product"],
@@ -8,7 +8,11 @@
   },   
   {
     "input": ["show me on a map"],
-    "output": "make a chart of sales by region make it a table"
+    "output": "make a map of the information using the location dimension"
+  },
+  {
+    "input": ["what is the coverage for these stores, give me the coverage, show me the total coverage, coverage"],
+    "output": "Give me the total coverage percentage for these stores"
   },
   {
     "input": ["summarize"],
