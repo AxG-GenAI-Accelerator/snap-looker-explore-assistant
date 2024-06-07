@@ -543,7 +543,7 @@ view: lookertestv8 {
     label: "coverage_count_true"
     tags: ["count", "coverage"]
   }
-  measure: coverage_percentage {
+  measure: coverage_percentage1 {
     type: percent_of_total
     sql: ${coverage_count_true1};;
     description: "Percentage of rows where coverage is true"
