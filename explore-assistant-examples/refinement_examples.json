@@ -11,7 +11,7 @@
     "output": "make a map of the information using the location dimension"
   },
   {
-    "input": ["what is the coverage for these stores, give me the coverage, show me the total coverage, coverage"],
+    "input": ["what is the coverage for these stores, give me the coverage, what is the total coverage for these stores, What is the coverage percentage for these storescoverage"],
     "output": "Give me the total coverage percentage for these stores"
   },
   {
