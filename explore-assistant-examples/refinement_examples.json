@@ -17,7 +17,7 @@
   },
   {
     "input": ["Give me the total coverage percentage","what is the coverage","what is the coverage percentage for these sotres","coverage percentage", "total coverage percentage"],
-    "output": "Set the visulaization to a single value, keep the same filtering but only use the coverage_percentage dimensiona and remove any other previously stated dimensions"
+    "output": "Set the visulaization to a single value, keep the same filtering but only use the coverage_percentage dimension and unselect any other previously used dimensions"
   },
   {
     "input": ["summarize"],
