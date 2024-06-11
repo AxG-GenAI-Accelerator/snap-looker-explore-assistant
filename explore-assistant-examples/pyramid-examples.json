@@ -10,13 +10,7 @@
 },{
     "input": "Add the store_location dimension and set the visulization type to Map, include any already listed dimensions, measures, filters and sorts, also include including store_id, past_pixel_sales_unit, pixel_growth_potential_percentile",
     "output": "fields=lookertestv8.store_id,lookertestv8.store_location,lookertestv8.past_pixel_sales_unit,lookertestv8.pixel_growth_potential_percentile&sorts=lookertestv8.past_pixel_sales_unit desc&limit=100&column_limit=100&vis={\"type\":\"looker_map\""
-},{
-    "input": "Show me the top 50 Verizon stores by footfall on a map",
-    "output": "fields=lookertestv8.store_id,lookertestv8.store_location,lookertestv8.past_pixel_sales_unit,lookertestv8.pixel_growth_potential_percentile,lookertestv8.footfall&f[lookertestv8.partner]=Verizon&sorts=lookertestv8.footfall desc&limit=100&column_limit=50&vis={\"type\":\"looker_map\""
 },{ 
-    "input": "Set the visulaization to a single value, keep the same filtering but only use the coverage_percentage dimensiona and remove any other previously stated dimensions", 
+    "input": "Set the visulaization to a single value, keep the same filtering but only use the coverage_percentage dimension and unselect any other previously used dimensions", 
     "output": "lookertestv8.coverage_percentage&limit=1&column_limit=1&vis={\"type\":\"single_value\""
-},{ 
-    "input": "Give me the total coverage percentage for only tmobile stores", 
-    "output": "lookertestv8.coverage_percentage$f[lookertestv8.partner]=T-Mobile&limit=1&column_limit=1&vis={\"type\":\"single_value\"" 
 }]
