@@ -1,20 +1,20 @@
-[{
-    "input": ["make it a table"],
-    "output": "make a table of the sales information"
+[ {
+  "input": ["summarize"],
+  "output": "summerization"
   },
   {
-    "input": ["show me sales by region", "by product"],
-    "output": "show me sales by region and product"
+  "input": ["Top stores"],
+  "output": "What are the top stores by sales"
+  },
+  {
+    "input": ["Top 100 Verizon stores by growth"],
+    "output": "What are the top 100 Verizon stores by growth potential"
   },   
   {
     "input": ["show me on a map"],
-    "output": "make a map of the information using the location dimension"
+    "output": "Show me the stores on a map"
   },
   {
-    "input": ["what is the coverage for these stores, give me the coverage, what is the total coverage for these stores, What is the coverage percentage for these storescoverage"],
-    "output": "Give me the total coverage percentage for these stores"
-  },
-  {
-    "input": ["summarize"],
-    "output": "summerization"
+    "input": ["what is the coverage","what is the coverage percentage for these sotres","coverage percentage", "total coverage percentage"],
+    "output": " Give me the total coverage percentage"
   }]
