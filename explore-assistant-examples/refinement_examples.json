@@ -1,20 +1,25 @@
 [ {
-  "input": ["summarize"],
-  "output": "summerization"
+  "input": ["Top stores", "What are the top stores by sales"],
+  "output": "Rank the stores with the highest past_pixel_sales_unit number"
   },
   {
-  "input": ["Top stores"],
-  "output": "What are the top stores by sales"
+    "input": ["Top 100 Tmobile stores","What are the top 100 Tmobile stores by sales"],
+    "output": "Rank the stores with the highest past_pixel_sales_units number, filter for only the T-Mobile partner, show only the top 100 results"
+
   },
   {
-    "input": ["Top 100 Verizon stores by growth"],
-    "output": "What are the top 100 Verizon stores by growth potential"
+    "input": ["Top 50 verizon stores by growth potential","What are the top 50 Verizon stores by growth potential?","Show me the top 50 Verizon stores by growth potential?"],
+    "output": "Rank the stores with the highest pixel growth ptoential percentile number, filter for only the Verizon partner, show only the top 50 results"
   },   
   {
-    "input": ["show me on a map"],
-    "output": "Show me the stores on a map"
+    "input": ["show me on a map", "Show me the stores on a map", "show on a map"],
+    "output": "Add the store_location dimension and set the visulization type to Map, include any already listed dimensions, measures, filters and sorts, also include store_id, past_pixel_sales_unit, pixel_growth_potential_percentile"
   },
   {
-    "input": ["what is the coverage","what is the coverage percentage for these sotres","coverage percentage", "total coverage percentage"],
-    "output": " Give me the total coverage percentage"
-  }]
+    "input": ["Give me the total coverage percentage","what is the coverage","what is the coverage percentage for these sotres","coverage percentage", "total coverage percentage"],
+    "output": "Set the visulaization to a single value, keep the same filtering but only use the coverage_percentage dimensiona and remove any other previously stated dimensions"
+  },
+  {
+    "input": ["summarize"],
+    "output": "summerization"
+    }] 
