@@ -264,6 +264,7 @@ view: lookertestv8 {
     type: number
     description: "Percentile rank of historical Pixel sales performance"
     sql: ${TABLE}.Past_Pixel_Sales_Percentile;;
+    value_format_name: decimal_0
     label: "past_pixel_sales_percentile"
     tags: ["pixel", "sales", "percentile"]
   }
