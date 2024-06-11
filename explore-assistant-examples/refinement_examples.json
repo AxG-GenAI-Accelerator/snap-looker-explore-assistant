@@ -7,17 +7,8 @@
     "output": "Top 100 T-Mobile stores by sales"
   },
   {
-<<<<<<< HEAD
     "input": ["What are the top 50 Verizon stores by growth potential?","Show me the top 50 Verizon stores by growth potential?"],
     "output": "Top 50 Verizon Stores by growth potential"
-=======
-    "input": ["Top 50 verizon stores by growth potential","What are the top 50 Verizon stores by growth potential?","Show me the top 50 Verizon stores by growth potential?"],
-    "output": "Rank the stores with the highest pixel growth ptoential percentile number, filter for only the Verizon partner, show only the top 50 results"
-  },
-  {
-    "input": ["show me on a map", "Show me the stores on a map", "show on a map"],
-    "output": "Add the store_location dimension and set the visulization type to Map, include any already listed dimensions, measures, filters and sorts, also include store_id, past_pixel_sales_unit, pixel_growth_potential_percentile"
->>>>>>> 8ee311e76521a1206c8032b5279226a731544b2b
   },
   {
     "input": ["Give me the total coverage percentage","what is the coverage","what is the coverage percentage for these sotres","coverage percentage", "total coverage percentage"],
@@ -29,4 +20,4 @@
   {
     "input": ["summarize"],
     "output": "summerization"
-    }]
+    }] 
