@@ -1,19 +1,16 @@
 [{
-    "input": "What are the top stores by sales?",
-    "output": "fields=lookertestv8.store_id,lookertestv8.dma,lookertestv8.past_pixel_sales_unit&sorts=lookertestv8.past_pixel_sales_unit desc&limit=100&column_limit=10&vis={\"type\":\"looker_grid\""
+    "input": "Rank the stores with the highest past_pixel_sales_unit number",
+    "output": "fields=lookertestv8.store_id,lookertestv8.dma,lookertestv8.past_pixel_sales_unit&sorts=lookertestv8.past_pixel_sales_unit desc&limit=10&column_limit=3&vis={\"type\":\"looker_grid\""
 },{
-    "input": "What are the top 100 Verizon stores by growth potential?",
-    "output": "fields=lookertestv8.store_id,lookertestv8.dma,lookertestv8.pixel_growth_potential_percentile&f[lookertestv8.partner]=Verizon&sorts=lookertestv8.pixel_growth_potential_percentile desc&limit=100&column_limit=100&vis={\"type\":\"looker_grid\""
+    "input": "Rank the stores with the highest past_pixel_sales_units number, filter for only the T-Mobile partner, show only the top 100 results",
+    "output": "fields=lookertestv8.store_id,lookertestv8.dma,lookertestv8.past_pixel_sales_unit&f[lookertestv8.partner]=T-Mobile&sorts=lookertestv8.past_pixel_sales_unit desc&limit=100&column_limit=3&vis={\"type\":\"looker_grid\""
 },{
-    "input": "Show me the top stores on a map",
+    "input": "Rank the stores with the highest pixel_growth_potential_percentile number, filter for only the Verizon partner, show only the top 50 results",
+    "output": "fields=lookertestv8.store_id,lookertestv8.dma,lookertestv8.pixel_growth_potential_percentile&f[lookertestv8.partner]=Verizon&sorts=lookertestv8.pixel_growth_potential_percentile desc&limit=50&column_limit=3&vis={\"type\":\"looker_grid\""
+},{
+    "input": "Add the store_location dimension and set the visulization type to Map, include any already listed dimensions, measures, filters and sorts, also include including store_id, past_pixel_sales_unit, pixel_growth_potential_percentile",
     "output": "fields=lookertestv8.store_id,lookertestv8.store_location,lookertestv8.past_pixel_sales_unit,lookertestv8.pixel_growth_potential_percentile&sorts=lookertestv8.past_pixel_sales_unit desc&limit=100&column_limit=100&vis={\"type\":\"looker_map\""
-},{
-    "input": "Show me the top 50 Verizon stores by footfall on a map",
-    "output": "fields=lookertestv8.store_id,lookertestv8.store_location,lookertestv8.past_pixel_sales_unit,lookertestv8.pixel_growth_potential_percentile,lookertestv8.footfall&f[lookertestv8.partner]=Verizon&sorts=lookertestv8.footfall desc&limit=100&column_limit=50&vis={\"type\":\"looker_map\""
 },{ 
-    "input": " Give me the the total coverage percentage", 
+    "input": "Set the visulaization to a single value, keep the same filtering but only use the coverage_percentage dimension and unselect any other previously used dimensions", 
     "output": "lookertestv8.coverage_percentage&limit=1&column_limit=1&vis={\"type\":\"single_value\""
-},{ 
-    "input": "Give me the total coverage percentage for only tmobile stores", 
-    "output": "lookertestv8.coverage_percentage$f[lookertestv8.partner]=T-Mobile&limit=1&column_limit=1&vis={\"type\":\"single_value\"" 
 }]
