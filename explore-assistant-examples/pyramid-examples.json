@@ -15,8 +15,8 @@
     "output": "fields=lookertestv8.store_id,lookertestv8.store_location,lookertestv8.past_pixel_sales_unit,lookertestv8.pixel_growth_potential_percentile&f[lookertestv8.partner]=T-Mobile&sorts=lookertestv8.past_pixel_sales_unit desc&limit=100&column_limit=4&vis={\"type\":\"looker_map\""
 },{ 
     "input": "Show me the total coverage percentage", 
-    "output": "lookertestv8.coverage_percentage&limit=10&column_limit=10&vis={\"type\":\"single_value\""
+    "output": "lookertestv8.coverage_percentage&limit=1&column_limit=1&vis={\"type\":\"single_value\""
 },{ 
     "input": "Show me the total coverage percentage for only T-Mobile stores", 
-    "output": "lookertestv8.coverage_percentage&f[lookertestv8.partner]=T-Mobile&limit=10&column_limit=10&vis={\"type\":\"single_value\""
+    "output": "lookertestv8.coverage_percentage&f[lookertestv8.partner]=T-Mobile&limit=1&column_limit=1&vis={\"type\":\"single_value\""
 }]
