@@ -331,12 +331,12 @@ view: lookertestv8 {
     label: "pixel_fit_percentile"
     tags: ["pixel", "fit", "percentile"]
   }
-  dimension: pixel_growth_potential_percentile {
+  dimension: growth_potential_by_store {
     type: number
-    description: "Percentile rank of Pixel growth potential"
+    description: "Growth potential per store"
     sql: ${TABLE}.Pixel_Growth_Potential_Percentile ;;
-    label: "pixel_growth_potential_percentile"
-    tags: ["pixel", "growth_potential", "percentile"]
+    label: "growth_potential_unit"
+    tags: ["pixel", "growth_potential","by store", "percentile"]
   }
   dimension: pixel_purchase_percentile {
     type: number
@@ -553,10 +553,11 @@ view: lookertestv8 {
     label: "sales_sum"
     tags: ["pixel", "sales", "sum"]
   }
-  measure: growth_percentage_average{
+  measure: growth_potential_average{
     type: average
-    sql: ${pixel_growth_potential_percentile};;
-    description: "Average growth percentage for any group of entries"
+    sql: ${growth_potential_by_store};;
+    description: "Average growth percentage used when stating the growth potential for a group of entire"
+    value_format_name: percent_0
     label: "growth_percentage_average"
     tags: ["pixel", "growth_potential", "average"]
 
