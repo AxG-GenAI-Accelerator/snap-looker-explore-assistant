@@ -13,9 +13,18 @@
   {
     "input": ["Give me the total coverage percentage","what is the coverage","what is the coverage percentage for these sotres","coverage percentage", "total coverage percentage"],
     "output": "Show me the total coverage percentage"
-  },{
+  },
+  {
     "input": ["Give me the total coverage percentage for Tmobile stores"],
     "output": "Show me the total coverage percentage for only T-Mobile stores"
+  },
+  {
+    "input": ["What are the top DMAs"],
+    "output": "What are the top DMAs by sales"
+  },
+  {
+    "input": ["What are the top 5 DMAs for Tmobile", "what are Tmobile's top 5 dmas"],
+    "output": "What are the top 5 DMAs for T-Mobile by sales?"
   },
   {
     "input": ["summarize"],
