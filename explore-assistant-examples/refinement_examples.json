@@ -35,6 +35,18 @@
     "output": "What are the top 10 DMAs for Best Buy by growth potential?"
   },
   {
+    "input": ["What is the Tier distribution for New York", "Tier distribution for New York"],
+    "output": "What is the tier distirbution for the New York DMA"
+  },
+  {
+    "input": ["What is the Tier distribution for Tmobile stores", "Tier distribution for Tmobile"],
+    "output": "What is the tier distirbution for only Tmobile"
+  },
+  {
+    "input": ["What is the Tier distribution for the top Tmobile DMA", "What is the Tier distribution for the top DMA for Tmobile stores", "Tier distribution for the top Tmobile DMA"],
+    "output": "What is the tier distirbution for the New York DMA, for only Tmobile"
+  },
+  {
     "input": ["summarize"],
     "output": "summerization"
     }] 
