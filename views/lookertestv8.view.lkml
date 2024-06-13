@@ -530,19 +530,35 @@ view: lookertestv8 {
     label: "count"
     tags: ["count", "store"]
   }
-  measure: coverage_count_true{
+  measure: count_true{
     type: sum
     description: "Count of stores that are covered"
     sql: CASE WHEN ${TABLE}.Field_Team_Coverage = 'Covered' THEN 1 ELSE 0 END ;;
-    label: "coverage_count_true"
-    tags: ["count", "coverage"]
+    label: "count_true"
+    tags: ["count"]
   }
   measure: coverage_percentage{
     type: number
-    sql: ${coverage_count_true}/ ${count};;
+    sql: ${count_true}/ ${count};;
     description: "Percentage of rows where coverage is true out of all the entries being looked at"
     value_format_name: percent_0
     label: "coverage_percentage"
     tags: ["percentage", "coverage"]
+  }
+  measure: sales_sum{
+    type: sum
+    sql: ${past_pixel_sales_unit};;
+    description: "Sum of all the past_pixel_sales units which works as a sum of sales"
+    value_format_name: decimal_0
+    label: "sales_sum"
+    tags: ["pixel", "sales", "sum"]
+  }
+  measure: growth_percentage_average{
+    type: average
+    sql: ${pixel_growth_potential_percentile};;
+    description: "Average growth percentage for any group of entries"
+    label: "growth_percentage_average"
+    tags: ["pixel", "growth_potential", "average"]
+
   }
 }
