@@ -9,7 +9,7 @@
     "output": "fields=lookertestv8.store_id,lookertestv8.dma,lookertestv8.growth_potential_by_store&f[lookertestv8.partner]=Verizon&sorts=lookertestv8.growth_potential_by_store desc&limit=50&column_limit=3&vis={\"type\":\"looker_grid\""
 },{
     "input": "Show me on a map",
-    "output": "fields=lookertestv8.store_id,lookertestv8.store_location,lookertestv8.past_pixel_sales_unit,lookertestv8.past_pixel_sales_unit&sorts=lookertestv8.past_pixel_sales_unit desc&limit=100&column_limit=4&vis={\"type\":\"looker_map\""
+    "output": "fields=lookertestv8.store_id,lookertestv8.store_location,lookertestv8.past_pixel_sales_unit,lookertestv8.growth_potential_by_store&sorts=lookertestv8.past_pixel_sales_unit desc&limit=100&column_limit=4&vis={\"type\":\"looker_map\""
 },{
     "input": "Show me the top 100 tmobile stores on a map",
     "output": "fields=lookertestv8.store_id,lookertestv8.store_location,lookertestv8.past_pixel_sales_unit,lookertestv8.growth_potential_by_store&f[lookertestv8.partner]=T-Mobile&sorts=lookertestv8.past_pixel_sales_unit desc&limit=100&column_limit=4&vis={\"type\":\"looker_map\""
