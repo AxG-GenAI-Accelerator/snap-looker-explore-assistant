@@ -31,4 +31,16 @@
 },{ 
     "input": "What are the top 10 DMAs for Best Buy by growth potential?", 
     "output": "lookertestv8.dma,lookertestv8.growth_potential_average&f[lookertestv8.partner]=BestBuy&sorts=lookertestv8.growth_potential_average desc&limit=10&column_limit=2&vis={\"type\":\"looker_grid\""
+},{ 
+    "input": "What is the tier distirbution", 
+    "output": "lookertestv8.strategic_tiering,lookertestv8.count$sorts=lookertestv8.strategic_tiering desc&limit=5&column_limit=2&vis={\"type\":\"looker_bar\"" 
+},{ 
+    "input": "What is the tier distirbution for the New York DMA", 
+    "output": "lookertestv8.strategic_tiering,lookertestv8.count$f[lookertestv8.dma]=new york&sorts=lookertestv8.strategic_tiering desc&limit=5&column_limit=2&vis={\"type\":\"looker_bar\"" 
+},{ 
+    "input": "What is the tier distirbution for only Tmobile", 
+    "output": "lookertestv8.strategic_tiering,lookertestv8.count$f[lookertestv8.partner]=T-Mobile&sorts=lookertestv8.strategic_tiering des&limit=5&column_limit=2&vis={\"type\":\"looker_bar\"" 
+},{ 
+    "input": "What is the tier distirbution for the New York DMA, for only Tmobile", 
+    "output": "lookertestv8.strategic_tiering,lookertestv8.count$f[lookertestv8.partner]=T-Mobile$f[lookertestv8.dma]=new york&sorts=lookertestv8.strategic_tiering desc&limit=5&column_limit=2&vis={\"type\":\"looker_bar\"" 
 }]
