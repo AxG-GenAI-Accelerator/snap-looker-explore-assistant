@@ -553,20 +553,12 @@ view: lookertestv8 {
     label: "sales_sum"
     tags: ["pixel", "sales", "sum"]
   }
-  measure: count_gr{
-    type: sum
+  measure: growth_percentage_average{
+    type: average
     sql: ${pixel_growth_potential_percentile};;
-    description: "Sum of all the past_pixel_sales units which works as a sum of sales"
-    value_format_name: decimal_0
-    label: "sales_sum"
-    tags: ["pixel", "sales", "sum"]
-  }
-  measure: growth_avg{
-    type: sum
-    sql: ${count_gr}/${count};;
-    description: "Sum of all the past_pixel_sales units which works as a sum of sales"
-    value_format_name: decimal_0
-    label: "sales_sum"
-    tags: ["pixel", "sales", "sum"]
+    description: "Average growth percentage for any group of entries"
+    label: "growth_percentage_average"
+    tags: ["pixel", "growth_potential", "average"]
+
   }
 }
