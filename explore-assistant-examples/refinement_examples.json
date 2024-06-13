@@ -31,6 +31,10 @@
     "output": "What are the top DMAs by growth percentage"
   },
   {
+    "input": ["What are the top 10 DMAs for Best Buy by growth", "top 10 Best Buy DMAs by growth", "top 10 best buy growth percentage DMAs"],
+    "output": "What are the top 10 DMAs for Best Buy by growth percentage?"
+  },
+  {
     "input": ["summarize"],
     "output": "summerization"
     }] 
