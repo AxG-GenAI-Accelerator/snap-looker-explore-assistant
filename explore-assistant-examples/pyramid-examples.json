@@ -30,8 +30,8 @@
     "output": "lookertestv8.dma,lookertestv8.sales_sum&f[lookertestv8.partner]=Verizon&sorts=lookertestv8.sales_sum desc&limit=20&column_limit=2&vis={\"type\":\"looker_grid\""
 },{ 
     "input": "What are the top DMAs by growth percentage?", 
-    "output": "lookertestv8.dma,lookertestv8.growth_percentage_average&f[lookertestv8.partner]=T-Mobile&sorts=lookertestv8.sales_sum desc&limit=100&column_limit=2&vis={\"type\":\"looker_grid\""
+    "output": "lookertestv8.dma,lookertestv8.growth_percentage_average&sorts=lookertestv8.growth_percentage_average desc&limit=100&column_limit=2&vis={\"type\":\"looker_grid\""
 },{ 
     "input": "What are the top 10 DMAs for Best Buy by growth percentage?", 
-    "output": "lookertestv8.dma,lookertestv8.growth_percentage_average&f[lookertestv8.partner]=T-Mobile&sorts=lookertestv8.sales_sum desc&limit=100&column_limit=2&vis={\"type\":\"looker_grid\""
+    "output": "lookertestv8.dma,lookertestv8.growth_percentage_average&f[lookertestv8.partner]=BestBuy&sorts=lookertestv8.growth_percentage_average desc&limit=10&column_limit=2&vis={\"type\":\"looker_grid\""
 }]
