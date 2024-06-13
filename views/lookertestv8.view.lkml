@@ -273,7 +273,7 @@ view: lookertestv8 {
     description: "Number of Pixel units sold historically"
     sql: ${TABLE}.Past_Pixel_Sales_Unit ;;
     label: "past_pixel_sales_unit"
-    tags: ["pixel", "sales"]
+    tags: ["pixel", "sales", "unit"]
   }
   dimension: persona_budget {
     type: number
@@ -544,5 +544,13 @@ view: lookertestv8 {
     value_format_name: percent_0
     label: "coverage_percentage"
     tags: ["percentage", "coverage"]
+  }
+  measure: sales_sum{
+    type: sum
+    sql: ${past_pixel_sales_unit};;
+    description: "Sum of all the past_pixel_sales units which works as a sum of sales"
+    value_format_name: decimal_0
+    label: "sales_sum"
+    tags: ["pixel", "sales", "sum"]
   }
 }
