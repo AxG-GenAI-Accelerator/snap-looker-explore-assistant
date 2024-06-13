@@ -6,13 +6,13 @@
     "output": "fields=lookertestv8.store_id,lookertestv8.dma,lookertestv8.past_pixel_sales_unit&f[lookertestv8.partner]=T-Mobile&sorts=lookertestv8.past_pixel_sales_unit desc&limit=100&column_limit=3&vis={\"type\":\"looker_grid\""
 },{
     "input": "Top 50 Verizon Stores by growth potential",
-    "output": "fields=lookertestv8.store_id,lookertestv8.dma,lookertestv8.pixel_growth_potential_percentile&f[lookertestv8.partner]=Verizon&sorts=lookertestv8.pixel_growth_potential_percentile desc&limit=50&column_limit=3&vis={\"type\":\"looker_grid\""
+    "output": "fields=lookertestv8.store_id,lookertestv8.dma,lookertestv8.growth_potential_by_store&f[lookertestv8.partner]=Verizon&sorts=lookertestv8.growth_potential_by_store desc&limit=50&column_limit=3&vis={\"type\":\"looker_grid\""
 },{
     "input": "Show me on a map",
-    "output": "fields=lookertestv8.store_id,lookertestv8.store_location,lookertestv8.past_pixel_sales_unit,lookertestv8.pixel_growth_potential_percentile&sorts=lookertestv8.past_pixel_sales_unit desc&limit=100&column_limit=4&vis={\"type\":\"looker_map\""
+    "output": "fields=lookertestv8.store_id,lookertestv8.store_location,lookertestv8.past_pixel_sales_unit,lookertestv8.growth_potential_by_store&sorts=lookertestv8.past_pixel_sales_unit desc&limit=100&column_limit=4&vis={\"type\":\"looker_map\""
 },{
     "input": "Show me the top 100 tmobile stores on a map",
-    "output": "fields=lookertestv8.store_id,lookertestv8.store_location,lookertestv8.past_pixel_sales_unit,lookertestv8.pixel_growth_potential_percentile&f[lookertestv8.partner]=T-Mobile&sorts=lookertestv8.past_pixel_sales_unit desc&limit=100&column_limit=4&vis={\"type\":\"looker_map\""
+    "output": "fields=lookertestv8.store_id,lookertestv8.store_location,lookertestv8.past_pixel_sales_unit,lookertestv8.growth_potential_by_store&f[lookertestv8.partner]=T-Mobile&sorts=lookertestv8.past_pixel_sales_unit desc&limit=100&column_limit=4&vis={\"type\":\"looker_map\""
 },{ 
     "input": "Show me the total coverage percentage", 
     "output": "lookertestv8.coverage_percentage&limit=1&column_limit=1&vis={\"type\":\"single_value\""
@@ -26,12 +26,21 @@
     "input": "What are the top 5 DMAs for T-Mobile by sales?", 
     "output": "lookertestv8.dma,lookertestv8.sales_sum&f[lookertestv8.partner]=T-Mobile&sorts=lookertestv8.sales_sum desc&limit=5&column_limit=2&vis={\"type\":\"looker_grid\""
 },{ 
-    "input": "What are the top 20 DMAs for Verizon by sales?", 
-    "output": "lookertestv8.dma,lookertestv8.sales_sum&f[lookertestv8.partner]=Verizon&sorts=lookertestv8.sales_sum desc&limit=20&column_limit=2&vis={\"type\":\"looker_grid\""
+    "input": "What are the top DMAs by growth potential?", 
+    "output": "lookertestv8.dma,lookertestv8.growth_potential_average&sorts=lookertestv8.growth_potential_average desc&limit=100&column_limit=2&vis={\"type\":\"looker_grid\""
 },{ 
-    "input": "What are the top DMAs by growth percentage?", 
-    "output": "lookertestv8.dma,lookertestv8.growth_percentage_average&sorts=lookertestv8.growth_percentage_average desc&limit=100&column_limit=2&vis={\"type\":\"looker_grid\""
+    "input": "What are the top 10 DMAs for Best Buy by growth potential?", 
+    "output": "lookertestv8.dma,lookertestv8.growth_potential_average&f[lookertestv8.partner]=BestBuy&sorts=lookertestv8.growth_potential_average desc&limit=10&column_limit=2&vis={\"type\":\"looker_grid\""
 },{ 
-    "input": "What are the top 10 DMAs for Best Buy by growth percentage?", 
-    "output": "lookertestv8.dma,lookertestv8.growth_percentage_average&f[lookertestv8.partner]=BestBuy&sorts=lookertestv8.growth_percentage_average desc&limit=10&column_limit=2&vis={\"type\":\"looker_grid\""
+    "input": "What is the tier distirbution", 
+    "output": "lookertestv8.strategic_tiering,lookertestv8.count$sorts=lookertestv8.strategic_tiering desc&limit=5&column_limit=2&vis={\"type\":\"looker_bar\"" 
+},{ 
+    "input": "What is the tier distirbution for the New York DMA", 
+    "output": "lookertestv8.strategic_tiering,lookertestv8.count$f[lookertestv8.dma]=new york&sorts=lookertestv8.strategic_tiering desc&limit=5&column_limit=2&vis={\"type\":\"looker_bar\"" 
+},{ 
+    "input": "What is the tier distirbution for only Tmobile", 
+    "output": "lookertestv8.strategic_tiering,lookertestv8.count$f[lookertestv8.partner]=T-Mobile&sorts=lookertestv8.strategic_tiering des&limit=5&column_limit=2&vis={\"type\":\"looker_bar\"" 
+},{ 
+    "input": "What is the tier distirbution for the New York DMA, for only Tmobile", 
+    "output": "lookertestv8.strategic_tiering,lookertestv8.count$f[lookertestv8.partner]=T-Mobile$f[lookertestv8.dma]=new york&sorts=lookertestv8.strategic_tiering desc&limit=5&column_limit=2&vis={\"type\":\"looker_bar\"" 
 }]
