@@ -273,7 +273,7 @@ view: lookertestv8 {
     description: "Number of Pixel units sold historically"
     sql: ${TABLE}.Past_Pixel_Sales_Unit ;;
     label: "past_pixel_sales_unit"
-    tags: ["pixel", "sales", "unit"]
+    tags: ["pixel", "sales"]
   }
   dimension: persona_budget {
     type: number
@@ -530,16 +530,16 @@ view: lookertestv8 {
     label: "count"
     tags: ["count", "store"]
   }
-  measure: coverage_count_true{
+  measure: count_true{
     type: sum
     description: "Count of stores that are covered"
     sql: CASE WHEN ${TABLE}.Field_Team_Coverage = 'Covered' THEN 1 ELSE 0 END ;;
-    label: "coverage_count_true"
-    tags: ["count", "coverage"]
+    label: "count_true"
+    tags: ["count"]
   }
   measure: coverage_percentage{
     type: number
-    sql: ${coverage_count_true}/ ${count};;
+    sql: ${count_true}/ ${count};;
     description: "Percentage of rows where coverage is true out of all the entries being looked at"
     value_format_name: percent_0
     label: "coverage_percentage"
@@ -548,6 +548,22 @@ view: lookertestv8 {
   measure: sales_sum{
     type: sum
     sql: ${past_pixel_sales_unit};;
+    description: "Sum of all the past_pixel_sales units which works as a sum of sales"
+    value_format_name: decimal_0
+    label: "sales_sum"
+    tags: ["pixel", "sales", "sum"]
+  }
+  measure: count_gr{
+    type: sum
+    sql: ${pixel_growth_potential_percentile};;
+    description: "Sum of all the past_pixel_sales units which works as a sum of sales"
+    value_format_name: decimal_0
+    label: "sales_sum"
+    tags: ["pixel", "sales", "sum"]
+  }
+  measure: growth_avg{
+    type: sum
+    sql: ${count_gr}/${count};;
     description: "Sum of all the past_pixel_sales units which works as a sum of sales"
     value_format_name: decimal_0
     label: "sales_sum"
