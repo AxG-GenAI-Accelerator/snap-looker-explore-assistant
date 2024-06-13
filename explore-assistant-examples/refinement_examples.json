@@ -27,12 +27,12 @@
     "output": "What are the top 5 DMAs for T-Mobile by sales?"
   },
   {
-    "input": ["What are the top DMAs by growth", "top DMAs by growth", "top growth percentage DMAs"],
-    "output": "What are the top DMAs by growth percentage"
+    "input": ["What are the top DMAs by growth", "top DMAs by growth", "top growth potential DMAs"],
+    "output": "What are the top DMAs by growth potential"
   },
   {
-    "input": ["What are the top 10 DMAs for Best Buy by growth", "top 10 Best Buy DMAs by growth", "top 10 best buy growth percentage DMAs"],
-    "output": "What are the top 10 DMAs for Best Buy by growth percentage?"
+    "input": ["What are the top 10 DMAs for Best Buy by growth", "top 10 Best Buy DMAs by growth", "top 10 best buy growth potential DMAs"],
+    "output": "What are the top 10 DMAs for Best Buy by growth potential?"
   },
   {
     "input": ["summarize"],
