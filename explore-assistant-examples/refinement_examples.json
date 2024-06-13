@@ -19,12 +19,16 @@
     "output": "Show me the total coverage percentage for only T-Mobile stores"
   },
   {
-    "input": ["What are the top DMAs"],
+    "input": ["What are the top DMAs", "top dmas"],
     "output": "What are the top DMAs by sales"
   },
   {
-    "input": ["What are the top 5 DMAs for Tmobile", "what are Tmobile's top 5 dmas"],
+    "input": ["What are the top 5 DMAs for Tmobile", "what are Tmobile's top 5 dmas", "Top 5 tmobile dmas"],
     "output": "What are the top 5 DMAs for T-Mobile by sales?"
+  },
+  {
+    "input": ["What are the top DMAs by growth", "top DMAs by growth", "top growth percentage DMAs"],
+    "output": "What are the top DMAs by growth percentage"
   },
   {
     "input": ["summarize"],
