@@ -557,6 +557,7 @@ view: lookertestv8 {
     type: average
     sql: ${pixel_growth_potential_percentile};;
     description: "Average growth percentage for any group of entries"
+    value_format_name: percent_0
     label: "growth_percentage_average"
     tags: ["pixel", "growth_potential", "average"]
 
