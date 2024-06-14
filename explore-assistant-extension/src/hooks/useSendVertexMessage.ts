@@ -409,7 +409,7 @@ ${exploreRefinementExamples
           - use the Examples for guidance on how to structure the Looker url query
           - never respond with sql, always return an looker explore url as a single string
     
-        LookML Metadata
+        LookML Metadata 
         ----------
     
         Dimensions Used to group by information (follow the instructions in tags when using a specific field; if map used include a location or lat long dimension;):
