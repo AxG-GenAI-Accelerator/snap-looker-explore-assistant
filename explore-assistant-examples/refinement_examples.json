@@ -36,15 +36,15 @@
   },
   {
     "input": ["What is the Tier distribution for New York", "Tier distribution for New York"],
-    "output": "What is the tier distirbution for the New York DMA"
+    "output": "What is the tier distribution for the New York DMA"
   },
   {
     "input": ["What is the Tier distribution for Tmobile stores", "Tier distribution for Tmobile"],
-    "output": "What is the tier distirbution for only Tmobile"
+    "output": "What is the tier distribution for only T-Mobile"
   },
   {
-    "input": ["What is the Tier distribution for the top Tmobile DMA", "What is the Tier distribution for the top DMA for Tmobile stores", "Tier distribution for the top Tmobile DMA"],
-    "output": "What is the tier distirbution for the New York DMA, for only Tmobile"
+    "input": ["What is the Tier distribution for the top Tmobile DMA", "What is the Tier distribution for the top Tmobile DMA",  "What is the Tier distribution for the top DMA for Tmobile stores", "Tier distribution for the top Tmobile DMA"],
+    "output": "What is the tier distribution for the New York DMA, for only T-Mobile"
   },
   {
     "input": ["summarize"],
