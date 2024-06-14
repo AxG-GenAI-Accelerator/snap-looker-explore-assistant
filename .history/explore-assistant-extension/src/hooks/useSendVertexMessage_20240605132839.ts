@@ -18,7 +18,8 @@ const generateSQL = (
   const escapedPrompt = UtilsHelper.escapeQueryAll(prompt)
   const subselect = `SELECT '` + escapedPrompt + `' AS prompt`
 
-  const query = `
+  return `
+  
     SELECT ml_generate_text_llm_result AS generated_content
     FROM
     ML.GENERATE_TEXT(
@@ -33,10 +34,10 @@ const generateSQL = (
         TRUE AS flatten_json_output,
         1 AS top_k)
       )
-  `
-  console.log('Generated SQL Query:', query); // Add this line to log the SQL query
-  return query
+  
+      `
 }
+
 function formatContent(field: {
   name?: string
   type?: string
@@ -95,7 +96,6 @@ const useSendVertexMessage = () => {
       return cleanExploreData
     }
   }
-  
 
   const vertextCloudFunction = async (
     contents: string,
@@ -355,14 +355,14 @@ ${exploreRefinementExamples
       const parameters = {
         max_output_tokens: 1000,
       }
-      console.log('useSendVertexMessage contents:', contents)
+      console.log(contents)
       const response = await sendMessage(contents, parameters)
 
       const unquoteResponse = (response: string) => {
         return response.substring(response.indexOf("fields=")).replace(/^`+|`+$/g, '').trim()
       }
       const cleanResponse = unquoteResponse(response)
-      console.log('useSendVertexMessage cleanResponse:', cleanResponse)
+      console.log(cleanResponse)
       const newExploreUrl = cleanResponse + '&toggle=dat,pik,vis'
 
       return newExploreUrl
@@ -381,7 +381,6 @@ ${exploreRefinementExamples
     }
 
     return response
-    console.log('sendMessage: ', response)
   }
 
   return {

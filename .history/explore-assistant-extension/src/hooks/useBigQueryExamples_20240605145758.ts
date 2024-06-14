@@ -44,36 +44,36 @@ export const useBigQueryExamples = () => {
       FROM
         \`${datasetName}.explore_assistant_examples\`
         WHERE explore_id = '${LOOKER_MODEL}:${LOOKER_EXPLORE}'
-    `;
+    `
     return runExampleQuery(sql).then((response) => {
-      const generationExamples = response.flatMap((row) => {
-        if (row['examples']) {
-          return JSON.parse(row['examples']);
-        }
-        return [];
-      });
-      dispatch(setExploreGenerationExamples(generationExamples));
-    });
-  };
+      const generationExamples = JSON.parse(response[0]['examples'])
+      const formattedGenerationExamples = Array.isArray(generationExamples)
+      ? generationExamples
+      : [generationExamples]
+    dispatch(setExploreGenerationExamples(formattedGenerationExamples))
+ 
+    })
+  }
 
   const getRefinementPrompts = async () => {
     const sql = `
-      SELECT
-          examples
-      FROM
-        \`${datasetName}.explore_assistant_refinement_examples\`
-        WHERE explore_id = '${LOOKER_MODEL}:${LOOKER_EXPLORE}'
-    `;
+    SELECT
+        examples
+    FROM
+      \`${datasetName}.explore_assistant_refinement_examples\`
+      WHERE explore_id = '${LOOKER_MODEL}:${LOOKER_EXPLORE}'
+  `
     return runExampleQuery(sql).then((response) => {
-      const refinementExamples = response.flatMap((row) => {
-        if (row['examples']) {
-          return JSON.parse(row['examples']);
-        }
-        return [];
-      });
-      dispatch(setExploreRefinementExamples(refinementExamples));
-    });
-  };
+      const refinementExamples = JSON.parse(response[0]['examples'])
+      const formattedRefinementExamples = Array.isArray(refinementExamples)
+        ? refinementExamples
+        : [refinementExamples]
+      dispatch(setExploreRefinementExamples(formattedRefinementExamples))
+      console.log('use BQ setExploreRefinementExamples: ', formattedRefinementExamples)
+      console.log('use BQ setExploreRefinementExamples length: ', formattedRefinementExamples.length)
+
+    })
+  }
 
   // get the example prompts
   useEffect(() => {

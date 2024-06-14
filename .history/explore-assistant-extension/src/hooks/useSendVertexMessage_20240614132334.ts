@@ -18,7 +18,8 @@ const generateSQL = (
   const escapedPrompt = UtilsHelper.escapeQueryAll(prompt)
   const subselect = `SELECT '` + escapedPrompt + `' AS prompt`
 
-  const query = `
+  return `
+  
     SELECT ml_generate_text_llm_result AS generated_content
     FROM
     ML.GENERATE_TEXT(
@@ -33,9 +34,8 @@ const generateSQL = (
         TRUE AS flatten_json_output,
         1 AS top_k)
       )
-  `
-  console.log('Generated SQL Query:', query); // Add this line to log the SQL query
-  return query
+  
+      `
 }
 function formatContent(field: {
   name?: string
@@ -82,6 +82,7 @@ const useSendVertexMessage = () => {
         sql: generateSQL(VERTEX_BIGQUERY_MODEL_ID, contents, parameters),
       }),
     )
+    console.log('vertextBigQuery: ', createSQLQuery)
 
     if (createSQLQuery.slug) {
       const runSQLQuery = await core40SDK.ok(
@@ -95,7 +96,6 @@ const useSendVertexMessage = () => {
       return cleanExploreData
     }
   }
-  
 
   const vertextCloudFunction = async (
     contents: string,
@@ -381,7 +381,6 @@ ${exploreRefinementExamples
     }
 
     return response
-    console.log('sendMessage: ', response)
   }
 
   return {

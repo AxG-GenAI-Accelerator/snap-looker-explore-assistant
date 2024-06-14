@@ -69,7 +69,7 @@ const ExploreChatPage = () => {
     if (query.trim() === '') return
     if (isQuerying) return
 
-    console.log('Generate explore URL query:', query)
+    console.log('Generating explore URL for query:', query)
     generateExploreUrl(query)
   }, [query])
 

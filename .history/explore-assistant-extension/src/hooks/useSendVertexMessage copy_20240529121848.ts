@@ -18,7 +18,8 @@ const generateSQL = (
   const escapedPrompt = UtilsHelper.escapeQueryAll(prompt)
   const subselect = `SELECT '` + escapedPrompt + `' AS prompt`
 
-  const query = `
+  return `
+  
     SELECT ml_generate_text_llm_result AS generated_content
     FROM
     ML.GENERATE_TEXT(
@@ -33,10 +34,10 @@ const generateSQL = (
         TRUE AS flatten_json_output,
         1 AS top_k)
       )
-  `
-  console.log('Generated SQL Query:', query); // Add this line to log the SQL query
-  return query
+  
+      `
 }
+
 function formatContent(field: {
   name?: string
   type?: string
@@ -76,27 +77,109 @@ const useSendVertexMessage = () => {
     contents: string,
     parameters: ModelParameters,
   ) => {
-    const createSQLQuery = await core40SDK.ok(
-      core40SDK.create_sql_query({
-        connection_name: VERTEX_BIGQUERY_LOOKER_CONNECTION_NAME,
-        sql: generateSQL(VERTEX_BIGQUERY_MODEL_ID, contents, parameters),
-      }),
-    )
+    console.log('VERTEX BQ Connection:', VERTEX_BIGQUERY_LOOKER_CONNECTION_NAME);
+    console.log('VERTEX BQ Model:', VERTEX_BIGQUERY_MODEL_ID);
+  
+  
+    try {
+      const generatedSQL = generateSQL(VERTEX_BIGQUERY_MODEL_ID, contents, parameters);
+      console.log('Generated SQL query:', generatedSQL);
 
-    if (createSQLQuery.slug) {
-      const runSQLQuery = await core40SDK.ok(
-        core40SDK.run_sql_query(createSQLQuery.slug, 'json'),
-      )
+      const createSQLQuery = await core40SDK.ok(
+        core40SDK.create_sql_query({
+          connection_name: VERTEX_BIGQUERY_LOOKER_CONNECTION_NAME,
+          sql: generatedSQL,
+        }),
+      );
+  
+      
+      console.log('create_sql_query response:', createSQLQuery);
+  
+      if (createSQLQuery.slug) {
+        console.log('create_sql_query slug:', createSQLQuery.slug);
+  //something in here is throwing an error but it doesn't break stuff
+        try {
+          const runSQLQuery = await core40SDK.ok(
+            core40SDK.run_sql_query(createSQLQuery.slug, 'json'),
+          );
+  
+          console.log('run_sql_query response:', runSQLQuery);
+          console.log('runSQLQuery[0] generated content - useSendVertexMessage:',runSQLQuery[0]['generated_content']);
+          if (runSQLQuery.length > 0 && runSQLQuery[0]['generated_content']) {
+            const exploreData = await runSQLQuery[0]['generated_content'];
+            console.log('Explore data:', exploreData);
+  
+            // clean up the data by removing backticks
+            const cleanExploreData = exploreData.replace(/```json/g, '').replace(/```/g, '').trim();
+            console.log('Clean explore data:', cleanExploreData);
+  //trying to force output
+            return cleanExploreData;
+          } else {
+            console.error('Invalid run_sql_query response:', runSQLQuery);
+            throw new Error('Failed to retrieve generated content from run_sql_query');
+          }
+        } catch (error) {
+          console.error('Error running SQL query:', error);
+          throw error;
+        }
+      } else {
+        console.error('createSQLQuery.slug is undefined or empty');
+        throw new Error('Failed to create SQL query');
+      }
+    } catch (error) {
+      console.error('Error in vertextBigQuery:', error);
+      throw error;
+    }
+  };
+ /*og
+  const vertextBigQuery = async (
+    contents: string,
+    parameters: ModelParameters,
+  ) => {
+    try {
+      console.log('Generated SQL query:', generateSQL(VERTEX_BIGQUERY_MODEL_ID, contents, parameters));
+
+      const createSQLQuery = await core40SDK.ok(
+        core40SDK.create_sql_query({
+          connection_name: VERTEX_BIGQUERY_LOOKER_CONNECTION_NAME,
+          sql: generateSQL(VERTEX_BIGQUERY_MODEL_ID, contents, parameters),
+        }),
+      );
+
+      console.log('create_sql_query slug:', createSQLQuery.slug);
+
+      if (createSQLQuery.slug) {
+        const runSQLQuery = await core40SDK.ok(
+          core40SDK.run_sql_query(createSQLQuery.slug, 'json'),
+        );
+       //THIS IS WHERE ERROR OCCURS IN RAW SCRIPT
       const exploreData = await runSQLQuery[0]['generated_content']
 
-      // clean up the data by removing backticks
-      const cleanExploreData = exploreData.replace(/```json/g, '').replace(/```/g, '').trim()
+        // clean up the data by removing backticks
+        const cleanExploreData = exploreData.replace(/```json/g, '').replace(/```/g, '').trim();
+      console.log("clean explore data", cleanExploreData)
 
-      return cleanExploreData
+        return cleanExploreData;
+      } else {
+        console.error('createSQLQuery.slug is undefined or empty');
+        throw new Error('Failed to create SQL query');
+      }
+      
+     
+
+      //const exploreData = 'https://accenture.looker.com/explore/lookertestv8/lookertestv8/ice_store_performance?fields\u003dlookertestv8.ice_store_id,lookertestv8.city,lookertestv8.latitude,lookertestv8.longitude\u0026sorts\u003dlookertestv8.past_pixel_sales__percentile_'
+      //'https://accenture.looker.com/explore/lookertestv8/lookertestv8/stores?fields\u003dlookertestv8.ice_store_id,lookertestv8.city\u0026sorts\u003dlookertestv8.count%20desc\u0026limit\u003d5' /*await runSQLQuery[0]['generated_content']
+      
+
+      //const cleanExploreData = exploreData.replace(/```json/g, '').replace(/```/g, '').trim();
+      //console.log("clean explore data", cleanExploreData)
+    //return cleanExploreData
+    } catch (error) {
+      console.error('Error in vertextBigQuery:', error);
+      throw error;
     }
   }
-  
-
+*/
   const vertextCloudFunction = async (
     contents: string,
     parameters: ModelParameters,
@@ -203,6 +286,9 @@ ${exploreRefinementExamples
       - data summary
       - tell me more about it
       - explain to me what's going on
+      - summarization
+      - summarize
+      - summary
       
       The user said:
 
@@ -353,17 +439,18 @@ ${exploreRefinementExamples
         ----------
     `
       const parameters = {
-        max_output_tokens: 1000,
+        max_output_tokens: 2000,
       }
-      console.log('useSendVertexMessage contents:', contents)
+      console.log(contents)
       const response = await sendMessage(contents, parameters)
 
       const unquoteResponse = (response: string) => {
         return response.substring(response.indexOf("fields=")).replace(/^`+|`+$/g, '').trim()
       }
       const cleanResponse = unquoteResponse(response)
-      console.log('useSendVertexMessage cleanResponse:', cleanResponse)
+      console.log('Clean Response: ', cleanResponse)
       const newExploreUrl = cleanResponse + '&toggle=dat,pik,vis'
+      console.log('newExploreUrl:', newExploreUrl)
 
       return newExploreUrl
     },
@@ -381,7 +468,6 @@ ${exploreRefinementExamples
     }
 
     return response
-    console.log('sendMessage: ', response)
   }
 
   return {

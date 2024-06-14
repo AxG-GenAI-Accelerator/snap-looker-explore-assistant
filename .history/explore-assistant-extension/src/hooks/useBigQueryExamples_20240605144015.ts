@@ -44,36 +44,33 @@ export const useBigQueryExamples = () => {
       FROM
         \`${datasetName}.explore_assistant_examples\`
         WHERE explore_id = '${LOOKER_MODEL}:${LOOKER_EXPLORE}'
-    `;
+    `
     return runExampleQuery(sql).then((response) => {
-      const generationExamples = response.flatMap((row) => {
-        if (row['examples']) {
-          return JSON.parse(row['examples']);
-        }
-        return [];
-      });
-      dispatch(setExploreGenerationExamples(generationExamples));
-    });
-  };
+      const generationExamples = JSON.parse(response[0]['examples'])
+      dispatch(setExploreGenerationExamples(generationExamples))
+      console.log('useBQ generationExamples : ',generationExamples)
+
+      console.log('useBQ generationExamples length: ', generationExamples.length)
+    })
+  }
 
   const getRefinementPrompts = async () => {
     const sql = `
-      SELECT
-          examples
-      FROM
-        \`${datasetName}.explore_assistant_refinement_examples\`
-        WHERE explore_id = '${LOOKER_MODEL}:${LOOKER_EXPLORE}'
-    `;
+    SELECT
+        examples
+    FROM
+      \`${datasetName}.explore_assistant_refinement_examples\`
+      WHERE explore_id = '${LOOKER_MODEL}:${LOOKER_EXPLORE}'
+  `
     return runExampleQuery(sql).then((response) => {
-      const refinementExamples = response.flatMap((row) => {
-        if (row['examples']) {
-          return JSON.parse(row['examples']);
-        }
-        return [];
-      });
-      dispatch(setExploreRefinementExamples(refinementExamples));
-    });
-  };
+      const refinementExamples = JSON.parse(response[0]['examples'])
+      dispatch(setExploreRefinementExamples(refinementExamples))
+      console.log('use BQ setExploreRefinementExamples: ',setExploreRefinementExamples(refinementExamples))
+      console.log('use BQ setExploreRefinementExamples length: ',setExploreRefinementExamples(refinementExamples).length)
+
+
+    })
+  }
 
   // get the example prompts
   useEffect(() => {

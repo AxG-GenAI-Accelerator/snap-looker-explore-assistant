@@ -52,8 +52,8 @@ const ExploreChatPage = () => {
     if (
       dimensions.length > 0 &&
       measures.length > 0 
-      && examples.exploreGenerationExamples.length > 0 
-      && examples.exploreRefinementExamples.length > 0
+      //&& examples.exploreGenerationExamples.length > 0 
+      //&& examples.exploreRefinementExamples.length > 0
       
     ) 
     console.log('index.ts exploreGenerationExamples length:', examples.exploreGenerationExamples.length)
@@ -69,7 +69,7 @@ const ExploreChatPage = () => {
     if (query.trim() === '') return
     if (isQuerying) return
 
-    console.log('Generate explore URL query:', query)
+    console.log('Generating explore URL for query:', query)
     generateExploreUrl(query)
   }, [query])
 

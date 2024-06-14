@@ -46,20 +46,15 @@ const ExploreChatPage = () => {
   useEffect(() => {
     console.log('dimensions:', dimensions)
     console.log('measures:', measures)
-    console.log('index.ts exploreGenerationExamples:', examples.exploreGenerationExamples)
-    console.log('index.ts exploreRefinementExamples:', examples.exploreRefinementExamples)
+    console.log('exploreGenerationExamples:', examples.exploreGenerationExamples)
+    console.log('exploreRefinementExamples:', examples.exploreRefinementExamples)
   
     if (
       dimensions.length > 0 &&
       measures.length > 0 
       && examples.exploreGenerationExamples.length > 0 
-      && examples.exploreRefinementExamples.length > 0
-      
-    ) 
-    console.log('index.ts exploreGenerationExamples length:', examples.exploreGenerationExamples.length)
-      console.log('index.ts exploreRefinementExamples length:', examples.exploreRefinementExamples.length)
-
-    {
+      //&& examples.exploreRefinementExamples.length > 0
+    ) {
       console.log('Data loaded, setting loading to false')
       setLoading(false)
     }
@@ -69,7 +64,7 @@ const ExploreChatPage = () => {
     if (query.trim() === '') return
     if (isQuerying) return
 
-    console.log('Generate explore URL query:', query)
+    console.log('Generating explore URL for query:', query)
     generateExploreUrl(query)
   }, [query])
 
