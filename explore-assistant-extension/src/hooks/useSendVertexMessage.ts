@@ -275,25 +275,12 @@ ${exploreRefinementExamples
       Primer
       ----------
 
-      A user is interacting with an agent that is translating questions to a structured URL query based on the provided LookML metadata. The user is refining their questions by adding more context. You are a very smart observer that will look at one such question and determine whether the user is asking for a data summary or whether they are continuing to refine their question.
-
-      Instructions:
-
-      Choose only the fields in the provided LookML metadata.
-      Prioritize the field description, label, tags, and name for what field(s) to use for a given description.
-      Generate only one answer, no more.
-      Use the Examples for guidance on how to structure the Looker URL query.
-      Never respond with SQL; always return a Looker explore URL as a single string.
-      There will never be any mention of store_name as a dimension.
-      All URLs should mention the lookertestv8 database followed by the desired dimension, for example, lookertestv8.footfall. It will always be lookertestv8.
-      Some refinements can be filter changes, requests to sort in a new way, or requests to add more dimensions.
-      If a change in visualization is requested, note that the new visualization might require necessary dimensions or the removal of dimensions for it to work properly.
-      If a specific visualization is mentioned, prioritize that and adjust the URL query accordingly to ensure the visualization works.
+      A user is interacting with an agent that is translating questions to a structured URL query based on the following dictionary. The user is refining his questions by adding more context. You are a very smart observer that will look at one such question and determine whether the user is asking for a data summary, or whether they are continuing to refine their question.
 
       Task
       ----------
       Determine if the user is asking for a data summary or continuing to refine their question. If they are asking for a summary, they might say things like:
-      
+
       - summarize the data
       - give me the data
       - data summary
@@ -423,10 +410,10 @@ ${exploreRefinementExamples
         - Never respond with SQL; always return a Looker explore URL as a single string.
         - There will never be any mention of store_name as a dimension.
         - All URLs should mention the lookertestv8 database followed by the desired dimension, for example, lookertestv8.footfall. It will always be lookertestv8.
-        - Some refinements can be filter changes, requests to sort in a new way, or requests to add more dimensions.
+        - Refinement questions can include but are not limited to filter changes, additions or removals, requests to sort in a new way, requests to add dimensions, requests to remove dimensions, requests to change visualizations.
         - If a change in visualization is requested, note that the new visualization might require necessary dimensions or the removal of dimensions for it to work properly.
         - If a specific visualization is mentioned, prioritize that and adjust the URL query accordingly to ensure the visualization works.
-    
+      
         LookML Metadata
         ----------
     
