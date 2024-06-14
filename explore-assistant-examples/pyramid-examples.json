@@ -41,6 +41,6 @@
     "input": "What is the tier distribution for only T-Mobile", 
     "output": "fields=lookertestv8.strategic_tiering,lookertestv8.count&f[lookertestv8.partner]=T-Mobile&sorts=lookertestv8.strategic_tiering asc&limit=6&column_limit=2&vis={\"type\":\"looker_bar\"" 
 },{ 
-    "input": "What is the tier distribution for the New York DMA, for only T-Mobile", 
+    "input": "What is the tier distribution for the New York DMA, for only T-Mobile",
     "output": "fields=lookertestv8.strategic_tiering,lookertestv8.count&f[lookertestv8.partner]=T-Mobile&f[lookertestv8.dma]=new york&sorts=lookertestv8.strategic_tiering asc&limit=6&column_limit=2&vis={\"type\":\"looker_bar\"" 
 }]
