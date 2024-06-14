@@ -1,6 +1,6 @@
 application: explore_assistant {
     label: "Gemini Explore Assistant"
-    #url: "https://localhost:8080/bundle.js"
+    url: "https://localhost:8080/bundle.js"
     file: "bundle.js"
     #file: "bundle-demo.js"
     entitlements: {
