@@ -89,8 +89,9 @@ const ExploreChatPage = () => {
     dispatch(setQuery(query))
     dispatch(setExploreUrl(''))
     
+    const newExploreUrl = "fields=lookertestv8.store_name, lookertestv8.store_id,lookertestv8.dma,lookertestv8.past_pixel_sales_unit&sorts=lookertestv8.past_pixel_sales_unit desc&limit=100&column_limit=3&vis={\"type\":\"looker_grid\"}&toggle=dat,pik,vis"
 
-    const newExploreUrl = await generateExploreUrl(query)
+    //const newExploreUrl = await generateExploreUrl(query)
     console.log('Generated new explore URL:', newExploreUrl)
 
     dispatch(

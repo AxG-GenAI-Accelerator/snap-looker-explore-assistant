@@ -15,6 +15,11 @@ resource "google_bigquery_connection" "connection" {
   project       = var.project_id
   location      = var.deployment_region
   cloud_resource {}
+
+    # Add this block to handle the case when the connection already exists
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 # IAM for connection to be able to execute vertex ai queries through BQ
@@ -28,9 +33,9 @@ resource "google_bigquery_job" "create_bq_model_llm" {
   job_id = "create_looker_llm_model-${formatdate("YYYYMMDDhhmmss", timestamp())}"
   query {
     query              = <<EOF
-CREATE OR REPLACE MODEL `${var.dataset_id}.explore_assistant_llm` 
+CREATE MODEL `${var.dataset_id}.explore_assistant_llm` #RG removed or replace so I can create multiple.
 REMOTE WITH CONNECTION `${google_bigquery_connection.connection.name}` 
-OPTIONS (endpoint = 'gemini-1.5-flash')
+OPTIONS (endpoint = 'gemini-pro')
 EOF  
     create_disposition = ""
     write_disposition  = ""
@@ -42,4 +47,10 @@ EOF
   }
 
   location = var.deployment_region
+
+   # Add this block to handle the case when the model already exists
+  lifecycle {
+    create_before_destroy = true
+  }
 }
+

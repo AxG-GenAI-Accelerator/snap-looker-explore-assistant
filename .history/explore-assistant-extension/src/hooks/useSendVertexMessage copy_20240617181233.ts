@@ -443,28 +443,25 @@ ${exploreRefinementExamples
       const parameters = {
         max_output_tokens: 1000,
       }
-      console.log('Generated contents for sendMessage:', contents)
+      console.log('generateExploreUrl contents: ',contents)
       const response = await sendMessage(contents, parameters)
   
       const unquoteResponse = (response: string) => {
         return response.substring(response.indexOf("fields=")).replace(/^`+|`+$/g, '').trim()
       }
       const cleanResponse = unquoteResponse(response)
-      console.log('Cleaned response:', cleanResponse)
+      console.log('cleanResponse: ',cleanResponse)
       const newExploreUrl = cleanResponse + '&toggle=dat,pik,vis'
-      //RG Testing const newExploreUrl = "fields=lookertestv8.store_name,lookertestv8.store_id,lookertestv8.dma,lookertestv8.past_pixel_sales_unit&sorts=lookertestv8.past_pixel_sales_unit desc&limit=100&column_limit=3&vis={\"type\":\"looker_grid\"}&toggle=dat,pik,vis"
-
+      console.log('newExploreUrl: ', newExploreUrl)
       // Check if the fields in the newExploreUrl exist in the metadata parameters
       const fieldsInUrl = new URLSearchParams(newExploreUrl).get('fields')?.split(',') || []
+      console.log('fieldInUrl: ', fieldsInUrl)
       const allFields = [...dimensions, ...measures].map(field => field.name)
+      console.log('allFields: ', allFields)
       const invalidFields = fieldsInUrl.filter(field => !allFields.includes(field))
-  
-      console.log('Fields in URL:', fieldsInUrl)
-      console.log('All valid fields:', allFields)
-      console.log('Invalid fields:', invalidFields)
+      console.log('invalidFields: ', invalidFields)
   
       if (invalidFields.length > 0) {
-        console.log('Found invalid fields, generating a new URL...')
         // If there are invalid fields, generate a new URL without those fields
         const updatedPrompt = `
           The previous query contained invalid fields: ${invalidFields.join(', ')}. Please generate a new URL without these fields.
@@ -510,14 +507,13 @@ ${exploreRefinementExamples
           Output
           ----------
         `
-        console.log('Updated prompt for invalid fields:', updatedPrompt)
+        console.log('updatedPrompt: ', updatedPrompt)
         const updatedResponse = await sendMessage(updatedPrompt, parameters)
         const cleanUpdatedResponse = unquoteResponse(updatedResponse)
-        console.log('Updated response:', cleanUpdatedResponse)
+        console.log('cleanUpdatedResponse: ', cleanUpdatedResponse)
         return cleanUpdatedResponse + '&toggle=dat,pik,vis'
       }
   
-      console.log('All fields are valid, returning newExploreUrl:', newExploreUrl)
       return newExploreUrl
     },
     [dimensions, measures, exploreGenerationExamples],

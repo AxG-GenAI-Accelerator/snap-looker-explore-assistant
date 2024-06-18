@@ -1,6 +1,6 @@
 [{
-    "input": ["make a chart of sales by region", "make it a an area chart", "make it a table"],
-    "output": "make a chart of sales by region make it a table"
+    "input": ["make a chart of sales by tier"],
+    "output": "make a chart of sales by tier make it a table"
   },
   {
     "input": ["show me sales by region", "by product"],
@@ -8,7 +8,7 @@
   },   
   {
     "input": ["show me on a map"],
-    "output": "make a chart of sales by region make it a table"
+    "output": "make a looker map using store_location"
   },
   {
     "input": ["summarize"],

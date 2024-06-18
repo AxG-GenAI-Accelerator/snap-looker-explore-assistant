@@ -40,6 +40,6 @@ variable "cloud_run_service_name" {
 
 variable "dataset_id_name" {
     type = string
-    default = "explore_assistant"
+    default = "sandbox_explore_assistant"
 }
 

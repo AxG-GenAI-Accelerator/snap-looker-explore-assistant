@@ -88,7 +88,6 @@ const ExploreChatPage = () => {
     dispatch(setIsQuerying(true))
     dispatch(setQuery(query))
     dispatch(setExploreUrl(''))
-    
 
     const newExploreUrl = await generateExploreUrl(query)
     console.log('Generated new explore URL:', newExploreUrl)

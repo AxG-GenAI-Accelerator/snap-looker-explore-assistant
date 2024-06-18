@@ -1,3 +1,5 @@
+
+
 resource "google_bigquery_dataset" "dataset" {
   dataset_id    = var.dataset_id_name
   friendly_name = var.dataset_id_name
