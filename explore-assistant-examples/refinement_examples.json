@@ -63,16 +63,16 @@
     "output": "What is the top DMA for ATT by growth potential"
   },
   {
-    "input": ["What is the partner distribution", "partner distribution"],
-    "output": "Show me the partner distribution"
+    "input": ["Show me the partner distribution", "What is the partner distribution", "partner distribution"],
+    "output": "Show me how many stores there are for each partner"
   },
   {
-    "input": ["What is the partner distribution for Tmobile stores", "What is Tmobile's partner distribution"],
-    "output": "Show me the partner distribution for T-Mobile stores"
+    "input": ["Show me how many stores there are for each partner in the New York DMA", "Show me the partner distribution for stores in the New York", "What is the partner distribution for NY", "What is NY's partner distribution"],
+    "output": "Show me how many stores there are for each partner in the new york DMA"
   },
   {
-    "input": ["What is the partner distribution for NY", "What is NY's partner distribution"],
-    "output": "Show me the partner distribution for stores in the New York DMA"
+    "input": ["Show me how many stores there are for each partner in the Las Vegas DMA", "Show me the partner distribution for stores in the Las Veags", "What is the partner distribution for Las Vegas", "What is Las Vega's partner distribution"],
+    "output": "Show me how many stores there are for each partner in the las vegas DMA"
   },
   {
     "input": ["summarize"],
