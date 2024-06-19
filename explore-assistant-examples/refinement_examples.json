@@ -11,7 +11,7 @@
     "output": "Top 50 Verizon Stores by growth potential"
   },
   {
-    "input": ["Give me the total coverage percentage","what is the coverage","what is the coverage percentage for these sotres","coverage percentage", "total coverage percentage"],
+    "input": ["Give me the total coverage percentage","what is the coverage","what is the coverage percentage for these stores","coverage percentage", "total coverage percentage"],
     "output": "Show me the total coverage percentage"
   },
   {
@@ -45,6 +45,34 @@
   {
     "input": ["What is the Tier distribution for the top Tmobile DMA", "What is the Tier distribution for the top Tmobile DMA",  "What is the Tier distribution for the top DMA for Tmobile stores", "Tier distribution for the top Tmobile DMA"],
     "output": "What is the tier distribution for the New York DMA, for only T-Mobile"
+  },
+  {
+    "input": ["Show me the top DMA", "Whats the top DMA", "What is the top DMA",  "Show me the top DMA by sales"],
+    "output": "What is the top DMA by sales"
+  },
+  {
+    "input": ["Show me the top DMA for Tmobile", "Whats the top DMA for Tmobile", "What is the top DMA for T-mobile",  "Show me the top Tmobile DMA by sales"],
+    "output": "What is the top DMA for T-Mobile by sales?"
+  },
+  {
+    "input": ["Show me the top DMA for the top 100 Tmobile", "Whats the top DMA for the best 100 Tmobile stores", "What is the top DMA for the top 100 T-mobile stores",  "Show me the top DMA for the top 100 tmobile stores by sales"],
+    "output": "What is the top DMA of the top 100 T-Mobile stores by sales"
+  },
+  {
+    "input": ["Show me the top DMA for AT&T by growth", "Whats the top DMA ATT stores by growth potential", "What is AT&Ts top DMA for growth potential"],
+    "output": "What is the top DMA for ATT by growth potential"
+  },
+  {
+    "input": ["What is the partner distribution", "partner distribution"],
+    "output": "Show me the partner distribution"
+  },
+  {
+    "input": ["What is the partner distribution for Tmobile stores", "What is Tmobile's partner distribution"],
+    "output": "Show me the partner distribution for T-Mobile stores"
+  },
+  {
+    "input": ["What is the partner distribution for NY", "What is NY's partner distribution"],
+    "output": "Show me the partner distribution for stores in the New York DMA"
   },
   {
     "input": ["summarize"],
