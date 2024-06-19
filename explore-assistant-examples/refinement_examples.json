@@ -47,6 +47,22 @@
     "output": "What is the tier distribution for the New York DMA, for only T-Mobile"
   },
   {
+    "input": ["Show me the top DMA", "Whats the top DMA", "What is the top DMA",  "Show me the top DMA by sales"],
+    "output": "What is the top DMA by sales"
+  },
+  {
+    "input": ["Show me the top DMA for Tmobile", "Whats the top DMA for Tmobile", "What is the top DMA for T-mobile",  "Show me the top Tmobile DMA by sales"],
+    "output": "What is the top DMA for T-Mobile by sales?"
+  },
+  {
+    "input": ["Show me the top DMA for the top 100 Tmobile", "Whats the top DMA for the best 100 Tmobile stores", "What is the top DMA for the top 100 T-mobile stores",  "Show me the top DMA for the top 100 tmobile stores by sales"],
+    "output": "What is the top DMA of the top 100 T-Mobile stores by sales"
+  },
+  {
+    "input": ["Show me the top DMA for AT&T by growth", "Whats the top DMA ATT stores by growth potential", "What is AT&Ts top DMA for growth potential"],
+    "output": "What is the top DMA for ATT by growth potential"
+  },
+  {
     "input": ["summarize"],
     "output": "summerization"
     }] 
