@@ -33,16 +33,16 @@
     "output": "fields=lookertestv8.dma,lookertestv8.growth_potential_average&f[lookertestv8.partner]=BestBuy&sorts=lookertestv8.growth_potential_average desc&limit=10&column_limit=2&vis={\"type\":\"looker_grid\""
 },{ 
     "input": "What is the top DMA by sales?", 
-    "output": "fields=lookertestv8.dma,lookertestv8.sales_sum&sorts=lookertestv8.sales_sum desc&limit=1&column_limit=2&vis={\"type\":\"looker_multi_value2\""
+    "output": "fields=lookertestv8.dma,lookertestv8.sales_sum&sorts=lookertestv8.sales_sum desc&limit=1&column_limit=2&vis={\"type\":\"looker_single_record\""
 },{ 
     "input": "What is the top DMA for T-Mobile by sales?", 
-    "output": "fields=lookertestv8.dma,lookertestv8.sales_sum&f[lookertestv8.partner]=T-Mobile&sorts=lookertestv8.sales_sum desc&limit=1&column_limit=2&vis={\"type\":\"looker_multi_value2\""
+    "output": "fields=lookertestv8.dma,lookertestv8.sales_sum&f[lookertestv8.partner]=T-Mobile&sorts=lookertestv8.sales_sum desc&limit=1&column_limit=2&vis={\"type\":\"looker_single_record\""
 },{ 
     "input": "What is the top DMA of the top 100 T-Mobile stores by sales", 
-    "output": "fields=lookertestv8.dma,lookertestv8.sales_sum&f[lookertestv8.partner]=T-Mobile&sorts=lookertestv8.sales_sum desc&limit=100&column_limit=2&vis={\"type\":\"looker_multi_value2\""
+    "output": "fields=lookertestv8.dma,lookertestv8.sales_sum&f[lookertestv8.partner]=T-Mobile&sorts=lookertestv8.sales_sum desc&limit=100&column_limit=2&vis={\"type\":\"looker_single_record\""
 },{ 
     "input": "What is the top DMA for ATT by growth potential", 
-    "output": "fields=lookertestv8.dma,lookertestv8.growth_potential_average&f[lookertestv8.partner]=ATT&sorts=lookertestv8.growth_potential_average desc&limit=1&column_limit=2&vis={\"type\":\"looker_multi_value2\""
+    "output": "fields=lookertestv8.dma,lookertestv8.growth_potential_average&f[lookertestv8.partner]=ATT&sorts=lookertestv8.growth_potential_average desc&limit=1&column_limit=2&vis={\"type\":\"looker_single_record\""
 },{ 
     "input": "What is the tier distribution", 
     "output": "fields=lookertestv8.strategic_tiering,lookertestv8.count&sorts=lookertestv8.strategic_tiering asc&limit=6&column_limit=2&vis={\"type\":\"looker_bar\"" 
@@ -56,13 +56,13 @@
     "input": "What is the tier distribution for the New York DMA, for only T-Mobile",
     "output": "fields=lookertestv8.strategic_tiering,lookertestv8.count&f[lookertestv8.partner]=T-Mobile&f[lookertestv8.dma]=new york&sorts=lookertestv8.strategic_tiering asc&limit=6&column_limit=2&vis={\"type\":\"looker_bar\"" 
 },{ 
-    "input": "Show me the partner distribution",
+    "input": "Show me how many stores there are for each partner",
     "output": "fields=lookertestv8.partner_group,lookertestv8.sales_sum&sorts=lookertestv8.strategic_tiering asc&limit=4&column_limit=2&vis={\"type\":\"looker_bar\"" 
 },{ 
-    "input": "Show me the partner distribution for T-Mobile stores",
-    "output": "fields=lookertestv8.partner_group,lookertestv8.sales_sum&f[lookertestv8.partner]=T-Mobile&sorts=lookertestv8.strategic_tiering asc&limit=4&column_limit=2&vis={\"type\":\"looker_bar\"" 
-},{ 
-    "input": "Show me the partner distribution for stores in the New York DMA",
+    "input": "Show me how many stores there are for each partner in the New York DMA",
     "output": "fields=lookertestv8.partner_group,lookertestv8.sales_sum&f[lookertestv8.dma]=new york&sorts=lookertestv8.strategic_tiering asc&limit=4&column_limit=2&vis={\"type\":\"looker_bar\"" 
-}
+},{ 
+    "input": "Show me how many stores there are for each partner in the Las Vegas DMA",
+    "output": "fields=lookertestv8.partner_group,lookertestv8.sales_sum&f[lookertestv8.dma]=las veags&sorts=lookertestv8.strategic_tiering asc&limit=4&column_limit=2&vis={\"type\":\"looker_bar\"" 
+},
 ]
