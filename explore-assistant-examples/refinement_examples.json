@@ -11,7 +11,7 @@
     "output": "Top 50 Verizon Stores by growth potential"
   },
   {
-    "input": ["Give me the total coverage percentage","what is the coverage","what is the coverage percentage for these sotres","coverage percentage", "total coverage percentage"],
+    "input": ["Give me the total coverage percentage","what is the coverage","what is the coverage percentage for these stores","coverage percentage", "total coverage percentage"],
     "output": "Show me the total coverage percentage"
   },
   {
@@ -61,6 +61,18 @@
   {
     "input": ["Show me the top DMA for AT&T by growth", "Whats the top DMA ATT stores by growth potential", "What is AT&Ts top DMA for growth potential"],
     "output": "What is the top DMA for ATT by growth potential"
+  },
+  {
+    "input": ["What is the partner distribution", "partner distribution"],
+    "output": "Show me the partner distribution"
+  },
+  {
+    "input": ["What is the partner distribution for Tmobile stores", "What is Tmobile's partner distribution"],
+    "output": "Show me the partner distribution for T-Mobile stores"
+  },
+  {
+    "input": ["What is the partner distribution for NY", "What is NY's partner distribution"],
+    "output": "Show me the partner distribution for stores in the New York DMA"
   },
   {
     "input": ["summarize"],
