@@ -184,9 +184,15 @@ view: lookertestv8 {
   }
   dimension: partner_group {
     type: string
-    description: "List of distinct partner values"
-    sql: STRING_AGG(DISTINCT ${partner}, ', ' ORDER BY ${partner}) ;;
-    label: "partner_list"
+    description: "Group of values associated to a distinct partner"
+    sql: CASE
+          WHEN ${TABLE}.Partner LIKE '%T-Mobile%' THEN 'T-Mobile'
+          WHEN ${TABLE}.Partner LIKE '%Verizon%' THEN 'Verizon'
+          WHEN ${TABLE}.Partner LIKE '%BestBuy%' THEN 'Best Buy'
+          WHEN ${TABLE}.Partner LIKE '%ATT%' THEN 'AT&T'
+          ELSE 'Other'
+        END ;;
+    label: "partner_group"
     tags: ["partner", "group"]
   }
 }
