@@ -182,4 +182,11 @@ view: lookertestv8 {
     label: "count"
     tags: ["count", "store"]
   }
+  dimension: partner_group {
+    type: string
+    description: "List of distinct partner values"
+    sql: STRING_AGG(DISTINCT ${partner}, ', ' ORDER BY ${partner}) ;;
+    label: "partner_list"
+    tags: ["partner", "group"]
+  }
 }
