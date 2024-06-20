@@ -57,12 +57,12 @@
     "output": "fields=lookertestv8.strategic_tiering,lookertestv8.count&f[lookertestv8.partner]=T-Mobile&f[lookertestv8.dma]=new york&sorts=lookertestv8.strategic_tiering asc&limit=6&column_limit=2&vis={\"type\":\"looker_bar\"" 
 },{ 
     "input": "Show me how many stores there are for each partner",
-    "output": "fields=lookertestv8.partner_group,lookertestv8.sales_sum&sorts=lookertestv8.strategic_tiering asc&limit=4&column_limit=2&vis={\"type\":\"looker_bar\"" 
+    "output": "fields=lookertestv8.partner,lookertestv8.sales_sum&sorts=lookertestv8.strategic_tiering asc&limit=4&column_limit=2&vis={\"type\":\"looker_bar\"" 
 },{ 
     "input": "Show me how many stores there are for each partner in the New York DMA",
-    "output": "fields=lookertestv8.partner_group,lookertestv8.sales_sum&f[lookertestv8.dma]=new york&sorts=lookertestv8.strategic_tiering asc&limit=4&column_limit=2&vis={\"type\":\"looker_bar\"" 
+    "output": "fields=lookertestv8.partner,lookertestv8.sales_sum&f[lookertestv8.dma]=new york&sorts=lookertestv8.strategic_tiering asc&limit=4&column_limit=2&vis={\"type\":\"looker_bar\"" 
 },{ 
     "input": "Show me how many stores there are for each partner in the Las Vegas DMA",
-    "output": "fields=lookertestv8.partner_group,lookertestv8.sales_sum&f[lookertestv8.dma]=las veags&sorts=lookertestv8.strategic_tiering asc&limit=4&column_limit=2&vis={\"type\":\"looker_bar\"" 
+    "output": "fields=lookertestv8.partner,lookertestv8.sales_sum&f[lookertestv8.dma]=las vegas&sorts=lookertestv8.strategic_tiering asc&limit=4&column_limit=2&vis={\"type\":\"looker_bar\"" 
 }
 ]
