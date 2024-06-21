@@ -84,7 +84,10 @@
     "input": "What is the total sales for each strategic tier",
     "output": "fields=lookertestv8.strategic_tiering,lookertestv8.sales_sum&limit=6&column_limit=2&vis={\"type\":\"looker_grid\"" 
 },{ 
-    "input": "What are the covered vs uncovered sales for strategic tier 1",
-    "output": "fields=lookertestv8.is_covered,lookertestv8.sales_sum&f[lookertestv8.strategic_tiering]=Pyramid Tier 1&limit=2&column_limit=2&vis={\"type\":\"looker_grid\"" 
+    "input": "What is the YOY sales difference for the top 100 T-Mobile stores",
+    "output": "fields=lookertestv8.store_id,lookertestv8.yoy_change_percentage,lookertestv8.yoy_change_number,lookertestv8.sales_result2022,lookertestv8.sales_result2023&sorts=lookertestv8.past_pixel_sales_unit desc&f[lookertestv8.partner]=T-Mobile&limit=100&column_limit=5&vis={\"type\":\"looker_grid\"" 
+},{ 
+    "input": "What is the YOY sales difference stores in strategic tier 1",
+    "output": "fields=lookertestv8.store_id,lookertestv8.yoy_change_percentage,lookertestv8.yoy_change_number,lookertestv8.sales_result2022,lookertestv8.sales_result2023&f[lookertestv8.strategic_tiering]=Pyramid Tier 1&column_limit=5&vis={\"type\":\"looker_grid\"" 
 }
 ]
