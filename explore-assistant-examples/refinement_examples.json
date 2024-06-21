@@ -71,10 +71,31 @@
     "output": "Show me how many stores there are for each partner in the new york DMA"
   },
   {
-    "input": ["Show me how many stores there are for each partner in the Las Vegas DMA", "Show me the partner distribution for stores in the Las Veags", "What is the partner distribution for Las Vegas", "What is Las Vega's partner distribution"],
+    "input": ["Show me how many stores there are for each partner in the Las Vegas DMA", "Show me the partner distribution for stores in the Las Vegas", "What is the partner distribution for Las Vegas", "What is Las Vega's partner distribution"],
     "output": "Show me how many stores there are for each partner in the las vegas DMA"
+  },
+  {
+    "input": ["What's the average sales for tier 1", "Show me the average sales for Tier 1", "What is the average sales for tier1", "average sales tier1"],
+    "output": "What is the average sales for strategic tier 1"
+  },
+  {
+    "input": ["What's the average sales for tier 2 in NY", "Show me the average sales for NY stores in Tier 2", "What is the average sales for Tier 2 stores in New York", "average sales tier2 stores in NY"],
+    "output": "What is the average sales for strategic tier 2 in the New York DMA"
+  },
+  {
+    "input": ["What is the average sales for each tier", "Show me the average sales for every tier", "What is the sales average by tier", "Show me average sales by tier"],
+    "output": "What is the average sales for each strategic tier"
+  },
+  {
+    "input": ["What's sales for cover vs uncovered stores for tier 1 ", "What are the covered vs uncovered sales for tier 1"],
+    "output": "What are the covered vs uncovered sales for strategic tier 1"
   },
   {
     "input": ["summarize"],
     "output": "summerization"
-    }] 
+  },
+  {
+    "input": ["summarize"],
+    "output": "summerization"
+  }
+  ] 
