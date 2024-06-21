@@ -87,7 +87,7 @@
     "input": "What is the YOY sales difference for the top 100 T-Mobile stores",
     "output": "fields=lookertestv8.store_id,lookertestv8.yoy_change_percentage,lookertestv8.yoy_change_number,lookertestv8.sales_result2022,lookertestv8.sales_result2023&sorts=lookertestv8.past_pixel_sales_unit desc&f[lookertestv8.partner]=T-Mobile&limit=100&column_limit=5&vis={\"type\":\"looker_grid\"" 
 },{ 
-    "input": "What is the YOY sales difference stores in strategic tier 1",
+    "input": "What is the YOY sales difference for stores in strategic tier 1",
     "output": "fields=lookertestv8.store_id,lookertestv8.yoy_change_percentage,lookertestv8.yoy_change_number,lookertestv8.sales_result2022,lookertestv8.sales_result2023&f[lookertestv8.strategic_tiering]=Pyramid Tier 1&column_limit=5&vis={\"type\":\"looker_grid\"" 
 }
 ]
