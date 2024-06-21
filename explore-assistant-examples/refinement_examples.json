@@ -96,7 +96,7 @@
   },
   {
     "input": ["What's the YOY sales for the tier 1 stores ", "What's the difference in sales between 2022 and 2023 for stores in tier 1"],
-    "output": "What is the YOY sales difference stores in strategic tier 1"
+    "output": "What is the YOY sales difference for stores in strategic tier 1"
   },
   {
     "input": ["summarize"],
