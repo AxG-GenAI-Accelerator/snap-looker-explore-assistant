@@ -84,7 +84,7 @@
   },
   {
     "input": ["What's the YOY sales for the top 100 tmobile stores", "What's the difference in sales between 2022 and 2023 for the top 100 tmobile stores"],
-    "output": "What is the YOY sales difference for the top 100 T-Mobile stores"
+    "output": "What is the YOY sales difference for T-Mobile stores"
   },
   {
     "input": ["What's the YOY sales for the tier 1 stores ", "What's the difference in sales between 2022 and 2023 for stores in tier 1"],
