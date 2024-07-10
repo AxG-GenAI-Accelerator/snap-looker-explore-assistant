@@ -1,16 +1,80 @@
-[{
-    "input": ["make a chart of sales by region", "make it a an area chart", "make it a table"],
-    "output": "make a chart of sales by region make it a table"
+[ {
+  "input": ["Top stores", "What are the top stores by sales"],
+  "output": "Top stores by sales"
   },
   {
-    "input": ["show me sales by region", "by product"],
-    "output": "show me sales by region and product"
-  },   
+    "input": ["Top 100 Tmobile stores","What are the top 100 Tmobile stores by sales"],
+    "output": "Top 100 T-Mobile stores by sales"
+  },
   {
-    "input": ["show me on a map"],
-    "output": "make a chart of sales by region make it a table"
+    "input": ["What are the top 50 Verizon stores by growth potential?","Show me the top 50 Verizon stores by growth potential?"],
+    "output": "Top 50 Verizon Stores by growth potential"
+  },
+  {
+    "input": ["Give me the total coverage percentage","what is the coverage","what is the coverage percentage for these stores","coverage percentage", "total coverage percentage"],
+    "output": "Show me the total coverage percentage"
+  },
+  {
+    "input": ["Give me the total coverage percentage for Tmobile stores"],
+    "output": "Show me the total coverage percentage for only T-Mobile stores"
+  },
+  {
+    "input": ["What are the top DMAs", "top dmas"],
+    "output": "What are the top DMAs by sales"
+  },
+  {
+    "input": ["What are the top 5 DMAs for Tmobile", "what are Tmobile's top 5 dmas", "Top 5 tmobile dmas"],
+    "output": "What are the top 5 DMAs for T-Mobile by sales?"
+  },
+  {
+    "input": ["What are the top DMAs by growth", "top DMAs by growth", "top growth potential DMAs"],
+    "output": "What are the top DMAs by growth potential"
+  },
+  {
+    "input": ["What are the top 10 DMAs for Best Buy by growth", "top 10 Best Buy DMAs by growth", "top 10 best buy growth potential DMAs"],
+    "output": "What are the top 10 DMAs for Best Buy by growth potential?"
+  },
+  {
+    "input": ["What is the Tier distribution for New York", "Tier distribution for New York"],
+    "output": "What is the tier distribution for the New York DMA"
+  },
+  {
+    "input": ["What is the Tier distribution for Tmobile stores", "Tier distribution for Tmobile"],
+    "output": "What is the tier distribution for only T-Mobile"
+  },
+  {
+    "input": ["What is the Tier distribution for the top Tmobile DMA", "What is the Tier distribution for the top Tmobile DMA",  "What is the Tier distribution for the top DMA for Tmobile stores", "Tier distribution for the top Tmobile DMA"],
+    "output": "What is the tier distribution for the New York DMA, for only T-Mobile"
+  },
+  {
+    "input": ["Show me the top DMA", "Whats the top DMA", "What is the top DMA",  "Show me the top DMA by sales"],
+    "output": "What is the top DMA by sales"
+  },
+  {
+    "input": ["Show me the top DMA for Tmobile", "Whats the top DMA for Tmobile", "What is the top DMA for T-mobile",  "Show me the top Tmobile DMA by sales"],
+    "output": "What is the top DMA for T-Mobile by sales?"
+  },
+  {
+    "input": ["Show me the top DMA for the top 100 Tmobile", "Whats the top DMA for the best 100 Tmobile stores", "What is the top DMA for the top 100 T-mobile stores",  "Show me the top DMA for the top 100 tmobile stores by sales"],
+    "output": "What is the top DMA of the top 100 T-Mobile stores by sales"
+  },
+  {
+    "input": ["Show me the top DMA for AT&T by growth", "Whats the top DMA ATT stores by growth potential", "What is AT&Ts top DMA for growth potential"],
+    "output": "What is the top DMA for ATT by growth potential"
+  },
+  {
+    "input": ["What is the partner distribution", "partner distribution"],
+    "output": "Show me the partner distribution"
+  },
+  {
+    "input": ["What is the partner distribution for Tmobile stores", "What is Tmobile's partner distribution"],
+    "output": "Show me the partner distribution for T-Mobile stores"
+  },
+  {
+    "input": ["What is the partner distribution for NY", "What is NY's partner distribution"],
+    "output": "Show me the partner distribution for stores in the New York DMA"
   },
   {
     "input": ["summarize"],
     "output": "summerization"
-  }]
+    }] 
