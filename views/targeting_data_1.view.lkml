@@ -21,8 +21,8 @@ view: targeting_data_1 {
 
   dimension: cltv_tier {
     type: number
-    description: "CLTV stand for Customer lifetime value, which is the projected total profit a customer generates during their entire relationship with a brand or company."
-    label: "CLTV"
+    description: "CLTV stand for Customer lifetime value, which is the projected total profit a customer generates during their entire relationship with a brand or company.  This metric determines what CLTV tier the customer is in."
+    label: "CLTV Tier"
     tags: ["cltv", "customer lifetime value", "lifetime value"]
     sql: ${TABLE}.CLTV_Tier ;;
   }
@@ -34,21 +34,21 @@ view: targeting_data_1 {
   measure: total_cltv_tier {
     type: sum
     description: ""
-    label: ""
+    label: "Total CLTV"
     tags: []
     sql: ${cltv_tier} ;;  }
   measure: average_cltv_tier {
     type: average
     description: ""
-    label: ""
+    label: "Average CLTV"
     tags: []
     sql: ${cltv_tier} ;;  }
 
   dimension: pid {
     type: number
     value_format_name: id
-    description: ""
-    label: ""
+    description: "The unique user number used as an identifier for a customer."
+    label: "PID"
     tags: []
     sql: ${TABLE}.pid ;;
   }
@@ -56,7 +56,7 @@ view: targeting_data_1 {
   dimension: pscore_accessories {
     type: number
     description: ""
-    label: ""
+    label: "Accessories P-score"
     tags: []
     sql: ${TABLE}.pscore_accessories ;;
   }
@@ -64,7 +64,7 @@ view: targeting_data_1 {
   dimension: pscore_brand {
     type: number
     description: ""
-    label: ""
+    label: "Brand P-score"
     tags: []
     sql: ${TABLE}.pscore_brand ;;
   }
@@ -72,7 +72,7 @@ view: targeting_data_1 {
   dimension: pscore_ppm {
     type: number
     description: ""
-    label: ""
+    label: "PPM P-score"
     tags: []
     sql: ${TABLE}.pscore_ppm ;;
   }
@@ -80,7 +80,7 @@ view: targeting_data_1 {
   dimension: pscore_product {
     type: number
     description: ""
-    label: ""
+    label: "Product P-score"
     tags: []
     sql: ${TABLE}.pscore_product ;;
   }
@@ -88,7 +88,7 @@ view: targeting_data_1 {
   dimension: pscore_service {
     type: number
     description: ""
-    label: ""
+    label: "Service P-score"
     tags: []
     sql: ${TABLE}.pscore_service ;;
   }
@@ -96,7 +96,7 @@ view: targeting_data_1 {
   dimension: pscore_tech {
     type: number
     description: ""
-    label: ""
+    label: "Tech P-score"
     tags: []
     sql: ${TABLE}.pscore_tech ;;
   }
@@ -104,23 +104,23 @@ view: targeting_data_1 {
   dimension: segment_channel {
     type: number
     description: ""
-    label: ""
+    label: "Channel"
     tags: []
     sql: ${TABLE}.segment_channel ;;
   }
 
   dimension: segment_email_daypart {
     type: number
-    description: ""
-    label: ""
+    description: "Tracks the optimal time of day to send the email."
+    label: "Email Daytime"
     tags: []
     sql: ${TABLE}.segment_email_daypart ;;
   }
 
   dimension: segment_email_dow {
     type: number
-    description: ""
-    label: ""
+    description: "Tracks the optimal day of week to send email to the customer."
+    label: "Email Day of Week"
     tags: []
     sql: ${TABLE}.segment_email_dow ;;
   }
