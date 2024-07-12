@@ -29,4 +29,4 @@ persist_with: gemini_explore_assistant_default_datagroup
 #explore: lookertestv8 {view_name: lookertestv8 {}}
 #explore: demo_gemini_retail_data {}
 
-explore: lookertestv8 {view_name: targeting_data_1}
+explore: targeting_data_1 {view_name: targeting_data_1}
