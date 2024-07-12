@@ -8,7 +8,7 @@
   },
   {
     "input": ["What are the top 50 Verizon stores by growth potential?","Show me the top 50 Verizon stores by growth potential?"],
-    "output": "Top 50 Verizon Stores by growth potential"
+    "output": "Top 50 Verizon stores by growth potential"
   },
   {
     "input": ["Give me the total coverage percentage","what is the coverage","what is the coverage percentage for these stores","coverage percentage", "total coverage percentage"],
@@ -19,62 +19,79 @@
     "output": "Show me the total coverage percentage for only T-Mobile stores"
   },
   {
-    "input": ["What are the top DMAs", "top dmas"],
-    "output": "What are the top DMAs by sales"
+    "input": ["What is the top state", "top state"],
+    "output": "What is the top state by sales"
   },
   {
-    "input": ["What are the top 5 DMAs for Tmobile", "what are Tmobile's top 5 dmas", "Top 5 tmobile dmas"],
-    "output": "What are the top 5 DMAs for T-Mobile by sales?"
+    "input": ["What are the top 5 states for Tmobile", "what are Tmobile's top 5 states", "Top 5 tmobile states"],
+    "output": "What are the top 5 states for T-Mobile by sales"
   },
   {
-    "input": ["What are the top DMAs by growth", "top DMAs by growth", "top growth potential DMAs"],
-    "output": "What are the top DMAs by growth potential"
+    "input": ["What are the top 10 states by growth", "top 10 states by growth", "top 10 growth potential states"],
+    "output": "What are the top 10 states by growth potential"
   },
   {
-    "input": ["What are the top 10 DMAs for Best Buy by growth", "top 10 Best Buy DMAs by growth", "top 10 best buy growth potential DMAs"],
-    "output": "What are the top 10 DMAs for Best Buy by growth potential?"
+    "input": ["What are the top 20 states for Best Buy by growth", "top 10 Best Buy states by growth", "top 10 best buy growth potential states"],
+    "output": "What are the top 20 states for Best Buy by growth potential"
   },
   {
-    "input": ["What is the Tier distribution for New York", "Tier distribution for New York"],
-    "output": "What is the tier distribution for the New York DMA"
+    "input": ["What is the tier distribution","Tier distribution"],
+    "output": "Show me how many stores there are in each strategic tier"
   },
   {
-    "input": ["What is the Tier distribution for Tmobile stores", "Tier distribution for Tmobile"],
-    "output": "What is the tier distribution for only T-Mobile"
+    "input": ["What is the tier distribution for New York","Tier distribution for New York"],
+    "output": "Show me how many stores there are in each strategic tier for stores in New York" 
   },
   {
-    "input": ["What is the Tier distribution for the top Tmobile DMA", "What is the Tier distribution for the top Tmobile DMA",  "What is the Tier distribution for the top DMA for Tmobile stores", "Tier distribution for the top Tmobile DMA"],
-    "output": "What is the tier distribution for the New York DMA, for only T-Mobile"
+    "input": ["What is the tier distribution for only T-Mobile stores","What is the Tier distribution for Tmobile", "Tier distribution for Tmobile"],
+    "output": "Show me how many T-Mobile stores there are for each tier"
   },
   {
-    "input": ["Show me the top DMA", "Whats the top DMA", "What is the top DMA",  "Show me the top DMA by sales"],
-    "output": "What is the top DMA by sales"
+    "input": ["What is the tier distribution for the New York DMA, for only T-Mobile","What is the Tier distribution for the top Tmobile DMA", "What is the Tier distribution for the top Tmobile DMA",  "What is the Tier distribution for the top DMA for Tmobile stores", "Tier distribution for the top Tmobile DMA"],
+    "output": "Show me how many T-Mobile stores there are for each strategic tier in New York"
   },
   {
-    "input": ["Show me the top DMA for Tmobile", "Whats the top DMA for Tmobile", "What is the top DMA for T-mobile",  "Show me the top Tmobile DMA by sales"],
-    "output": "What is the top DMA for T-Mobile by sales?"
+    "input": ["Show me the partner distribution", "What is the partner distribution", "partner distribution"],
+    "output": "Show me how many stores there are for each partner"
   },
   {
-    "input": ["Show me the top DMA for the top 100 Tmobile", "Whats the top DMA for the best 100 Tmobile stores", "What is the top DMA for the top 100 T-mobile stores",  "Show me the top DMA for the top 100 tmobile stores by sales"],
-    "output": "What is the top DMA of the top 100 T-Mobile stores by sales"
+    "input": ["Show me how many stores there are for each partner in the new york", "Show me the partner distribution for stores in the New York", "What is the partner distribution for NY", "What is NY's partner distribution"],
+    "output": "Show me how many stores there are for each partner in New York"
   },
   {
-    "input": ["Show me the top DMA for AT&T by growth", "Whats the top DMA ATT stores by growth potential", "What is AT&Ts top DMA for growth potential"],
-    "output": "What is the top DMA for ATT by growth potential"
+    "input": ["Show me how many stores there are for each partner in texas", "Show me the partner distribution for stores in Texas", "What is the partner distribution texas", "What is Texa's partner distribution"],
+    "output": "Show me how many stores there are for each partner in Texas"
   },
   {
-    "input": ["What is the partner distribution", "partner distribution"],
-    "output": "Show me the partner distribution"
+    "input": ["What's the average sales for tier 1", "Show me the average sales for Tier 1", "What is the average sales for tier1", "average sales tier1"],
+    "output": "What is the average sales for strategic tier 1"
   },
   {
-    "input": ["What is the partner distribution for Tmobile stores", "What is Tmobile's partner distribution"],
-    "output": "Show me the partner distribution for T-Mobile stores"
+    "input": ["What's the average sales for tier 2 in NY", "Show me the average sales for NY stores in Tier 2", "What is the average sales for Tier 2 stores in New York", "average sales tier2 stores in NY"],
+    "output": "What is the average sales for strategic tier 2 in New York"
   },
   {
-    "input": ["What is the partner distribution for NY", "What is NY's partner distribution"],
-    "output": "Show me the partner distribution for stores in the New York DMA"
+    "input": ["What is the average sales for each tier", "Show me the average sales for every tier", "What is the sales average by tier", "Show me average sales by tier"],
+    "output": "What is the average sales for each strategic tier"
+  },
+  {
+    "input": ["What is the total sales for each tier", "Show me the total sales for every tier", "What is the sales total by tier", "Show me total sales by tier"],
+    "output": "What is the total sales for each strategic tier"
+  },
+  {
+    "input": ["What's sales for cover vs uncovered stores for tier 1 ", "What are the covered vs uncovered sales for tier 1"],
+    "output": "What are the covered vs uncovered sales for strategic tier 1"
+  },
+  {
+    "input": ["What's the YOY sales for the top 100 tmobile stores", "What's the difference in sales between 2022 and 2023 for the top 100 tmobile stores"],
+    "output": "What is the YOY sales difference for T-Mobile stores"
+  },
+  {
+    "input": ["What's the YOY sales for the tier 1 stores ", "What's the difference in sales between 2022 and 2023 for stores in tier 1"],
+    "output": "What is the YOY sales difference for stores in strategic tier 1"
   },
   {
     "input": ["summarize"],
     "output": "summerization"
-    }] 
+  }
+  ] 

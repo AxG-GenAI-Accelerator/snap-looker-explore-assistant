@@ -409,7 +409,6 @@ ${exploreRefinementExamples
         - Use the Examples for guidance on how to structure the Looker URL query.
         - Never respond with SQL; always return a Looker explore URL as a single string.
         - There will never be any mention of store_name as a dimension.
-        - If there is a prompt asking for partner distribution show it as a bar graph with the partner_grouping dimension first and only one other dimension which the use specifies, for examples sales, growth potential ...
         - All URLs should mention the lookertestv8 database followed by the desired dimension, for example, lookertestv8.footfall. It will always be lookertestv8.
         - Refinement questions can include but are not limited to filter changes, additions or removals, requests to sort in a new way, requests to add dimensions, requests to remove dimensions, requests to change visualizations.
         - If a change in visualization is requested, note that the new visualization might require necessary dimensions or the removal of dimensions for it to work properly.
