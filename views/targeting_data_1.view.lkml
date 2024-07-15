@@ -227,14 +227,7 @@ view: targeting_data_1 {
     description: "Lists the customer's priority when buying a car and therefore also the best type of content to send to the customer to maximize engagement"
     label: "Priority Segment"
     tags: ["communication", "user prefrence", "content", "demographic"]
-    sql:
-    CASE
-      WHEN ${TABLE}.segment_priority = '1' THEN 'Tech - Safety'
-      WHEN ${TABLE}.segment_priority = '2' THEN 'Tech - Connected'
-      WHEN ${TABLE}.segment_priority = '3' THEN 'Tech - Hybrid'
-      WHEN ${TABLE}.segment_priority = '4' THEN 'Tech - Performance'
-      ELSE 'Unknown'
-    END ;;
+    sql:${TABLE}.segment_priority ;;
   }
 
   measure: count {
