@@ -96,11 +96,19 @@ view: targeting_data_1 {
   }
 
   dimension: segment_lifestyle {
-    type: number
+    type: string
     description: "Variable tracks the demographic segment. The numbers correlate to the following demographics: 1 'Retired', 2 'Urban Living', 3 'Family & Suburbs', 4 'Wealthy, Married, No Kids', 5 'Young & Single'."
     label: "Lifestyle Segment"
     tags: ["demographic", "lifestyle"]
-    sql: ${TABLE}.segment_lifestyle;;
+    sql:
+    CASE
+      WHEN ${TABLE}.segment_lifestyle = 1 THEN 'Retired'
+      WHEN ${TABLE}.segment_lifestyle = 2 THEN 'Urban Living'
+      WHEN ${TABLE}.segment_lifestyle = 3 THEN 'Family & Suburbs'
+      WHEN ${TABLE}.segment_lifestyle = 4 THEN 'Wealthy, Married, No Kids'
+      WHEN ${TABLE}.segment_lifestyle = 5 THEN 'Young & Single'
+      ELSE 'Unknown'
+    END ;;
   }
 
   dimension: segment_mindset {
