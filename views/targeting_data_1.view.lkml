@@ -117,17 +117,17 @@ view: targeting_data_1 {
   }
 
   dimension: segment_trigger {
-    type: number
+    type: string
     description: "Segmentation based on a trigger event that predicts the reason for why they are in market shopping"
     label: "Trigger Segment"
     tags: ["lifestyle","sales","demographic"]
     sql:
     CASE
-    WHEN ${TABLE}.segment_trigger = 1 THEN 'New Home'
-    WHEN ${TABLE}.segment_trigger = 2 THEN 'In Market Shopping'
-    WHEN ${TABLE}.segment_trigger = 3 THEN 'Outlier Service'
-    WHEN ${TABLE}.segment_trigger = 4 THEN 'Birth of Child'
-    ELSE 'Unknown'
+      WHEN ${TABLE}.segment_trigger = 1 THEN 'New Home'
+      WHEN ${TABLE}.segment_trigger = 2 THEN 'In Market Shopping'
+      WHEN ${TABLE}.segment_trigger = 3 THEN 'Outlier Service'
+      WHEN ${TABLE}.segment_trigger = 4 THEN 'Birth of Child'
+      ELSE 'Unknown'
     END ;;
   }
 
