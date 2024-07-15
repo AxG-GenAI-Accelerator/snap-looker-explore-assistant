@@ -28,7 +28,7 @@ view: targeting_data_1 {
   dimension: cltv_tier {
     type: number
     description: "Customer Lifetime Value tier based on historical vehicle purchase price"
-    label: "CLTV Tier"
+    label: "LTV Tier"
     tags: ["ltv", "customer value", "tier"]
     sql: ${TABLE}.CLTV_Tier ;;
     case: {
@@ -50,7 +50,7 @@ view: targeting_data_1 {
   dimension: pscore_service {
     type: number
     description: "Score that measures a customer's propensity or likelihood to engage with or require vehicle services.The lower numbers mean they are less likely and the higher numbers mean they are more likely."
-    label: "Service Score"
+    label: "Service Propensity Score"
     tags: ["propensity", "service"]
     sql: ${TABLE}.pscore_service ;;
   }
@@ -58,15 +58,15 @@ view: targeting_data_1 {
   dimension: pscore_tech {
     type: number
     description: "This score indicates a customer's inclination or likelihood to adopt or be interested in new technology features in vehicles. The lower numbers mean they are less likely and the higher numbers mean they are more likely."
-    label: "Tech Score"
+    label: "Tech Propensity Score"
     tags: ["propensity", "technology"]
     sql: ${TABLE}.pscore_tech ;;
   }
 
   dimension: pscore_ppm {
     type: number
-    description: "PPM propensity score"
-    label: "PPM indicate a customer's likelihood to engage in regular maintenance or their attention to vehicle performance details. The lower numbers mean they are less likely and the higher numbers mean they are more likely."
+    description: "PPM indicate a customer's likelihood to engage in regular maintenance or their attention to vehicle performance details. The lower numbers mean they are less likely and the higher numbers mean they are more likely."
+    label: "PPM Propensity Score"
     tags: ["propensity", "ppm"]
     sql: ${TABLE}.pscore_ppm ;;
   }
@@ -74,7 +74,7 @@ view: targeting_data_1 {
   dimension: pscore_accessories {
     type: number
     description: "This score indicates a customer's inclination to purchase or be interested in vehicle accessories.The lower numbers mean they are less likely and the higher numbers mean they are more likely."
-    label: "Accessories Score"
+    label: "Accessories Propensity Score"
     tags: ["propensity", "accessories"]
     sql: ${TABLE}.pscore_accessories ;;
   }
@@ -82,7 +82,7 @@ view: targeting_data_1 {
   dimension: pscore_product {
     type: number
     description: "This score indicates a customer's general interest in the product (vehicle) itself, likelihood to purchase new vehicles or upgrade their current one.The lower numbers mean they are less likely and the higher numbers mean they are more likely."
-    label: "Product Score"
+    label: "Product Propensity Score"
     tags: ["propensity", "product"]
     sql: ${TABLE}.pscore_product ;;
   }
@@ -90,7 +90,7 @@ view: targeting_data_1 {
   dimension: pscore_brand {
     type: number
     description: "This score indicates a customer's loyalty or affinity to a particular vehicle brand.The lower numbers mean they are less likely and the higher numbers mean they are more likely."
-    label: "Brand Score"
+    label: "Brand Propensity Score"
     tags: ["propensity", "brand"]
     sql: ${TABLE}.pscore_brand ;;
   }
