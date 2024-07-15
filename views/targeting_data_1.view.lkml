@@ -26,25 +26,17 @@ view: targeting_data_1 {
   }
 
   dimension: cltv_tier {
-    type: number
+    type: string
     description: "Customer Lifetime Value tier based on historical vehicle purchase price"
     label: "LTV Tier"
     tags: ["ltv", "customer value", "tier"]
-    sql: ${TABLE}.CLTV_Tier ;;
-    case: {
-      when: {
-        sql: ${TABLE}.CLTV_Tier = 1 ;;
-        label: "Low Value"
-      }
-      when: {
-        sql: ${TABLE}.CLTV_Tier = 2 ;;
-        label: "Average Value"
-      }
-      when: {
-        sql: ${TABLE}.CLTV_Tier = 3 ;;
-        label: "High Value"
-      }
-    }
+    sql:
+    CASE
+      WHEN ${TABLE}.CLTV_Tier = 1 THEN 'Low Value'
+      WHEN ${TABLE}.CLTV_Tier = 2 THEN 'Average Value'
+      WHEN ${TABLE}.CLTV_Tier = 3 THEN 'High Value'
+      ELSE 'Unknown'
+    END ;;
   }
 
   dimension: pscore_service {
@@ -112,21 +104,16 @@ view: targeting_data_1 {
   }
 
   dimension: segment_mindset {
-    type: number
+    type: string
     description: "Mindset segment used to determine the right way to communicate to the customer"
     label: "Mindset Segment"
     tags: ["communication","demographic","user prefrence"]
-    sql: ${TABLE}.segment_mindset ;;
-    case: {
-      when: {
-        sql: ${TABLE}.segment_mindset = 1 ;;
-        label: "Guide Me"
-      }
-      when: {
-        sql: ${TABLE}.segment_mindset = 2 ;;
-        label: "Show Me"
-      }
-    }
+    sql:
+    CASE
+      WHEN ${TABLE}.segment_mindset = 1 THEN 'Guide Me'
+      WHEN ${TABLE}.segment_mindset = 2 THEN 'Show Me'
+      ELSE 'Unknown'
+    END ;;
   }
 
   dimension: segment_trigger {
@@ -134,211 +121,120 @@ view: targeting_data_1 {
     description: "Segmentation based on a trigger event that predicts the reason for why they are in market shopping"
     label: "Trigger Segment"
     tags: ["lifestyle","sales","demographic"]
-    sql: ${TABLE}.segment_trigger ;;
-    case: {
-      when: {
-        sql: ${TABLE}.segment_trigger = 1 ;;
-        label: "New Home"
-      }
-      when: {
-        sql: ${TABLE}.segment_trigger = 2 ;;
-        label: "In Market Shopping"
-      }
-      when: {
-        sql: ${TABLE}.segment_trigger = 3 ;;
-        label: "Outlier Service"
-      }
-      when: {
-        sql: ${TABLE}.segment_trigger = 4 ;;
-        label: "Birth of Child"
-      }
-    }
+    sql:
+    CASE
+    WHEN ${TABLE}.segment_trigger = 1 THEN 'New Home'
+    WHEN ${TABLE}.segment_trigger = 2 THEN 'In Market Shopping'
+    WHEN ${TABLE}.segment_trigger = 3 THEN 'Outlier Service'
+    WHEN ${TABLE}.segment_trigger = 4 THEN 'Birth of Child'
+    ELSE 'Unknown'
+    END ;;
   }
 
   dimension: segment_email_dow {
-    type: number
+    type: string
     description: "Optimal day of the week to send email to the customer"
     label: "Email Day of Week"
-    tags: ["communication", "email","user prefrence","day of the week"]
-    sql: ${TABLE}.segment_email_dow ;;
-    case: {
-      when: {
-        sql: ${TABLE}.segment_email_dow = 1 ;;
-        label: "Sunday"
-      }
-      when: {
-        sql: ${TABLE}.segment_email_dow = 2 ;;
-        label: "Monday"
-      }
-      when: {
-        sql: ${TABLE}.segment_email_dow = 3 ;;
-        label: "Tuesday"
-      }
-      when: {
-        sql: ${TABLE}.segment_email_dow = 4 ;;
-        label: "Wednesday"
-      }
-      when: {
-        sql: ${TABLE}.segment_email_dow = 5 ;;
-        label: "Thursday"
-      }
-      when: {
-        sql: ${TABLE}.segment_email_dow = 6 ;;
-        label: "Friday"
-      }
-      when: {
-        sql: ${TABLE}.segment_email_dow = 7 ;;
-        label: "Saturday"
-      }
-    }
+    tags: ["communication", "email", "user prefrence", "day of the week"]
+    sql:
+    CASE
+      WHEN ${TABLE}.segment_email_dow = 1 THEN 'Sunday'
+      WHEN ${TABLE}.segment_email_dow = 2 THEN 'Monday'
+      WHEN ${TABLE}.segment_email_dow = 3 THEN 'Tuesday'
+      WHEN ${TABLE}.segment_email_dow = 4 THEN 'Wednesday'
+      WHEN ${TABLE}.segment_email_dow = 5 THEN 'Thursday'
+      WHEN ${TABLE}.segment_email_dow = 6 THEN 'Friday'
+      WHEN ${TABLE}.segment_email_dow = 7 THEN 'Saturday'
+      ELSE 'Unknown'
+    END ;;
   }
 
   dimension: segment_email_daypart {
-    type: number
+    type: string
     description: "Optimal time of day to send email to customer"
     label: "Email Daypart"
-    tags: ["communication", "email","user prefrence","time of day"]
-    sql: ${TABLE}.segment_email_daypart ;;
-    case: {
-      when: {
-        sql: ${TABLE}.segment_email_daypart = 1 ;;
-        label: "6 AM to 9 AM"
-      }
-      when: {
-        sql: ${TABLE}.segment_email_daypart = 2 ;;
-        label: "9 AM to 12 PM"
-      }
-      when: {
-        sql: ${TABLE}.segment_email_daypart = 3 ;;
-        label: "1 PM to 6 PM"
-      }
-      when: {
-        sql: ${TABLE}.segment_email_daypart = 4 ;;
-        label: "6 PM or later"
-      }
-    }
+    tags: ["communication", "email", "user prefrence", "time of day"]
+    sql:
+    CASE
+      WHEN ${TABLE}.segment_email_daypart = 1 THEN '6 AM to 9 AM'
+      WHEN ${TABLE}.segment_email_daypart = 2 THEN '9 AM to 12 PM'
+      WHEN ${TABLE}.segment_email_daypart = 3 THEN '1 PM to 6 PM'
+      WHEN ${TABLE}.segment_email_daypart = 4 THEN '6 PM or later'
+      ELSE 'Unknown'
+    END ;;
   }
 
   dimension: segment_email_frequency {
-    type: number
+    type: string
     description: "Number of emails sent per week over the last 12 months"
     label: "Email Frequency"
-    tags: ["communication", "email","user prefrence","frequency"]
-    sql: ${TABLE}.segment_email_frequency ;;
-    case: {
-      when: {
-        sql: ${TABLE}.segment_email_frequency = 1 ;;
-        label: "One Email a Week"
-      }
-      when: {
-        sql: ${TABLE}.segment_email_frequency = 2 ;;
-        label: "Two Emails a Week"
-      }
-      when: {
-        sql: ${TABLE}.segment_email_frequency = 3 ;;
-        label: "Three Emails a Week"
-      }
-      when: {
-        sql: ${TABLE}.segment_email_frequency = 4 ;;
-        label: "Four to Eight Emails a Week"
-      }
-    }
+    tags: ["communication", "email", "user prefrence", "frequency"]
+    sql:
+    CASE
+      WHEN ${TABLE}.segment_email_frequency = 1 THEN 'One Email a Week'
+      WHEN ${TABLE}.segment_email_frequency = 2 THEN 'Two Emails a Week'
+      WHEN ${TABLE}.segment_email_frequency = 3 THEN 'Three Emails a Week'
+      WHEN ${TABLE}.segment_email_frequency = 4 THEN 'Four to Eight Emails a Week'
+      ELSE 'Unknown'
+    END ;;
   }
 
   dimension: segment_life_cycle {
-    type: number
+    type: string
     description: "Tracks the vehicle life cycle from new owner to back in market for a new car."
     label: "Life Cycle Segment"
     tags: ["customer journey", "vehicle"]
-    sql: ${TABLE}.segment_life_cycle ;;
-    case: {
-      when: {
-        sql: ${TABLE}.segment_life_cycle = 1 ;;
-        label: "New Owner"
-      }
-      when: {
-        sql: ${TABLE}.segment_life_cycle = 2 ;;
-        label: "Bonding"
-      }
-      when: {
-        sql: ${TABLE}.segment_life_cycle = 3 ;;
-        label: "Experience"
-      }
-      when: {
-        sql: ${TABLE}.segment_life_cycle = 4 ;;
-        label: "Back In Market"
-      }
-    }
+    sql:
+    CASE
+      WHEN ${TABLE}.segment_life_cycle = 1 THEN 'New Owner'
+      WHEN ${TABLE}.segment_life_cycle = 2 THEN 'Bonding'
+      WHEN ${TABLE}.segment_life_cycle = 3 THEN 'Experience'
+      WHEN ${TABLE}.segment_life_cycle = 4 THEN 'Back In Market'
+      ELSE 'Unknown'
+    END ;;
   }
 
   dimension: segment_channel {
-    type: number
+    type: string
     description: "Identifies the best marketing channel for the customer"
     label: "Channel Segment"
-    tags: ["communication","channel","user prefrence"]
-    sql: ${TABLE}.segment_channel ;;
-    case: {
-      when: {
-        sql: ${TABLE}.segment_channel = 1 ;;
-        label: "SMS"
-      }
-      when: {
-        sql: ${TABLE}.segment_channel = 2 ;;
-        label: "DM"
-      }
-      when: {
-        sql: ${TABLE}.segment_channel = 3 ;;
-        label: "EM"
-      }
-    }
+    tags: ["communication", "channel", "user prefrence"]
+    sql:
+    CASE
+      WHEN ${TABLE}.segment_channel = 1 THEN 'SMS'
+      WHEN ${TABLE}.segment_channel = 2 THEN 'DM'
+      WHEN ${TABLE}.segment_channel = 3 THEN 'EM'
+      ELSE 'Unknown'
+    END ;;
   }
 
   dimension: segment_loe {
-    type: number
+    type: string
     description: "Tracks the trend in engagement with marketing communications"
     label: "Level of Engagement"
-    tags: ["communication","engagement","user prefrence"]
-    sql: ${TABLE}.segment_LOE ;;
-    case: {
-      when: {
-        sql: ${TABLE}.segment_LOE = 1 ;;
-        label: "Declining"
-      }
-      when: {
-        sql: ${TABLE}.segment_LOE = 2 ;;
-        label: "Stable"
-      }
-      when: {
-        sql: ${TABLE}.segment_LOE = 3 ;;
-        label: "Increasing"
-      }
-    }
+    tags: ["communication", "engagement", "user prefrence"]
+    sql:
+    CASE
+      WHEN ${TABLE}.segment_LOE = 1 THEN 'Declining'
+      WHEN ${TABLE}.segment_LOE = 2 THEN 'Stable'
+      WHEN ${TABLE}.segment_LOE = 3 THEN 'Increasing'
+      ELSE 'Unknown'
+    END ;;
   }
 
   dimension: segment_priority {
     type: string
-    description: "Lists the customer's priority when buying a car and therefore also the best type of content to send to the customer to maxmize engagement"
+    description: "Lists the customer's priority when buying a car and therefore also the best type of content to send to the customer to maximize engagement"
     label: "Priority Segment"
-    tags: ["communication","user prefrence","content","demographic"]
-    sql: ${TABLE}.segment_priority ;;
-    case: {
-      when: {
-        sql: ${TABLE}.segment_priority = '1' ;;
-        label: "Tech - Safety"
-      }
-      when: {
-        sql: ${TABLE}.segment_priority = '2' ;;
-        label: "Tech - Connected"
-      }
-      when: {
-        sql: ${TABLE}.segment_priority = '3' ;;
-        label: "Tech - Hybrid"
-      }
-      when: {
-        sql: ${TABLE}.segment_priority = '4' ;;
-        label: "Tech - Performance"
-      }
-    }
+    tags: ["communication", "user prefrence", "content", "demographic"]
+    sql:
+    CASE
+      WHEN ${TABLE}.segment_priority = '1' THEN 'Tech - Safety'
+      WHEN ${TABLE}.segment_priority = '2' THEN 'Tech - Connected'
+      WHEN ${TABLE}.segment_priority = '3' THEN 'Tech - Hybrid'
+      WHEN ${TABLE}.segment_priority = '4' THEN 'Tech - Performance'
+      ELSE 'Unknown'
+    END ;;
   }
 
   measure: count {
