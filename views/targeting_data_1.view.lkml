@@ -3,9 +3,9 @@ view: targeting_data_1 {
 
   dimension: pid {
     type: number
-    description: "Unique identifier for the customer"
+    description: "User ID used to identify the customer"
     label: "Customer ID"
-    tags: ["customer"]
+    tags: ["customerID"]
     sql: ${TABLE}.pid ;;
   }
 
@@ -19,7 +19,7 @@ view: targeting_data_1 {
 
   dimension: vehicle {
     type: string
-    description: "Vehicle model"
+    description: "The type of vehicle"
     label: "Vehicle"
     tags: ["vehicle"]
     sql: ${TABLE}.vehicle ;;
@@ -29,7 +29,7 @@ view: targeting_data_1 {
     type: number
     description: "Customer Lifetime Value tier based on historical vehicle purchase price"
     label: "CLTV Tier"
-    tags: ["cltv", "customer value"]
+    tags: ["ltv", "customer value", "tier"]
     sql: ${TABLE}.CLTV_Tier ;;
     case: {
       when: {
@@ -49,7 +49,7 @@ view: targeting_data_1 {
 
   dimension: pscore_service {
     type: number
-    description: "Service propensity score"
+    description: "Score that measures a customer's propensity or likelihood to engage with or require vehicle services.The lower numbers mean they are less likely and the higher numbers mean they are more likely."
     label: "Service Score"
     tags: ["propensity", "service"]
     sql: ${TABLE}.pscore_service ;;
@@ -57,7 +57,7 @@ view: targeting_data_1 {
 
   dimension: pscore_tech {
     type: number
-    description: "Technology propensity score"
+    description: "This score indicates a customer's inclination or likelihood to adopt or be interested in new technology features in vehicles. The lower numbers mean they are less likely and the higher numbers mean they are more likely."
     label: "Tech Score"
     tags: ["propensity", "technology"]
     sql: ${TABLE}.pscore_tech ;;
@@ -66,14 +66,14 @@ view: targeting_data_1 {
   dimension: pscore_ppm {
     type: number
     description: "PPM propensity score"
-    label: "PPM Score"
+    label: "PPM indicate a customer's likelihood to engage in regular maintenance or their attention to vehicle performance details. The lower numbers mean they are less likely and the higher numbers mean they are more likely."
     tags: ["propensity", "ppm"]
     sql: ${TABLE}.pscore_ppm ;;
   }
 
   dimension: pscore_accessories {
     type: number
-    description: "Accessories propensity score"
+    description: "This score indicates a customer's inclination to purchase or be interested in vehicle accessories.The lower numbers mean they are less likely and the higher numbers mean they are more likely."
     label: "Accessories Score"
     tags: ["propensity", "accessories"]
     sql: ${TABLE}.pscore_accessories ;;
@@ -81,7 +81,7 @@ view: targeting_data_1 {
 
   dimension: pscore_product {
     type: number
-    description: "Product propensity score"
+    description: "This score indicates a customer's general interest in the product (vehicle) itself, likelihood to purchase new vehicles or upgrade their current one.The lower numbers mean they are less likely and the higher numbers mean they are more likely."
     label: "Product Score"
     tags: ["propensity", "product"]
     sql: ${TABLE}.pscore_product ;;
@@ -89,7 +89,7 @@ view: targeting_data_1 {
 
   dimension: pscore_brand {
     type: number
-    description: "Brand propensity score"
+    description: "This score indicates a customer's loyalty or affinity to a particular vehicle brand.The lower numbers mean they are less likely and the higher numbers mean they are more likely."
     label: "Brand Score"
     tags: ["propensity", "brand"]
     sql: ${TABLE}.pscore_brand ;;
@@ -97,9 +97,9 @@ view: targeting_data_1 {
 
   dimension: segment_lifestyle {
     type: number
-    description: "Demographic lifestyle segment"
+    description: "Variable tracks the demographic segment.The numbers correlate to the following demographics 1 'Retired', 2 'Urban Living', 3 'Family & Suburbs', 4 'Wealthy, Married, No Kids', 5 'Young & Single'."
     label: "Lifestyle Segment"
-    tags: ["demographics", "lifestyle"]
+    tags: ["demographic", "lifestyle"]
     sql: ${TABLE}.segment_lifestyle ;;
     case: {
       when: {
@@ -129,7 +129,7 @@ view: targeting_data_1 {
     type: number
     description: "Mindset segment used to determine the right way to communicate to the customer"
     label: "Mindset Segment"
-    tags: ["communication", "marketing"]
+    tags: ["communication","demographic","user prefrence"]
     sql: ${TABLE}.segment_mindset ;;
     case: {
       when: {
@@ -145,9 +145,9 @@ view: targeting_data_1 {
 
   dimension: segment_trigger {
     type: number
-    description: "Segmentation based on a trigger event that predicts likelihood to be in market shopping"
+    description: "Segmentation based on a trigger event that predicts the reason for why they are in market shopping"
     label: "Trigger Segment"
-    tags: ["marketing", "sales"]
+    tags: ["lifestyle","sales","demographic"]
     sql: ${TABLE}.segment_trigger ;;
     case: {
       when: {
@@ -173,7 +173,7 @@ view: targeting_data_1 {
     type: number
     description: "Optimal day of the week to send email to the customer"
     label: "Email Day of Week"
-    tags: ["email", "marketing"]
+    tags: ["communication", "email","user prefrence","day of the week"]
     sql: ${TABLE}.segment_email_dow ;;
     case: {
       when: {
@@ -209,9 +209,9 @@ view: targeting_data_1 {
 
   dimension: segment_email_daypart {
     type: number
-    description: "Optimal time of day to send email"
+    description: "Optimal time of day to send email to customer"
     label: "Email Daypart"
-    tags: ["email", "marketing"]
+    tags: ["communication", "email","user prefrence","time of day"]
     sql: ${TABLE}.segment_email_daypart ;;
     case: {
       when: {
@@ -237,7 +237,7 @@ view: targeting_data_1 {
     type: number
     description: "Number of emails sent per week over the last 12 months"
     label: "Email Frequency"
-    tags: ["email", "marketing"]
+    tags: ["communication", "email","user prefrence","frequency"]
     sql: ${TABLE}.segment_email_frequency ;;
     case: {
       when: {
@@ -261,7 +261,7 @@ view: targeting_data_1 {
 
   dimension: segment_life_cycle {
     type: number
-    description: "Tracks the vehicle life cycle from new owner to back in market for a new car"
+    description: "Tracks the vehicle life cycle from new owner to back in market for a new car."
     label: "Life Cycle Segment"
     tags: ["customer journey", "vehicle"]
     sql: ${TABLE}.segment_life_cycle ;;
@@ -289,7 +289,7 @@ view: targeting_data_1 {
     type: number
     description: "Identifies the best marketing channel for the customer"
     label: "Channel Segment"
-    tags: ["marketing", "channel"]
+    tags: ["communication","channel","user prefrence"]
     sql: ${TABLE}.segment_channel ;;
     case: {
       when: {
@@ -311,7 +311,7 @@ view: targeting_data_1 {
     type: number
     description: "Tracks the trend in engagement with marketing communications"
     label: "Level of Engagement"
-    tags: ["engagement", "marketing"]
+    tags: ["communication","engagement","user prefrence"]
     sql: ${TABLE}.segment_LOE ;;
     case: {
       when: {
@@ -331,9 +331,9 @@ view: targeting_data_1 {
 
   dimension: segment_priority {
     type: string
-    description: "Identifies the best type of content for the customer"
+    description: "Lists the customer's priority when buying a car and therefore also the best type of content to send to the customer to maxmize engagement"
     label: "Priority Segment"
-    tags: ["content", "marketing"]
+    tags: ["communication","user prefrence","content","demographic"]
     sql: ${TABLE}.segment_priority ;;
     case: {
       when: {
