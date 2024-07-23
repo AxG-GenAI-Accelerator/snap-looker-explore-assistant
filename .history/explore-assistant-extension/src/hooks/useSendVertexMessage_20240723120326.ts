@@ -114,6 +114,7 @@ const useSendVertexMessage = () => {
             // clean up the data by removing backticks
             const cleanExploreData = exploreData.replace(/```json/g, '').replace(/```/g, '').trim();
             console.log('Clean explore data:', cleanExploreData);
+  //trying to force output
             return cleanExploreData;
           } else {
             console.error('Invalid run_sql_query response:', runSQLQuery);
@@ -406,6 +407,7 @@ ${exploreRefinementExamples
       const cleanResponse = unquoteResponse(response)
       console.log('Cleaned response:', cleanResponse)
       const newExploreUrl = cleanResponse + '&toggle=dat,pik,vis'
+      //RG Testing const newExploreUrl = "fields=lookertestv8.store_name,lookertestv8.store_id,lookertestv8.dma,lookertestv8.past_pixel_sales_unit&sorts=lookertestv8.past_pixel_sales_unit desc&limit=100&column_limit=3&vis={\"type\":\"looker_grid\"}&toggle=dat,pik,vis"
 
       // Check if the fields in the newExploreUrl exist in the metadata parameters
       const fieldsInUrl = new URLSearchParams(newExploreUrl).get('fields')?.split(',') || []
