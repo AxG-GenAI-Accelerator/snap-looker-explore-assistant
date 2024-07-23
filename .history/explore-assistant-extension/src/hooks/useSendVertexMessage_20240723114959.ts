@@ -116,6 +116,7 @@ const useSendVertexMessage = () => {
             // clean up the data by removing backticks
             const cleanExploreData = exploreData.replace(/```json/g, '').replace(/```/g, '').trim();
             console.log('Clean explore data:', cleanExploreData);
+  //trying to force output
             return cleanExploreData;
           } else {
             console.error('Invalid run_sql_query response:', runSQLQuery);
@@ -134,7 +135,55 @@ const useSendVertexMessage = () => {
       throw error;
     }
   };
-  
+ /*og
+  const vertextBigQuery = async (
+    contents: string,
+    parameters: ModelParameters,
+  ) => {
+    try {
+      console.log('Generated SQL query:', generateSQL(VERTEX_BIGQUERY_MODEL_ID, contents, parameters));
+
+      const createSQLQuery = await core40SDK.ok(
+        core40SDK.create_sql_query({
+          connection_name: VERTEX_BIGQUERY_LOOKER_CONNECTION_NAME,
+          sql: generateSQL(VERTEX_BIGQUERY_MODEL_ID, contents, parameters),
+        }),
+      );
+
+      console.log('create_sql_query slug:', createSQLQuery.slug);
+
+      if (createSQLQuery.slug) {
+        const runSQLQuery = await core40SDK.ok(
+          core40SDK.run_sql_query(createSQLQuery.slug, 'json'),
+        );
+       //THIS IS WHERE ERROR OCCURS IN RAW SCRIPT
+      const exploreData = await runSQLQuery[0]['generated_content']
+
+        // clean up the data by removing backticks
+        const cleanExploreData = exploreData.replace(/```json/g, '').replace(/```/g, '').trim();
+      console.log("clean explore data", cleanExploreData)
+
+        return cleanExploreData;
+      } else {
+        console.error('createSQLQuery.slug is undefined or empty');
+        throw new Error('Failed to create SQL query');
+      }
+      
+     
+
+      //const exploreData = 'https://accenture.looker.com/explore/lookertestv8/lookertestv8/ice_store_performance?fields\u003dlookertestv8.ice_store_id,lookertestv8.city,lookertestv8.latitude,lookertestv8.longitude\u0026sorts\u003dlookertestv8.past_pixel_sales__percentile_'
+      //'https://accenture.looker.com/explore/lookertestv8/lookertestv8/stores?fields\u003dlookertestv8.ice_store_id,lookertestv8.city\u0026sorts\u003dlookertestv8.count%20desc\u0026limit\u003d5' /*await runSQLQuery[0]['generated_content']
+      
+
+      //const cleanExploreData = exploreData.replace(/```json/g, '').replace(/```/g, '').trim();
+      //console.log("clean explore data", cleanExploreData)
+    //return cleanExploreData
+    } catch (error) {
+      console.error('Error in vertextBigQuery:', error);
+      throw error;
+    }
+  }
+*/
   const vertextCloudFunction = async (
     contents: string,
     parameters: ModelParameters,
@@ -354,19 +403,31 @@ ${exploreRefinementExamples
         Context
         ----------
     
-        You are a developer who would transalate questions to a structured Looker URL query based on the following instructions.
+<<<<<<< HEAD
+        You are a developer who would translate questions to a structured Looker URL query based on the following instructions.
+        
+        Instructions:
+          - choose only the fields in the below lookml metadata
+          - prioritize the field description, label, tags, and name for what field(s) to use for a given description
+          - generate only one answer, no more.
+          - use the Examples for guidance on how to structure the Looker url query
+          - never respond with sql, always return a looker explore url as a single string
+    
+=======
+        You are a developer who translates conversational questions into structured Looker URL queries based on the following instructions. The user can ask new questions or refine their previous questions by giving more context. This can require the addition or removal of dimensions. You are a very smart observer that will look at one such question and determine whether the user is asking for a data summary or whether they are continuing to refine their question.
         
         Instructions:
         - Choose only the fields in the provided LookML metadata.
         - Prioritize the field description, label, tags, and name for what field(s) to use for a given description.
         - Generate only one answer, no more.
-        - use the Examples (at the bottom) for guidance on how to structure the Looker url query
-        - Never respond with SQL, always return a Looker explore URL as a single string.
-        - try to avoid adding dynamic_fields, provide them when very similar example is found in the bottom
-        - response should start with fields= , as in the Examples section at the bottom  
+        - Use the Examples for guidance on how to structure the Looker URL query.
+        - Never respond with SQL; always return a Looker explore URL as a single string.
+        - All URLs should mention the lookertestv8 database followed by the desired dimension, for example, lookertestv8.footfall. It will always be lookertestv8.
+        - Refinement questions can include but are not limited to filter changes, additions or removals, requests to sort in a new way, requests to add dimensions, requests to remove dimensions, requests to change visualizations.
         - If a change in visualization is requested, note that the new visualization might require necessary dimensions or the removal of dimensions for it to work properly.
         - If a specific visualization is mentioned, prioritize that and adjust the URL query accordingly to ensure the visualization works.
       
+>>>>>>> c093d033e0b6f4c769a67b47f750875ca6fc74b4
         LookML Metadata
         ----------
     
@@ -408,6 +469,7 @@ ${exploreRefinementExamples
       const cleanResponse = unquoteResponse(response)
       console.log('Cleaned response:', cleanResponse)
       const newExploreUrl = cleanResponse + '&toggle=dat,pik,vis'
+      //RG Testing const newExploreUrl = "fields=lookertestv8.store_name,lookertestv8.store_id,lookertestv8.dma,lookertestv8.past_pixel_sales_unit&sorts=lookertestv8.past_pixel_sales_unit desc&limit=100&column_limit=3&vis={\"type\":\"looker_grid\"}&toggle=dat,pik,vis"
 
       // Check if the fields in the newExploreUrl exist in the metadata parameters
       const fieldsInUrl = new URLSearchParams(newExploreUrl).get('fields')?.split(',') || []
@@ -425,19 +487,16 @@ ${exploreRefinementExamples
           The previous query contained invalid fields: ${invalidFields.join(', ')}. Please generate a new URL without these fields.
           
           Context
-        ----------
-    
-        You are a developer who would transalate questions to a structured Looker URL query based on the following instructions.
-        
-        Instructions:
-        - Choose only the fields in the provided LookML metadata.
-        - Prioritize the field description, label, tags, and name for what field(s) to use for a given description.
-        - Generate only one answer, no more.
-        - use the Examples (at the bottom) for guidance on how to structure the Looker url query
-        - Never respond with SQL, always return a Looker explore URL as a single string.
-        - try to avoid adding dynamic_fields, provide them when very similar example is found in the bottom
-        - response should start with fields= , as in the Examples section at the bottom  
-
+          ----------
+          
+          You are a developer who would translate questions to a structured Looker URL query based on the following instructions.
+          
+          Instructions:
+            - choose only the fields in the below lookml metadata
+            - prioritize the field description, label, tags, and name for what field(s) to use for a given description
+            - generate only one answer, no more.
+            - use the Examples for guidance on how to structure the Looker url query
+            - never respond with sql, always return a looker explore url as a single string
           
           LookML Metadata
           ----------
