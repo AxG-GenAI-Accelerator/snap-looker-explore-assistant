@@ -1,4 +1,0 @@
-[{
-  "input": "Show me all of my data",
-  "output": "fields=brand_funnel.country,brand_funnel.brand,brand_funnel.cohort,brand_funnel.month,brand_funnel.UA,brand_funnel.UC,brand_funnel.UPI,brand_funnel.favorability&sorts=brand_funnel.Month asc"
-}]
