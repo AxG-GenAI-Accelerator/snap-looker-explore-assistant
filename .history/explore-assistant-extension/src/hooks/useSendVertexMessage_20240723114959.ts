@@ -43,16 +43,18 @@ const generateSQL = (
 function formatContent(field: {
   name?: string
   type?: string
+  label?: string
   description?: string
   tags?: string[]
 }) {
   let result = ''
   if (field.name) result += 'name: ' + field.name
   if (field.type) result += (result ? ', ' : '') + 'type: ' + field.type
+  if (field.label) result += (result ? ', ' : '') + 'label: ' + field.label
   if (field.description)
     result += (result ? ', ' : '') + 'description: ' + field.description
   if (field.tags && field.tags.length)
-    result += (result ? ', ' : '') + 'tags: ' + field.tags.join(',')
+    result += (result ? ', ' : '') + 'tags: ' + field.tags.join(', ')
 
   return result
 }
@@ -277,20 +279,19 @@ ${exploreRefinementExamples
       Primer
       ----------
 
-      A user is interacting with an agent that is translating questions to a structured URL query based on the following dictionary. The user is refining his questions by adding more context. You are a very smart observer that will look at one such question and determine whether the user is asking for a data summary, or whether they are continuing to refine their question.
-  
+      A user is interacting with an agent that is translating questions to a structured URL query based on the following dictionary. The user is refining his questions by adding more context. You are a very smart observer that will look at one such question and determine whether the user is asking for a data export/sumamry, or whether they are continuing to refine their question.
+
       Task
       ----------
       Determine if the user is asking for a data summary or continuing to refine their question. If they are asking for a summary, they might say things like:
-      
+
       - summarize the data
-      - give me the data
-      - data summary
-      - tell me more about it
-      - explain to me what's going on
       - summarization
       - summarize
       - summary
+      - export
+      - export ids
+    
       
       The user said:
 
@@ -402,15 +403,31 @@ ${exploreRefinementExamples
         Context
         ----------
     
-        You are a developer who would transalate questions to a structured Looker URL query based on the following instructions.
+<<<<<<< HEAD
+        You are a developer who would translate questions to a structured Looker URL query based on the following instructions.
         
         Instructions:
           - choose only the fields in the below lookml metadata
           - prioritize the field description, label, tags, and name for what field(s) to use for a given description
           - generate only one answer, no more.
           - use the Examples for guidance on how to structure the Looker url query
-          - never respond with sql, always return an looker explore url as a single string
+          - never respond with sql, always return a looker explore url as a single string
     
+=======
+        You are a developer who translates conversational questions into structured Looker URL queries based on the following instructions. The user can ask new questions or refine their previous questions by giving more context. This can require the addition or removal of dimensions. You are a very smart observer that will look at one such question and determine whether the user is asking for a data summary or whether they are continuing to refine their question.
+        
+        Instructions:
+        - Choose only the fields in the provided LookML metadata.
+        - Prioritize the field description, label, tags, and name for what field(s) to use for a given description.
+        - Generate only one answer, no more.
+        - Use the Examples for guidance on how to structure the Looker URL query.
+        - Never respond with SQL; always return a Looker explore URL as a single string.
+        - All URLs should mention the lookertestv8 database followed by the desired dimension, for example, lookertestv8.footfall. It will always be lookertestv8.
+        - Refinement questions can include but are not limited to filter changes, additions or removals, requests to sort in a new way, requests to add dimensions, requests to remove dimensions, requests to change visualizations.
+        - If a change in visualization is requested, note that the new visualization might require necessary dimensions or the removal of dimensions for it to work properly.
+        - If a specific visualization is mentioned, prioritize that and adjust the URL query accordingly to ensure the visualization works.
+      
+>>>>>>> c093d033e0b6f4c769a67b47f750875ca6fc74b4
         LookML Metadata
         ----------
     
@@ -431,29 +448,93 @@ ${exploreRefinementExamples
             `input: "${item.input}" ; output: ${item.output}`,
         )
         .join('\n')}
-
+  
         Input
         ----------
         ${prompt}
-
+  
     
         Output
         ----------
     `
       const parameters = {
-        max_output_tokens: 2000,
+        max_output_tokens: 1000,
       }
-      console.log(contents)
+      console.log('Generated contents for sendMessage:', contents)
       const response = await sendMessage(contents, parameters)
-
+  
       const unquoteResponse = (response: string) => {
         return response.substring(response.indexOf("fields=")).replace(/^`+|`+$/g, '').trim()
       }
       const cleanResponse = unquoteResponse(response)
-      console.log('Clean Response: ', cleanResponse)
+      console.log('Cleaned response:', cleanResponse)
       const newExploreUrl = cleanResponse + '&toggle=dat,pik,vis'
-      console.log('newExploreUrl:', newExploreUrl)
+      //RG Testing const newExploreUrl = "fields=lookertestv8.store_name,lookertestv8.store_id,lookertestv8.dma,lookertestv8.past_pixel_sales_unit&sorts=lookertestv8.past_pixel_sales_unit desc&limit=100&column_limit=3&vis={\"type\":\"looker_grid\"}&toggle=dat,pik,vis"
 
+      // Check if the fields in the newExploreUrl exist in the metadata parameters
+      const fieldsInUrl = new URLSearchParams(newExploreUrl).get('fields')?.split(',') || []
+      const allFields = [...dimensions, ...measures].map(field => field.name)
+      const invalidFields = fieldsInUrl.filter(field => !allFields.includes(field))
+  
+      console.log('Fields in URL:', fieldsInUrl)
+      console.log('All valid fields:', allFields)
+      console.log('Invalid fields:', invalidFields)
+  
+      if (invalidFields.length > 0) {
+        console.log('Found invalid fields, generating a new URL...')
+        // If there are invalid fields, generate a new URL without those fields
+        const updatedPrompt = `
+          The previous query contained invalid fields: ${invalidFields.join(', ')}. Please generate a new URL without these fields.
+          
+          Context
+          ----------
+          
+          You are a developer who would translate questions to a structured Looker URL query based on the following instructions.
+          
+          Instructions:
+            - choose only the fields in the below lookml metadata
+            - prioritize the field description, label, tags, and name for what field(s) to use for a given description
+            - generate only one answer, no more.
+            - use the Examples for guidance on how to structure the Looker url query
+            - never respond with sql, always return a looker explore url as a single string
+          
+          LookML Metadata
+          ----------
+          
+          Dimensions Used to group by information (follow the instructions in tags when using a specific field; if map used include a location or lat long dimension;):
+            
+        ${dimensions.map(formatContent).join('\n')}
+            
+          Measures are used to perform calculations (if top, bottom, total, sum, etc. are used include a measure):
+          
+        ${measures.map(formatContent).join('\n')}
+          
+          Example
+          ----------
+          
+        ${exploreGenerationExamples
+          .map(
+            (item) =>
+              `input: "${item.input}" ; output: ${item.output}`,
+          )
+          .join('\n')}
+  
+          Input
+          ----------
+          ${prompt}
+  
+          
+          Output
+          ----------
+        `
+        console.log('Updated prompt for invalid fields:', updatedPrompt)
+        const updatedResponse = await sendMessage(updatedPrompt, parameters)
+        const cleanUpdatedResponse = unquoteResponse(updatedResponse)
+        console.log('Updated response:', cleanUpdatedResponse)
+        return cleanUpdatedResponse + '&toggle=dat,pik,vis'
+      }
+  
+      console.log('All fields are valid, returning newExploreUrl:', newExploreUrl)
       return newExploreUrl
     },
     [dimensions, measures, exploreGenerationExamples],
