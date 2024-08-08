@@ -8,7 +8,7 @@ terraform.tfstate*
 *.tfstate
 .venv
 node_modules
-
+.history
 .vertex_cf_auth_token
 dist
 
