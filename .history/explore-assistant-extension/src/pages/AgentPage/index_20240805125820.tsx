@@ -121,17 +121,18 @@ const AgentPage = () => {
   console.log( "measure length: ",measures.length )
   console.log( "example length: ",examples.exploreGenerationExamples.length)
   console.log( "refine length: ",examples.exploreRefinementExamples.length)
-  
-  console.log("Dimensions:", dimensions)
-  console.log("Measures: ",  measures)
-console.log("exploreGenerationExamples: ", examples.exploreGenerationExamples)
-console.log("exploreRefinementExamples: ", examples.exploreRefinementExamples)
+
+
+  console.log(dimensions)
+  console.log(measures)
+console.log(examples.exploreGenerationExamples)
+console.log(examples.exploreRefinementExamples)
 
   const isAgentReady =
     dimensions.length > 0 &&
-    measures.length > 0 &&
-    examples.exploreGenerationExamples.length > 0 &&
-    examples.exploreRefinementExamples.length > 0
+    measures.length > 0 //&&
+    //examples.exploreGenerationExamples.length > 0 &&
+    //examples.exploreRefinementExamples.length > 0
 
   if (!isAgentReady) {
     return (

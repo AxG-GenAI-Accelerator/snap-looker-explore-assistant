@@ -53,8 +53,13 @@ export const useBigQueryExamples = () => {
         WHERE explore_id = '${LOOKER_MODEL}:${LOOKER_EXPLORE}'
     `
     return runExampleQuery(sql).then((response) => {
-      const generationExamples = JSON.parse(response[0]['examples'])
-      dispatch(setExploreGenerationExamples(generationExamples))
+      const generationExamples = response.flatMap((row) => {
+        if (row['examples']) {
+          return JSON.parse(row['examples']);
+        }
+        return [];
+      });
+      dispatch(setExploreGenerationExamples(generationExamples));
     }).catch((error) => showBoundary(error))
   }
 
@@ -66,10 +71,15 @@ export const useBigQueryExamples = () => {
       \`${datasetName}.explore_assistant_refinement_examples\`
       WHERE explore_id = '${LOOKER_MODEL}:${LOOKER_EXPLORE}'
   `
-    return runExampleQuery(sql).then((response) => {
-      const refinementExamples = JSON.parse(response[0]['examples'])
-      dispatch(setExploreRefinementExamples(refinementExamples))
-    }).catch((error) => showBoundary(error))
+  return runExampleQuery(sql).then((response) => {
+    const refinementExamples = response.flatMap((row) => {
+      if (row['examples']) {
+        return JSON.parse(row['examples']);
+      }
+      return [];
+    });
+    dispatch(setExploreRefinementExamples(refinementExamples));
+  }).catch((error) => showBoundary(error))
   }
 
   // get the example prompts
