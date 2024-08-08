@@ -86,6 +86,9 @@ const useSendVertexMessage = () => {
     contents: string,
     parameters: ModelParameters,
   ) => {
+    console.log('VERTEX BQ Connection:', VERTEX_BIGQUERY_LOOKER_CONNECTION_NAME);
+    console.log('VERTEX BQ Model:', VERTEX_BIGQUERY_MODEL_ID);
+  
     const createSQLQuery = await core40SDK.ok(
       core40SDK.create_sql_query({
         connection_name: VERTEX_BIGQUERY_LOOKER_CONNECTION_NAME,
@@ -104,6 +107,8 @@ const useSendVertexMessage = () => {
         .replace(/```json/g, '')
         .replace(/```/g, '')
         .trim()
+        console.log('Clean explore data:', cleanExploreData);
+
 
       return cleanExploreData
     }
@@ -264,7 +269,7 @@ ${exploreRefinementExamples
         }
       })
 
-      console.log(params)
+      console.log("useSendVertexMessage summarizeExplore params: ", params)
 
       // get the contents of the explore query
       const createQuery = await core40SDK.ok(
@@ -366,7 +371,7 @@ ${exploreRefinementExamples
       const parameters = {
         max_output_tokens: 1000,
       }
-      console.log(contents)
+      console.log("useSendVertexMessage Contents: ", contents)
       const response = await sendMessage(contents, parameters)
 
       const unquoteResponse = (response: string) => {
@@ -376,7 +381,7 @@ ${exploreRefinementExamples
           .trim()
       }
       const cleanResponse = unquoteResponse(response)
-      console.log(cleanResponse)
+      console.log("cleanResponse: ", cleanResponse)
 
       let toggleString = '&toggle=dat,pik,vis'
       if(settings['show_explore_data'].value) {
@@ -385,7 +390,69 @@ ${exploreRefinementExamples
 
       const newExploreUrl = cleanResponse + toggleString
 
+// Check if the fields in the newExploreUrl exist in the metadata parameters
+const fieldsInUrl = new URLSearchParams(newExploreUrl).get('fields')?.split(',') || []
+const allFields = [...dimensions, ...measures].map(field => field.name)
+const invalidFields = fieldsInUrl.filter(field => !allFields.includes(field))
 
+console.log('Fields in URL:', fieldsInUrl)
+console.log('All valid fields:', allFields)
+console.log('Invalid fields:', invalidFields)
+
+if (invalidFields.length > 0) {
+  console.log('Found invalid fields, generating a new URL...')
+  // If there are invalid fields, generate a new URL without those fields
+  const updatedPrompt = `
+    The previous query contained invalid fields: ${invalidFields.join(', ')}. Please generate a new URL without these fields.
+          
+ Context
+        ----------
+    
+        You are a developer who would transalate questions to a structured Looker URL query based on the following instructions.
+        
+        Instructions:
+          - choose only the fields in the below lookml metadata
+          - prioritize the field description, label, tags, and name for what field(s) to use for a given description
+          - generate only one answer, no more.
+          - use the Examples (at the bottom) for guidance on how to structure the Looker url query
+          - try to avoid adding dynamic_fields, provide them when very similar example is found in the bottom
+          - never respond with sql, always return an looker explore url as a single string
+          - response should start with fields= , as in the Examples section at the bottom  
+    
+        LookML Metadata
+        ----------
+    
+        Dimensions Used to group by information (follow the instructions in tags when using a specific field; if map used include a location or lat long dimension;):
+          
+      ${dimensions.map(formatContent).join('\n')}
+          
+        Measures are used to perform calculations (if top, bottom, total, sum, etc. are used include a measure):
+      
+      ${measures.map(formatContent).join('\n')}
+    
+        Example
+        ----------
+    
+      ${exploreGenerationExamples
+        .map((item) => `input: "${item.input}" ; output: ${item.output}`)
+        .join('\n')}
+
+        Input
+        ----------
+        ${prompt}
+
+    
+        Output
+        ----------
+    `
+    console.log('Updated prompt for invalid fields:', updatedPrompt)
+    const updatedResponse = await sendMessage(updatedPrompt, parameters)
+    const cleanUpdatedResponse = unquoteResponse(updatedResponse)
+    console.log('Updated response:', cleanUpdatedResponse)
+    return cleanUpdatedResponse + '&toggle=dat,pik,vis'
+  }
+
+  console.log('All fields are valid, returning newExploreUrl:', newExploreUrl)
       return newExploreUrl
     },
     [dimensions, measures, exploreGenerationExamples, settings],

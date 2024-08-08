@@ -71,7 +71,7 @@ export interface AssistantState {
   modelName: string
   examples: {
     exploreGenerationExamples: {
-      input: string[]
+      input: string
       output: string
     }[]
     exploreRefinementExamples: {

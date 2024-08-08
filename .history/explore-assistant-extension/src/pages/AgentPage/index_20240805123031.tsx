@@ -117,16 +117,6 @@ const AgentPage = () => {
     setExpanded(!expanded)
   }
 
-  console.log( "dim length: ",dimensions.length)
-  console.log( "measure length: ",measures.length )
-  console.log( "example length: ",examples.exploreGenerationExamples.length)
-  console.log( "refine length: ",examples.exploreRefinementExamples.length)
-  
-  console.log("Dimensions:", dimensions)
-  console.log("Measures: ",  measures)
-console.log("exploreGenerationExamples: ", examples.exploreGenerationExamples)
-console.log("exploreRefinementExamples: ", examples.exploreRefinementExamples)
-
   const isAgentReady =
     dimensions.length > 0 &&
     measures.length > 0 &&
