@@ -28,9 +28,13 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { App } from './App'
 import { Provider } from 'react-redux'
-import { store } from './store'
+import { store, persistor } from './store'
+import { PersistGate } from 'redux-persist/integration/react'
 import { ExtensionProvider } from '@looker/extension-sdk-react'
 import { Spinner } from '@looker/components'
+import { ErrorBoundary } from 'react-error-boundary'
+import Fallback from './components/Error/ErrorFallback'
+import { ComponentsProvider } from '@looker/components'
 
 const getRoot = () => {
   const id = 'extension-root'
@@ -47,15 +51,33 @@ const getRoot = () => {
 
 const render = (Component: typeof App) => {
   const root = getRoot()
+  const logError = (error: Error, info: { componentStack: string }) => {
+    // Do something with the error, e.g. log to an external API
+    console.log("Error: ", error.name, error.message, error.stack)
+    console.log("Info: ", info)
+  };
   ReactDOM.render(
     <>
       <Provider store={store}>
-        <ExtensionProvider
-          loadingComponent={<Spinner />}
-          requiredLookerVersion=">=21.0"
-        >
-          <Component />
-        </ExtensionProvider>
+        <PersistGate loading={<Spinner />} persistor={persistor}>
+          <ExtensionProvider
+            loadingComponent={<Spinner />}
+            requiredLookerVersion=">=21.0"
+          >
+            <ComponentsProvider
+              themeCustomizations={{
+                colors: { key: '#1A73E8' },
+                defaults: { externalLabel: false },
+              }}
+            >
+             <ErrorBoundary 
+              FallbackComponent={Fallback} 
+              onError={logError}>
+              <Component />
+             </ErrorBoundary>
+            </ComponentsProvider>
+          </ExtensionProvider>
+        </PersistGate>
       </Provider>
     </>,
     root,
