@@ -31,13 +31,15 @@ import { ExtensionContext } from '@looker/extension-sdk-react'
 import { useSelector } from 'react-redux'
 import { RootState } from '../store'
 
-export interface ExploreEmbedProps {}
+export interface ExploreEmbedProps {
+  exploreUrl: string
+}
 
-export const ExploreEmbed = ({}: ExploreEmbedProps) => {
+export const ExploreEmbed = ({ exploreUrl }: ExploreEmbedProps) => {
   const { extensionSDK } = useContext(ExtensionContext)
   const [exploreRunStart, setExploreRunStart] = React.useState(false)
 
-  const { exploreUrl, exploreId } = useSelector((state: RootState) => state.assistant)
+  const { exploreId } = useSelector((state: RootState) => state.assistant)
 
   const canceller = (event: any) => {
     return { cancel: !event.modal }
@@ -68,9 +70,16 @@ export const ExploreEmbed = ({}: ExploreEmbedProps) => {
           background_color: '#f4f6fa',
         }),
       }
-      exploreUrl
-        .split('&')
-        .map((param) => (paramsObj[param.split('=')[0]] = param.split('=')[1]))
+      exploreUrl.split('&').map((param) => {
+        const [key, ...rest] = param.split('=')
+        // paramsObj[key] = rest.join('=')
+        if (key === 'filter_expression' || key === 'dynamic_fields') {
+          // console.log('rest', rest)
+          paramsObj[key] = rest.join('=')
+        } else {
+          paramsObj[key] = param.split('=')[1]
+        }
+      })
       el.innerHTML = ''
       LookerEmbedSDK.init(hostUrl)
       LookerEmbedSDK.createExploreWithId(exploreId)
