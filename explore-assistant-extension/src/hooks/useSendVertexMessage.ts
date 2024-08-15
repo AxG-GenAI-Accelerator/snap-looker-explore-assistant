@@ -1,5 +1,3 @@
-
-
 import { ExtensionContext } from '@looker/extension-sdk-react'
 import { useCallback, useContext } from 'react'
 import { useSelector } from 'react-redux'
@@ -7,6 +5,8 @@ import { UtilsHelper } from '../utils/Helper'
 import CryptoJS from 'crypto-js'
 import { RootState } from '../store'
 import process from 'process'
+import { useErrorBoundary } from 'react-error-boundary'
+import { Settings } from 'http2'
 
 interface ModelParameters {
   max_output_tokens?: number
@@ -60,6 +60,7 @@ function formatContent(field: {
 }
 
 const useSendVertexMessage = () => {
+  const { showBoundary } = useErrorBoundary()
   // cloud function
   const VERTEX_AI_ENDPOINT = process.env.VERTEX_AI_ENDPOINT || ''
   const VERTEX_CF_AUTH_TOKEN = process.env.VERTEX_CF_AUTH_TOKEN || ''
@@ -70,8 +71,18 @@ const useSendVertexMessage = () => {
   const VERTEX_BIGQUERY_MODEL_ID = process.env.VERTEX_BIGQUERY_MODEL_ID || ''
 
   const { core40SDK } = useContext(ExtensionContext)
-  const { dimensions, measures, messageThread, exploreName, modelName } =
+  const { dimensions, measures, messageThread, exploreName, modelName, bigQueryExamplesLoaded, lookerFieldsLoaded } =
     useSelector((state: RootState) => state.assistant)
+  
+  const isDataLoaded = bigQueryExamplesLoaded && lookerFieldsLoaded
+
+  const settings = useSelector<RootState, Settings>(
+    (state) => state.assistant.settings,
+  )
+
+  const settings = useSelector<RootState, Settings>(
+    (state) => state.assistant.settings,
+  )
 
   const { exploreGenerationExamples, exploreRefinementExamples } = useSelector(
     (state: RootState) => state.assistant.examples,
@@ -84,57 +95,31 @@ const useSendVertexMessage = () => {
     console.log('VERTEX BQ Connection:', VERTEX_BIGQUERY_LOOKER_CONNECTION_NAME);
     console.log('VERTEX BQ Model:', VERTEX_BIGQUERY_MODEL_ID);
   
-  
-    try {
-      const generatedSQL = generateSQL(VERTEX_BIGQUERY_MODEL_ID, contents, parameters);
-      console.log('Generated SQL query:', generatedSQL);
+    const createSQLQuery = await core40SDK.ok(
+      core40SDK.create_sql_query({
+        connection_name: VERTEX_BIGQUERY_LOOKER_CONNECTION_NAME,
+        sql: generateSQL(VERTEX_BIGQUERY_MODEL_ID, contents, parameters),
+      }),
+    )
 
-      const createSQLQuery = await core40SDK.ok(
-        core40SDK.create_sql_query({
-          connection_name: VERTEX_BIGQUERY_LOOKER_CONNECTION_NAME,
-          sql: generatedSQL,
-        }),
-      );
-  
-      
-      console.log('create_sql_query response:', createSQLQuery);
-  
-      if (createSQLQuery.slug) {
-        console.log('create_sql_query slug:', createSQLQuery.slug);
-  //something in here is throwing an error but it doesn't break stuff
-        try {
-          const runSQLQuery = await core40SDK.ok(
-            core40SDK.run_sql_query(createSQLQuery.slug, 'json'),
-          );
-  
-          console.log('run_sql_query response:', runSQLQuery);
-          console.log('runSQLQuery[0] generated content - useSendVertexMessage:',runSQLQuery[0]['generated_content']);
-          if (runSQLQuery.length > 0 && runSQLQuery[0]['generated_content']) {
-            const exploreData = await runSQLQuery[0]['generated_content'];
-            console.log('Explore data:', exploreData);
-  
-            // clean up the data by removing backticks
-            const cleanExploreData = exploreData.replace(/```json/g, '').replace(/```/g, '').trim();
-            console.log('Clean explore data:', cleanExploreData);
-            return cleanExploreData;
-          } else {
-            console.error('Invalid run_sql_query response:', runSQLQuery);
-            throw new Error('Failed to retrieve generated content from run_sql_query');
-          }
-        } catch (error) {
-          console.error('Error running SQL query:', error);
-          throw error;
-        }
-      } else {
-        console.error('createSQLQuery.slug is undefined or empty');
-        throw new Error('Failed to create SQL query');
-      }
-    } catch (error) {
-      console.error('Error in vertextBigQuery:', error);
-      throw error;
+    if (createSQLQuery.slug) {
+      const runSQLQuery = await core40SDK.ok(
+        core40SDK.run_sql_query(createSQLQuery.slug, 'json'),
+      )
+      const exploreData = await runSQLQuery[0]['generated_content']
+
+      // clean up the data by removing backticks
+      const cleanExploreData = exploreData
+        .replace(/```json/g, '')
+        .replace(/```/g, '')
+        .trim()
+        console.log('Clean explore data:', cleanExploreData);
+
+
+      return cleanExploreData
     }
-  };
-  
+  }
+
   const vertextCloudFunction = async (
     contents: string,
     parameters: ModelParameters,
@@ -159,8 +144,9 @@ const useSendVertexMessage = () => {
     return response.trim()
   }
 
-  const summarizePrompts = useCallback(async (promptList: string[]) => {
-    const contents = `
+  const summarizePrompts = useCallback(
+    async (promptList: string[]) => {
+      const contents = `
     
       Primer
       ----------
@@ -182,15 +168,16 @@ ${exploreRefinementExamples
       Task
       ----------
       Summarize the prompts above to generate a single prompt that includes all the relevant information. If there are conflicting or duplicative information, prefer the most recent prompt.
-    
-      Answer
-      ----------
-    
-    `
-    const response = await sendMessage(contents, {})
 
-    return response
-  }, [exploreRefinementExamples])
+      Only return the summary of the prompt with no extra explanatation or text
+        
+    `
+      const response = await sendMessage(contents, {})
+
+      return response
+    },
+    [exploreRefinementExamples],
+  )
 
   const sendMessageWithThread = useCallback(
     async (prompt: string) => {
@@ -230,19 +217,17 @@ ${exploreRefinementExamples
       Primer
       ----------
 
-      A user is interacting with an agent that is translating questions to a structured URL query based on the following dictionary. The user is refining his questions by adding more context. You are a very smart observer that will look at one such question and determine whether the user is asking for a data export/sumamry, or whether they are continuing to refine their question.
-
+      A user is interacting with an agent that is translating questions to a structured URL query based on the following dictionary. The user is refining his questions by adding more context. You are a very smart observer that will look at one such question and determine whether the user is asking for a data summary, or whether they are continuing to refine their question.
+  
       Task
       ----------
       Determine if the user is asking for a data summary or continuing to refine their question. If they are asking for a summary, they might say things like:
-
+      
       - summarize the data
-      - summarization
-      - summarize
-      - summary
-      - export
-      - export ids
-    
+      - give me the data
+      - data summary
+      - tell me more about it
+      - explain to me what's going on
       
       The user said:
 
@@ -255,10 +240,6 @@ ${exploreRefinementExamples
     `
     const response = await sendMessage(contents, {})
     return response === 'data summary'
-  }
-
-  const isDataQuestionPrompt = async (prompt: string) => {
-    return false
   }
 
   const summarizeExplore = useCallback(
@@ -293,6 +274,8 @@ ${exploreRefinementExamples
           queryParams.limit = value
         }
       })
+
+      console.log("useSendVertexMessage summarizeExplore params: ", params)
 
       // get the contents of the explore query
       const createQuery = await core40SDK.ok(
@@ -349,24 +332,125 @@ ${exploreRefinementExamples
   )
 
   const generateExploreUrl = useCallback(
-    async (prompt: string) => {
-      const contents = `
-        Context
+    async (prompt: string, dimensions: any[], measures: any[], exploreGenerationExamples: any[]) => {
+      try {
+        console.log("From Vertex: ", exploreName, modelName, dimensions, measures, exploreGenerationExamples,isDataLoaded)
+        const contents = `
+            Context
+            ----------
+
+            You are a developer who would transalate questions to a structured Looker URL query based on the following instructions.
+
+            Instructions:
+              - choose only the fields in the below lookml metadata
+              - prioritize the field description, label, tags, and name for what field(s) to use for a given description
+              - generate only one answer, no more.
+              - use the Examples (at the bottom) for guidance on how to structure the Looker url query
+              - try to avoid adding dynamic_fields, provide them when very similar example is found in the bottom
+              - never respond with sql, always return an looker explore url as a single string
+              - response should start with fields= , as in the Examples section at the bottom  
+
+            LookML Metadata
+            ----------
+
+            Dimensions Used to group by information (follow the instructions in tags when using a specific field; if map used include a location or lat long dimension;):
+
+          ${dimensions.map(formatContent).join('\n')}
+
+            Measures are used to perform calculations (if top, bottom, total, sum, etc. are used include a measure):
+
+          ${measures.map(formatContent).join('\n')}
+
+            Example
+            ----------
+
+          ${exploreGenerationExamples
+            .map((item) => `input: "${item.input}" ; output: ${item.output}`)
+            .join('\n')}
+
+            Input
+            ----------
+            ${prompt}
+
+            Output
+            ----------
+        `
+        const parameters = {
+          max_output_tokens: 1000,
+        }
+        console.log(contents)
+        const response = await sendMessage(contents, parameters)
+
+        const unquoteResponse = (response: string) => {
+          return response
+            .substring(response.indexOf('fields='))
+            .replace(/^`+|`+$/g, '')
+            .trim()
+        }
+        const cleanResponse = unquoteResponse(response)
+        console.log(cleanResponse)
+
+        let toggleString = '&toggle=dat,pik,vis'
+        if(settings['show_explore_data'].value) {
+          toggleString = '&toggle=pik,vis'
+        }
+
+        const newExploreUrl = cleanResponse + toggleString
+
+
+        return newExploreUrl
+      } catch (error) {
+        console.error("Error waiting for data (lookml fields & training examples) to load:", error);
+        showBoundary({message: "Error waiting for data (lookml fields & training examples) to load:", error})
+      }
+      console.log("useSendVertexMessage Contents: ", contents)
+      const response = await sendMessage(contents, parameters)
+
+      const unquoteResponse = (response: string) => {
+        return response
+          .substring(response.indexOf('fields='))
+          .replace(/^`+|`+$/g, '')
+          .trim()
+      }
+      const cleanResponse = unquoteResponse(response)
+      console.log("cleanResponse: ", cleanResponse)
+
+      let toggleString = '&toggle=dat,pik,vis'
+      if(settings['show_explore_data'].value) {
+        toggleString = '&toggle=pik,vis'
+      }
+
+      const newExploreUrl = cleanResponse + toggleString
+
+// Check if the fields in the newExploreUrl exist in the metadata parameters
+const fieldsInUrl = new URLSearchParams(newExploreUrl).get('fields')?.split(',') || []
+const allFields = [...dimensions, ...measures].map(field => field.name)
+const invalidFields = fieldsInUrl.filter(field => !allFields.includes(field))
+
+console.log('Fields in URL:', fieldsInUrl)
+console.log('All valid fields:', allFields)
+console.log('Invalid fields:', invalidFields)
+
+if (invalidFields.length > 0) {
+  console.log('Found invalid fields, generating a new URL...')
+  // If there are invalid fields, generate a new URL without those fields
+  const updatedPrompt = `
+    The previous query contained invalid fields: ${invalidFields.join(', ')}. Please generate a new URL without these fields.
+          
+ Context
         ----------
     
         You are a developer who would transalate questions to a structured Looker URL query based on the following instructions.
         
         Instructions:
-        - Choose only the fields in the provided LookML metadata.
-        - Prioritize the field description, label, tags, and name for what field(s) to use for a given description.
-        - Generate only one answer, no more.
-        - use the Examples (at the bottom) for guidance on how to structure the Looker url query
-        - Never respond with SQL, always return a Looker explore URL as a single string.
-        - try to avoid adding dynamic_fields, provide them when very similar example is found in the bottom
-        - response should start with fields= , as in the Examples section at the bottom  
-        - If a change in visualization is requested, note that the new visualization might require necessary dimensions or the removal of dimensions for it to work properly.
-        - If a specific visualization is mentioned, prioritize that and adjust the URL query accordingly to ensure the visualization works.
-      
+          - choose only the fields in the below lookml metadata
+          - prioritize the field description, label, tags, and name for what field(s) to use for a given description
+          - generate only one answer, no more.
+          - use the Examples (at the bottom) for guidance on how to structure the Looker url query
+          - try to avoid adding dynamic_fields, provide them when very similar example is found in the bottom
+          - never respond with sql, always return an looker explore url as a single string
+          - response should start with fields= , as in the Examples section at the bottom  
+    
         LookML Metadata
         ----------
     
@@ -382,116 +466,45 @@ ${exploreRefinementExamples
         ----------
     
       ${exploreGenerationExamples
-        .map(
-          (item) =>
-            `input: "${item.input}" ; output: ${item.output}`,
-        )
+        .map((item) => `input: "${item.input}" ; output: ${item.output}`)
         .join('\n')}
-  
+
         Input
         ----------
         ${prompt}
-  
+
     
         Output
         ----------
     `
-      const parameters = {
-        max_output_tokens: 1000,
-      }
-      console.log('Generated contents for sendMessage:', contents)
-      const response = await sendMessage(contents, parameters)
-  
-      const unquoteResponse = (response: string) => {
-        return response.substring(response.indexOf("fields=")).replace(/^`+|`+$/g, '').trim()
-      }
-      const cleanResponse = unquoteResponse(response)
-      console.log('Cleaned response:', cleanResponse)
-      const newExploreUrl = cleanResponse + '&toggle=dat,pik,vis'
+    console.log('Updated prompt for invalid fields:', updatedPrompt)
+    const updatedResponse = await sendMessage(updatedPrompt, parameters)
+    const cleanUpdatedResponse = unquoteResponse(updatedResponse)
+    console.log('Updated response:', cleanUpdatedResponse)
+    return cleanUpdatedResponse + '&toggle=dat,pik,vis'
+  }
 
-      // Check if the fields in the newExploreUrl exist in the metadata parameters
-      const fieldsInUrl = new URLSearchParams(newExploreUrl).get('fields')?.split(',') || []
-      const allFields = [...dimensions, ...measures].map(field => field.name)
-      const invalidFields = fieldsInUrl.filter(field => !allFields.includes(field))
-  
-      console.log('Fields in URL:', fieldsInUrl)
-      console.log('All valid fields:', allFields)
-      console.log('Invalid fields:', invalidFields)
-  
-      if (invalidFields.length > 0) {
-        console.log('Found invalid fields, generating a new URL...')
-        // If there are invalid fields, generate a new URL without those fields
-        const updatedPrompt = `
-          The previous query contained invalid fields: ${invalidFields.join(', ')}. Please generate a new URL without these fields.
-          
-          Context
-        ----------
-    
-        You are a developer who would transalate questions to a structured Looker URL query based on the following instructions.
-        
-        Instructions:
-        - Choose only the fields in the provided LookML metadata.
-        - Prioritize the field description, label, tags, and name for what field(s) to use for a given description.
-        - Generate only one answer, no more.
-        - use the Examples (at the bottom) for guidance on how to structure the Looker url query
-        - Never respond with SQL, always return a Looker explore URL as a single string.
-        - try to avoid adding dynamic_fields, provide them when very similar example is found in the bottom
-        - response should start with fields= , as in the Examples section at the bottom  
-
-          
-          LookML Metadata
-          ----------
-          
-          Dimensions Used to group by information (follow the instructions in tags when using a specific field; if map used include a location or lat long dimension;):
-            
-        ${dimensions.map(formatContent).join('\n')}
-            
-          Measures are used to perform calculations (if top, bottom, total, sum, etc. are used include a measure):
-          
-        ${measures.map(formatContent).join('\n')}
-          
-          Example
-          ----------
-          
-        ${exploreGenerationExamples
-          .map(
-            (item) =>
-              `input: "${item.input}" ; output: ${item.output}`,
-          )
-          .join('\n')}
-  
-          Input
-          ----------
-          ${prompt}
-  
-          
-          Output
-          ----------
-        `
-        console.log('Updated prompt for invalid fields:', updatedPrompt)
-        const updatedResponse = await sendMessage(updatedPrompt, parameters)
-        const cleanUpdatedResponse = unquoteResponse(updatedResponse)
-        console.log('Updated response:', cleanUpdatedResponse)
-        return cleanUpdatedResponse + '&toggle=dat,pik,vis'
-      }
-  
-      console.log('All fields are valid, returning newExploreUrl:', newExploreUrl)
+  console.log('All fields are valid, returning newExploreUrl:', newExploreUrl)
       return newExploreUrl
     },
-    [dimensions, measures, exploreGenerationExamples],
+    [settings, exploreName, modelName],
   )
 
   const sendMessage = async (message: string, parameters: ModelParameters) => {
-    let response = ''
-    if (VERTEX_AI_ENDPOINT) {
-      response = await vertextCloudFunction(message, parameters)
-    }
+    try {
+      let response = ''
+      if (VERTEX_AI_ENDPOINT) {
+        response = await vertextCloudFunction(message, parameters)
+      }
 
-    if (VERTEX_BIGQUERY_LOOKER_CONNECTION_NAME && VERTEX_BIGQUERY_MODEL_ID) {
-      response = await vertextBigQuery(message, parameters)
-    }
+      if (VERTEX_BIGQUERY_LOOKER_CONNECTION_NAME && VERTEX_BIGQUERY_MODEL_ID) {
+        response = await vertextBigQuery(message, parameters)
+      }
 
-    return response
+      return response
+    } catch (error) {
+      showBoundary(error)
+    }
   }
 
   return {
@@ -500,7 +513,6 @@ ${exploreRefinementExamples
     sendMessageWithThread,
     summarizePrompts,
     isSummarizationPrompt,
-    isDataQuestionPrompt,
     summarizeExplore,
   }
 }
