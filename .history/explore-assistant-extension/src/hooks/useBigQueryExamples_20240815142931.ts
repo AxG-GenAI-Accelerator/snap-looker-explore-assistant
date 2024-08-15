@@ -27,18 +27,18 @@ export const useBigQueryExamples = () => {
   const dispatch = useDispatch()
   const { showBoundary } = useErrorBoundary();
 
-  //console.log("LOOKER_MODEL: ", LOOKER_MODEL)
-  //console.log("LOOKER_EXPLORE: ", LOOKER_EXPLORE)
-  //console.log("datasetName: ", datasetName)
-  //console.log("connectionName: ", connectionName)
+  console.log("LOOKER_MODEL: ", LOOKER_MODEL)
+  console.log("LOOKER_EXPLORE: ", LOOKER_EXPLORE)
+  console.log("datasetName: ", datasetName)
+  console.log("connectionName: ", connectionName)
 
 
   const { core40SDK } = useContext(ExtensionContext)
-  //console.log("core40SDK: ", core40SDK)
+  console.log("core40SDK: ", core40SDK)
 
   const runExampleQuery = async (sql: string) => {
     try {
-      //console.log("sql: ", sql)
+      console.log("sql: ", sql)
 
       const createSqlQuery = await core40SDK.ok(
         core40SDK.create_sql_query({
@@ -58,6 +58,8 @@ export const useBigQueryExamples = () => {
     } catch(error) {
       showBoundary(error)
       throw new Error('error')
+      console.log("runExampleQuery catch")
+
     }
   }
 
