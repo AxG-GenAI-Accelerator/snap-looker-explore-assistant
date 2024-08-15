@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "analyze": "export ANALYZE_MODE=static && npm run build",
-    "build": "cross-env BABEL_ENV=build webpack --config webpack.prod.js",
+    "build": "cross-env BABEL_ENV=build && webpack --config webpack.prod.js",
     "clean": "rimraf dist",
     "start": "webpack serve --hot --server-type https  --port 8080 --config webpack.develop.js",
     "prebuild": "npm run clean"
@@ -24,7 +24,8 @@
     "@looker/embed-sdk": "^1.6.1",
     "@looker/extension-sdk": "^24.2.0",
     "@looker/extension-sdk-react": "^24.2.0",
-    "@looker/sdk": "^24.2.0",
+    "@looker/sdk": "^24.8.0",
+    "@looker/sdk-rtl": "^21.6.1",
     "@material-ui/core": "^4.12.4",
     "@material-ui/icons": "^4.11.3",
     "@mui/icons-material": "^5.16.5",
@@ -81,6 +82,7 @@
     "postcss-loader": "^8.1.1",
     "prettier": "^2.2.1",
     "react-hot-loader": "^4.12.20",
+    "rimraf": "^5.0.5",
     "style-loader": "^3.3.3",
     "typescript": "^4.5.2",
     "webpack": "^5.67.0",
