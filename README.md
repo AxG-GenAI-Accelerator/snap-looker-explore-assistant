@@ -1,51 +1,60 @@
-<h1><span style="color:#2d7eea">README - Your LookML Project</span></h1>
+# Looker Explore Assistant
 
-<h2><span style="color:#2d7eea">LookML Overview</span></h2>
+This is an extension or API plugin for Looker that integrates LLM's hosted on Vertex AI into a natural language experience powered by Looker's modeling layer.
 
-LookML is a data modeling language for describing dimensions, fields, aggregates and relationships based on SQL.
+![explore assistant](./static/explore-assistant.gif)
 
-LookML is powerful because it:
+## Description
 
-- **Is all about reusability**: Most data analysis requires the same work to be done over and over again. You extract
-raw data, prepare it, deliver an analysis... and then are never able touse any of that work again. This is hugely
-inefficient, since the next analysis often involves many of the same steps. With LookML, once you define a
-dimension or a measure, you continue to build on it, rather than having to rewrite it again and again.
-- **Empowers end users**:  The data model that data analysts and developers create in LookML condenses and
-encapsulates the complexity of SQL, it and lets analysts get the knowledge about what their data means out of
-their heads so others can use it. This enables non-technical users to do their jobs &mdash; building dashboards,
-drilling to row-level detail, and accessing complex metrics &mdash; without having to worry about what’s behind the curtain.
-- **Allows for data governance**: By defining business metrics in LookML, you can ensure that Looker is always a
-credible single source of truth.
+The Explore Assistant allows a user to generate a Looker Explore Query via natural language outputted into a visualization. As opposed to writing the raw SQL itself, the LLM is optimized to translate a text input into a Looker explore query. This is important as the LLM does what it's great at, **generative content**, and Looker powers it with all the **underlying data context, metadata and nuances** that come with business data and analytics.
 
-The Looker application uses a model written in LookML to construct SQL queries against a particular database that
-business analysts can [Explore](https://cloud.google.com/looker/docs/r/exploring-data) on. For an overview on the basics of LookML, see [What is LookML?](https://cloud.google.com/looker/docs/r/what-is-lookml)
+Additionally, the extension provides:
 
-<h2><span style="color:#2d7eea">Learn to Speak Looker</span></h2>
+ - Question History (*this is stored in the browser's localstorage*)
+ - Categorized Prompts (*these can be customized by the use cases of your organization*)
+ - Cached Explore URL's when clicking from History
+ - Structured Logging with Input & Output Token Counts (*enables a workflow of log sink to BQ for cost estimation & tracking*)
+ - Flexible Deployment Options
+ - Multi-turn
+ - Insight Summarization
+ - Dynamic Explore Selection
 
-A LookML project is a collection of LookML files that describes a set of related [views](https://cloud.google.com/looker/docs/r/terms/view-file), [models](https://cloud.google.com/looker/docs/r/terms/model-file), and [Explores](https://cloud.google.com/looker/docs/r/terms/explore).
-- A [view](https://cloud.google.com/looker/docs/r/terms/view-file) (.view files) contains information about how to access or calculate information from each table (or
-across multiple joined tables). Here you’ll typically define the view, its dimensions and measures, and its field sets.
-- A [model](https://cloud.google.com/looker/docs/r/terms/model-file) (.model file) contains information about which tables to use and how they should be joined together.
-Here you’ll typically define the model, its Explores, and its joins.
-- An [Explore](https://cloud.google.com/looker/docs/r/terms/explore) is the starting point for business users to query data, and it is the end result of the LookML you are
-writing. To see the Explores in this project, select an Explore from the Explore menu.
+### Technologies Used
+#### Frontend
+- [React](https://reactjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Webpack](https://webpack.js.org/).
+- [Tailwind CSS](https://tailwindcss.com/)
 
-<h2><span style="color:#2d7eea">Exploring Data</span></h2>
+#### Looker
+- [Looker Extension SDK](https://github.com/looker-open-source/sdk-codegen/tree/main/packages/extension-sdk-react)
+- [Looker Embed SDK](https://cloud.google.com/looker/docs/embed-sdk)
+- [Looker Components](https://cloud.google.com/looker/docs/components)
 
-Ad-hoc data discovery is one of Looker’s most powerful and unique features. As you evaluate use cases for your
-trial, consider what business areas you would like to explore. Open the Explore menu in the main navigation to see
-the Explores you are building.
+#### Backend API
+- [Google Cloud Platform](https://cloud.google.com/)
+- [Vertex AI](https://cloud.google.com/vertex-ai)
+- [Cloud Functions](https://cloud.google.com/functions)
 
-<h2><span style="color:#2d7eea">The Development Workflow</span></h2>
+## Setup
 
-To support a multi-developer environment, Looker is integrated with Git for version control. Follow [these directions](https://cloud.google.com/looker/docs/r/develop/git-setup)
-to set up Git for your project. To edit LookML, expand the Develop drop-down and toggle on [Development Mode](https://cloud.google.com/looker/docs/r/terms/dev-mode). In
-Development Mode, changes you make to the LookML model exist only in your account until you commit the
-changes and push them to your production model.
+Getting started involves (*in this order*):
 
-<h2><span style="color:#2d7eea">Additional Resources</span></h2>
+- Backend Setup - setup the GCP backend for communicating with the Vertex API [using these instructions.](./explore-assistant-backend/README.md)
+- Example generation - generate a list of examples and upload them to BigQuery [using these instructions.](./explore-assistant-examples/README.md)
+- Frontend Setup - setup Looker Extension Framework Applications by following [these instructions](./explore-assistant-extension/README.md).
 
-To learn more about LookML and how to develop visit:
-- [Looker User Guide](https://looker.com/guide)
-- [Looker Help Center](https://help.looker.com)
-- [Looker University](https://training.looker.com/)
+The local cloud function backend and example generation require some python packages. It is recommended to create a python virtual environment and install the dependencies:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate 
+pip3 install -r ./explore-assistant-examples/requirements.txt
+pip3 install -r ./explore-assistant-cloud-function/requirements.txt 
+```
+
+## Recommendations for fine tuning the model
+
+This app uses a one shot prompt technique for fine tuning a model, meaning that all the metadata for the model is contained in the prompt. It's a good technique for a small dataset, but for a larger dataset, you may want to use a more traditional fine tuning approach. This is a simple implementation, but you can also use a more sophisticated approach that involves generating embeddings for explore metadata and leveraging a vector database for indexing.
+
+Any `jsonl` file you see in this repo is used to train the llm with representative Looker Explore Query examples. These examples are used to help the understand how to create different variations of Looker Explore Queries to account for requests that might result in pivots, relative date filters, includes string syntax, etc. For convenience and customization we recommend using Looker System Activity, filtering queries for the model and explore you plan on using the assistant with, and then using the top 20-30 queries as your example input output string with their expanded url syntax. Please see the [Explore Assistant Training Notebook](./explore-assistant-training/) for creating query examples for new datasets via an automated process.
