@@ -1,0 +1,61 @@
+[{
+  "input": "What are the top 100 T-mobile stores?",
+  "output": "fields=lookertestv8.store_id,lookertestv8.dma,lookertestv8.past_pixel_sales_unit&f[lookertestv8.partner]=T-Mobile&sorts=lookertestv8.past_pixel_sales_unit desc&limit=100&column_limit=100&vis={\"type\":\"looker_grid\""
+},{
+  "input": "Top 20 Verizon stores?",
+  "output": "fields=lookertestv8.store_id,lookertestv8.dma,lookertestv8.past_pixel_sales_unit&f[lookertestv8.partner]=Verizon&sorts=lookertestv8.past_pixel_sales_unit desc&limit=20&column_limit=100&vis={\"type\":\"looker_grid\""
+},{
+  "input": "Top Best Buy store?",
+  "output": "fields=lookertestv8.store_id,lookertestv8.dma,lookertestv8.past_pixel_sales_unit&f[lookertestv8.partner]=BestBuy&sorts=lookertestv8.past_pixel_sales_unit desc&limit=1&column_limit=3&vis={\"type\":\"single_value\""
+},{
+  "input": "Show me the top 100 AT&T stores by strategic tier?",
+  "output": "fields=lookertestv8.store_id,lookertestv8.dma,lookertestv8.strategic_tiering&f[lookertestv8.partner]=ATT&sorts=lookertestv8.strategic_tiering desc&limit=100&column_limit=3&vis={\"type\":\"looker_grid\""
+},{
+  "input": "Top 50 T-mobile stores by growth percentile?",
+  "output": "fields=lookertestv8.store_id,lookertestv8.dma,lookertestv8.strategic_tiering&f[lookertestv8.partner]=T-Mobile&sorts=lookertestv8.pixel_growth_potential_percentile desc&limit=50&column_limit=3&vis={\"type\":\"looker_grid\""
+},{
+  "input": "What are the top 100 Verizon stores by population density?",
+  "output": "fields=lookertestv8.store_id,lookertestv8.dma,lookertestv8.population_density_5mi&f[lookertestv8.partner]=Verizon&sorts=lookertestv8.population_density_5mi desc&limit=100&column_limit=3&vis={\"type\":\"looker_grid\""
+},{
+  "input": "What is the top Verizon store by population density?",
+  "output": "fields=lookertestv8.store_id,lookertestv8.dma,lookertestv8.population_density_5mi&f[lookertestv8.partner]=Verizon&sorts=lookertestv8.population_density_5mi desc&limit=1&column_limit=3&vis={\"type\":\"single_value\""
+},{
+  "input": "Show me the top 100 T-mobile stores on a map",
+  "output": "fields=lookertestv8.store_id,lookertestv8.store_location,lookertestv8.past_pixel_sales_unit,lookertestv8.pixel_growth_potential_percentile,lookertestv8.footfall&f[lookertestv8.partner]=T-Mobile&sorts=lookertestv8.past_pixel_sales_unit desc&limit=100&column_limit=100&vis={\"type\":\"looker_map\""
+},{
+  "input": "Show me the top 100 Verizon stores by footfall on a map",
+  "output": "fields=lookertestv8.store_id,lookertestv8.store_location,lookertestv8.footfall,lookertestv8.pixel_growth_potential_percentile,lookertestv8.footfall&f[lookertestv8.partner]=Verizon&sorts=lookertestv8.footfall desc&limit=100&column_limit=100&vis={\"type\":\"looker_map\""
+},{
+  "input": "Show me the top 30 T-mobile stores by least advocates on a map",
+  "output": "fields=lookertestv8.store_id,lookertestv8.store_location,lookertestv8.advocate_count,lookertestv8.pixel_growth_potential_percentile,lookertestv8.footfall&f[lookertestv8.partner]=T-Mobile&sorts=lookertestv8.lookertestv8.advocate_count asc&limit=30&column_limit=100&vis={\"type\":\"looker_map\""
+},{
+  "input": "Show me the worst 50 Best Buy stores by growth percentile on a map",
+  "output": "fields=lookertestv8.store_id,lookertestv8.store_location,lookertestv8.advocate_count,lookertestv8.pixel_growth_potential_percentile,lookertestv8.footfall&f[lookertestv8.partner]=T-Mobile&sorts=lookertestv8.pixel_growth_potential_percentile asc&limit=50&column_limit=100&vis={\"type\":\"looker_map\""
+},{
+  "input": "Show me the 10 T-mobile stores with the least footfall on a map",
+  "output": "fields=lookertestv8.store_id,lookertestv8.store_location,lookertestv8.past_pixel_sales_unit,lookertestv8.pixel_growth_potential_percentile,lookertestv8.footfall&f[lookertestv8.partner]=T-Mobile&sorts=lookertestv8.footfall asc&limit=10&column_limit=100&vis={\"type\":\"looker_map\""
+},{
+  "input": "What is the DMA with the highest employment rate?",
+  "output": "fields=lookertestv8.dma,lookertestv8.employment_rate_5mi&sorts=lookertestv8.employment_rate_5mi desc&limit=1&column_limit=2&vis={\"type\":\"single_value\""
+},{ 
+  "input": "How many tier 1 stores are there for each partner?", 
+  "output": "lookertestv8.partner,lookertestv8.count$f[lookertestv8.strategic_tiering]=Tier 1&sorts=lookertestv8.count desc&column_limit=2&vis={\"type\":\"looker_bar\"" 
+},{ 
+  "input": "Show me the tier distirbution for the top 100 T-Mobile stores", 
+  "output": "lookertestv8.strategic_tiering,lookertestv8.count$f[lookertestv8.partner]=T-Mobile&sorts=lookertestv8.count desc&limit=100&column_limit=2&vis={\"type\":\"looker_bar\"" 
+},{ 
+  "input": "What is the coverage for these stores", 
+  "output": "lookertestv8.coverage_percentage&limit=1&column_limit=1&vis={\"type\":\"single_value\""
+},{ 
+  "input": "Give me the total coverage percentage for these stores", 
+  "output": "lookertestv8.coverage_percentage&limit=1&column_limit=1&vis={\"type\":\"single_value\""
+},{ 
+  "input": "What is the coverage for the top 100 tmobile store", 
+  "output": "lookertestv8.coverage_percentage$f[lookertestv8.partner]=T-Mobile&sorts=lookertestv8.count desc&limit=1&column_limit=1&vis={\"type\":\"single_value\"" 
+},{ 
+  "input": "Show the the coverage percentage for the top 50 stores with the most footfall", 
+  "output": "lookertestv8.coverage_percentagesorts=lookertestv8.footfall desc&limit=1&column_limit=1&vis={\"type\":\"single_value\"" 
+},{ 
+  "input": "Can you show me the coverage percentage for the top 25 dmas with tmobile tier 1 stores", 
+  "output": "lookertestv8.coverage_percentage&vis={\"type\":\"single_value\""
+}]

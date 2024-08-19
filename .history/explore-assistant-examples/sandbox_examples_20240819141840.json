@@ -1,0 +1,22 @@
+{
+  "input": "Top 10 products by total revenue",
+  "output": "fields=sanbox_sales_data.product_name,sanbox_sales_data.total_total_revenue&sorts=sanbox_sales_data.total_total_revenue desc&limit=10&vis={\"type\":\"looker_grid\""
+},{
+  "input": "What are the top 10 products with the highest average units sold per transaction?",
+  "output": "fields=sanbox_sales_data.product_name,sanbox_sales_data.average_units_sold&sorts=sanbox_sales_data.average_units_sold desc&limit=10&vis={\"type\":\"looker_grid\""
+},{
+  "input": "What are the top 5 product categories by total units sold?",
+  "output": "fields=sanbox_sales_data.product_category,sanbox_sales_data.total_units_sold&sorts=sanbox_sales_data.total_units_sold desc&limit=5&vis={\"type\":\"looker_column\""
+},{
+  "input": "What are the top 5 payment methods by total revenue?",
+  "output": "fields=sanbox_sales_data.payment_method,sanbox_sales_data.total_total_revenue&sorts=sanbox_sales_data.total_total_revenue desc&limit=5&vis={\"type\":\"looker_pie\""
+},{
+  "input": "Which regions have the highest total revenue?",
+  "output": "fields=sanbox_sales_data.region,sanbox_sales_data.total_total_revenue&sorts=sanbox_sales_data.total_total_revenue desc&limit=500&vis={\"type\":\"looker_column\""
+},{
+  "input": "Show me the trend of total revenue over time by month",
+  "output": "fields=sanbox_sales_data.date_month,sanbox_sales_data.total_total_revenue&sorts=sanbox_sales_data.date_month&limit=500&vis={\"type\":\"looker_line\""
+},{
+  "input": "Show me the distribution of unit prices",
+  "output": "fields=sanbox_sales_data.unit_price,sanbox_sales_data.count&sorts=sanbox_sales_data.unit_price&limit=500&vis={\"type\":\"looker_column\""
+}]

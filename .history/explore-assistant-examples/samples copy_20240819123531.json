@@ -1,0 +1,15 @@
+[
+    {
+      "category": "Store Performance",
+      "prompt": "What are the top 100 T-mobile stores?"
+
+    },
+    {
+      "category": "Growth Potential",
+      "prompt":"Top 50 T-mobile stores by growth percentile?"
+    },
+    {
+      "category": "Store Tiering",
+      "prompt": "How many tier 1 stores are there for each partner?"
+    }
+]

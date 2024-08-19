@@ -404,7 +404,7 @@ const AgentPage = () => {
               </div>
 
               <div className="flex flex-col max-w-3xl m-auto mt-16">
-                {/*explores.length > 1 &&*/ (
+                {/explores.length > 1 &&*/ (
                   <div className="text-md border-b-2 p-2 max-w-3xl">
                     <FormControl className="">
                       <InputLabel>Explore</InputLabel>
