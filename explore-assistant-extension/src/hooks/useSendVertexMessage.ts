@@ -6,22 +6,59 @@ import CryptoJS from 'crypto-js'
 import { RootState } from '../store'
 import process from 'process'
 import { useErrorBoundary } from 'react-error-boundary'
-import { Settings } from 'http2'
+import { AssistantState } from '../slices/assistantSlice'
 
 interface ModelParameters {
   max_output_tokens?: number
+  temperature?: number
+  top_p?: number
+  top_k?: number
+}
+
+interface Field {
+  name?: string
+  type?: string
+  label?: string
+  description?: string
+  tags?: string[]
+}
+
+interface QueryParams {
+  fields: string[]
+  filters: Record<string, string>
+  sorts: string[]
+  limit: string
+}
+
+const unquoteResponse = (response: string | null | undefined): string => {
+  if (!response) {
+    return ''
+  }
+  return response
+    .substring(response.indexOf('fields='))
+    .replace(/^`+|`+$/g, '')
+    .trim()
+}
+
+const formatContent = (field: Field): string => {
+  const parts: string[] = []
+  if (field.name) parts.push(`name: ${field.name}`)
+  if (field.type) parts.push(`type: ${field.type}`)
+  if (field.label) parts.push(`label: ${field.label}`)
+  if (field.description) parts.push(`description: ${field.description}`)
+  if (field.tags && field.tags.length) parts.push(`tags: ${field.tags.join(', ')}`)
+  return parts.join(', ')
 }
 
 const generateSQL = (
   model_id: string,
   prompt: string,
   parameters: ModelParameters,
-) => {
+): string => {
   const escapedPrompt = UtilsHelper.escapeQueryAll(prompt)
-  const subselect = `SELECT '` + escapedPrompt + `' AS prompt`
+  const subselect = `SELECT '${escapedPrompt}' AS prompt`
 
   return `
-  
     SELECT ml_generate_text_llm_result AS generated_content
     FROM
     ML.GENERATE_TEXT(
@@ -30,66 +67,36 @@ const generateSQL = (
           ${subselect}
         ),
         STRUCT(
-        0.05 AS temperature,
-        1024 AS max_output_tokens,
-        0.98 AS top_p,
+        ${parameters.temperature || 0.05} AS temperature,
+        ${parameters.max_output_tokens || 1024} AS max_output_tokens,
+        ${parameters.top_p || 0.98} AS top_p,
         TRUE AS flatten_json_output,
-        1 AS top_k)
+        ${parameters.top_k || 1} AS top_k)
       )
-  
-      `
-}
-
-function formatContent(field: {
-  name?: string
-  type?: string
-  label?: string
-  description?: string
-  tags?: string[]
-}) {
-  let result = ''
-  if (field.name) result += 'name: ' + field.name
-  if (field.type) result += (result ? ', ' : '') + 'type: ' + field.type
-  if (field.label) result += (result ? ', ' : '') + 'label: ' + field.label
-  if (field.description)
-    result += (result ? ', ' : '') + 'description: ' + field.description
-  if (field.tags && field.tags.length)
-    result += (result ? ', ' : '') + 'tags: ' + field.tags.join(', ')
-
-  return result
+  `
 }
 
 const useSendVertexMessage = () => {
   const { showBoundary } = useErrorBoundary()
-  // cloud function
+  const { core40SDK } = useContext(ExtensionContext)
+  const { settings, examples, currentExplore } =
+    useSelector((state: RootState) => state.assistant as AssistantState)
+
   const VERTEX_AI_ENDPOINT = process.env.VERTEX_AI_ENDPOINT || ''
   const VERTEX_CF_AUTH_TOKEN = process.env.VERTEX_CF_AUTH_TOKEN || ''
-
-  // bigquery
   const VERTEX_BIGQUERY_LOOKER_CONNECTION_NAME =
     process.env.VERTEX_BIGQUERY_LOOKER_CONNECTION_NAME || ''
   const VERTEX_BIGQUERY_MODEL_ID = process.env.VERTEX_BIGQUERY_MODEL_ID || ''
 
-  const { core40SDK } = useContext(ExtensionContext)
-  const { dimensions, measures, messageThread, exploreName, modelName, bigQueryExamplesLoaded, lookerFieldsLoaded } =
-    useSelector((state: RootState) => state.assistant)
-  
-  const isDataLoaded = bigQueryExamplesLoaded && lookerFieldsLoaded
+  const currentExploreKey = currentExplore.exploreKey
+  const exploreRefinementExamples = examples.exploreRefinementExamples[currentExploreKey]
 
-  const settings = useSelector<RootState, Settings>(
-    (state) => state.assistant.settings,
-  )
-
-  const { exploreGenerationExamples, exploreRefinementExamples } = useSelector(
-    (state: RootState) => state.assistant.examples,
-  )
-
-  const vertextBigQuery = async (
+  const vertexBigQuery = async (
     contents: string,
     parameters: ModelParameters,
-  ) => {
-    console.log('VERTEX BQ Connection:', VERTEX_BIGQUERY_LOOKER_CONNECTION_NAME);
-    console.log('VERTEX BQ Model:', VERTEX_BIGQUERY_MODEL_ID);
+  ): Promise<string> => {
+    console.log('VERTEX BQ Connection:', VERTEX_BIGQUERY_LOOKER_CONNECTION_NAME)
+    console.log('VERTEX BQ Model:', VERTEX_BIGQUERY_MODEL_ID)
   
     const createSQLQuery = await core40SDK.ok(
       core40SDK.create_sql_query({
@@ -102,24 +109,23 @@ const useSendVertexMessage = () => {
       const runSQLQuery = await core40SDK.ok(
         core40SDK.run_sql_query(createSQLQuery.slug, 'json'),
       )
-      const exploreData = await runSQLQuery[0]['generated_content']
+      const exploreData = runSQLQuery[0]['generated_content']
 
-      // clean up the data by removing backticks
       const cleanExploreData = exploreData
         .replace(/```json/g, '')
         .replace(/```/g, '')
         .trim()
-        console.log('Clean explore data:', cleanExploreData);
-
+      console.log('Clean explore data:', cleanExploreData)
 
       return cleanExploreData
     }
+    throw new Error('Failed to create SQL query')
   }
 
-  const vertextCloudFunction = async (
+  const vertexCloudFunction = async (
     contents: string,
     parameters: ModelParameters,
-  ) => {
+  ): Promise<string> => {
     const body = JSON.stringify({
       contents: contents,
       parameters: parameters,
@@ -133,7 +139,6 @@ const useSendVertexMessage = () => {
         'Content-Type': 'application/json',
         'X-Signature': signature,
       },
-
       body: body,
     })
     const response = await responseData.text()
@@ -141,33 +146,31 @@ const useSendVertexMessage = () => {
   }
 
   const summarizePrompts = useCallback(
-    async (promptList: string[]) => {
+    async (promptList: string[]): Promise<string> => {
       const contents = `
-    
-      Primer
-      ----------
-      A user is iteractively asking questions to generate an explore URL in Looker. The user is refining his questions by adding more context. The additional prompts he is adding could have conflicting or duplicative information: in those cases, prefer the most recent prompt. 
+        Primer
+        ----------
+        A user is iteractively asking questions to generate an explore URL in Looker. The user is refining his questions by adding more context. The additional prompts he is adding could have conflicting or duplicative information: in those cases, prefer the most recent prompt. 
 
-      Here are some example prompts the user has asked so far and how to summarize them:
+        Here are some example prompts the user has asked so far and how to summarize them:
 
-${exploreRefinementExamples
-  .map((item) => {
-    const inputText = '"' + item.input.join('", "') + '"'
-    return `- The sequence of prompts from the user: ${inputText}. The summarized prompts: "${item.output}"`
-  })
-  .join('\n')}
+        ${exploreRefinementExamples && exploreRefinementExamples
+          .map((item) => {
+            const inputText = '"' + item.input.join('", "') + '"'
+            return `- The sequence of prompts from the user: ${inputText}. The summarized prompts: "${item.output}"`
+          })
+          .join('\n')}
 
-      Conversation so far
-      ----------
-      input: ${promptList.map((prompt) => '"' + prompt + '"').join('\n')}
-    
-      Task
-      ----------
-      Summarize the prompts above to generate a single prompt that includes all the relevant information. If there are conflicting or duplicative information, prefer the most recent prompt.
+        Conversation so far
+        ----------
+        input: ${promptList.map((prompt) => '"' + prompt + '"').join('\n')}
+      
+        Task
+        ----------
+        Summarize the prompts above to generate a single prompt that includes all the relevant information. If there are conflicting or duplicative information, prefer the most recent prompt.
 
-      Only return the summary of the prompt with no extra explanatation or text
-        
-    `
+        Only return the summary of the prompt with no extra explanatation or text
+      `
       const response = await sendMessage(contents, {})
 
       return response
@@ -175,40 +178,7 @@ ${exploreRefinementExamples
     [exploreRefinementExamples],
   )
 
-  const sendMessageWithThread = useCallback(
-    async (prompt: string) => {
-      const messageHistoryContents = messageThread
-        .slice(-20)
-        .map((message) => {
-          if ('exploreUrl' in message) {
-            return
-          }
-          return `${message.actor}: ${message.message}`
-        })
-        .join('\n')
-
-      const contents = `
-
-      Conversation so far
-      ----------
-
-      ${messageHistoryContents}
-
-      Question
-      ---------
-      ${prompt}
-
-      Answer
-      ----------
-    `
-
-      const response = await sendMessage(contents, {})
-      return response
-    },
-    [messageThread],
-  )
-
-  const isSummarizationPrompt = async (prompt: string) => {
+  const isSummarizationPrompt = async (prompt: string): Promise<boolean> => {
     const contents = `
       Primer
       ----------
@@ -232,30 +202,22 @@ ${exploreRefinementExamples
       Output
       ----------
       Return "data summary" if the user is asking for a data summary, and "refining question" if the user is continuing to refine their question. Only output one answer, no more. Only return one those two options. If you're not sure, return "refining question".
-
     `
     const response = await sendMessage(contents, {})
     return response === 'data summary'
   }
 
   const summarizeExplore = useCallback(
-    async (exploreQueryArgs: string) => {
+    async (exploreQueryArgs: string): Promise<string> => {
       const params = new URLSearchParams(exploreQueryArgs)
 
-      // Initialize an object to construct the query
-      const queryParams: {
-        fields: string[]
-        filters: Record<string, string>
-        sorts: string[]
-        limit: string
-      } = {
+      const queryParams: QueryParams = {
         fields: [],
         filters: {},
         sorts: [],
         limit: '',
       }
 
-      // Iterate over the parameters to fill the query object
       params.forEach((value, key) => {
         if (key === 'fields') {
           queryParams.fields = value.split(',')
@@ -273,12 +235,10 @@ ${exploreRefinementExamples
 
       console.log("useSendVertexMessage summarizeExplore params: ", params)
 
-      // get the contents of the explore query
       const createQuery = await core40SDK.ok(
         core40SDK.create_query({
-          model: modelName,
-          view: exploreName,
-
+          model: currentExplore.modelName,
+          view: currentExplore.exploreId,
           fields: queryParams.fields || [],
           filters: queryParams.filters || {},
           sorts: queryParams.sorts || [],
@@ -288,7 +248,7 @@ ${exploreRefinementExamples
 
       const queryId = createQuery.id
       if (queryId === undefined || queryId === null) {
-        return 'There was an error!!'
+        throw new Error('Failed to create query')
       }
       const result = await core40SDK.ok(
         core40SDK.run_query({
@@ -298,146 +258,47 @@ ${exploreRefinementExamples
       )
 
       if (result.length === 0) {
-        return 'There was an error!!'
+        throw new Error('No results returned from query')
       }
 
       const contents = `
-      Data
-      ----------
+        Data
+        ----------
 
-      ${result}
-      
-      Task
-      ----------
-      Summarize the data above
-    
-    `
+        ${result}
+        
+        Task
+        ----------
+        Summarize the data above
+      `
       const response = await sendMessage(contents, {})
 
       const refinedContents = `
-      The following text represents summaries of a given dashboard's data. 
-        Summaries: ${response}
+        The following text represents summaries of a given dashboard's data. 
+          Summaries: ${response}
 
-        Make this much more concise for a slide presentation using the following format. The summary should be a markdown documents that contains a list of sections, each section should have the following details:  a section title, which is the title for the given part of the summary, and key points which a list of key points for the concise summary. Data should be returned in each section, you will be penalized if it doesn't adhere to this format. Each summary should only be included once. Do not include the same summary twice.
-        `
+          Make this much more concise for a slide presentation using the following format. The summary should be a markdown documents that contains a list of sections, each section should have the following details:  a section title, which is the title for the given part of the summary, and key points which a list of key points for the concise summary. Data should be returned in each section, you will be penalized if it doesn't adhere to this format. Each summary should only be included once. Do not include the same summary twice.
+      `
 
       const refinedResponse = await sendMessage(refinedContents, {})
       return refinedResponse
     },
-    [exploreName, modelName],
+    [currentExplore],
   )
 
   const generateExploreUrl = useCallback(
-    async (prompt: string, dimensions: any[], measures: any[], exploreGenerationExamples: any[]) => {
-      try {
-        console.log("From Vertex: ", exploreName, modelName, dimensions, measures, exploreGenerationExamples,isDataLoaded)
-        const contents = `
-            Context
-            ----------
-
-            You are a developer who would transalate questions to a structured Looker URL query based on the following instructions.
-
-            Instructions:
-              - choose only the fields in the below lookml metadata
-              - prioritize the field description, label, tags, and name for what field(s) to use for a given description
-              - generate only one answer, no more.
-              - use the Examples (at the bottom) for guidance on how to structure the Looker url query
-              - try to avoid adding dynamic_fields, provide them when very similar example is found in the bottom
-              - never respond with sql, always return an looker explore url as a single string
-              - response should start with fields= , as in the Examples section at the bottom  
-
-            LookML Metadata
-            ----------
-
-            Dimensions Used to group by information (follow the instructions in tags when using a specific field; if map used include a location or lat long dimension;):
-
-          ${dimensions.map(formatContent).join('\n')}
-
-            Measures are used to perform calculations (if top, bottom, total, sum, etc. are used include a measure):
-
-          ${measures.map(formatContent).join('\n')}
-
-            Example
-            ----------
-
-          ${exploreGenerationExamples
-            .map((item) => `input: "${item.input}" ; output: ${item.output}`)
-            .join('\n')}
-
-            Input
-            ----------
-            ${prompt}
-
-            Output
-            ----------
-        `
-        const parameters = {
-          max_output_tokens: 1000,
-        }
-        console.log(contents)
-        const response = await sendMessage(contents, parameters)
-
-        const unquoteResponse = (response: string) => {
-          return response
-            .substring(response.indexOf('fields='))
-            .replace(/^`+|`+$/g, '')
-            .trim()
-        }
-        const cleanResponse = unquoteResponse(response)
-        console.log(cleanResponse)
-
-        let toggleString = '&toggle=dat,pik,vis'
-        if(settings['show_explore_data'].value) {
-          toggleString = '&toggle=pik,vis'
-        }
-
-        const newExploreUrl = cleanResponse + toggleString
-
-
-        return newExploreUrl
-      } catch (error) {
-        console.error("Error waiting for data (lookml fields & training examples) to load:", error);
-        showBoundary({message: "Error waiting for data (lookml fields & training examples) to load:", error})
-      }
-      console.log("useSendVertexMessage Contents: ", contents)
-      const response = await sendMessage(contents, parameters)
-
-      const unquoteResponse = (response: string) => {
-        return response
-          .substring(response.indexOf('fields='))
-          .replace(/^`+|`+$/g, '')
-          .trim()
-      }
-      const cleanResponse = unquoteResponse(response)
-      console.log("cleanResponse: ", cleanResponse)
-
-      let toggleString = '&toggle=dat,pik,vis'
-      if(settings['show_explore_data'].value) {
-        toggleString = '&toggle=pik,vis'
-      }
-
-      const newExploreUrl = cleanResponse + toggleString
-
-// Check if the fields in the newExploreUrl exist in the metadata parameters
-const fieldsInUrl = new URLSearchParams(newExploreUrl).get('fields')?.split(',') || []
-const allFields = [...dimensions, ...measures].map(field => field.name)
-const invalidFields = fieldsInUrl.filter(field => !allFields.includes(field))
-
-console.log('Fields in URL:', fieldsInUrl)
-console.log('All valid fields:', allFields)
-console.log('Invalid fields:', invalidFields)
-
-if (invalidFields.length > 0) {
-  console.log('Found invalid fields, generating a new URL...')
-  // If there are invalid fields, generate a new URL without those fields
-  const updatedPrompt = `
-    The previous query contained invalid fields: ${invalidFields.join(', ')}. Please generate a new URL without these fields.
-          
- Context
+    async (
+      prompt: string,
+      dimensions: Field[],
+      measures: Field[],
+      exploreGenerationExamples: { input: string; output: string }[],
+    ): Promise<string> => {
+      const generateContent = (invalidFields: string[] = []): string => `
+        Context
         ----------
-    
-        You are a developer who would transalate questions to a structured Looker URL query based on the following instructions.
-        
+
+        You are a developer who would translate questions to a structured Looker URL query based on the following instructions.
+
         Instructions:
           - choose only the fields in the below lookml metadata
           - prioritize the field description, label, tags, and name for what field(s) to use for a given description
@@ -446,22 +307,23 @@ if (invalidFields.length > 0) {
           - try to avoid adding dynamic_fields, provide them when very similar example is found in the bottom
           - never respond with sql, always return an looker explore url as a single string
           - response should start with fields= , as in the Examples section at the bottom  
-    
+          ${invalidFields.length > 0 ? `- avoid using these invalid fields: ${invalidFields.join(', ')}` : ''}
+
         LookML Metadata
         ----------
-    
+
         Dimensions Used to group by information (follow the instructions in tags when using a specific field; if map used include a location or lat long dimension;):
-          
+
       ${dimensions.map(formatContent).join('\n')}
-          
+
         Measures are used to perform calculations (if top, bottom, total, sum, etc. are used include a measure):
-      
+
       ${measures.map(formatContent).join('\n')}
-    
+
         Example
         ----------
-    
-      ${exploreGenerationExamples
+
+      ${exploreGenerationExamples && exploreGenerationExamples
         .map((item) => `input: "${item.input}" ; output: ${item.output}`)
         .join('\n')}
 
@@ -469,44 +331,70 @@ if (invalidFields.length > 0) {
         ----------
         ${prompt}
 
-    
         Output
         ----------
     `
-    console.log('Updated prompt for invalid fields:', updatedPrompt)
-    const updatedResponse = await sendMessage(updatedPrompt, parameters)
-    const cleanUpdatedResponse = unquoteResponse(updatedResponse)
-    console.log('Updated response:', cleanUpdatedResponse)
-    return cleanUpdatedResponse + '&toggle=dat,pik,vis'
-  }
 
-  console.log('All fields are valid, returning newExploreUrl:', newExploreUrl)
-      return newExploreUrl
+      const parameters: ModelParameters = {
+        max_output_tokens: 1000,
+      }
+
+      try {
+        const generateUrlWithValidation = async (invalidFields: string[] = []): Promise<string> => {
+          const contents = generateContent(invalidFields)
+          console.log("useSendVertexMessage Contents: ", contents)
+          const response = await sendMessage(contents, parameters)
+          const cleanResponse = unquoteResponse(response)
+          console.log("cleanResponse: ", cleanResponse)
+
+          const toggleString = settings['show_explore_data'].value ? '&toggle=pik,vis' : '&toggle=dat,pik,vis'
+          const newExploreUrl = cleanResponse + toggleString
+
+          const fieldsInUrl = new URLSearchParams(newExploreUrl).get('fields')?.split(',') || []
+          const allFields = [...dimensions, ...measures].map(field => field.name)
+          const newInvalidFields = fieldsInUrl.filter(field => !allFields.includes(field))
+
+          if (newInvalidFields.length > 0 && invalidFields.length === 0) {
+            console.log('Found invalid fields, generating a new URL...')
+            return generateUrlWithValidation(newInvalidFields)
+          }
+
+          return newExploreUrl
+        }
+
+        return await generateUrlWithValidation()
+      } catch (error) {
+        console.error('Error generating Explore URL:', error)
+        showBoundary({
+          message: 'Error generating Explore URL',
+          error,
+        })
+        throw error
+      }
     },
-    [settings, exploreName, modelName],
+    [settings, sendMessage, showBoundary]
   )
 
-  const sendMessage = async (message: string, parameters: ModelParameters) => {
+  const sendMessage = async (message: string, parameters: ModelParameters): Promise<string> => {
     try {
-      let response = ''
       if (VERTEX_AI_ENDPOINT) {
-        response = await vertextCloudFunction(message, parameters)
+        return await vertexCloudFunction(message, parameters)
       }
 
       if (VERTEX_BIGQUERY_LOOKER_CONNECTION_NAME && VERTEX_BIGQUERY_MODEL_ID) {
-        response = await vertextBigQuery(message, parameters)
+        return await vertexBigQuery(message, parameters)
       }
 
-      return response
+      throw new Error('No valid Vertex AI endpoint configured')
     } catch (error) {
       showBoundary(error)
+      throw error
     }
   }
 
   return {
     generateExploreUrl,
     sendMessage,
-    sendMessageWithThread,
     summarizePrompts,
     isSummarizationPrompt,
     summarizeExplore,
