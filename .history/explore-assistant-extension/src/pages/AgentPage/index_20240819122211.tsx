@@ -69,6 +69,8 @@ const AgentPage = () => {
 
   const explores = Object.keys(examples.exploreSamples).map((key) => {
     const exploreParts = key.split(':')
+    console.log("explores: ", explores),
+    console.log("explores length: ", explores.length)
     return {
       exploreKey: key,
       modelName: exploreParts[0],
@@ -77,9 +79,6 @@ const AgentPage = () => {
 
 
   })
-
-  console.log("explores: ", explores),
-  console.log("explores length: ", explores.length)
 
   const submitMessage = useCallback(async () => {
     if (query === '') {
@@ -404,7 +403,7 @@ const AgentPage = () => {
               </div>
 
               <div className="flex flex-col max-w-3xl m-auto mt-16">
-                {/*explores.length > 1 &&*/ (
+                {explores.length > 1 && (
                   <div className="text-md border-b-2 p-2 max-w-3xl">
                     <FormControl className="">
                       <InputLabel>Explore</InputLabel>

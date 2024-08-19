@@ -1,0 +1,12 @@
+[{
+    "input": ["show me revenue per unit by region", "add average revenue per unit", "display as a table"],
+    "output": "show me revenue per unit and average revenue per unit by region display as a table"
+  },
+  {
+    "input": ["show me top products by revenue", "split by payment method", "display as a stacked bar chart"],
+    "output": "show me top products by revenue split by payment method display as a stacked bar chart"
+  },
+  {
+    "input": ["summarize"],
+    "output": "summarization"
+  }]

@@ -25,25 +25,33 @@ export const useBigQueryExamples = () => {
   const { showBoundary } = useErrorBoundary()
   const { isBigQueryMetadataLoaded } = useSelector((state: RootState) => state.assistant as AssistantState)
 
+  //console.log("LOOKER_MODEL: ", LOOKER_MODEL)
+  //console.log("LOOKER_EXPLORE: ", LOOKER_EXPLORE)
+  console.log("datasetName: ", datasetName)
+  console.log("connectionName: ", connectionName)
+
+
   const { core40SDK } = useContext(ExtensionContext)
+  //console.log("core40SDK: ", core40SDK)
 
   const runSQLQuery = async (sql: string) => {
     try {
+
       const createSqlQuery = await core40SDK.ok(
         core40SDK.create_sql_query({
           connection_name: connectionName,
           sql: sql,
         }),
-      )
-      const { slug } = await createSqlQuery
-      if (slug) {
-        const runSQLQuery = await core40SDK.ok(
-          core40SDK.run_sql_query(slug, 'json'),
         )
-        const examples = await runSQLQuery
-        return examples
-      }
-      return []
+        const { slug } = await createSqlQuery
+        if (slug) {
+          const runSQLQuery = await core40SDK.ok(
+            core40SDK.run_sql_query(slug, 'json'),
+            )
+            const examples = await runSQLQuery
+            return examples
+          }
+          return []
     } catch(error) {
       showBoundary(error)
       throw new Error('error')
@@ -58,22 +66,27 @@ export const useBigQueryExamples = () => {
       FROM
         \`${datasetName}.explore_assistant_examples\`
     `
+/*   
+return runExampleQuery(sql).then((response) => {
+      const generationExamples = response.flatMap((row) => {
+        if (row['examples']) {
+          return JSON.parse(row['examples']);
+        }
+        return [];
+      });
+      dispatch(setExploreGenerationExamples(generationExamples));
+      */
     return runSQLQuery(sql).then((response) => {
       if(response.length === 0 || !Array.isArray(response)) {
-        console.log('No example prompts found');
         return
       }
       const generationExamples: ExploreExamples = {}
-      response.forEach((row) => {
-        if (row['examples']) {
-          try {
-            generationExamples[row['explore_id']] = JSON.parse(row['examples'])
-          } catch (error) {
-            console.error(`Error parsing examples for explore ${row['explore_id']}:`, error)
-          }
-        }
+      if(response.length === 0 || !Array.isArray(response)) {
+        return
+      }
+      response.forEach((row: any) => {
+        generationExamples[row['explore_id']] = JSON.parse(row['examples'])
       })
-      console.log('Generation Examples:', generationExamples);
       dispatch(setExploreGenerationExamples(generationExamples))
     }).catch((error) => showBoundary(error))
   }
@@ -86,22 +99,28 @@ export const useBigQueryExamples = () => {
     FROM
       \`${datasetName}.explore_assistant_refinement_examples\`
   `
+/* remove after validating
+  return runExampleQuery(sql).then((response) => {
+    const refinementExamples = response.flatMap((row) => {
+      if (row['examples']) {
+        return JSON.parse(row['examples']);
+      }
+      return [];
+    });
+    dispatch(setExploreRefinementExamples(refinementExamples));
+  }).catch((error) => showBoundary(error))
+  */
     return runSQLQuery(sql).then((response) => {
       if(response.length === 0 || !Array.isArray(response)) {
-        console.log('No refinement prompts found');
         return
       }
       const refinementExamples: RefinementExamples = {}
-      response.forEach((row) => {
-        if (row['examples']) {
-          try {
-            refinementExamples[row['explore_id']] = JSON.parse(row['examples'])
-          } catch (error) {
-            console.error(`Error parsing refinement examples for explore ${row['explore_id']}:`, error)
-          }
-        }
+      if(response.length === 0 || !Array.isArray(response)) {
+        return
+      }
+      response.forEach((row: any) => {
+        refinementExamples[row['explore_id']] = JSON.parse(row['examples'])
       })
-      console.log('Refinement Examples:', refinementExamples);
       dispatch(setExploreRefinementExamples(refinementExamples))
     }).catch((error) => showBoundary(error))
   }
@@ -117,17 +136,11 @@ export const useBigQueryExamples = () => {
     return runSQLQuery(sql).then((response) => {
       const exploreSamples: ExploreSamples = {}
       if(response.length === 0 || !Array.isArray(response)) {
-        console.log('No samples found');
         return
       }
       response.forEach((row: any) => {
-        try {
-          exploreSamples[row['explore_id']] = JSON.parse(row['samples'])
-        } catch (error) {
-          console.error(`Error parsing samples for explore ${row['explore_id']}:`, error)
-        }
+        exploreSamples[row['explore_id']] = JSON.parse(row['samples'])
       })
-      console.log('Explore Samples:', exploreSamples);
       const exploreKey: string = response[0]['explore_id']
       const [modelName, exploreId] = exploreKey.split(':')
       dispatch(setExploreSamples(exploreSamples))
@@ -153,11 +166,9 @@ export const useBigQueryExamples = () => {
     dispatch(setisBigQueryMetadataLoaded(false))
     Promise.all([getExamplePrompts(), getRefinementPrompts(), getSamples()])
       .then(() => {
-        console.log('All BigQuery data loaded successfully');
         dispatch(setisBigQueryMetadataLoaded(true))
       })
       .catch((error) => {
-        console.error('Error loading BigQuery data:', error);
         showBoundary(error)
         dispatch(setisBigQueryMetadataLoaded(false))
       })
