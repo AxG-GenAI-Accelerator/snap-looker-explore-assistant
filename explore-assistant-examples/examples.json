@@ -1,61 +1,81 @@
 [{
-  "input": "What are the top 100 T-mobile stores?",
-  "output": "fields=lookertestv8.store_id,lookertestv8.dma,lookertestv8.past_pixel_sales_unit&f[lookertestv8.partner]=T-Mobile&sorts=lookertestv8.past_pixel_sales_unit desc&limit=100&column_limit=100&vis={\"type\":\"looker_grid\""
+  "input": "Top stores by sales",
+  "output": "fields=lookerpyramid.ice_store_id,lookerpyramid.store_address,lookerpyramid.store_sales_merged&sorts=lookerpyramid.store_sales_merged desc&limit=10&column_limit=3&vis={\"type\":\"looker_grid\"}"
 },{
-  "input": "Top 20 Verizon stores?",
-  "output": "fields=lookertestv8.store_id,lookertestv8.dma,lookertestv8.past_pixel_sales_unit&f[lookertestv8.partner]=Verizon&sorts=lookertestv8.past_pixel_sales_unit desc&limit=20&column_limit=100&vis={\"type\":\"looker_grid\""
+  "input": "Top 100 T-Mobile stores by sales",
+  "output": "fields=lookerpyramid.ice_store_id,lookerpyramid.store_address,lookerpyramid.store_sales_merged&f[lookerpyramid.partner]=T-Mobile&sorts=lookerpyramid.store_sales_merged desc&limit=100&column_limit=3&vis={\"type\":\"looker_grid\"}"
 },{
-  "input": "Top Best Buy store?",
-  "output": "fields=lookertestv8.store_id,lookertestv8.dma,lookertestv8.past_pixel_sales_unit&f[lookertestv8.partner]=BestBuy&sorts=lookertestv8.past_pixel_sales_unit desc&limit=1&column_limit=3&vis={\"type\":\"single_value\""
+  "input": "Top 50 Verizon stores by growth potential",
+  "output": "fields=lookerpyramid.ice_store_id,lookerpyramid.store_address,lookerpyramid.pixel_growth_potential&f[lookerpyramid.partner]=Verizon&sorts=lookerpyramid.pixel_growth_potential desc&limit=50&column_limit=3&vis={\"type\":\"looker_grid\"}"
 },{
-  "input": "Show me the top 100 AT&T stores by strategic tier?",
-  "output": "fields=lookertestv8.store_id,lookertestv8.dma,lookertestv8.strategic_tiering&f[lookertestv8.partner]=ATT&sorts=lookertestv8.strategic_tiering desc&limit=100&column_limit=3&vis={\"type\":\"looker_grid\""
+  "input": "Show me on a map",
+  "output": "fields=lookerpyramid.ice_store_id,lookerpyramid.store_location,lookerpyramid.store_address,lookerpyramid.store_sales_merged,lookerpyramid.pixel_growth_potential&sorts=lookerpyramid.store_sales_merged desc&limit=100&column_limit=5&vis={\"type\":\"looker_map\"}"
 },{
-  "input": "Top 50 T-mobile stores by growth percentile?",
-  "output": "fields=lookertestv8.store_id,lookertestv8.dma,lookertestv8.strategic_tiering&f[lookertestv8.partner]=T-Mobile&sorts=lookertestv8.pixel_growth_potential_percentile desc&limit=50&column_limit=3&vis={\"type\":\"looker_grid\""
-},{
-  "input": "What are the top 100 Verizon stores by population density?",
-  "output": "fields=lookertestv8.store_id,lookertestv8.dma,lookertestv8.population_density_5mi&f[lookertestv8.partner]=Verizon&sorts=lookertestv8.population_density_5mi desc&limit=100&column_limit=3&vis={\"type\":\"looker_grid\""
-},{
-  "input": "What is the top Verizon store by population density?",
-  "output": "fields=lookertestv8.store_id,lookertestv8.dma,lookertestv8.population_density_5mi&f[lookertestv8.partner]=Verizon&sorts=lookertestv8.population_density_5mi desc&limit=1&column_limit=3&vis={\"type\":\"single_value\""
-},{
-  "input": "Show me the top 100 T-mobile stores on a map",
-  "output": "fields=lookertestv8.store_id,lookertestv8.store_location,lookertestv8.past_pixel_sales_unit,lookertestv8.pixel_growth_potential_percentile,lookertestv8.footfall&f[lookertestv8.partner]=T-Mobile&sorts=lookertestv8.past_pixel_sales_unit desc&limit=100&column_limit=100&vis={\"type\":\"looker_map\""
-},{
-  "input": "Show me the top 100 Verizon stores by footfall on a map",
-  "output": "fields=lookertestv8.store_id,lookertestv8.store_location,lookertestv8.footfall,lookertestv8.pixel_growth_potential_percentile,lookertestv8.footfall&f[lookertestv8.partner]=Verizon&sorts=lookertestv8.footfall desc&limit=100&column_limit=100&vis={\"type\":\"looker_map\""
-},{
-  "input": "Show me the top 30 T-mobile stores by least advocates on a map",
-  "output": "fields=lookertestv8.store_id,lookertestv8.store_location,lookertestv8.advocate_count,lookertestv8.pixel_growth_potential_percentile,lookertestv8.footfall&f[lookertestv8.partner]=T-Mobile&sorts=lookertestv8.lookertestv8.advocate_count asc&limit=30&column_limit=100&vis={\"type\":\"looker_map\""
-},{
-  "input": "Show me the worst 50 Best Buy stores by growth percentile on a map",
-  "output": "fields=lookertestv8.store_id,lookertestv8.store_location,lookertestv8.advocate_count,lookertestv8.pixel_growth_potential_percentile,lookertestv8.footfall&f[lookertestv8.partner]=T-Mobile&sorts=lookertestv8.pixel_growth_potential_percentile asc&limit=50&column_limit=100&vis={\"type\":\"looker_map\""
-},{
-  "input": "Show me the 10 T-mobile stores with the least footfall on a map",
-  "output": "fields=lookertestv8.store_id,lookertestv8.store_location,lookertestv8.past_pixel_sales_unit,lookertestv8.pixel_growth_potential_percentile,lookertestv8.footfall&f[lookertestv8.partner]=T-Mobile&sorts=lookertestv8.footfall asc&limit=10&column_limit=100&vis={\"type\":\"looker_map\""
-},{
-  "input": "What is the DMA with the highest employment rate?",
-  "output": "fields=lookertestv8.dma,lookertestv8.employment_rate_5mi&sorts=lookertestv8.employment_rate_5mi desc&limit=1&column_limit=2&vis={\"type\":\"single_value\""
+  "input": "Show me the top 100 T-Mobile stores on a map",
+  "output": "fields=lookerpyramid.ice_store_id,lookerpyramid.store_location,lookerpyramid.store_address,lookerpyramid.store_sales_merged,lookerpyramid.pixel_growth_potential&f[lookerpyramid.partner]=T-Mobile&sorts=lookerpyramid.store_sales_merged desc&limit=100&column_limit=5&vis={\"type\":\"looker_map\"}"
 },{ 
-  "input": "How many tier 1 stores are there for each partner?", 
-  "output": "lookertestv8.partner,lookertestv8.count$f[lookertestv8.strategic_tiering]=Tier 1&sorts=lookertestv8.count desc&column_limit=2&vis={\"type\":\"looker_bar\"" 
+  "input": "Show me the total coverage percentage", 
+  "output": "fields=lookerpyramid.coverage_percentage&limit=1&column_limit=1&vis={\"type\":\"single_value\"}"
 },{ 
-  "input": "Show me the tier distirbution for the top 100 T-Mobile stores", 
-  "output": "lookertestv8.strategic_tiering,lookertestv8.count$f[lookertestv8.partner]=T-Mobile&sorts=lookertestv8.count desc&limit=100&column_limit=2&vis={\"type\":\"looker_bar\"" 
+  "input": "Show me the total coverage percentage for only T-Mobile stores", 
+  "output": "fields=lookerpyramid.coverage_percentage&f[lookerpyramid.partner]=T-Mobile&limit=1&column_limit=1&vis={\"type\":\"single_value\"}"
 },{ 
-  "input": "What is the coverage for these stores", 
-  "output": "lookertestv8.coverage_percentage&limit=1&column_limit=1&vis={\"type\":\"single_value\""
+  "input": "What is the top state by sales", 
+  "output": "fields=lookerpyramid.store_state,lookerpyramid.sales_merged_sum&f[lookerpyramid.country]=US&sorts=lookerpyramid.sales_merged_sum desc&limit=1&column_limit=2&vis={\"type\":\"looker_grid\"}"
 },{ 
-  "input": "Give me the total coverage percentage for these stores", 
-  "output": "lookertestv8.coverage_percentage&limit=1&column_limit=1&vis={\"type\":\"single_value\""
+  "input": "What are the top 5 states for T-Mobile by sales", 
+  "output": "fields=lookerpyramid.store_state,lookerpyramid.sales_merged_sum&f[lookerpyramid.partner]=T-Mobile&f[lookerpyramid.country]=US&sorts=lookerpyramid.sales_merged_sum desc&limit=5&column_limit=2&vis={\"type\":\"looker_grid\"}"
 },{ 
-  "input": "What is the coverage for the top 100 tmobile store", 
-  "output": "lookertestv8.coverage_percentage$f[lookertestv8.partner]=T-Mobile&sorts=lookertestv8.count desc&limit=1&column_limit=1&vis={\"type\":\"single_value\"" 
+  "input": "What are the top 10 states by growth potential", 
+  "output": "fields=lookerpyramid.store_state,lookerpyramid.growth_potential_average&f[lookerpyramid.country]=US&sorts=lookerpyramid.growth_potential_average desc&limit=10&column_limit=2&vis={\"type\":\"looker_grid\"}"
 },{ 
-  "input": "Show the the coverage percentage for the top 50 stores with the most footfall", 
-  "output": "lookertestv8.coverage_percentagesorts=lookertestv8.footfall desc&limit=1&column_limit=1&vis={\"type\":\"single_value\"" 
+  "input": "What are the top 20 states for Best Buy by growth potential", 
+  "output": "fields=lookerpyramid.store_state,lookerpyramid.growth_potential_average&f[lookerpyramid.partner]=BestBuy&f[lookerpyramid.country]=US&sorts=lookerpyramid.growth_potential_average desc&limit=20&column_limit=2&vis={\"type\":\"looker_grid\"}"
 },{ 
-  "input": "Can you show me the coverage percentage for the top 25 dmas with tmobile tier 1 stores", 
-  "output": "lookertestv8.coverage_percentage&vis={\"type\":\"single_value\""
-}]
+  "input": "Show me how many stores there are in each strategic tier",
+  "output": "fields=lookerpyramid.cluster_name,lookerpyramid.count&sorts=lookerpyramid.cluster_name asc&limit=6&column_limit=2&vis={\"type\":\"looker_bar\"}" 
+},{ 
+  "input": "Show me how many stores there are in each strategic tier for stores in New York", 
+  "output": "fields=lookerpyramid.cluster_name,lookerpyramid.count&f[lookerpyramid.store_state]=NY&sorts=lookerpyramid.cluster_name asc&limit=6&column_limit=2&vis={\"type\":\"looker_bar\"}" 
+},{ 
+  "input": "Show me how many T-Mobile stores there are for each strategic tier", 
+  "output": "fields=lookerpyramid.cluster_name,lookerpyramid.count&f[lookerpyramid.partner]=T-Mobile&sorts=lookerpyramid.cluster_name asc&limit=6&column_limit=2&vis={\"type\":\"looker_bar\"}" 
+},{ 
+  "input": "Show me how many T-Mobile stores there are for each strategic tier in New York",
+  "output": "fields=lookerpyramid.cluster_name,lookerpyramid.count&f[lookerpyramid.partner]=T-Mobile&f[lookerpyramid.store_state]=NY&sorts=lookerpyramid.cluster_name asc&limit=6&column_limit=2&vis={\"type\":\"looker_bar\"}" 
+},{ 
+  "input": "Show me how many stores there are for each partner",
+  "output": "fields=lookerpyramid.partner,lookerpyramid.count&sorts=lookerpyramid.count desc&limit=4&column_limit=2&vis={\"type\":\"looker_bar\"}" 
+},{ 
+  "input": "Show me how many stores there are for each partner in California",
+  "output": "fields=lookerpyramid.partner,lookerpyramid.count&f[lookerpyramid.store_state]=CA&sorts=lookerpyramid.count desc&limit=4&column_limit=2&vis={\"type\":\"looker_bar\"}" 
+},{ 
+  "input": "Show me how many stores there are for each partner in Texas",
+  "output": "fields=lookerpyramid.partner,lookerpyramid.count&f[lookerpyramid.store_state]=TX&sorts=lookerpyramid.count desc&limit=4&column_limit=2&vis={\"type\":\"looker_bar\"}" 
+},{ 
+  "input": "What is the store with the highest sales and lowest coverage",
+  "output": "fields=lookerpyramid.ice_store_id,lookerpyramid.store_sales_merged,lookerpyramid.store_coverage&sorts=lookerpyramid.store_sales_merged desc&sorts=lookerpyramid.store_coverage asc&limit=1&column_limit=3&vis={\"type\":\"multiple_value-marketplace\"}" 
+},{ 
+  "input": "What is the T-Mobile store with the highest sales and lowest coverage",
+  "output": "fields=lookerpyramid.ice_store_id,lookerpyramid.store_sales_merged,lookerpyramid.store_coverage&f[lookerpyramid.partner]=T-Mobile&sorts=lookerpyramid.store_sales_merged desc&sorts=lookerpyramid.store_coverage asc&limit=1&column_limit=3&vis={\"type\":\"multiple_value-marketplace\"}" 
+},{ 
+  "input": "What is the average sales for strategic tier 1",
+  "output": "fields=lookerpyramid.cluster_name,lookerpyramid.sales_average&f[lookerpyramid.cluster]=1&limit=1&column_limit=2&vis={\"type\":\"looker_grid\"}" 
+},{ 
+  "input": "What is the average sales for strategic tier 2 in New York",
+  "output": "fields=lookerpyramid.cluster_name,lookerpyramid.sales_average&f[lookerpyramid.cluster]=2&f[lookerpyramid.store_state]=NY&limit=1&column_limit=2&vis={\"type\":\"looker_grid\"}" 
+},{ 
+  "input": "What is the average sales for each strategic tier",
+  "output": "fields=lookerpyramid.cluster_name,lookerpyramid.sales_average&limit=6&column_limit=2&vis={\"type\":\"looker_grid\"}" 
+},{ 
+  "input": "What is the total sales for each strategic tier",
+  "output": "fields=lookerpyramid.cluster_name,lookerpyramid.sales_merged_sum&limit=6&column_limit=2&vis={\"type\":\"looker_grid\"}" 
+},{ 
+  "input": "What are the covered vs uncovered sales for strategic tier 1",
+  "output": "fields=lookerpyramid.is_covered,lookerpyramid.sales_merged_sum&f[lookerpyramid.cluster]=1&limit=2&column_limit=2&vis={\"type\":\"looker_bar\"}" 
+}
+,{
+  "input": "What is the average footfall for Tier 2 stores in Canada?",
+  "output": "fields=lookerpyramid.cluster_name,lookerpyramid.footfall_average&f[lookerpyramid.cluster]=2&f[lookerpyramid.country]=CA&limit=1&column_limit=2&vis={\"type\":\"looker_grid\"}"
+}
+]
