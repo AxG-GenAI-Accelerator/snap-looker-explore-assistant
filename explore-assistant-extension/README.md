@@ -20,7 +20,7 @@ This section describes how to set up the LLM Integration for the Explore Assista
    git clone https://github.com/looker-open-source/looker-explore-assistant.git
    ```
    Alternatively, open up this repository in: &nbsp;
-   [![Open in Cloud Shell](https://gstatic.com/cloudssh/images/open-btn.svg)](https://shell.cloud.google.com/cloudshell/editor?cloudshell_git_repo=https://github.com/AxG-GenAI-Accelerator/looker-explore-assistant-template.git&cloudshell_workspace=explore-assistant-extension)
+     [![Open in Cloud Shell](https://gstatic.com/cloudssh/images/open-btn.svg)](https://shell.cloud.google.com/cloudshell/editor?cloudshell_git_repo=https://github.com/looker-open-source/looker-explore-assistant.git&cloudshell_workspace=explore-assistant-extension)
 
 3. Install a backend using terraform by [following the instructions](../explore-assistant-backend/README.md)
 
