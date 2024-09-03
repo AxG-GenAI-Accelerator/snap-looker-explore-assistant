@@ -11,13 +11,13 @@ This section describes how to set up the LLM Integration for the Explore Assista
    If you have a git ssh_config:
    ```bash
    # cd ~/ Optional. your user directory is usually a good place to git clone to.
-   git clone git@github.com:looker-open-source/looker-explore-assistant.git
+   git clone git@github.com:AxG-GenAI-Accelerator/looker-explore-assistant-template.git
    ```
 
    If not:
    ```bash
    # cd ~/ Optional. your user directory is usually a good place to git clone to.
-   git clone https://github.com/looker-open-source/looker-explore-assistant.git
+   git clone https://github.com/AxG-GenAI-Accelerator/looker-explore-assistant-template.git
    ```
    Alternatively, open up this repository in: &nbsp;
      [![Open in Cloud Shell](https://gstatic.com/cloudssh/images/open-btn.svg)](https://shell.cloud.google.com/cloudshell/editor?cloudshell_git_repo=https://github.com/looker-open-source/looker-explore-assistant.git&cloudshell_workspace=explore-assistant-extension)
