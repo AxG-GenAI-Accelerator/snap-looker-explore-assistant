@@ -1,5 +1,5 @@
 import { ExtensionContext } from '@looker/extension-sdk-react'
-import { useCallback, useContext } from 'react'
+import { useCallback, useContext, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { UtilsHelper } from '../utils/Helper'
 import CryptoJS from 'crypto-js'
@@ -386,6 +386,38 @@ ${exploreRefinementExamples && exploreRefinementExamples
           newExploreUrl = cleanResponse + toggleString
         }
 
+          const contents = `
+          Primer
+          ----------
+          A user is iteractively asking questions to generate an explore URL in Looker.
+
+          Conversation so far
+          ----------
+          input: ${prompt} 
+          output: ${newExploreUrl}
+        
+          Task
+          ----------
+          Summarize the prompts above to generate a single prompt that includes all the relevant information. If there are conflicting or duplicative information, prefer the most recent prompt.
+          Please give explanation on how did you reach at the solution in below json structure:
+              {
+                   "Data Source": "",
+                   "Calculation Logic": ""
+              } 
+               - Only return the summary of the Data Source with dataset name
+               - Only return the summary of how you calculated in less that 100 words under Calculation logic with no extra explanatation or text
+               - Calculation logic should not include prompt given & visualization part
+               - field names should be in a user readable format, not with dataset.field format
+               - The summary of how it was calculated should be broken down into bullet points in this structure:
+                  - Most important Columns/fields used (in bold shown by *) used for calculation, not necessary to include unnecessary fields
+                  - Filtering done on which fields(in bold shown by *) in a summary format
+                  - sorting done on which fields(in bold shown by *) in a summary format
+               - Do not include anything else other than this JSON structure as response
+            
+        `
+        let getExplanation = await sendMessage(contents, {})
+        getExplanation = unquoteResponse(getExplanation)
+        console.log('Explanation Given:', getExplanation)
         console.log('Final newExploreUrl:', newExploreUrl)
         return newExploreUrl
       } catch (error) {
@@ -421,7 +453,6 @@ ${exploreRefinementExamples && exploreRefinementExamples
       return
     }
   }
-
   return {
     generateExploreUrl,
     sendMessage,

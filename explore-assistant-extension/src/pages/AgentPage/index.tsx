@@ -52,6 +52,7 @@ const AgentPage = () => {
   const endOfMessagesRef = useRef<HTMLDivElement>(null) // Ref for the last message
   const dispatch = useDispatch()
   const [expanded, setExpanded] = useState(false)
+  const [explanation, setExplanation] = useState('')
   const { generateExploreUrl, isSummarizationPrompt, summarizePrompts } =
     useSendVertexMessage()
 
@@ -148,6 +149,10 @@ const AgentPage = () => {
       exploreGenerationExamples,
     )
     console.log('New Explore URL: ', newExploreUrl)
+    if(getExplanation !== undefined) 
+      {
+        setExplanation(getExplanation)
+      }
     dispatch(setIsQuerying(false))
     dispatch(setQuery(''))
 
@@ -347,7 +352,7 @@ const AgentPage = () => {
                       </div>
                     ) : (
                       <div className="pt-8">
-                        <MessageThread />
+                        <MessageThread explanation={explanation} />
                       </div>
                     )}
                   </div>
