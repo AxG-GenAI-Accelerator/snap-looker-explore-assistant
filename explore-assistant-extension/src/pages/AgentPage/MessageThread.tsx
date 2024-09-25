@@ -9,9 +9,10 @@ import { AssistantState, ChatMessage } from '../../slices/assistantSlice'
 
 interface MessageThreadProps {
   explanation: string
+  insights: string
 }
 
-const MessageThread = ({explanation} : MessageThreadProps) => {
+const MessageThread = ({explanation, insights} : MessageThreadProps) => {
   const { currentExploreThread, isQuerying } = useSelector(
     (state: RootState) => state.assistant as AssistantState,
   )
@@ -33,6 +34,7 @@ const MessageThread = ({explanation} : MessageThreadProps) => {
               queryArgs={message.exploreUrl}
               prompt={message.summarizedPrompt}
               explanation={explanation}
+              insights={insights}
             />
           )
         } else if (message.type === 'summarize') {

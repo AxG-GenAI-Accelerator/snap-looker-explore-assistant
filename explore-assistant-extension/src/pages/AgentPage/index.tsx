@@ -53,7 +53,8 @@ const AgentPage = () => {
   const dispatch = useDispatch()
   const [expanded, setExpanded] = useState(false)
   const [explanation, setExplanation] = useState('')
-  const { generateExploreUrl, isSummarizationPrompt, summarizePrompts } =
+  const [insights, setInsights] = useState('')
+  const { generateExploreUrl, isSummarizationPrompt, summarizePrompts, summarizeExplore, summarizeInsights } =
     useSendVertexMessage()
 
   const {
@@ -130,7 +131,7 @@ const AgentPage = () => {
 
     const [promptSummary, isSummary] = await Promise.all([
       summarizePrompts(promptList),
-      isSummarizationPrompt(query),
+      isSummarizationPrompt(query),      
     ])
 
     if (!promptSummary) {
@@ -153,7 +154,12 @@ const AgentPage = () => {
       {
         setExplanation(getExplanation)
       }
-    dispatch(setIsQuerying(false))
+      const trial_explore = await summarizeInsights(newExploreUrl)
+      console.log("Summary explore", trial_explore)
+      if(trial_explore !== undefined) setInsights(trial_explore)
+
+
+      dispatch(setIsQuerying(false))
     dispatch(setQuery(''))
 
     // If the newExploreUrl is empty, do not update the current thread
@@ -352,7 +358,7 @@ const AgentPage = () => {
                       </div>
                     ) : (
                       <div className="pt-8">
-                        <MessageThread explanation={explanation} />
+                        <MessageThread explanation={explanation} insights={insights} />
                       </div>
                     )}
                   </div>

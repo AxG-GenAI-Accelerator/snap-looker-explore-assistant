@@ -15,9 +15,10 @@ interface ExploreMessageProps {
   prompt: string
   queryArgs: string
   explanation: string
+  insights: string
 }
 
-const ExploreMessage = ({ modelName, exploreId, prompt, queryArgs, explanation }: ExploreMessageProps) => {
+const ExploreMessage = ({ modelName, exploreId, prompt, queryArgs, explanation, insights }: ExploreMessageProps) => {
   const dispatch = useDispatch()
   const { extensionSDK } = useContext(ExtensionContext)
   const exploreHref = `/explore/${modelName}/${exploreId}?${queryArgs}`
@@ -25,14 +26,28 @@ const ExploreMessage = ({ modelName, exploreId, prompt, queryArgs, explanation }
     extensionSDK.openBrowserWindow(exploreHref, '_blank')
   }
   const [expanded, setExpanded] = useState(false)
-  const expandedText = 'Sample expanded text. \n "Data Source": "namer_store_sales, pyramid_us" \n "Calculation Logic": "- **Partner** and **Monthly Sales** are used for calculation.\n- Filtered by **Country** = US, **Shipped Week Quarter** = last quarter, **Year** = 2023, **Ice Store ID** not null.\n- Sorted by **Partner** and **Shipped Week Month** in descending order." ';
   const expandedContentRef = useRef<HTMLDivElement>(null);
 
   const jsonData = JSON.parse(explanation);
   console.log("Explanation in ExploreMessage", explanation)
 
-  const calculationLogicLines = jsonData["Calculation Logic"].split('\n');
+  const insightsData = insights.split("\n")
+  console.log("Insights in ExploreMessage", insights)
 
+  const renderIns = () => (
+    <ul>
+      {insightsData.slice(2).map((item, index) => {
+        const parts = item.split('*')
+        return (
+          <li key={index}>
+            <b>{parts[3]}</b> {parts[5]}
+          </li>
+        );
+      })}
+    </ul>
+  )
+
+  const calculationLogicLines = jsonData["Calculation Logic"].split('\n');
   const renderTemp = () => {
     let temp = []
     calculationLogicLines.map((line, index) => temp.push(line.split("**")))
@@ -46,7 +61,7 @@ const ExploreMessage = ({ modelName, exploreId, prompt, queryArgs, explanation }
       </li>
     ));
   };
-  
+
 
   const handleExpand = () => {
     setExpanded(!expanded);
@@ -66,7 +81,9 @@ const ExploreMessage = ({ modelName, exploreId, prompt, queryArgs, explanation }
     <>
       <Message actor="system" createdAt={Date.now()}>
         <div>
-          <div className="mb-2">Here is the explore we generated.</div>
+          <div className="mb-2"><div style={{ fontWeight: 'bold', fontSize: '20px' }}>Insights </div>
+            {renderIns()}
+          </div>
           <div
             className="bg-gray-400 text-white rounded-md p-4 my-2 shadow-lg hover:bg-gray-500 cursor-pointer"
             onClick={openSidePanelExplore}

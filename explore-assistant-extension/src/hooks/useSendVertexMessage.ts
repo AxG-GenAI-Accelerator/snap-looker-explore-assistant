@@ -287,7 +287,11 @@ ${exploreRefinementExamples && exploreRefinementExamples
       The following text represents summaries of a given dashboard's data. 
         Summaries: ${response}
 
-        Make this much more concise for a slide presentation using the following format. The summary should be a markdown documents that contains a list of sections, each section should have the following details:  a section title, which is the title for the given part of the summary, and key points which a list of key points for the concise summary. Data should be returned in each section, you will be penalized if it doesn't adhere to this format. Each summary should only be included once. Do not include the same summary twice.
+        Make this much more concise for a slide presentation using the following format. 
+        The summary should be a markdown documents that contains only 1 section for key observantion also called insights, it should have the following details: a section title called insights , for the given part of the summary, and key points which a list of key points for the concise summary. 
+        Data should be returned in Insights section, you will be penalized if it doesn't adhere to this format. 
+        Each summary should only be included once. Do not include the same summary twice.
+        Do not include points having words like missing data or future analysis
         `
 
       const refinedResponse = await sendMessage(refinedContents, {})
@@ -295,6 +299,100 @@ ${exploreRefinementExamples && exploreRefinementExamples
     },
     [currentExplore],
   )
+
+  const summarizeInsights = useCallback(
+    async (exploreQueryArgs: string) => {
+      const params = new URLSearchParams(exploreQueryArgs)
+
+      // Initialize an object to construct the query
+      const queryParams: {
+        fields: string[]
+        filters: Record<string, string>
+        sorts: string[]
+        limit: string
+      } = {
+        fields: [],
+        filters: {},
+        sorts: [],
+        limit: '',
+      }
+
+      // Iterate over the parameters to fill the query object
+      params.forEach((value, key) => {
+        if (key === 'fields') {
+          queryParams.fields = value.split(',')
+        } else if (key.startsWith('f[')) {
+          const filterKey = key.match(/\[(.*?)\]/)?.[1]
+          if (filterKey) {
+            queryParams.filters[filterKey] = value
+          }
+        } else if (key === 'sorts') {
+          queryParams.sorts = value.split(',')
+        } else if (key === 'limit') {
+          queryParams.limit = value
+        }
+      })
+
+      console.log("useSendVertexMessage summarizeInsights params: ", params)
+
+      // get the contents of the explore query
+      const createQuery = await core40SDK.ok(
+        core40SDK.create_query({
+          model: currentExplore.modelName,
+          view: currentExplore.exploreId,
+
+          fields: queryParams.fields || [],
+          filters: queryParams.filters || {},
+          sorts: queryParams.sorts || [],
+          limit: queryParams.limit || '1000',
+        }),
+      )
+
+      const queryId = createQuery.id
+      if (queryId === undefined || queryId === null) {
+        return 'There was an error!!'
+      }
+      const result = await core40SDK.ok(
+        core40SDK.run_query({
+          query_id: queryId,
+          result_format: 'md',
+        }),
+      )
+
+      if (result.length === 0) {
+        return 'There was an error!!'
+      }
+
+      const contents = `
+      Data
+      ----------
+
+      ${result}
+      
+      Task
+      ----------
+      Summarize the data above
+    
+    `
+      const response = await sendMessage(contents, {})
+
+      const refinedContents = `
+      The following text represents summaries of a given dashboard's data. 
+        Summaries: ${response}
+
+        Make this much more concise for a slide presentation using the following format. 
+        The summary should be a markdown documents that contains only 1 section for key observantion also called insights, it should have the following details: a section title called insights , for the given part of the summary, and key points which a list of key points for the concise summary. 
+        Data should be returned in Insights section, you will be penalized if it doesn't adhere to this format. 
+        Each summary should only be included once. Do not include the same summary twice.
+        Do not include points having words like missing data or future analysis
+        `
+
+      const refinedResponse = await sendMessage(refinedContents, {})
+      return refinedResponse
+    },
+    [currentExplore],
+  )
+
 
   const generateExploreUrl = useCallback(
     async (
@@ -459,6 +557,7 @@ ${exploreRefinementExamples && exploreRefinementExamples
     summarizePrompts,
     isSummarizationPrompt,
     summarizeExplore,
+    summarizeInsights
   }
 }
 
