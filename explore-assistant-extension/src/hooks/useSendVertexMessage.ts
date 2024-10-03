@@ -91,8 +91,8 @@ const useSendVertexMessage = () => {
     contents: string,
     parameters: ModelParameters,
   ) => {
-    console.log('VERTEX BQ Connection:', VERTEX_BIGQUERY_LOOKER_CONNECTION_NAME);
-    console.log('VERTEX BQ Model:', VERTEX_BIGQUERY_MODEL_ID);
+    // console.log('VERTEX BQ Connection:', VERTEX_BIGQUERY_LOOKER_CONNECTION_NAME);
+    // console.log('VERTEX BQ Model:', VERTEX_BIGQUERY_MODEL_ID);
   
     const createSQLQuery = await core40SDK.ok(
       core40SDK.create_sql_query({
@@ -112,7 +112,7 @@ const useSendVertexMessage = () => {
         .replace(/```json/g, '')
         .replace(/```/g, '')
         .trim()
-      console.log('Clean explore data:', cleanExploreData);
+      // console.log('Clean explore data:', cleanExploreData);
 
       return cleanExploreData
     }
@@ -240,7 +240,7 @@ ${exploreRefinementExamples && exploreRefinementExamples
         }
       })
 
-      console.log("useSendVertexMessage summarizeExplore params: ", params)
+      // console.log("useSendVertexMessage summarizeExplore params: ", params)
 
       // get the contents of the explore query
       const createQuery = await core40SDK.ok(
@@ -333,7 +333,7 @@ ${exploreRefinementExamples && exploreRefinementExamples
         }
       })
 
-      console.log("useSendVertexMessage summarizeInsights params: ", params)
+      // console.log("useSendVertexMessage summarizeInsights params: ", params)
 
       // get the contents of the explore query
       const createQuery = await core40SDK.ok(
@@ -445,7 +445,7 @@ ${exploreRefinementExamples && exploreRefinementExamples
         const parameters = {
           max_output_tokens: 1000,
         }
-        console.log("Contents: ", contents)
+        // console.log("Contents: ", contents)
         const response = await sendMessage(contents, parameters)
         return unquoteResponse(response)
       }
@@ -515,9 +515,9 @@ ${exploreRefinementExamples && exploreRefinementExamples
         `
         let getExplanation = await sendMessage(contents, {})
         getExplanation = unquoteResponse(getExplanation)
-        console.log('Explanation Given:', getExplanation)
-        console.log('Final newExploreUrl:', newExploreUrl)
-        return newExploreUrl
+        // console.log('Explanation Given:', getExplanation)
+        // console.log('Final newExploreUrl:', newExploreUrl)
+        return {newExploreUrl, getExplanation}
       } catch (error) {
         console.error(
           'Error generating explore URL:',

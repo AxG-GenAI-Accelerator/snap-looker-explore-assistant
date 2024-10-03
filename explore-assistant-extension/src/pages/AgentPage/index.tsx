@@ -80,8 +80,8 @@ const AgentPage = () => {
 
   })
 
-  console.log("explores: ", explores),
-  console.log("explores length: ", explores.length)
+  // console.log("explores: ", explores),
+  // console.log("explores length: ", explores.length)
 
   const submitMessage = useCallback(async () => {
     if (query === '') {
@@ -116,8 +116,8 @@ const AgentPage = () => {
     }
 
     console.log('Prompt List: ', promptList)
-    console.log(currentExploreThread)
-    console.log(currentExplore)
+    // console.log(currentExploreThread)
+    // console.log(currentExplore)
 
     dispatch(
       addMessage({
@@ -155,7 +155,7 @@ const AgentPage = () => {
         setExplanation(getExplanation)
       }
       const trial_explore = await summarizeInsights(newExploreUrl)
-      console.log("Summary explore", trial_explore)
+      // console.log("Summary explore", trial_explore)
       if(trial_explore !== undefined) setInsights(trial_explore)
 
 
@@ -231,10 +231,10 @@ const AgentPage = () => {
     const [modelName, exploreId] = exploreKey.split(':')
    // console.log("Dimensions:", dimensions)
    // console.log("Measures: ",  measures)
-   console.log("handleExploreChange explore: ", exploreId)
-   console.log("handleExploreChange explore: ", modelName)
-   console.log("exploreGenerationExamples: ", examples.exploreGenerationExamples)
-   console.log("exploreRefinementExamples: ", examples.exploreRefinementExamples)
+  //  console.log("handleExploreChange explore: ", exploreId)
+  //  console.log("handleExploreChange explore: ", modelName)
+  //  console.log("exploreGenerationExamples: ", examples.exploreGenerationExamples)
+  //  console.log("exploreRefinementExamples: ", examples.exploreRefinementExamples)
     dispatch(
       setCurrenExplore({
         modelName,

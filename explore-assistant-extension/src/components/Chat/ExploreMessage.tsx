@@ -29,10 +29,10 @@ const ExploreMessage = ({ modelName, exploreId, prompt, queryArgs, explanation, 
   const expandedContentRef = useRef<HTMLDivElement>(null);
 
   const jsonData = JSON.parse(explanation);
-  console.log("Explanation in ExploreMessage", explanation)
+  // console.log("Explanation in ExploreMessage", explanation)
 
   const insightsData = insights.split("\n")
-  console.log("Insights in ExploreMessage", insights)
+  // console.log("Insights in ExploreMessage", insights)
 
   const renderIns = () => (
     <ul>
