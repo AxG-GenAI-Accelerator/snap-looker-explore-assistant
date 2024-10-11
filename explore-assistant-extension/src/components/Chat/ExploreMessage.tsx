@@ -16,9 +16,12 @@ interface ExploreMessageProps {
   queryArgs: string
   explanation: string
   insights: string
+  explanation_n: string
+  insights_n: string
+  
 }
 
-const ExploreMessage = ({ modelName, exploreId, prompt, queryArgs, explanation, insights }: ExploreMessageProps) => {
+  const ExploreMessage = ({ modelName, exploreId, prompt, queryArgs, explanation, insights, explanation_n, insights_n }: ExploreMessageProps) => {
   const dispatch = useDispatch()
   const { extensionSDK } = useContext(ExtensionContext)
   const exploreHref = `/explore/${modelName}/${exploreId}?${queryArgs}`
@@ -28,11 +31,32 @@ const ExploreMessage = ({ modelName, exploreId, prompt, queryArgs, explanation, 
   const [expanded, setExpanded] = useState(false)
   const expandedContentRef = useRef<HTMLDivElement>(null);
 
-  const jsonData = JSON.parse(explanation);
+  console.log("ExploreHREF====>", exploreHref)
+  console.log("Explanation & Insights coming from chatmasssage assistant====>", explanation_n, "======" ,insights_n)
+  const jsonData = JSON.parse(explanation_n);
   // console.log("Explanation in ExploreMessage", explanation)
 
-  const insightsData = insights.split("\n")
+  const insightsData = insights_n.split("\n")
   // console.log("Insights in ExploreMessage", insights)
+
+  const convertToHTML = (text: string) => {
+    const parts = text.split('\n');
+
+    let temp = []
+    parts.map((line, index) => temp.push(line.split("**")))
+    return temp.slice(2).map((item, index) => (
+      <li key={index}>
+        {item.map((part, i) => (
+          <span key={i}>
+            {part != "* " ? (i % 2 === 0 ? part : <b>{part}</b>) : null}
+          </span>
+        ))}
+      </li>
+    ));
+
+  };
+
+  const renderInsights = convertToHTML(insights_n)
 
   const renderIns = () => (
     <ul>
@@ -82,7 +106,8 @@ const ExploreMessage = ({ modelName, exploreId, prompt, queryArgs, explanation, 
       <Message actor="system" createdAt={Date.now()}>
         <div>
           <div className="mb-2"><div style={{ fontWeight: 'bold', fontSize: '20px' }}>Insights </div>
-            {renderIns()}
+            {/* {renderIns()} */}
+            {renderInsights}
           </div>
           <div
             className="bg-gray-400 text-white rounded-md p-4 my-2 shadow-lg hover:bg-gray-500 cursor-pointer"

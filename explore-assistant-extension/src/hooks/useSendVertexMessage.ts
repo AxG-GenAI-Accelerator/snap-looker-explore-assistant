@@ -381,10 +381,11 @@ ${exploreRefinementExamples && exploreRefinementExamples
         Summaries: ${response}
 
         Make this much more concise for a slide presentation using the following format. 
-        The summary should be a markdown documents that contains only 1 section for key observantion also called insights, it should have the following details: a section title called insights , for the given part of the summary, and key points which a list of key points for the concise summary. 
+        The summary should be a markdown documents that contains only 1 section for key observantion also called insights, it should have the following details: a section title called insights , for the given part of the summary, and list of key points for the concise summary. 
         Data should be returned in Insights section, you will be penalized if it doesn't adhere to this format. 
         Each summary should only be included once. Do not include the same summary twice.
-        Do not include points having words like missing data or future analysis
+        Do not include points having words like missing data or future analysis.
+        Do not return the summary under key points section, it should always be under Insights heading only.
         `
 
       const refinedResponse = await sendMessage(refinedContents, {})

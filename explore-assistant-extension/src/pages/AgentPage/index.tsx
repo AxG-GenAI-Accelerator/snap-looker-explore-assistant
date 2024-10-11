@@ -201,6 +201,8 @@ const AgentPage = () => {
           actor: 'system',
           createdAt: Date.now(),
           type: 'explore',
+          insights_n: trial_explore,
+          explanation_n: getExplanation
         }),
       )
     }

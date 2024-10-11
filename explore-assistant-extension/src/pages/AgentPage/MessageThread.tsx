@@ -35,7 +35,9 @@ const MessageThread = ({explanation, insights} : MessageThreadProps) => {
               prompt={message.summarizedPrompt}
               explanation={explanation}
               insights={insights}
-            />
+              explanation_n={message.explanation_n}
+              insights_n={message.insights_n}
+              />
           )
         } else if (message.type === 'summarize') {
           return <SummaryMessage key={message.uuid} message={message} />
