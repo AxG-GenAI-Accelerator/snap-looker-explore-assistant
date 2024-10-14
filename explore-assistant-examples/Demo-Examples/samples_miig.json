@@ -1,0 +1,14 @@
+[
+    {
+      "category": "Sales",
+      "prompt": "What are the top stores by sales"
+    },
+    {
+      "category": "Map View",
+      "prompt":"Show me the top 100 stores on a map"
+    },
+    {
+      "category": "State",
+      "prompt": "What is the top state by sales"
+    }
+]
