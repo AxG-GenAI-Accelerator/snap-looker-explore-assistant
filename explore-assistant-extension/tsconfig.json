@@ -49,7 +49,9 @@ SOFTWARE.
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "skipLibCheck": true,
-    "suppressImplicitAnyIndexErrors": true
+    "suppressImplicitAnyIndexErrors": true,
+    "ignoreDeprecations": "5.0",
+    "types": ["json"]
   },
   "exclude": [
     "explore-assistant-extension/node_modules",

@@ -52,7 +52,9 @@ const AgentPage = () => {
   const endOfMessagesRef = useRef<HTMLDivElement>(null) // Ref for the last message
   const dispatch = useDispatch()
   const [expanded, setExpanded] = useState(false)
-  const { generateExploreUrl, isSummarizationPrompt, summarizePrompts } =
+  const [explanation, setExplanation] = useState('')
+  const [insights, setInsights] = useState('')
+  const { generateExploreUrl, isSummarizationPrompt, summarizePrompts, summarizeExplore, summarizeInsights } =
     useSendVertexMessage()
 
   const {
@@ -78,8 +80,8 @@ const AgentPage = () => {
 
   })
 
-  console.log("explores: ", explores),
-  console.log("explores length: ", explores.length)
+  // console.log("explores: ", explores),
+  // console.log("explores length: ", explores.length)
 
   const submitMessage = useCallback(async () => {
     if (query === '') {
@@ -114,8 +116,8 @@ const AgentPage = () => {
     }
 
     console.log('Prompt List: ', promptList)
-    console.log(currentExploreThread)
-    console.log(currentExplore)
+    // console.log(currentExploreThread)
+    // console.log(currentExplore)
 
     dispatch(
       addMessage({
@@ -129,7 +131,7 @@ const AgentPage = () => {
 
     const [promptSummary, isSummary] = await Promise.all([
       summarizePrompts(promptList),
-      isSummarizationPrompt(query),
+      isSummarizationPrompt(query),      
     ])
 
     if (!promptSummary) {
@@ -148,7 +150,16 @@ const AgentPage = () => {
       exploreGenerationExamples,
     )
     console.log('New Explore URL: ', newExploreUrl)
-    dispatch(setIsQuerying(false))
+    if(getExplanation !== undefined) 
+      {
+        setExplanation(getExplanation)
+      }
+      const trial_explore = await summarizeInsights(newExploreUrl)
+      // console.log("Summary explore", trial_explore)
+      if(trial_explore !== undefined) setInsights(trial_explore)
+
+
+      dispatch(setIsQuerying(false))
     dispatch(setQuery(''))
 
     // If the newExploreUrl is empty, do not update the current thread
@@ -190,6 +201,8 @@ const AgentPage = () => {
           actor: 'system',
           createdAt: Date.now(),
           type: 'explore',
+          insights_n: trial_explore,
+          explanation_n: getExplanation
         }),
       )
     }
@@ -220,10 +233,10 @@ const AgentPage = () => {
     const [modelName, exploreId] = exploreKey.split(':')
    // console.log("Dimensions:", dimensions)
    // console.log("Measures: ",  measures)
-   console.log("handleExploreChange explore: ", exploreId)
-   console.log("handleExploreChange explore: ", modelName)
-   console.log("exploreGenerationExamples: ", examples.exploreGenerationExamples)
-   console.log("exploreRefinementExamples: ", examples.exploreRefinementExamples)
+  //  console.log("handleExploreChange explore: ", exploreId)
+  //  console.log("handleExploreChange explore: ", modelName)
+  //  console.log("exploreGenerationExamples: ", examples.exploreGenerationExamples)
+  //  console.log("exploreRefinementExamples: ", examples.exploreRefinementExamples)
     dispatch(
       setCurrenExplore({
         modelName,
@@ -347,7 +360,7 @@ const AgentPage = () => {
                       </div>
                     ) : (
                       <div className="pt-8">
-                        <MessageThread />
+                        <MessageThread explanation={explanation} insights={insights} />
                       </div>
                     )}
                   </div>

@@ -1,0 +1,15 @@
+[
+    {
+      "category": "Trend Analysis",
+      "prompt": "Create a line chart showing UA, UC, and UPI over time with custom formatting"
+
+    },
+    {
+      "category": "Favorability",
+      "prompt":"Make a time series for favorability for total gen pop in the US"
+    },
+    {
+      "category": "Cohorting",
+      "prompt": "Which cohort in the UK had the highest UA in 2024?"
+    }
+]

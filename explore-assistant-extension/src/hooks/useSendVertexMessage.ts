@@ -1,5 +1,5 @@
 import { ExtensionContext } from '@looker/extension-sdk-react'
-import { useCallback, useContext } from 'react'
+import { useCallback, useContext, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { UtilsHelper } from '../utils/Helper'
 import CryptoJS from 'crypto-js'
@@ -91,8 +91,8 @@ const useSendVertexMessage = () => {
     contents: string,
     parameters: ModelParameters,
   ) => {
-    console.log('VERTEX BQ Connection:', VERTEX_BIGQUERY_LOOKER_CONNECTION_NAME);
-    console.log('VERTEX BQ Model:', VERTEX_BIGQUERY_MODEL_ID);
+    // console.log('VERTEX BQ Connection:', VERTEX_BIGQUERY_LOOKER_CONNECTION_NAME);
+    // console.log('VERTEX BQ Model:', VERTEX_BIGQUERY_MODEL_ID);
   
     const createSQLQuery = await core40SDK.ok(
       core40SDK.create_sql_query({
@@ -112,7 +112,7 @@ const useSendVertexMessage = () => {
         .replace(/```json/g, '')
         .replace(/```/g, '')
         .trim()
-      console.log('Clean explore data:', cleanExploreData);
+      // console.log('Clean explore data:', cleanExploreData);
 
       return cleanExploreData
     }
@@ -240,7 +240,7 @@ ${exploreRefinementExamples && exploreRefinementExamples
         }
       })
 
-      console.log("useSendVertexMessage summarizeExplore params: ", params)
+      // console.log("useSendVertexMessage summarizeExplore params: ", params)
 
       // get the contents of the explore query
       const createQuery = await core40SDK.ok(
@@ -287,7 +287,11 @@ ${exploreRefinementExamples && exploreRefinementExamples
       The following text represents summaries of a given dashboard's data. 
         Summaries: ${response}
 
-        Make this much more concise for a slide presentation using the following format. The summary should be a markdown documents that contains a list of sections, each section should have the following details:  a section title, which is the title for the given part of the summary, and key points which a list of key points for the concise summary. Data should be returned in each section, you will be penalized if it doesn't adhere to this format. Each summary should only be included once. Do not include the same summary twice.
+        Make this much more concise for a slide presentation using the following format. 
+        The summary should be a markdown documents that contains only 1 section for key observantion also called insights, it should have the following details: a section title called insights , for the given part of the summary, and key points which a list of key points for the concise summary. 
+        Data should be returned in Insights section, you will be penalized if it doesn't adhere to this format. 
+        Each summary should only be included once. Do not include the same summary twice.
+        Do not include points having words like missing data or future analysis
         `
 
       const refinedResponse = await sendMessage(refinedContents, {})
@@ -295,6 +299,101 @@ ${exploreRefinementExamples && exploreRefinementExamples
     },
     [currentExplore],
   )
+
+  const summarizeInsights = useCallback(
+    async (exploreQueryArgs: string) => {
+      const params = new URLSearchParams(exploreQueryArgs)
+
+      // Initialize an object to construct the query
+      const queryParams: {
+        fields: string[]
+        filters: Record<string, string>
+        sorts: string[]
+        limit: string
+      } = {
+        fields: [],
+        filters: {},
+        sorts: [],
+        limit: '',
+      }
+
+      // Iterate over the parameters to fill the query object
+      params.forEach((value, key) => {
+        if (key === 'fields') {
+          queryParams.fields = value.split(',')
+        } else if (key.startsWith('f[')) {
+          const filterKey = key.match(/\[(.*?)\]/)?.[1]
+          if (filterKey) {
+            queryParams.filters[filterKey] = value
+          }
+        } else if (key === 'sorts') {
+          queryParams.sorts = value.split(',')
+        } else if (key === 'limit') {
+          queryParams.limit = value
+        }
+      })
+
+      // console.log("useSendVertexMessage summarizeInsights params: ", params)
+
+      // get the contents of the explore query
+      const createQuery = await core40SDK.ok(
+        core40SDK.create_query({
+          model: currentExplore.modelName,
+          view: currentExplore.exploreId,
+
+          fields: queryParams.fields || [],
+          filters: queryParams.filters || {},
+          sorts: queryParams.sorts || [],
+          limit: queryParams.limit || '1000',
+        }),
+      )
+
+      const queryId = createQuery.id
+      if (queryId === undefined || queryId === null) {
+        return 'There was an error!!'
+      }
+      const result = await core40SDK.ok(
+        core40SDK.run_query({
+          query_id: queryId,
+          result_format: 'md',
+        }),
+      )
+
+      if (result.length === 0) {
+        return 'There was an error!!'
+      }
+
+      const contents = `
+      Data
+      ----------
+
+      ${result}
+      
+      Task
+      ----------
+      Summarize the data above
+    
+    `
+      const response = await sendMessage(contents, {})
+
+      const refinedContents = `
+      The following text represents summaries of a given dashboard's data. 
+        Summaries: ${response}
+
+        Make this much more concise for a slide presentation using the following format. 
+        The summary should be a markdown documents that contains only 1 section for key observantion also called insights, it should have the following details: a section title called insights , for the given part of the summary, and list of key points for the concise summary. 
+        Data should be returned in Insights section, you will be penalized if it doesn't adhere to this format. 
+        Each summary should only be included once. Do not include the same summary twice.
+        Do not include points having words like missing data or future analysis.
+        Do not return the summary under key points section, it should always be under Insights heading only.
+        `
+
+      const refinedResponse = await sendMessage(refinedContents, {})
+      return refinedResponse
+    },
+    [currentExplore],
+  )
+
 
   const generateExploreUrl = useCallback(
     async (
@@ -347,7 +446,7 @@ ${exploreRefinementExamples && exploreRefinementExamples
         const parameters = {
           max_output_tokens: 1000,
         }
-        console.log("Contents: ", contents)
+        // console.log("Contents: ", contents)
         const response = await sendMessage(contents, parameters)
         return unquoteResponse(response)
       }
@@ -386,8 +485,40 @@ ${exploreRefinementExamples && exploreRefinementExamples
           newExploreUrl = cleanResponse + toggleString
         }
 
-        console.log('Final newExploreUrl:', newExploreUrl)
-        return newExploreUrl
+          const contents = `
+          Primer
+          ----------
+          A user is iteractively asking questions to generate an explore URL in Looker.
+
+          Conversation so far
+          ----------
+          input: ${prompt} 
+          output: ${newExploreUrl}
+        
+          Task
+          ----------
+          Summarize the prompts above to generate a single prompt that includes all the relevant information. If there are conflicting or duplicative information, prefer the most recent prompt.
+          Please give explanation on how did you reach at the solution in below json structure:
+              {
+                   "Data Source": "",
+                   "Calculation Logic": ""
+              } 
+               - Only return the summary of the Data Source with dataset name
+               - Only return the summary of how you calculated in less that 100 words under Calculation logic with no extra explanatation or text
+               - Calculation logic should not include prompt given & visualization part
+               - field names should be in a user readable format, not with dataset.field format
+               - The summary of how it was calculated should be broken down into bullet points in this structure:
+                  - Most important Columns/fields used (in bold shown by *) used for calculation, not necessary to include unnecessary fields
+                  - Filtering done on which fields(in bold shown by *) in a summary format
+                  - sorting done on which fields(in bold shown by *) in a summary format
+               - Do not include anything else other than this JSON structure as response
+            
+        `
+        let getExplanation = await sendMessage(contents, {})
+        getExplanation = unquoteResponse(getExplanation)
+        // console.log('Explanation Given:', getExplanation)
+        // console.log('Final newExploreUrl:', newExploreUrl)
+        return {newExploreUrl, getExplanation}
       } catch (error) {
         console.error(
           'Error generating explore URL:',
@@ -421,13 +552,13 @@ ${exploreRefinementExamples && exploreRefinementExamples
       return
     }
   }
-
   return {
     generateExploreUrl,
     sendMessage,
     summarizePrompts,
     isSummarizationPrompt,
     summarizeExplore,
+    summarizeInsights
   }
 }
 

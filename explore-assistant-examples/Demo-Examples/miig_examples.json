@@ -1,0 +1,12 @@
+[{
+  "input": "What are the top stores by sales",
+  "output": "fields=lookerpyramid.ice_store_id,lookerpyramid.store_address,lookerpyramid.store_sales_merged&sorts=lookerpyramid.store_sales_merged desc&limit=10&column_limit=3&vis={\"type\":\"looker_grid\"}"
+},{
+  "input": "Show me the top 100 T-Mobile stores on a map",
+  "output": "fields=lookerpyramid.ice_store_id,lookerpyramid.store_location,lookerpyramid.store_address,lookerpyramid.store_sales_merged,lookerpyramid.pixel_growth_potential&f[lookerpyramid.partner]=T-Mobile&sorts=lookerpyramid.store_sales_merged desc&limit=100&column_limit=5&vis={\"type\":\"looker_map\"}"
+},
+{ 
+  "input": "What is the top state by sales", 
+  "output": "fields=lookerpyramid.store_state,lookerpyramid.sales_merged_sum&f[lookerpyramid.country]=US&sorts=lookerpyramid.sales_merged_sum desc&limit=1&column_limit=2&vis={\"type\":\"looker_grid\"}"
+}
+]

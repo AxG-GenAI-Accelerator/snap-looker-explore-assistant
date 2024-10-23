@@ -53,6 +53,8 @@ export interface Message {
 export interface ExploreMessage {
   uuid: string
   exploreUrl: string
+  insights_n: string
+  explanation_n : string
   actor: 'system'
   createdAt: number
   type: 'explore'
@@ -155,7 +157,7 @@ export const initialState: AssistantState = {
   currentExplore: {
     exploreKey: '',
     modelName: '',
-    exploreId: ''
+    exploreId: '',
   },
   sidePanel: {
     isSidePanelOpen: false,
