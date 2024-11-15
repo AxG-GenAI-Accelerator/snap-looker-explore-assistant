@@ -152,12 +152,14 @@ const useSendVertexMessage = () => {
 
       Here are some example prompts the user has asked so far and how to summarize them:
 
-${exploreRefinementExamples && exploreRefinementExamples
-  .map((item) => {
-    const inputText = '"' + item.input.join('", "') + '"'
-    return `- The sequence of prompts from the user: ${inputText}. The summarized prompts: "${item.output}"`
-  })
-  .join('\n')}
+  ${Array.isArray(exploreRefinementExamples) ? exploreRefinementExamples
+    .map((item) => {
+      if (!item || !Array.isArray(item.input)) return '';
+      const inputText = '"' + (item.input || []).join('", "') + '"'
+      return `- The sequence of prompts from the user: ${inputText}. The summarized prompts: "${item.output || ''}"`
+    }) 
+    .filter(Boolean)
+    .join('\n') : ''}
 
       Conversation so far
       ----------
@@ -401,7 +403,7 @@ ${exploreRefinementExamples && exploreRefinementExamples
       dimensions: any[],
       measures: any[],
       exploreGenerationExamples: any[],
-    ) => {
+    ) : Promise<{ newExploreUrl: string; getExplanation: string | undefined }> => {
       const generateContent = async (updatedPrompt: string = prompt) => {
         const contents = `
           Context
@@ -446,7 +448,7 @@ ${exploreRefinementExamples && exploreRefinementExamples
         const parameters = {
           max_output_tokens: 1000,
         }
-        // console.log("Contents: ", contents)
+        console.log("GenerateExploreURL Prompt: ", contents)
         const response = await sendMessage(contents, parameters)
         return unquoteResponse(response)
       }
@@ -500,18 +502,16 @@ ${exploreRefinementExamples && exploreRefinementExamples
           Summarize the prompts above to generate a single prompt that includes all the relevant information. If there are conflicting or duplicative information, prefer the most recent prompt.
           Please give explanation on how did you reach at the solution in below json structure:
               {
-                   "Data Source": "",
-                   "Calculation Logic": ""
+                   "Data Source": "" (Only return the summary of the Data Source with dataset name),
+                   "Measures Used": "" (most important Columns/fields used (in bold shown by *) used for calculation, not necessary to include unnecessary fields),
+                   "Filters": "" (Filtering done on which fields(in bold shown by *) in a summary format),
+                   "Sorting": "" (sorting done on which fields(in bold shown by *) in a summary format),
+                   "Limit": "" (limit of records returned in a sql query)
               } 
-               - Only return the summary of the Data Source with dataset name
-               - Only return the summary of how you calculated in less that 100 words under Calculation logic with no extra explanatation or text
-               - Calculation logic should not include prompt given & visualization part
-               - field names should be in a user readable format, not with dataset.field format
-               - The summary of how it was calculated should be broken down into bullet points in this structure:
-                  - Most important Columns/fields used (in bold shown by *) used for calculation, not necessary to include unnecessary fields
-                  - Filtering done on which fields(in bold shown by *) in a summary format
-                  - sorting done on which fields(in bold shown by *) in a summary format
-               - Do not include anything else other than this JSON structure as response
+               - field names in measures used should be in a user readable format, not with dataset.field format
+               - Do not include prompt given & visualization part
+               - Do not include anything else other than this JSON structure
+               - Do not include Explanation part separately other than this JSON structure
             
         `
         let getExplanation = await sendMessage(contents, {})

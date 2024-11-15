@@ -143,7 +143,7 @@ const AgentPage = () => {
     const exploreGenerationExamples =
       examples.exploreGenerationExamples[exploreKey]
 
-    const newExploreUrl = await generateExploreUrl(
+    const {newExploreUrl, getExplanation} = await generateExploreUrl(
       promptSummary,
       dimensions,
       measures,
@@ -364,6 +364,7 @@ const AgentPage = () => {
                       </div>
                     )}
                   </div>
+                  {/* <SamplePrompts /> */}
                 </div>
                 <div
                   className={`absolute bottom-0 left-1/2 transform -translate-x-1/2 w-4/5  transition-all duration-300 ease-in-out`}
