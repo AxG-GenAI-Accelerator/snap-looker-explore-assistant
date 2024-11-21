@@ -16,8 +16,8 @@ interface ExploreMessageProps {
   modelName: string
   prompt: string
   queryArgs: string
-  explanation: string
-  insights: string
+  // explanation: string
+  // insights: string
   explanation_n: string
   insights_n: string
 }
@@ -27,8 +27,8 @@ const ExploreMessage = ({
   exploreId,
   prompt,
   queryArgs,
-  explanation,
-  insights,
+  // explanation,
+  // insights,
   explanation_n,
   insights_n,
 }: ExploreMessageProps) => {
@@ -41,12 +41,10 @@ const ExploreMessage = ({
   const [expanded, setExpanded] = useState(false)
   const expandedContentRef = useRef<HTMLDivElement>(null)
 
-  // console.log('ExploreHREF====>', exploreHref)
   // console.log('Explanation & Insights coming from chatmasssage assistant====>', explanation_n, '======', insights_n )
   const jsonData = JSON.parse(explanation_n)
 
   // const insightsData = insights_n.split('\n')
-  // console.log("Insights in ExploreMessage", insights)
 
   const convertToHTML = (text: string) => {
     const parts = text.split('\n')

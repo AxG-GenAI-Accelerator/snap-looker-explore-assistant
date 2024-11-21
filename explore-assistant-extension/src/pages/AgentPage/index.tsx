@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from 'uuid'
 
 import './style.css'
 import SamplePrompts from '../../components/SamplePrompts'
+import SuggestedQuestions from '../../components/SuggestedQuestions'
 import { ExploreEmbed } from '../../components/ExploreEmbed'
 import { RootState } from '../../store'
 import { useDispatch, useSelector } from 'react-redux'
@@ -52,10 +53,14 @@ const AgentPage = () => {
   const endOfMessagesRef = useRef<HTMLDivElement>(null) // Ref for the last message
   const dispatch = useDispatch()
   const [expanded, setExpanded] = useState(false)
-  const [explanation, setExplanation] = useState('')
+  // const [explanation, setExplanation] = useState('')
   const [insights, setInsights] = useState('')
-  const { generateExploreUrl, isSummarizationPrompt, summarizePrompts, summarizeExplore, summarizeInsights } =
-    useSendVertexMessage()
+  const {
+    generateExploreUrl,
+    isSummarizationPrompt,
+    summarizePrompts,
+    summarizeInsights,
+  } = useSendVertexMessage()
 
   const {
     isChatMode,
@@ -76,8 +81,6 @@ const AgentPage = () => {
       modelName: exploreParts[0],
       exploreId: exploreParts[1],
     }
-
-
   })
 
   // console.log("explores: ", explores),
@@ -102,7 +105,8 @@ const AgentPage = () => {
       }),
     )
 
-    const exploreKey = currentExploreThread?.exploreKey || currentExplore.exploreKey
+    const exploreKey =
+      currentExploreThread?.exploreKey || currentExplore.exploreKey
 
     // set the explore if it is not set
     if (!currentExploreThread?.modelName || !currentExploreThread?.exploreId) {
@@ -115,7 +119,6 @@ const AgentPage = () => {
       )
     }
 
-    console.log('Prompt List: ', promptList)
     // console.log(currentExploreThread)
     // console.log(currentExplore)
 
@@ -131,8 +134,9 @@ const AgentPage = () => {
 
     const [promptSummary, isSummary] = await Promise.all([
       summarizePrompts(promptList),
-      isSummarizationPrompt(query),      
+      isSummarizationPrompt(query)
     ])
+    console.log(promptSummary, isSummary, promptList)
 
     if (!promptSummary) {
       dispatch(setIsQuerying(false))
@@ -143,23 +147,22 @@ const AgentPage = () => {
     const exploreGenerationExamples =
       examples.exploreGenerationExamples[exploreKey]
 
-    const {newExploreUrl, getExplanation} = await generateExploreUrl(
+    const { newExploreUrl, getExplanation } = await generateExploreUrl(
       promptSummary,
       dimensions,
       measures,
       exploreGenerationExamples,
     )
     console.log('New Explore URL: ', newExploreUrl)
-    if(getExplanation !== undefined) 
-      {
-        setExplanation(getExplanation)
-      }
-      const trial_explore = await summarizeInsights(newExploreUrl)
-      // console.log("Summary explore", trial_explore)
-      if(trial_explore !== undefined) setInsights(trial_explore)
+    // if(getExplanation !== undefined)
+    //   {
+    //     setExplanation(getExplanation)
+    //   }
+    const trial_explore = await summarizeInsights(newExploreUrl)
+    // console.log("Summary explore", trial_explore)
+    if(trial_explore !== undefined) setInsights(trial_explore)
 
-
-      dispatch(setIsQuerying(false))
+    dispatch(setIsQuerying(false))
     dispatch(setQuery(''))
 
     // If the newExploreUrl is empty, do not update the current thread
@@ -231,22 +234,18 @@ const AgentPage = () => {
   const handleExploreChange = (event: SelectChangeEvent) => {
     const exploreKey = event.target.value
     const [modelName, exploreId] = exploreKey.split(':')
-   // console.log("Dimensions:", dimensions)
-   // console.log("Measures: ",  measures)
-  //  console.log("handleExploreChange explore: ", exploreId)
-  //  console.log("handleExploreChange explore: ", modelName)
-  //  console.log("exploreGenerationExamples: ", examples.exploreGenerationExamples)
-  //  console.log("exploreRefinementExamples: ", examples.exploreRefinementExamples)
+    // console.log("Dimensions:", dimensions)
+    // console.log("Measures: ",  measures)
+    //  console.log("handleExploreChange explore: ", exploreId)
+    //  console.log("handleExploreChange explore: ", modelName)
+    //  console.log("exploreGenerationExamples: ", examples.exploreGenerationExamples)
+    //  console.log("exploreRefinementExamples: ", examples.exploreRefinementExamples)
     dispatch(
       setCurrenExplore({
         modelName,
         exploreId,
         exploreKey,
       }),
-    
-    
-    
-    
     )
   }
 
@@ -360,11 +359,13 @@ const AgentPage = () => {
                       </div>
                     ) : (
                       <div className="pt-8">
-                        <MessageThread explanation={explanation} insights={insights} />
+                        <MessageThread
+                        // explanation={explanation} insights={insights}
+                        />
                       </div>
                     )}
                   </div>
-                  {/* <SamplePrompts /> */}
+                  <SuggestedQuestions  insights={insights}   />
                 </div>
                 <div
                   className={`absolute bottom-0 left-1/2 transform -translate-x-1/2 w-4/5  transition-all duration-300 ease-in-out`}
@@ -418,8 +419,8 @@ const AgentPage = () => {
               </div>
 
               <div className="flex flex-col max-w-3xl m-auto mt-16">
-                {/*explores.length > 1 &&*/ (
-                  <div className="text-md border-b-2 p-2 max-w-3xl">
+                {
+                  /*explores.length > 1 &&*/ <div className="text-md border-b-2 p-2 max-w-3xl">
                     <FormControl className="">
                       <InputLabel>Explore</InputLabel>
                       <Select
@@ -438,7 +439,7 @@ const AgentPage = () => {
                       </Select>
                     </FormControl>
                   </div>
-                )}
+                }
                 <SamplePrompts />
               </div>
 

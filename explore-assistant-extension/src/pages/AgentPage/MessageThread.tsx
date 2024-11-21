@@ -7,12 +7,14 @@ import SummaryMessage from '../../components/Chat/SummaryMessage'
 import { CircularProgress } from '@material-ui/core'
 import { AssistantState, ChatMessage } from '../../slices/assistantSlice'
 
-interface MessageThreadProps {
-  explanation: string
-  insights: string
-}
+// interface MessageThreadProps {
+//   explanation: string
+//   insights: string
+// }
 
-const MessageThread = ({explanation, insights} : MessageThreadProps) => {
+const MessageThread = (
+//  {explanation, insights} : MessageThreadProps
+) => {
   const { currentExploreThread, isQuerying } = useSelector(
     (state: RootState) => state.assistant as AssistantState,
   )
@@ -33,8 +35,8 @@ const MessageThread = ({explanation, insights} : MessageThreadProps) => {
               exploreId={currentExploreThread.exploreId}
               queryArgs={message.exploreUrl}
               prompt={message.summarizedPrompt}
-              explanation={explanation}
-              insights={insights}
+              // explanation={explanation}
+              // insights={insights}
               explanation_n={message.explanation_n}
               insights_n={message.insights_n}
               />

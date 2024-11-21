@@ -214,90 +214,91 @@ const useSendVertexMessage = () => {
       const params = new URLSearchParams(exploreQueryArgs)
 
       // Initialize an object to construct the query
-      const queryParams: {
-        fields: string[]
-        filters: Record<string, string>
-        sorts: string[]
-        limit: string
-      } = {
-        fields: [],
-        filters: {},
-        sorts: [],
-        limit: '',
-      }
+    //   const queryParams: {
+    //     fields: string[]
+    //     filters: Record<string, string>
+    //     sorts: string[]
+    //     limit: string
+    //   } = {
+    //     fields: [],
+    //     filters: {},
+    //     sorts: [],
+    //     limit: '',
+    //   }
 
-      // Iterate over the parameters to fill the query object
-      params.forEach((value, key) => {
-        if (key === 'fields') {
-          queryParams.fields = value.split(',')
-        } else if (key.startsWith('f[')) {
-          const filterKey = key.match(/\[(.*?)\]/)?.[1]
-          if (filterKey) {
-            queryParams.filters[filterKey] = value
-          }
-        } else if (key === 'sorts') {
-          queryParams.sorts = value.split(',')
-        } else if (key === 'limit') {
-          queryParams.limit = value
-        }
-      })
+    //   // Iterate over the parameters to fill the query object
+    //   params.forEach((value, key) => {
+    //     if (key === 'fields') {
+    //       queryParams.fields = value.split(',')
+    //     } else if (key.startsWith('f[')) {
+    //       const filterKey = key.match(/\[(.*?)\]/)?.[1]
+    //       if (filterKey) {
+    //         queryParams.filters[filterKey] = value
+    //       }
+    //     } else if (key === 'sorts') {
+    //       queryParams.sorts = value.split(',')
+    //     } else if (key === 'limit') {
+    //       queryParams.limit = value
+    //     }
+    //   })
 
-      // console.log("useSendVertexMessage summarizeExplore params: ", params)
+    //   // console.log("useSendVertexMessage summarizeExplore params: ", params)
 
-      // get the contents of the explore query
-      const createQuery = await core40SDK.ok(
-        core40SDK.create_query({
-          model: currentExplore.modelName,
-          view: currentExplore.exploreId,
+    //   // get the contents of the explore query
+    //   const createQuery = await core40SDK.ok(
+    //     core40SDK.create_query({
+    //       model: currentExplore.modelName,
+    //       view: currentExplore.exploreId,
 
-          fields: queryParams.fields || [],
-          filters: queryParams.filters || {},
-          sorts: queryParams.sorts || [],
-          limit: queryParams.limit || '1000',
-        }),
-      )
+    //       fields: queryParams.fields || [],
+    //       filters: queryParams.filters || {},
+    //       sorts: queryParams.sorts || [],
+    //       limit: queryParams.limit || '1000',
+    //     }),
+    //   )
 
-      const queryId = createQuery.id
-      if (queryId === undefined || queryId === null) {
-        return 'There was an error!!'
-      }
-      const result = await core40SDK.ok(
-        core40SDK.run_query({
-          query_id: queryId,
-          result_format: 'md',
-        }),
-      )
+    //   const queryId = createQuery.id
+    //   if (queryId === undefined || queryId === null) {
+    //     return 'There was an error!!'
+    //   }
+    //   const result = await core40SDK.ok(
+    //     core40SDK.run_query({
+    //       query_id: queryId,
+    //       result_format: 'md',
+    //     }),
+    //   )
 
-      if (result.length === 0) {
-        return 'There was an error!!'
-      }
+    //   if (result.length === 0) {
+    //     return 'There was an error!!'
+    //   }
 
-      const contents = `
-      Data
-      ----------
+    //   const contents = `
+    //   Data
+    //   ----------
 
-      ${result}
+    //   ${result}
       
-      Task
-      ----------
-      Summarize the data above
+    //   Task
+    //   ----------
+    //   Summarize the data above
     
-    `
-      const response = await sendMessage(contents, {})
+    // `
+    //   const response = await sendMessage(contents, {})
 
-      const refinedContents = `
-      The following text represents summaries of a given dashboard's data. 
-        Summaries: ${response}
+    //   const refinedContents = `
+    //   The following text represents summaries of a given dashboard's data. 
+    //     Summaries: ${response}
 
-        Make this much more concise for a slide presentation using the following format. 
-        The summary should be a markdown documents that contains only 1 section for key observantion also called insights, it should have the following details: a section title called insights , for the given part of the summary, and key points which a list of key points for the concise summary. 
-        Data should be returned in Insights section, you will be penalized if it doesn't adhere to this format. 
-        Each summary should only be included once. Do not include the same summary twice.
-        Do not include points having words like missing data or future analysis
-        `
+    //     Make this much more concise for a slide presentation using the following format. 
+    //     The summary should be a markdown documents that contains only 1 section for key observantion also called insights, it should have the following details: a section title called insights , for the given part of the summary, and key points which a list of key points for the concise summary. 
+    //     Data should be returned in Insights section, you will be penalized if it doesn't adhere to this format. 
+    //     Each summary should only be included once. Do not include the same summary twice.
+    //     Do not include points having words like missing data or future analysis
+    //     `
 
-      const refinedResponse = await sendMessage(refinedContents, {})
-      return refinedResponse
+    //   const refinedResponse = await sendMessage(refinedContents, {})
+    //   return refinedResponse
+      return ''
     },
     [currentExplore],
   )
@@ -395,6 +396,64 @@ const useSendVertexMessage = () => {
     },
     [currentExplore],
   )
+
+  const sugQue = useCallback(
+    async (
+      prompt: string,
+      promptList: any[],
+      insights: string,
+      dimensions: any[],
+      exploreGenerationExamples: any[]
+
+    ) => {
+
+      const contents = `
+      Primer
+      ----------
+
+      You are an advanced assistant helping users analyze data. When a user submits a query, you will return relevant follow-up questions based on the most recent insights. 
+      Ensure that the questions are focused on the context of the data and provide ways for the user to explore deeper or comparative insights. 
+      You have access to a history of user prompts, the latest insights, and a list of sample questions to help you generate the new questions.
+
+      The types of follow-up questions you generate should help users:
+        •	Compare the current insights with historical data.
+        •	Break down the data by different categories (e.g., region, product, time).
+        •	Explore trends over time or based on other filters.
+        •	Understand the performance or impact of key metrics.
+
+  
+      Instructions
+      ------------
+      •	Use the most recent prompt and the insights returned to understand the current context.
+      •	Stay within the context of the most recent query and insights.
+      •	Review the historical prompts to avoid redundant questions.
+      •	Generate upcoming questions that are relevant and help the user explore deeper insights.
+      •	Return only 3 follow-up questions as a string separated by a “;” as a delimiter. Example: Suggested Question 1; Suggested Question 2; Suggested Question 3.
+      •	Ensure the questions are concise, relevant, and insightful.
+
+      
+      Previous Prompt: ${prompt}
+      Prompt History: ${promptList}
+      Insights: ${insights}
+      Dimensions Used to group by information (follow the instructions in tags when using a specific field; if map used include a location or lat long dimension;):
+        ${dimensions.map(formatContent).join('\n')}
+      Example:
+        ${exploreGenerationExamples && exploreGenerationExamples
+          .map((item) => `input: "${item.input}" ; output: ${item.output}`)
+          .join('\n')}
+
+      Output
+      ----------
+      Suggested Question 1; Suggested Question 2; Suggested Question 3
+
+    `
+    const response = await sendMessage(contents, {})
+
+    // return response === 'data summary'
+
+    console.log("From usesendvertex response", response?.split(';'))
+      return response?.split(';')
+    }, [])
 
 
   const generateExploreUrl = useCallback(
@@ -558,7 +617,8 @@ const useSendVertexMessage = () => {
     summarizePrompts,
     isSummarizationPrompt,
     summarizeExplore,
-    summarizeInsights
+    summarizeInsights,
+    sugQue
   }
 }
 
