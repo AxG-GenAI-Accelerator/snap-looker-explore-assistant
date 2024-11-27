@@ -1,5 +1,5 @@
 application: explore_assistant {
-    label: "Gemini Explore Assistant"
+    label: "HPP Explore Assistant"
     #url: "https://localhost:8080/bundle.js"
     file: "bundle.js"
     #file: "bundle-demo.js"
