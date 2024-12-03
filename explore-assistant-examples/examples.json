@@ -1,81 +1,34 @@
-[{
-  "input": "Top stores by sales",
-  "output": "fields=lookerpyramid.ice_store_id,lookerpyramid.store_address,lookerpyramid.store_sales_merged&sorts=lookerpyramid.store_sales_merged desc&limit=10&column_limit=3&vis={\"type\":\"looker_grid\"}"
-},{
-  "input": "Top 100 T-Mobile stores by sales",
-  "output": "fields=lookerpyramid.ice_store_id,lookerpyramid.store_address,lookerpyramid.store_sales_merged&f[lookerpyramid.partner]=T-Mobile&sorts=lookerpyramid.store_sales_merged desc&limit=100&column_limit=3&vis={\"type\":\"looker_grid\"}"
-},{
-  "input": "Top 50 Verizon stores by growth potential",
-  "output": "fields=lookerpyramid.ice_store_id,lookerpyramid.store_address,lookerpyramid.pixel_growth_potential&f[lookerpyramid.partner]=Verizon&sorts=lookerpyramid.pixel_growth_potential desc&limit=50&column_limit=3&vis={\"type\":\"looker_grid\"}"
-},{
-  "input": "Show me on a map",
-  "output": "fields=lookerpyramid.ice_store_id,lookerpyramid.store_location,lookerpyramid.store_address,lookerpyramid.store_sales_merged,lookerpyramid.pixel_growth_potential&sorts=lookerpyramid.store_sales_merged desc&limit=100&column_limit=5&vis={\"type\":\"looker_map\"}"
-},{
-  "input": "Show me the top 100 T-Mobile stores on a map",
-  "output": "fields=lookerpyramid.ice_store_id,lookerpyramid.store_location,lookerpyramid.store_address,lookerpyramid.store_sales_merged,lookerpyramid.pixel_growth_potential&f[lookerpyramid.partner]=T-Mobile&sorts=lookerpyramid.store_sales_merged desc&limit=100&column_limit=5&vis={\"type\":\"looker_map\"}"
-},{ 
-  "input": "Show me the total coverage percentage", 
-  "output": "fields=lookerpyramid.coverage_percentage&limit=1&column_limit=1&vis={\"type\":\"single_value\"}"
-},{ 
-  "input": "Show me the total coverage percentage for only T-Mobile stores", 
-  "output": "fields=lookerpyramid.coverage_percentage&f[lookerpyramid.partner]=T-Mobile&limit=1&column_limit=1&vis={\"type\":\"single_value\"}"
-},{ 
-  "input": "What is the top state by sales", 
-  "output": "fields=lookerpyramid.store_state,lookerpyramid.sales_merged_sum&f[lookerpyramid.country]=US&sorts=lookerpyramid.sales_merged_sum desc&limit=1&column_limit=2&vis={\"type\":\"looker_grid\"}"
-},{ 
-  "input": "What are the top 5 states for T-Mobile by sales", 
-  "output": "fields=lookerpyramid.store_state,lookerpyramid.sales_merged_sum&f[lookerpyramid.partner]=T-Mobile&f[lookerpyramid.country]=US&sorts=lookerpyramid.sales_merged_sum desc&limit=5&column_limit=2&vis={\"type\":\"looker_grid\"}"
-},{ 
-  "input": "What are the top 10 states by growth potential", 
-  "output": "fields=lookerpyramid.store_state,lookerpyramid.growth_potential_average&f[lookerpyramid.country]=US&sorts=lookerpyramid.growth_potential_average desc&limit=10&column_limit=2&vis={\"type\":\"looker_grid\"}"
-},{ 
-  "input": "What are the top 20 states for Best Buy by growth potential", 
-  "output": "fields=lookerpyramid.store_state,lookerpyramid.growth_potential_average&f[lookerpyramid.partner]=BestBuy&f[lookerpyramid.country]=US&sorts=lookerpyramid.growth_potential_average desc&limit=20&column_limit=2&vis={\"type\":\"looker_grid\"}"
-},{ 
-  "input": "Show me how many stores there are in each strategic tier",
-  "output": "fields=lookerpyramid.cluster_name,lookerpyramid.count&sorts=lookerpyramid.cluster_name asc&limit=6&column_limit=2&vis={\"type\":\"looker_bar\"}" 
-},{ 
-  "input": "Show me how many stores there are in each strategic tier for stores in New York", 
-  "output": "fields=lookerpyramid.cluster_name,lookerpyramid.count&f[lookerpyramid.store_state]=NY&sorts=lookerpyramid.cluster_name asc&limit=6&column_limit=2&vis={\"type\":\"looker_bar\"}" 
-},{ 
-  "input": "Show me how many T-Mobile stores there are for each strategic tier", 
-  "output": "fields=lookerpyramid.cluster_name,lookerpyramid.count&f[lookerpyramid.partner]=T-Mobile&sorts=lookerpyramid.cluster_name asc&limit=6&column_limit=2&vis={\"type\":\"looker_bar\"}" 
-},{ 
-  "input": "Show me how many T-Mobile stores there are for each strategic tier in New York",
-  "output": "fields=lookerpyramid.cluster_name,lookerpyramid.count&f[lookerpyramid.partner]=T-Mobile&f[lookerpyramid.store_state]=NY&sorts=lookerpyramid.cluster_name asc&limit=6&column_limit=2&vis={\"type\":\"looker_bar\"}" 
-},{ 
-  "input": "Show me how many stores there are for each partner",
-  "output": "fields=lookerpyramid.partner,lookerpyramid.count&sorts=lookerpyramid.count desc&limit=4&column_limit=2&vis={\"type\":\"looker_bar\"}" 
-},{ 
-  "input": "Show me how many stores there are for each partner in California",
-  "output": "fields=lookerpyramid.partner,lookerpyramid.count&f[lookerpyramid.store_state]=CA&sorts=lookerpyramid.count desc&limit=4&column_limit=2&vis={\"type\":\"looker_bar\"}" 
-},{ 
-  "input": "Show me how many stores there are for each partner in Texas",
-  "output": "fields=lookerpyramid.partner,lookerpyramid.count&f[lookerpyramid.store_state]=TX&sorts=lookerpyramid.count desc&limit=4&column_limit=2&vis={\"type\":\"looker_bar\"}" 
-},{ 
-  "input": "What is the store with the highest sales and lowest coverage",
-  "output": "fields=lookerpyramid.ice_store_id,lookerpyramid.store_sales_merged,lookerpyramid.store_coverage&sorts=lookerpyramid.store_sales_merged desc&sorts=lookerpyramid.store_coverage asc&limit=1&column_limit=3&vis={\"type\":\"multiple_value-marketplace\"}" 
-},{ 
-  "input": "What is the T-Mobile store with the highest sales and lowest coverage",
-  "output": "fields=lookerpyramid.ice_store_id,lookerpyramid.store_sales_merged,lookerpyramid.store_coverage&f[lookerpyramid.partner]=T-Mobile&sorts=lookerpyramid.store_sales_merged desc&sorts=lookerpyramid.store_coverage asc&limit=1&column_limit=3&vis={\"type\":\"multiple_value-marketplace\"}" 
-},{ 
-  "input": "What is the average sales for strategic tier 1",
-  "output": "fields=lookerpyramid.cluster_name,lookerpyramid.sales_average&f[lookerpyramid.cluster]=1&limit=1&column_limit=2&vis={\"type\":\"looker_grid\"}" 
-},{ 
-  "input": "What is the average sales for strategic tier 2 in New York",
-  "output": "fields=lookerpyramid.cluster_name,lookerpyramid.sales_average&f[lookerpyramid.cluster]=2&f[lookerpyramid.store_state]=NY&limit=1&column_limit=2&vis={\"type\":\"looker_grid\"}" 
-},{ 
-  "input": "What is the average sales for each strategic tier",
-  "output": "fields=lookerpyramid.cluster_name,lookerpyramid.sales_average&limit=6&column_limit=2&vis={\"type\":\"looker_grid\"}" 
-},{ 
-  "input": "What is the total sales for each strategic tier",
-  "output": "fields=lookerpyramid.cluster_name,lookerpyramid.sales_merged_sum&limit=6&column_limit=2&vis={\"type\":\"looker_grid\"}" 
-},{ 
-  "input": "What are the covered vs uncovered sales for strategic tier 1",
-  "output": "fields=lookerpyramid.is_covered,lookerpyramid.sales_merged_sum&f[lookerpyramid.cluster]=1&limit=2&column_limit=2&vis={\"type\":\"looker_bar\"}" 
-}
-,{
-  "input": "What is the average footfall for Tier 2 stores in Canada?",
-  "output": "fields=lookerpyramid.cluster_name,lookerpyramid.footfall_average&f[lookerpyramid.cluster]=2&f[lookerpyramid.country]=CA&limit=1&column_limit=2&vis={\"type\":\"looker_grid\"}"
-}
+[
+  {
+  "input": "How many campaigns exist for a certain region?",
+  "output": "fields=Final_HPP_Schema_Small.region,Final_HPP_Schema_Small.campaign_id&sorts=Final_HPP_Schema_Small.count"
+  },
+  {
+  "input": "What was the click through rate (CTR) for campaign ID 12345?",
+  "output": "fields=Final_HPP_Schema_Small.CTR&f[Final_HPP_Schema_Small.campaign_id]=12345"
+  },
+  {
+  "input": "What percentage of campaigns are mobile? What are desktop?",
+  "output": "fields=Final_HPP_Schema_Small.count&f[Final_HPP_Schema_Small.device]=mobile, desktop&percent_of_previous"
+  },
+  {
+  "input": "Please provide the campaigns with the top 10 CTR",
+  "output": "fields=Final_HPP_Schema_Small.campaign_id,Final_HPP_Schema_Small.CTR%&sorts=Final_HPP_Schema_Small.CTR desc0&limit=10"
+  },
+  {
+  "input": "Please provide the region with the highest CTR",
+  "output": "fields=Final_HPP_Schema_Small.region,Final_HPP_Schema_Small.CTR%&sorts=Final_HPP_Schema_Small.CTR desc0&limit=1"
+  },
+  {
+  "input": "How many CTR% does mobile have?",
+  "output": "fields=Final_HPP_Schema_Small.CTR,Final_HPP_Schema_Small.device&f[Final_HPP_Schema_Small.device]=mobile"
+  },
+  {
+  "input": "Top 100 copies with highest engagement",
+  "output": "fields=Final_HPP_Schema_Small.CTR,Final_HPP_Schema_Small.approved_copy&sortFinal_HPP_Schema_Small.CTR desc0%limit=100"
+  },
+  {
+  "input": "what device are mostly used per country",
+  "output": "fields=Final_HPP_Schema_Small.country,Final_HPP_Schema_Small.device,Final_HPP_Schema_Small.approved_copy&sortFinal_HPP_Schema_Small.CTR desc0%limit=100"
+  }
 ]

@@ -1,14 +1,34 @@
 [
-    {
-      "category": "Cohorting",
-      "prompt": "Count of Users by first purchase date"
-    },
-    {
-      "category": "Audience Building",
-      "prompt":"Users who have purchased more than 100 dollars worth of Calvin Klein products and have purchased in the last 30 days"
-    },
-    {
-      "category": "Period Comparison",
-      "prompt": "Total revenue by category this year compared to last year in a line chart with year pivoted"
-    }
+  {
+    "category": "Campaign Performance",
+    "prompt": "Show me CTR and impression counts for all campaigns in the EMEA region"
+  },
+  {
+    "category": "Device Analysis",
+    "prompt": "Compare mobile vs desktop CTR rates across different countries"
+  },
+  {
+    "category": "Regional Insights",
+    "prompt": "What are the top performing regions by CTR and acceptance rate?"
+  },
+  {
+    "category": "Content Effectiveness",
+    "prompt": "Which approved copy versions have the highest engagement rates?"
+  },
+  {
+    "category": "Temporal Analysis",
+    "prompt": "How does campaign performance vary by begin_date over the last quarter?"
+  },
+  {
+    "category": "Cross-Channel Metrics",
+    "prompt": "Compare performance across different hpp_formats and devices"
+  },
+  {
+    "category": "Audience Targeting",
+    "prompt": "Show campaigns targeting specific properties with their respective CTR rates"
+  },
+  {
+    "category": "Comparative Analysis",
+    "prompt": "Compare CTR performance against global, regional, and country benchmarks"
+  }
 ]
