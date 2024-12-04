@@ -27,6 +27,7 @@ const generateSQL = (
   prompt: string,
   parameters: ModelParameters,
 ) => {
+  console.log('Generating SQL with model_id:', model_id);
   const escapedPrompt = UtilsHelper.escapeQueryAll(prompt)
   const subselect = `SELECT '` + escapedPrompt + `' AS prompt`
 
@@ -91,8 +92,8 @@ const useSendVertexMessage = () => {
     contents: string,
     parameters: ModelParameters,
   ) => {
-    // console.log('VERTEX BQ Connection:', VERTEX_BIGQUERY_LOOKER_CONNECTION_NAME);
-    // console.log('VERTEX BQ Model:', VERTEX_BIGQUERY_MODEL_ID);
+    console.log('VERTEX BQ Connection:', VERTEX_BIGQUERY_LOOKER_CONNECTION_NAME);
+    console.log('VERTEX BQ Model:', VERTEX_BIGQUERY_MODEL_ID);
   
     const createSQLQuery = await core40SDK.ok(
       core40SDK.create_sql_query({
@@ -336,7 +337,7 @@ const useSendVertexMessage = () => {
         }
       })
 
-      // console.log("useSendVertexMessage summarizeInsights params: ", params)
+      console.log("useSendVertexMessage summarizeInsights params: ", params)
 
       // get the contents of the explore query
       const createQuery = await core40SDK.ok(
