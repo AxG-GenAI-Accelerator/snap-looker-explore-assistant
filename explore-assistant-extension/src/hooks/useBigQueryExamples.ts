@@ -154,6 +154,7 @@ export const useBigQueryExamples = () => {
     Promise.all([getExamplePrompts(), getRefinementPrompts(), getSamples()])
       .then(() => {
         console.log('All BigQuery data loaded successfully');
+        console.log('Check 1')
         dispatch(setisBigQueryMetadataLoaded(true))
       })
       .catch((error) => {
