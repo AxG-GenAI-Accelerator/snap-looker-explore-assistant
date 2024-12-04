@@ -37,8 +37,6 @@ view: final_hpp_schema_small {
 
   dimension_group: begin_date {
     type: time
-    timeframes: [raw, date, week, month, quarter, year]
-    convert_tz: no
     datatype: date
     sql: ${TABLE}.begin_date ;;
     label: "Campaign Begin"
@@ -137,8 +135,6 @@ view: final_hpp_schema_small {
 
   dimension_group: end_date {
     type: time
-    timeframes: [raw, date, week, month, quarter, year]
-    convert_tz: no
     datatype: date
     sql: ${TABLE}.end_date ;;
     label: "Campaign End"
@@ -186,7 +182,7 @@ view: final_hpp_schema_small {
     tags: ["geography", "metadata", "location"]
   }
 
-  dimension: mobile_os_mapping {
+  dimension: mobileOS_mapping {
     type: string
     sql: ${TABLE}.mobileOS_mapping ;;
     label: "Mobile OS Mapping"
