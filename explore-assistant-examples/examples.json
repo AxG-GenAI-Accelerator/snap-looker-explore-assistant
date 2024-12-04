@@ -25,7 +25,7 @@
   },
   {
   "input": "Top 100 copies with highest engagement",
-  "output": "fields=Final_HPP_Schema_Small.CTR,Final_HPP_Schema_Small.approved_copy&sortFinal_HPP_Schema_Small.CTR% desc0%limit=100"
+  "output": "fields=Final_HPP_Schema_Small.CTR,Final_HPP_Schema_Small.approved_copy&sortFinal_HPP_Schema_Small.CTR desc0%limit=100"
   },
   {
   "input": "what device are mostly used per country",

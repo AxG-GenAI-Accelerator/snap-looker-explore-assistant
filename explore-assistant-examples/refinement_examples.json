@@ -1,12 +1,38 @@
-[{
-    "input": ["make a chart of sales by tier"],
-    "output": "make a chart of sales by tier make it a table"
+[
+  {
+    "input": ["show campaign performance"],
+    "output": "show campaign performance metrics including CTR and impressions in a table format"
   },
   {
-    "input": ["show me on a map"],
-    "output": "make a looker map using store_location"
+    "input": ["compare devices"],
+    "output": "compare CTR and acceptance rates between mobile and desktop devices in a bar chart"
+  },
+  {
+    "input": ["regional breakdown"],
+    "output": "show performance metrics by region in a table with CTR and impression counts"
+  },
+  {
+    "input": ["top performers"],
+    "output": "show top 10 performing campaigns by CTR in descending order"
+  },
+  {
+    "input": ["trend analysis"],
+    "output": "analyze CTR trends over time with begin_date in a line chart"
+  },
+  {
+    "input": ["campaign distribution"],
+    "output": "show distribution of campaigns across regions in a pie chart"
+  },
+  {
+    "input": ["engagement metrics"],
+    "output": "display engagement metrics including impressions, accepts, and dismissals in a summary table"
+  },
+  {
+    "input": ["copy performance"],
+    "output": "analyze approved copy performance with CTR and impression counts"
   },
   {
     "input": ["summarize"],
     "output": "summarization"
-  }]
+  }
+]
