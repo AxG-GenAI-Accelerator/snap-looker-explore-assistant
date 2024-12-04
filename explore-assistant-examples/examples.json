@@ -8,19 +8,19 @@
   "output": "fields=Final_HPP_Schema_Small.CTR&f[Final_HPP_Schema_Small.campaign_id]=12345"
   },
   {
-  "input": "What percentage of campaigns are mobile? What are desktop?",
-  "output": "fields=Final_HPP_Schema_Small.count&f[Final_HPP_Schema_Small.device]=mobile, desktop&percent_of_previous"
+  "input": "What percentage of campaigns are mobile?",
+  "output": "fields=Final_HPP_Schema_Small.count&f[Final_HPP_Schema_Small.device]=mobile &percent_of_previous"
   },
   {
   "input": "Please provide the campaigns with the top 10 CTR",
-  "output": "fields=Final_HPP_Schema_Small.campaign_id,Final_HPP_Schema_Small.CTR%&sorts=Final_HPP_Schema_Small.CTR desc0&limit=10"
+  "output": "fields=Final_HPP_Schema_Small.campaign_id,Final_HPP_Schema_Small.CTR&sorts=Final_HPP_Schema_Small.CTR desc0&limit=10"
   },
   {
   "input": "Please provide the region with the highest CTR",
-  "output": "fields=Final_HPP_Schema_Small.region,Final_HPP_Schema_Small.CTR%&sorts=Final_HPP_Schema_Small.CTR desc0&limit=1"
+  "output": "fields=Final_HPP_Schema_Small.region,Final_HPP_Schema_Small.CTR&sorts=Final_HPP_Schema_Small.CTR desc0&limit=1"
   },
   {
-  "input": "How many CTR% does mobile have?",
+  "input": "What CTR% does mobile have?",
   "output": "fields=Final_HPP_Schema_Small.CTR,Final_HPP_Schema_Small.device&f[Final_HPP_Schema_Small.device]=mobile"
   },
   {

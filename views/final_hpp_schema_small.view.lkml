@@ -120,7 +120,7 @@ view: final_hpp_schema_small {
   dimension: device {
     type: string
     sql: ${TABLE}.device ;;
-    label: "Device Type"
+    label: "Device"
     description: "Type of device where the promotion was displayed"
     tags: ["device", "platform", "technical"]
   }
