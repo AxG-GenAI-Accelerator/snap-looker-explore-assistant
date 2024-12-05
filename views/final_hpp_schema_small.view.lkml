@@ -10,9 +10,9 @@ view: final_hpp_schema_small {
     tags: ["rate", "dismissal", "engagement"]
   }
 
-  dimension: __dismiss_to_accept_rate__1 {
+  dimension: __dismiss_to_accept__1 {
     type: number
-    sql: ${TABLE}.__dismiss_to_accept_rate__1 ;;
+    sql: ${TABLE}.__dismiss_to_accept__1 ;;
     label: "Dismiss to Accept Rate"
     description: "Ratio of dismissals to accepts for promotions"
     value_format_name: percent_2
@@ -108,12 +108,11 @@ view: final_hpp_schema_small {
     tags: ["geography", "location", "country"]
   }
 
-  dimension: ctr {
+  dimension: CTR {
     type: number
     sql: ${TABLE}.CTR ;;
     label: "Click-Through Rate"
     description: "Click-through rate for the campaign"
-    value_format_name: percent_2
     tags: ["metric", "ctr", "performance"]
   }
 
@@ -150,7 +149,7 @@ view: final_hpp_schema_small {
     tags: ["status", "indicator", "campaign"]
   }
 
-  dimension: grl {
+  dimension: GRL {
     type: string
     sql: ${TABLE}.GRL ;;
     label: "GRL"

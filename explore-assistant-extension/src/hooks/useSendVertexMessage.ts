@@ -30,7 +30,8 @@ const generateSQL = (
   console.log('Generating SQL with model_id:', model_id);
   const escapedPrompt = UtilsHelper.escapeQueryAll(prompt)
   const subselect = `SELECT '` + escapedPrompt + `' AS prompt`
-
+  console.log('Escaped prompt:', escapedPrompt);
+  console.log('subselect: ', subselect);
   return `
   
     SELECT ml_generate_text_llm_result AS generated_content
@@ -49,6 +50,7 @@ const generateSQL = (
       )
   
       `
+     
 }
 
 function formatContent(field: {
@@ -69,25 +71,26 @@ function formatContent(field: {
 
   return result
 }
-
+console.log('Check 2')
 const useSendVertexMessage = () => {
+  console.log('Check 3')
   const { showBoundary } = useErrorBoundary()
   // cloud function
   const VERTEX_AI_ENDPOINT = process.env.VERTEX_AI_ENDPOINT || ''
   const VERTEX_CF_AUTH_TOKEN = process.env.VERTEX_CF_AUTH_TOKEN || ''
-
+  console.log('Check 4')
   // bigquery
   const VERTEX_BIGQUERY_LOOKER_CONNECTION_NAME =
     process.env.VERTEX_BIGQUERY_LOOKER_CONNECTION_NAME || ''
   const VERTEX_BIGQUERY_MODEL_ID = process.env.VERTEX_BIGQUERY_MODEL_ID || ''
-
+  console.log('check 5')
   const { core40SDK } = useContext(ExtensionContext)
   const { settings, examples, currentExplore} =
     useSelector((state: RootState) => state.assistant as AssistantState)
-
+    console.log('Check 6')
   const currentExploreKey = currentExplore.exploreKey
   const exploreRefinementExamples = examples.exploreRefinementExamples[currentExploreKey]
-
+  console.log('Check 7')
   const vertextBigQuery = async (
     contents: string,
     parameters: ModelParameters,
@@ -118,7 +121,7 @@ const useSendVertexMessage = () => {
       return cleanExploreData
     }
   }
-
+  console.log('Check 8')
   const vertextCloudFunction = async (
     contents: string,
     parameters: ModelParameters,
@@ -127,7 +130,7 @@ const useSendVertexMessage = () => {
       contents: contents,
       parameters: parameters,
     })
-
+    console.log('Check 9')
     const signature = CryptoJS.HmacSHA256(body, VERTEX_CF_AUTH_TOKEN).toString()
 
     const responseData = await fetch(VERTEX_AI_ENDPOINT, {
@@ -142,7 +145,7 @@ const useSendVertexMessage = () => {
     const response = await responseData.text()
     return response.trim()
   }
-
+  console.log('Check 10')
   const summarizePrompts = useCallback(
     async (promptList: string[]) => {
       const contents = `
@@ -209,6 +212,7 @@ const useSendVertexMessage = () => {
     const response = await sendMessage(contents, {})
     return response === 'data summary'
   }
+  
 
   const summarizeExplore = useCallback(
     async (exploreQueryArgs: string) => {
