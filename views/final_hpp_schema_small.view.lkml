@@ -113,7 +113,6 @@ view: final_hpp_schema_small {
     sql: ${TABLE}.CTR ;;
     label: "Click-Through Rate"
     description: "Click-through rate for the campaign"
-    value_format_name: percent_2
     tags: ["metric", "ctr", "performance"]
   }
 

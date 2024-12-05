@@ -7,10 +7,6 @@ include: "/views/*.view.lkml"                # include all views in the views/ f
 # # Select the views that should be a part of this model,
 # # and define the joins that connect them together.
 #
-explore: Evergreen_Campaign{
-  view_name:  continuum_data_team_post_launch_hpp_reporting_dashboard_i2_evergreen
-  view_label: "Evergreen Campaign Performance Metrics"
-}
 explore: final_hpp_schema_small{
   view_name:  final_hpp_schema_small
   view_label: "Final HPP Small Set Performance Metrics"
