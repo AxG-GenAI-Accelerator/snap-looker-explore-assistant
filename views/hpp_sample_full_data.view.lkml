@@ -22,7 +22,7 @@ view: hpp_sample_full_data {
 
   # Convert to measure - represents count of acceptance events
   measure: accept {
-    type: number
+    type: sum
     sql: ${TABLE}.accept ;;
     label: "Total Accepts"
     description: "Total number of times the promotion was accepted; sum of users per day who click on the promo"
@@ -117,7 +117,7 @@ view: hpp_sample_full_data {
 
   # Convert CTR to measure - can be calculated from accepts and impressions
   measure: ctr {
-    type: number
+    type: average
     sql: ${TABLE}.ctr ;;
     label: "Click-Through Rate"
     description: "Click-through rate calculated as accepts divided by impressions"
@@ -135,7 +135,7 @@ view: hpp_sample_full_data {
 
   # Convert to measure - represents count of dismissal events
   measure: dismiss {
-    type: number
+    type: sum
     sql: ${TABLE}.dismiss ;;
     label: "Total Dismissals"
     description: "Total number of times the promotion was dismissed; sum of users who exit out of a promo"
@@ -178,7 +178,7 @@ view: hpp_sample_full_data {
 
   # Convert to measure - represents count of impression events
   measure: impression {
-    type: number
+    type: sum
     sql: ${TABLE}.impression ;;
     label: "Total Impressions"
     description: "Total number of times the promotion was viewed; sum of users who view the promo for any amount of time"
