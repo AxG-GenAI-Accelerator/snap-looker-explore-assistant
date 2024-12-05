@@ -118,7 +118,7 @@ view: hpp_sample_full_data {
   # Convert CTR to measure - can be calculated from accepts and impressions
   measure: ctr {
     type: number
-    sql: ${TABLE}.CTR ;;
+    sql: ${TABLE}.ctr ;;
     label: "Click-Through Rate"
     description: "Click-through rate calculated as accepts divided by impressions"
     value_format_name: percent_2
