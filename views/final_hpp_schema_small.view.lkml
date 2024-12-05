@@ -235,5 +235,41 @@ view: final_hpp_schema_small {
     label: "Count of Campaigns"
     description: "Total number of campaign records"
     tags: ["count", "campaigns"]
+
+  }
+  dimension: region_ctr {
+    type: number
+    sql: ${TABLE}.region_ctr_2 ;;
+    label: "Region CTR Benchmark"
+    description: "Benchmark of click-through rate aggregated at the region level"
+    value_format_name: percent_2
+    tags: ["metric", "ctr", "performance", "region", "benchmark"]
+  }
+
+  dimension: country_ctr {
+    type: number
+    sql: ${TABLE}.country_ctr_2 ;;
+    label: "Country CTR Benchmark"
+    description: "Benchmark of click-through rate aggregated at the country level"
+    value_format_name: percent_2
+    tags: ["metric", "ctr", "performance", "country", "benchmark"]
+  }
+
+  dimension: category_ctr {
+    type: number
+    sql: ${TABLE}.category_ctr_2 ;;
+    label: "Category CTR Benchmark"
+    description: "Benchmark of click-through rate aggregated at the category level"
+    value_format_name: percent_2
+    tags: ["metric", "ctr", "performance", "category", "benchmark"]
+  }
+
+  dimension: global_ctr {
+    type: number
+    sql: ${TABLE}.global_ctr_2 ;;
+    label: "Global CTR Benchmark"
+    description: "Benchmark of click-through rate aggregated at the global level"
+    value_format_name: percent_2
+    tags: ["metric", "ctr", "performance", "global", "benchmark"]
   }
 }
