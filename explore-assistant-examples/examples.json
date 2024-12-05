@@ -1,34 +1,34 @@
 [
   {
   "input": "How many campaigns exist for a certain region?",
-  "output": "fields=final_HPP_Schema_Small.region,final_HPP_Schema_Small.campaign_id&sorts=final_HPP_Schema_Small.count"
+  "output": "fields=final_hpp_schema_small.region,final_hpp_schema_small.campaign_id&sorts=final_hpp_schema_small.count"
   },
   {
   "input": "What was the click through rate (CTR) for campaign ID 12345?",
-  "output": "fields=final_HPP_Schema_Small.CTR&f[final_HPP_Schema_Small.campaign_id]=12345"
+  "output": "fields=final_hpp_schema_small.CTR&f[final_hpp_schema_small.campaign_id]=12345"
   },
   {
   "input": "What percentage of campaigns are mobile?",
-  "output": "fields=final_HPP_Schema_Small.count&f[final_HPP_Schema_Small.device]=mobile &percent_of_previous"
+  "output": "fields=final_hpp_schema_small.count&f[final_hpp_schema_small.device]=mobile &percent_of_previous"
   },
   {
   "input": "Please provide the campaigns with the top 10 CTR",
-  "output": "fields=final_HPP_Schema_Small.campaign_id,final_HPP_Schema_Small.CTR&sorts=final_HPP_Schema_Small.CTR desc0&limit=10"
+  "output": "fields=final_hpp_schema_small.campaign_id,final_hpp_schema_small.CTR&sorts=final_hpp_schema_small.CTR desc0&limit=10"
   },
   {
   "input": "Please provide the region with the highest CTR",
-  "output": "fields=final_HPP_Schema_Small.region,final_HPP_Schema_Small.CTR&sorts=final_HPP_Schema_Small.CTR desc0&limit=1"
+  "output": "fields=final_hpp_schema_small.region,final_hpp_schema_small.CTR&sorts=final_hpp_schema_small.CTR desc0&limit=1"
   },
   {
   "input": "What CTR does mobile have?",
-  "output": "fields=final_HPP_Schema_Small.CTR,final_HPP_Schema_Small.device&f[final_HPP_Schema_Small.device]=mobile"
+  "output": "fields=final_hpp_schema_small.CTR,final_hpp_schema_small.device&f[final_hpp_schema_small.device]=mobile"
   },
   {
   "input": "Top 100 copies with highest engagement",
-  "output": "fields=final_HPP_Schema_Small.CTR,final_HPP_Schema_Small.approved_copy&sortfinal_HPP_Schema_Small.CTR desc0%limit=100"
+  "output": "fields=final_hpp_schema_small.CTR,final_hpp_schema_small.approved_copy&sortfinal_hpp_schema_small.CTR desc0%limit=100"
   },
   {
   "input": "what device are mostly used per country",
-  "output": "fields=final_HPP_Schema_Small.country_name,final_HPP_Schema_Small.device,final_HPP_Schema_Small.approved_copy&sortfinal_HPP_Schema_Small.CTR desc0%limit=100"
+  "output": "fields=final_hpp_schema_small.country_name,final_hpp_schema_small.device,final_hpp_schema_small.approved_copy&sortfinal_hpp_schema_small.CTR desc0%limit=100"
   }
 ]
