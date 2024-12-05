@@ -20,7 +20,7 @@
   "output": "fields=Final_HPP_Schema_Small.region,Final_HPP_Schema_Small.CTR&sorts=Final_HPP_Schema_Small.CTR desc0&limit=1"
   },
   {
-  "input": "What CTR% does mobile have?",
+  "input": "What CTR does mobile have?",
   "output": "fields=Final_HPP_Schema_Small.CTR,Final_HPP_Schema_Small.device&f[Final_HPP_Schema_Small.device]=mobile"
   },
   {
@@ -29,6 +29,6 @@
   },
   {
   "input": "what device are mostly used per country",
-  "output": "fields=Final_HPP_Schema_Small.country,Final_HPP_Schema_Small.device,Final_HPP_Schema_Small.approved_copy&sortFinal_HPP_Schema_Small.CTR desc0%limit=100"
+  "output": "fields=Final_HPP_Schema_Small.country_name,Final_HPP_Schema_Small.device,Final_HPP_Schema_Small.approved_copy&sortFinal_HPP_Schema_Small.CTR desc0%limit=100"
   }
 ]
