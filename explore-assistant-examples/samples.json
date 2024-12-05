@@ -10,25 +10,5 @@
   {
     "category": "Regional Insights",
     "prompt": "What are the top performing regions by CTR and acceptance rate?"
-  },
-  {
-    "category": "Content Effectiveness",
-    "prompt": "Which approved copy versions have the highest engagement rates?"
-  },
-  {
-    "category": "Temporal Analysis",
-    "prompt": "How does campaign performance vary by begin_date over the last quarter?"
-  },
-  {
-    "category": "Cross-Channel Metrics",
-    "prompt": "Compare performance across different hpp_formats and devices"
-  },
-  {
-    "category": "Audience Targeting",
-    "prompt": "Show campaigns targeting specific properties with their respective CTR rates"
-  },
-  {
-    "category": "Comparative Analysis",
-    "prompt": "Compare CTR performance against global, regional, and country benchmarks"
   }
 ]
