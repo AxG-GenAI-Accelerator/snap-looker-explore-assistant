@@ -1,6 +1,7 @@
-view: hpp_sample_full_data{
-  sql_table_name: `ace-tracker-421517-q9.HPP_sample_data.hpp_sample_full_data` ;;
+view: hpp_sample_full_data {
+  sql_table_name: `ace-tracker-421517-q9.HPP_sample_data.Final_HPP_Schema_Small` ;;
 
+  # Keep as dimensions since they are ratios/percentages that are pre-calculated
   dimension: __dismiss_rate__1 {
     type: number
     sql: ${TABLE}.__dismiss_rate__1 ;;
@@ -10,23 +11,25 @@ view: hpp_sample_full_data{
     tags: ["rate", "dismissal", "engagement"]
   }
 
-  dimension: __dismiss_to_accept__1 {
+  dimension: __dismiss_to_accept_rate__1 {
     type: number
-    sql: ${TABLE}.__dismiss_to_accept__1 ;;
+    sql: ${TABLE}.__dismiss_to_accept_rate__1 ;;
     label: "Dismiss to Accept Rate"
     description: "Ratio of dismissals to accepts for promotions"
     value_format_name: percent_2
     tags: ["rate", "dismissal", "acceptance", "engagement"]
   }
 
-  dimension: accept {
-    type: number
+  # Convert to measure - represents count of acceptance events
+  measure: accept {
+    type: sum
     sql: ${TABLE}.accept ;;
-    label: "Accepts"
-    description: "Number of times the promotion was accepted; count of users per day who click on the promo"
+    label: "Total Accepts"
+    description: "Total number of times the promotion was accepted; sum of users per day who click on the promo"
     tags: ["engagement", "metrics", "acceptance"]
   }
 
+  # Keep text/categorical fields as dimensions
   dimension: approved_copy {
     type: string
     sql: ${TABLE}.approved_copy ;;
@@ -37,6 +40,7 @@ view: hpp_sample_full_data{
 
   dimension_group: begin_date {
     type: time
+    timeframes: [date, week, month, quarter, year]
     datatype: date
     sql: ${TABLE}.begin_date ;;
     label: "Campaign Begin"
@@ -44,6 +48,7 @@ view: hpp_sample_full_data{
     tags: ["date", "campaign", "timing"]
   }
 
+  # Keep categorical/mapping fields as dimensions
   dimension: campaign_category_mapping {
     type: string
     sql: ${TABLE}.campaign_category_mapping ;;
@@ -62,12 +67,14 @@ view: hpp_sample_full_data{
 
   dimension: campaign_id {
     type: number
+    primary_key: yes  # Added as this appears to be a unique identifier
     sql: ${TABLE}.campaign_id ;;
     label: "Campaign ID"
     description: "Unique identifier for each marketing campaign"
     tags: ["campaign", "id", "identifier"]
   }
 
+  # Keep URL/text fields as dimensions
   dimension: cappa_link {
     type: string
     sql: ${TABLE}.cappa_link ;;
@@ -108,11 +115,13 @@ view: hpp_sample_full_data{
     tags: ["geography", "location", "country"]
   }
 
-  dimension: CTR {
+  # Convert CTR to measure - can be calculated from accepts and impressions
+  measure: ctr {
     type: number
-    sql: ${TABLE}.CTR ;;
+    sql: SAFE_DIVIDE(${accept}, ${impression}) ;;
     label: "Click-Through Rate"
-    description: "Click-through rate for the campaign"
+    description: "Click-through rate calculated as accepts divided by impressions"
+    value_format_name: percent_2
     tags: ["metric", "ctr", "performance"]
   }
 
@@ -124,16 +133,18 @@ view: hpp_sample_full_data{
     tags: ["device", "platform", "technical"]
   }
 
-  dimension: dismiss {
-    type: number
+  # Convert to measure - represents count of dismissal events
+  measure: dismiss {
+    type: sum
     sql: ${TABLE}.dismiss ;;
-    label: "Dismissals"
-    description: "Number of times the promotion was dismissed; count of users who exit out of a promo"
+    label: "Total Dismissals"
+    description: "Total number of times the promotion was dismissed; sum of users who exit out of a promo"
     tags: ["engagement", "metrics", "dismissal"]
   }
 
   dimension_group: end_date {
     type: time
+    timeframes: [date, week, month, quarter, year]
     datatype: date
     sql: ${TABLE}.end_date ;;
     label: "Campaign End"
@@ -149,7 +160,7 @@ view: hpp_sample_full_data{
     tags: ["status", "indicator", "campaign"]
   }
 
-  dimension: GRL {
+  dimension: grl {
     type: string
     sql: ${TABLE}.GRL ;;
     label: "GRL"
@@ -165,11 +176,12 @@ view: hpp_sample_full_data{
     tags: ["promotion", "format", "homepage", "campaign"]
   }
 
-  dimension: impression {
-    type: number
+  # Convert to measure - represents count of impression events
+  measure: impression {
+    type: sum
     sql: ${TABLE}.impression ;;
-    label: "Impressions"
-    description: "Number of times the promotion was viewed; count of users who view the promo for any amount of time"
+    label: "Total Impressions"
+    description: "Total number of times the promotion was viewed; sum of users who view the promo for any amount of time"
     tags: ["engagement", "metrics", "views"]
   }
 
@@ -229,47 +241,30 @@ view: hpp_sample_full_data{
     tags: ["targeting", "properties"]
   }
 
-  measure: count {
-    type: count
-    drill_fields: [country_name]
-    label: "Count of Campaigns"
-    description: "Total number of campaign records"
+  # Additional useful measures
+  measure: total_campaigns {
+    type: count_distinct
+    sql: ${campaign_id} ;;
+    label: "Total Campaigns"
+    description: "Total number of unique campaigns"
     tags: ["count", "campaigns"]
-
-  }
-  dimension: region_ctr {
-    type: number
-    sql: ${TABLE}.region_ctr_2 ;;
-    label: "Region CTR Benchmark"
-    description: "Benchmark of click-through rate aggregated at the region level"
-    value_format_name: percent_2
-    tags: ["metric", "ctr", "performance", "region", "benchmark"]
   }
 
-  dimension: country_ctr {
-    type: number
-    sql: ${TABLE}.country_ctr_2 ;;
-    label: "Country CTR Benchmark"
-    description: "Benchmark of click-through rate aggregated at the country level"
-    value_format_name: percent_2
-    tags: ["metric", "ctr", "performance", "country", "benchmark"]
+  measure: average_campaign_duration {
+    type: average
+    sql: DATE_DIFF(${end_date_date}, ${begin_date_date}, DAY) ;;
+    label: "Average Campaign Duration (Days)"
+    description: "Average duration of campaigns in days"
+    value_format_name: decimal_0
+    tags: ["duration", "campaigns", "timing"]
   }
 
-  dimension: category_ctr {
+  measure: dismiss_rate {
     type: number
-    sql: ${TABLE}.category_ctr_2 ;;
-    label: "Category CTR Benchmark"
-    description: "Benchmark of click-through rate aggregated at the category level"
+    sql: SAFE_DIVIDE(${dismiss}, ${impression}) ;;
+    label: "Dismiss Rate"
+    description: "Rate of dismissals per impression"
     value_format_name: percent_2
-    tags: ["metric", "ctr", "performance", "category", "benchmark"]
-  }
-
-  dimension: global_ctr {
-    type: number
-    sql: ${TABLE}.global_ctr_2 ;;
-    label: "Global CTR Benchmark"
-    description: "Benchmark of click-through rate aggregated at the global level"
-    value_format_name: percent_2
-    tags: ["metric", "ctr", "performance", "global", "benchmark"]
+    tags: ["rate", "dismissal", "engagement"]
   }
 }

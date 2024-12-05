@@ -9,5 +9,5 @@ include: "/views/*.view.lkml"                # include all views in the views/ f
 #
 explore: hpp_sample_full_data{
   view_name:  hpp_sample_full_data
-  view_label: "Final HPPPerformance Metrics"
+  view_label: "Final HPP Performance Metrics"
 }
