@@ -1,5 +1,5 @@
-view: final_hpp_schema_small {
-  sql_table_name: `ace-tracker-421517-q9.HPP_sample_data.Final_HPP_Schema_Small` ;;
+view: hpp_sample_full_data{
+  sql_table_name: `ace-tracker-421517-q9.HPP_sample_data.hpp_sample_full_data` ;;
 
   dimension: __dismiss_rate__1 {
     type: number

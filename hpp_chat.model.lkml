@@ -7,7 +7,7 @@ include: "/views/*.view.lkml"                # include all views in the views/ f
 # # Select the views that should be a part of this model,
 # # and define the joins that connect them together.
 #
-explore: final_hpp_schema_small{
-  view_name:  final_hpp_schema_small
-  view_label: "Final HPP Small Set Performance Metrics"
+explore: hpp_sample_full_data{
+  view_name:  hpp_sample_full_data
+  view_label: "Final HPPPerformance Metrics"
 }
