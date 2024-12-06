@@ -71,6 +71,7 @@ view: hpp_sample_full_data {
     sql: ${TABLE}.campaign_id ;;
     label: "Campaign ID"
     description: "Unique identifier for each marketing campaign"
+    value_format: "0"
     tags: ["campaign", "id", "identifier"]
   }
 
@@ -214,6 +215,7 @@ view: hpp_sample_full_data {
     sql: ${TABLE}.promo_id ;;
     label: "Promotion ID"
     description: "Unique identifier for each promotional campaign"
+    value_format: "0"
     tags: ["promotion", "id", "identifier"]
   }
 
