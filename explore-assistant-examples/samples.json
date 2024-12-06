@@ -1,14 +1,14 @@
 [
   {
-    "category": "Campaign Performance",
-    "prompt": "Show me CTR and impression counts for all campaigns in the EMEA region"
+    "category": "Top Campaigns",
+    "prompt": "What are the top 10 campaigns by ctr?"
   },
   {
-    "category": "Device Analysis",
-    "prompt": "Compare mobile vs desktop CTR rates across different countries"
+    "category": "Device Types",
+    "prompt": "Device type by region"
   },
   {
-    "category": "Regional Insights",
-    "prompt": "What are the top performing regions by CTR and acceptance rate?"
+    "category": "Format CTR",
+    "prompt": "CTR by format over time"
   }
 ]

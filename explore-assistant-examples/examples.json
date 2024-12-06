@@ -1,34 +1,42 @@
 [
   {
-  "input": "How many campaigns exist for a certain region?",
-  "output": "fields=hpp_sample_full_data.region,hpp_sample_full_data.campaign_id&sorts=hpp_sample_full_data.count"
+    "input": "How many campaigns exist for a certain region?",
+    "output": "fields=hpp_sample_full_data.region,hpp_sample_full_data.count&sorts=hpp_sample_full_data.count desc&vis={\"type\":\"looker_bar\",\"x_axis_gridlines\":false,\"y_axis_gridlines\":true,\"show_view_names\":false,\"show_y_axis_labels\":true,\"show_y_axis_ticks\":true,\"y_axis_tick_density\":\"default\",\"show_x_axis_label\":true,\"show_x_axis_ticks\":true,\"bar_arms_length\":20,\"show_value_labels\":true,\"label_density\":25,\"legend_position\":\"center\",\"x_axis_label\":\"Region\",\"y_axis_label\":\"Number of Campaigns\"}"
   },
   {
-  "input": "What was the click through rate (CTR) for campaign ID 12345?",
-  "output": "fields=hpp_sample_full_data.CTR&f[hpp_sample_full_data.campaign_id]=12345"
+    "input": "What was the click through rate (CTR) for campaign ID 12345?",
+    "output": "fields=hpp_sample_full_data.campaign_id,hpp_sample_full_data.CTR,hpp_sample_full_data.campaign_description&f[hpp_sample_full_data.campaign_id]=12345&vis={\"type\":\"single_value\",\"show_single_value_title\":true,\"single_value_title\":\"Campaign CTR\",\"value_format\":\"0.00%\",\"show_comparison\":false,\"custom_color\":\"#3EB0D5\",\"show_view_names\":false,\"font_size_main\":\"14\",\"hidden_fields\":[\"hpp_sample_full_data.campaign_id\"]}"
   },
   {
-  "input": "What percentage of campaigns are mobile?",
-  "output": "fields=hpp_sample_full_data.count&f[hpp_sample_full_data.device]=mobile &percent_of_previous"
+    "input": "What percentage of campaigns are mobile?",
+    "output": "fields=hpp_sample_full_data.device,hpp_sample_full_data.count&vis={\"type\":\"looker_pie\",\"show_view_names\":false,\"value_labels\":\"percent\",\"label_type\":\"labPer\",\"colors\":[\"#3EB0D5\",\"#B1399E\",\"#C2DD67\"],\"show_value_labels\":true,\"font_size\":12,\"inner_radius\":50,\"series_colors\":{},\"label_value_format\":\"0.0%\"}"
   },
   {
-  "input": "Please provide the campaigns with the top 10 CTR",
-  "output": "fields=hpp_sample_full_data.campaign_id,hpp_sample_full_data.CTR&sorts=hpp_sample_full_data.CTR desc0&limit=10"
+    "input": "Please provide the region with the highest CTR",
+    "output": "fields=hpp_sample_full_data.region,hpp_sample_full_data.CTR&sorts=hpp_sample_full_data.CTR desc&limit=1&vis={\"type\":\"single_value\",\"show_single_value_title\":true,\"single_value_title\":\"Top Region by CTR\",\"value_format\":\"0.00%\",\"custom_color\":\"#3EB0D5\",\"show_view_names\":false,\"font_size\":\"14\",\"series_types\":{},\"hidden_fields\":[\"hpp_sample_full_data.CTR\"]}"
   },
   {
-  "input": "Please provide the region with the highest CTR",
-  "output": "fields=hpp_sample_full_data.region,hpp_sample_full_data.CTR&sorts=hpp_sample_full_data.CTR desc0&limit=1"
+    "input": "What is the CTR for all mobile campaigns?",
+    "output": "fields=hpp_sample_full_data.CTR,hpp_sample_full_data.device,hpp_sample_full_data.begin_date_date&f[hpp_sample_full_data.device]=mobile&sorts=hpp_sample_full_data.begin_date_date&vis={\"type\":\"looker_line\",\"x_axis_gridlines\":false,\"y_axis_gridlines\":true,\"show_view_names\":false,\"point_style\":\"circle\",\"series_colors\":{\"hpp_sample_full_data.CTR\":\"#3EB0D5\"},\"show_value_labels\":true,\"label_density\":25,\"x_axis_scale\":\"auto\",\"x_axis_label\":\"Date\",\"y_axis_label\":\"CTR\",\"value_format\":\"0.00%\",\"show_null_points\":false}"
   },
   {
-  "input": "What CTR does mobile have?",
-  "output": "fields=hpp_sample_full_data.CTR,hpp_sample_full_data.device&f[hpp_sample_full_data.device]=mobile"
+    "input": "Top 10 copies of campaigns with highest engagement",
+    "output": "fields=hpp_sample_full_data.CTR,hpp_sample_full_data.approved_copy,hpp_sample_full_data.impression&sorts=hpp_sample_full_data.CTR desc&limit=10&vis={\"type\":\"looker_grid\",\"show_view_names\":false,\"show_row_numbers\":true,\"truncate_text\":true,\"table_theme\":\"white\",\"enable_conditional_formatting\":true,\"conditional_formatting\":[{\"type\":\"along a scale\",\"value\":\"CTR\",\"background_color\":\"#3EB0D5\",\"font_color\":\"#FFFFFF\",\"color_application\":{\"collection_id\":\"7c56cc21-66e4-41c9-81ce-a60e1c3967b2\",\"palette_id\":\"7c56cc21-66e4-41c9-81ce-a60e1c3967b2-diverging\",\"options\":{\"constraints\":{\"min\":{\"type\":\"minimum\"},\"mid\":{\"type\":\"number\",\"value\":0},\"max\":{\"type\":\"maximum\"}}},\"showScale\":true}}]}"
   },
   {
-  "input": "Top 100 copies with highest engagement",
-  "output": "fields=hpp_sample_full_data.CTR,hpp_sample_full_data.approved_copy&sorthpp_sample_full_data.CTR desc0%limit=100"
+    "input": "What device is mostly commonly used per country",
+    "output": "fields=hpp_sample_full_data.country_name,hpp_sample_full_data.device,hpp_sample_full_data.count&sorts=hpp_sample_full_data.count desc&vis={\"type\":\"looker_bar\",\"stacking\":\"normal\",\"show_value_labels\":true,\"label_density\":25,\"legend_position\":\"right\",\"x_axis_gridlines\":false,\"y_axis_gridlines\":true,\"show_view_names\":false,\"limit_displayed_rows\":false,\"y_axis_combined\":true,\"show_y_axis_labels\":true,\"show_y_axis_ticks\":true,\"y_axis_tick_density\":\"default\",\"show_x_axis_label\":true,\"show_x_axis_ticks\":true,\"x_axis_scale\":\"auto\",\"x_axis_label\":\"Country\",\"y_axis_label\":\"Number of Campaigns\",\"ordering\":\"none\",\"show_null_labels\":false,\"series_colors\":{\"Mobile\":\"#3EB0D5\",\"Desktop\":\"#B1399E\"}}"
   },
   {
-  "input": "what device are mostly used per country",
-  "output": "fields=hpp_sample_full_data.country_name,hpp_sample_full_data.device,hpp_sample_full_data.approved_copy&sorthpp_sample_full_data.CTR desc0%limit=100"
+    "input": "What are the top 10 campaigns by ctr?",
+    "output": "fields=hpp_sample_full_data.campaign_id,hpp_sample_full_data.campaign_description,hpp_sample_full_data.country_name,hpp_sample_full_data.ctr&sorts=hpp_sample_full_data.ctr desc&limit=10&vis={\"type\":\"looker_grid\",\"show_view_names\":false,\"show_row_numbers\":true,\"truncate_text\":true,\"table_theme\":\"white\",\"size_to_fit\":true,\"header_font_size\":\"12\",\"rows_font_size\":\"12\"}"
+  },
+  {
+    "input": "Device type by region",
+    "output": "fields=hpp_sample_full_data.ctr,hpp_sample_full_data.device,hpp_sample_full_data.region&pivots=hpp_sample_full_data.device&sorts=hpp_sample_full_data.device,hpp_sample_full_data.ctr desc&limit=5&vis={\"type\":\"looker_column\",\"series_colors\":{\"Desktop\":\"#3EB0D5\",\"Mobile\":\"#B1399E\"},\"x_axis_label\":\"Region\",\"y_axis_label\":\"Click Through Rate (CTR)\",\"value_format\":\"0.00%\"}"
+  },
+  {
+    "input": "CTR by format over time",
+    "output": "fields=hpp_sample_full_data.ctr,hpp_sample_full_data.begin_date_month,hpp_sample_full_data.hpp_format&pivots=hpp_sample_full_data.hpp_format&fill_fields=hpp_sample_full_data.begin_date_month&sorts=hpp_sample_full_data.hpp_format,hpp_sample_full_data.begin_date_month desc&limit=500&vis={\"type\":\"looker_line\",\"y_axes\":[{\"maxValue\":0.05,\"minValue\":0,\"series\":[{\"axisId\":\"hpp_sample_full_data.ctr\",\"id\":\"Callout - hpp_sample_full_data.ctr\",\"name\":\"Callout\"},{\"axisId\":\"hpp_sample_full_data.ctr\",\"id\":\"Middle - hpp_sample_full_data.ctr\",\"name\":\"Middle\"},{\"axisId\":\"hpp_sample_full_data.ctr\",\"id\":\"Pushup - hpp_sample_full_data.ctr\",\"name\":\"Pushup\"}]}],\"x_axis_zoom\":true,\"y_axis_zoom\":true}"
   }
 ]
