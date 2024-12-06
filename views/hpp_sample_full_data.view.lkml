@@ -119,7 +119,7 @@ view: hpp_sample_full_data {
   measure: ctr {
     type: average
     sql: ${TABLE}.ctr ;;
-    label: "Click-Through Rate"
+    label: "CTR"
     description: "Click-through rate calculated as accepts divided by impressions"
     value_format_name: percent_2
     tags: ["metric", "ctr", "performance"]
@@ -268,7 +268,7 @@ view: hpp_sample_full_data {
     tags: ["rate", "dismissal", "engagement"]
   }
   measure: region_ctr {
-    type: number
+    type: average
     sql: ${TABLE}.region_ctr_2 ;;
     label: "Region CTR Benchmark"
     description: "Benchmark of click-through rate aggregated at the region level"
@@ -277,7 +277,7 @@ view: hpp_sample_full_data {
   }
 
   measure: country_ctr {
-    type: number
+    type: average
     sql: ${TABLE}.country_ctr_2 ;;
     label: "Country CTR Benchmark"
     description: "Benchmark of click-through rate aggregated at the country level"
@@ -286,7 +286,7 @@ view: hpp_sample_full_data {
   }
 
   measure: category_ctr {
-    type: number
+    type: average
     sql: ${TABLE}.category_ctr_2 ;;
     label: "Category CTR Benchmark"
     description: "Benchmark of click-through rate aggregated at the category level"
@@ -295,7 +295,7 @@ view: hpp_sample_full_data {
   }
 
   measure: global_ctr {
-    type: number
+    type: average
     sql: ${TABLE}.global_ctr_2 ;;
     label: "Global CTR Benchmark"
     description: "Benchmark of click-through rate aggregated at the global level"
