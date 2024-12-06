@@ -269,7 +269,7 @@ view: hpp_sample_full_data {
   }
   measure: region_ctr {
     type: average
-    sql: ${TABLE}.region_ctr_2 ;;
+    sql: ${TABLE}.region_ctr_2 / 100.0;;
     label: "Region CTR Benchmark"
     description: "Benchmark of click-through rate aggregated at the region level"
     value_format_name: percent_2
@@ -278,7 +278,7 @@ view: hpp_sample_full_data {
 
   measure: country_ctr {
     type: average
-    sql: ${TABLE}.country_ctr_2 ;;
+    sql: ${TABLE}.country_ctr_2 / 100.0;;
     label: "Country CTR Benchmark"
     description: "Benchmark of click-through rate aggregated at the country level"
     value_format_name: percent_2
@@ -287,7 +287,7 @@ view: hpp_sample_full_data {
 
   measure: category_ctr {
     type: average
-    sql: ${TABLE}.category_ctr_2 ;;
+    sql: ${TABLE}.category_ctr_2 / 100.0;;
     label: "Category CTR Benchmark"
     description: "Benchmark of click-through rate aggregated at the category level"
     value_format_name: percent_2
@@ -296,7 +296,7 @@ view: hpp_sample_full_data {
 
   measure: global_ctr {
     type: average
-    sql: ${TABLE}.global_ctr_2 ;;
+    sql: ${TABLE}.global_ctr_2 / 100.0;;
     label: "Global CTR Benchmark"
     description: "Benchmark of click-through rate aggregated at the global level"
     value_format_name: percent_2
