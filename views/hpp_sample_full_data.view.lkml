@@ -115,9 +115,9 @@ view: hpp_sample_full_data {
     tags: ["geography", "location", "country"]
   }
 
-  # Convert CTR to measure - can be calculated from accepts and impressions
+  # Convert CTR to number - can be calculated from accepts and impressions
   measure: ctr {
-    type: average
+    type: number
     sql: ${TABLE}.ctr ;;
     label: "CTR"
     description: "Click-through rate calculated as accepts divided by impressions"
