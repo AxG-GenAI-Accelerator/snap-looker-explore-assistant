@@ -1,5 +1,5 @@
 view: hpp_sample_full_data {
-  sql_table_name: `ace-tracker-421517-q9.HPP_sample_data.Final_HPP_Schema_Small` ;;
+  sql_table_name: `ace-tracker-421517-q9.HPP_sample_data.hpp_sample_full_data` ;;
 
   # Keep as dimensions since they are ratios/percentages that are pre-calculated
   dimension: __dismiss_rate__1 {
