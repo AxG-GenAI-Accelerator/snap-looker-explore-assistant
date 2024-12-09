@@ -1,7 +1,7 @@
 [
   {
     "input": ["show campaign performance"],
-    "output": "show campaign performance metrics including CTR and impressions in a table format"
+    "output": "show campaign performance metrics including ctr and impressions in a table format"
   },
   {
     "input": ["compare devices"],

@@ -5,10 +5,10 @@
   },
   {
     "category": "Device Types",
-    "prompt": "Device type by region"
+    "prompt": "Device type and ctr by region"
   },
   {
-    "category": "Format CTR",
-    "prompt": "CTR by format over time"
+    "category": "Format ctr",
+    "prompt": "Compare ctr of formats over time"
   }
 ]
