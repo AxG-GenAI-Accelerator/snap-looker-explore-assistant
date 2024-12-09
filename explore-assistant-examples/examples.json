@@ -38,5 +38,13 @@
   {
     "input": "CTR by format over time",
     "output": "fields=hpp_sample_full_data.ctr,hpp_sample_full_data.begin_date_month,hpp_sample_full_data.hpp_format&pivots=hpp_sample_full_data.hpp_format&fill_fields=hpp_sample_full_data.begin_date_month&sorts=hpp_sample_full_data.hpp_format,hpp_sample_full_data.begin_date_month desc&limit=500&vis={\"type\":\"looker_line\",\"y_axes\":[{\"maxValue\":0.05,\"minValue\":0,\"series\":[{\"axisId\":\"hpp_sample_full_data.ctr\",\"id\":\"Callout - hpp_sample_full_data.ctr\",\"name\":\"Callout\"},{\"axisId\":\"hpp_sample_full_data.ctr\",\"id\":\"Middle - hpp_sample_full_data.ctr\",\"name\":\"Middle\"},{\"axisId\":\"hpp_sample_full_data.ctr\",\"id\":\"Pushup - hpp_sample_full_data.ctr\",\"name\":\"Pushup\"}]}],\"x_axis_zoom\":true,\"y_axis_zoom\":true}"
+  },
+  {
+  "input": "How did the campaigns in the Philippines perform?",
+  "output": "fields=hpp_sample_full_data.country_name,hpp_sample_full_data.CTR,hpp_sample_full_data.accept,hpp_sample_full_data.dismiss,hpp_sample_full_data.impression&f[hpp_sample_full_data.country_name]=Philippines"
+  },
+  {
+  "input": "What's the impressions, clicks, and dismisses for the campaign_id 19034584?",
+  "output": "fields=hpp_sample_full_data.impression,hpp_sample_full_data.accept,hpp_sample_full_data.dismiss&f[hpp_sample_full_data.campaign_id]=19034584"
   }
 ]
