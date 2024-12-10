@@ -323,10 +323,22 @@ const useSendVertexMessage = () => {
         limit: '',
       }
 
+      // Always include these essential fields for promo analysis
+      const essentialFields = [
+        'hpp_sample_full_data.CTR',
+        'hpp_sample_full_data.impression',
+        'hpp_sample_full_data.accept',
+        'hpp_sample_full_data.dismiss',
+        'hpp_sample_full_data.approved_copy',
+        'hpp_sample_full_data.campaign_category_mapping'
+      ]
+
       // Iterate over the parameters to fill the query object
       params.forEach((value, key) => {
         if (key === 'fields') {
-          queryParams.fields = value.split(',')
+          const existingFields = value.split(',')
+          // Combine and deduplicate fields
+          queryParams.fields = [...new Set([...existingFields, ...essentialFields])]
         } else if (key.startsWith('f[')) {
           const filterKey = key.match(/\[(.*?)\]/)?.[1]
           if (filterKey) {
@@ -339,6 +351,11 @@ const useSendVertexMessage = () => {
         }
       })
 
+      // If no fields were specified in the URL, use essential fields
+      if (queryParams.fields.length === 0) {
+        queryParams.fields = essentialFields
+      }
+
       console.log("useSendVertexMessage summarizeInsights params: ", params)
 
       // get the contents of the explore query
@@ -346,7 +363,6 @@ const useSendVertexMessage = () => {
         core40SDK.create_query({
           model: currentExplore.modelName,
           view: currentExplore.exploreId,
-
           fields: queryParams.fields || [],
           filters: queryParams.filters || {},
           sorts: queryParams.sorts || [],
@@ -370,29 +386,71 @@ const useSendVertexMessage = () => {
       }
 
       const contents = `
+      Context
+      ----------
+      You are analyzing promotional campaign performance data. The data includes metrics about how users interact with promotional content across different platforms and regions.
+
+      Best Practices for Promotional Copy Analysis:
+      1. Action-Oriented Language: Look for copy that uses strong verbs and clear calls-to-action
+      2. Value Proposition: Identify copy that clearly communicates benefits or value to users
+      3. Length Impact: Note correlations between copy length and performance metrics
+      4. Audience Targeting: Consider how copy performance varies across different audience segments
+      5. Device Context: Account for how copy performs across different devices/platforms
+      6. Seasonality: Consider temporal patterns in copy performance
+      7. Category Performance: Analyze how different campaign categories influence metrics
+
+      Key Metrics Glossary:
+      - CTR (Click-Through Rate): Primary success metric for promotional engagement
+      - Impressions: Number of times the promotion was viewed
+      - Accepts: Number of users who engaged with the promotion
+      - Dismissals: Number of users who actively dismissed the promotion
+      - Approval Copy: The final approved promotional text
+      - Campaign Category: The business category/purpose of the campaign
+
       Data
       ----------
-
       ${result}
       
       Task
       ----------
-      Summarize the data above
+      Analyze the data above considering:
+      1. Overall performance metrics and trends
+      2. Copy effectiveness based on best practices
+      3. Category-specific insights
+      4. Device or platform-specific patterns
+      5. Temporal patterns if time data is present
+      
+      Format your response as a structured analysis with:
+      1. High-level performance summary
+      2. Copy insights and recommendations
+      3. Specific metrics highlighting key findings
+      4. Category or segment-specific observations
     
+      Return the analysis in this markdown format:
+      # Insights
+      [Your comprehensive analysis here, integrating all the above elements]
     `
       const response = await sendMessage(contents, {})
 
       const refinedContents = `
-      The following text represents summaries of a given dashboard's data. 
-        Summaries: ${response}
+      The following text represents a detailed analysis of promotional campaign data: 
+        ${response}
 
-        Make this much more concise for a slide presentation using the following format. 
-        The summary should be a markdown documents that contains only 1 section for key observation also called insights, it should have the following details: a section title called insights , for the given part of the summary, and list of key points for the concise summary. 
-        Data should be returned in Insights section, you will be penalized if it doesn't adhere to this format. 
-        Each summary should only be included once. Do not include the same summary twice.
-        Do not include points having words like missing data or future analysis.
-        Do not return the summary under key points section, it should always be under Insights heading only.
-        `
+        Refine this analysis for a presentation format that:
+        1. Emphasizes actionable insights about copy performance
+        2. Highlights specific metrics that support each finding
+        3. Provides clear patterns in user engagement
+        4. Notes any anomalies or unexpected trends
+        5. Suggests optimization opportunities
+
+        Format Requirements:
+        - Use the markdown format with a single "# Insights" section
+        - Present clear, bulleted findings
+        - Include specific metrics and percentages
+        - Focus on actionable observations
+        - Exclude any references to missing data or future analysis needs
+        - Keep all insights under the Insights heading only
+      `
 
       const refinedResponse = await sendMessage(refinedContents, {})
       return refinedResponse
