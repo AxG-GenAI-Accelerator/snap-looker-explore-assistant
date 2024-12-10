@@ -331,7 +331,10 @@ const useSendVertexMessage = () => {
         'hpp_sample_full_data.dismiss',
         'hpp_sample_full_data.approved_copy',
         'hpp_sample_full_data.campaign_category_mapping',
-        'hpp_sample_full_data.campaign_description'
+        'hpp_sample_full_data.campaign_description',
+        'hpp_sample_full_data.begin_date',
+        'hpp_sample_full_data.device',
+        'hpp_sample_full_data.hpp_format'
       ]
 
       // Iterate over the parameters to fill the query object
@@ -357,9 +360,7 @@ const useSendVertexMessage = () => {
         queryParams.fields = essentialFields
       }
 
-      console.log("useSendVertexMessage summarizeInsights params: ", params)
-
-      // get the contents of the explore query
+      // Get the query results
       const createQuery = await core40SDK.ok(
         core40SDK.create_query({
           model: currentExplore.modelName,
@@ -389,48 +390,43 @@ const useSendVertexMessage = () => {
       const contents = `
       Context
       ----------
-      You are analyzing promotional campaign performance data. The data includes metrics about how users interact with promotional content across different platforms and regions.
+      You are analyzing promotional campaign performance data to generate specific, data-driven insights.
+      Your goal is to identify meaningful patterns and provide actionable recommendations based on actual performance data.
 
-      Best Practices for Promotional Approved Copy Analysis:
-      1. Copy Effectiveness
-       - Keep copy informational and helpful, not promotional
-       - Analyze impact of copy length (desktop: 85 chars max, mobile: 45 chars max)
-       - Evaluate clarity and specificity of messaging
-       - Check correlation between copy length and performance
+      Promotional Copy Best Practices:
+      1. Content Strategy:
+         - Keep copy specific, informational, and helpful rather than salesy - announce, don't advertise
+         - Focus on newsworthy and trending topics that help users in their search process
+         - Capitalize on awareness/observance days with educational and playful content
+         - For crisis response, keep messaging minimal and resource-focused
+      
+      2. Technical Requirements:
+         - Use short, concise copy within character limits (desktop: 85 chars, mobile: 45 chars for middle slot)
+         - For mobile-focused promos, keep messaging direct and to-the-point
+         - Communicate time commitments upfront
+      
+      3. Format and Targeting:
+         - Match formats to goals: middle slot for awareness, push up for direct response
+         - Only target relevant users who will understand why they're targeted
+         - Avoid using program/brand names unless well-established or clearly Google-associated
+         - Be consistent in messaging, especially for political or sensitive topics
+      
+      4. Campaign Integration:
+         - Coordinate timing with PR/media efforts but create unique homepage copy
+         - Track both CTR and downstream engagement metrics for optimization
 
-    2. Format and Goals Alignment
-       - Assess format effectiveness (middle slot for awareness, push up for direct response)
-       - Match format performance to campaign objectives
-       - Analyze coordination with PR/media efforts
-       - Track end-to-end performance metrics
+      Example Insight Patterns:
+      1. Copy Performance Analysis:
+         Input: Campaign shows varying CTR across different copy lengths
+         Output: "Copy length significantly impacts engagement - campaigns with copy under 50 characters show **28% higher CTR** than longer variants. Example: 'Try Gmail's new layout' (CTR: 12.3%) vs 'Experience Gmail's newly redesigned interface for a better email experience' (CTR: 9.6%)"
 
-    3. Content Strategy
-       - Identify performance of newsworthy/trending topics
-       - Evaluate effectiveness of awareness day campaigns
-       - Analyze educational vs promotional content impact
-       - Measure user engagement with different content types
+      2. Trend Identification:
+         Input: Different perform patterns across devices
+         Output: "Mobile users show **2.5x higher engagement** with product update announcements compared to feature promotions. Example: 'Chrome Mobile Update v85' achieved **18.2% CTR** on mobile vs **7.3%** for 'Try Chrome's new features'"
 
-    4. User Experience Metrics
-       - Review time commitment messaging effectiveness
-       - Compare performance across devices/platforms
-       - Analyze accept/dismiss patterns
-       - Track downstream engagement metrics
-
-    5. Targeting & Relevance
-       - Evaluate audience targeting effectiveness
-       - Analyze geographic performance patterns
-       - Assess seasonal/temporal trends
-       - Review crisis response messaging performance
-
-      Key Metrics Glossary:
-      - CTR (Click-Through Rate): Primary success metric for promotional engagement
-      - Impressions: Number of times the promotion was viewed
-      - Accepts: Number of users who engaged with the promotion
-      - Dismissals: Number of users who actively dismissed the promotion
-      - Approved Copy: The final approved promotional text
-      - Campaign Category: The business category/purpose of the campaign
-      - HPP Format: Promotion display format
-      - Device Type: Platform/device information
+      3. Action Recommendations:
+         Input: High performing crisis messaging patterns
+         Output: "Focus crisis response copy on immediate value - resource-focused messages saw **35% lower dismissal rates**. Example: 'Resources for California wildfire updates' had **5.2% dismissal rate** vs **8.1%** for general crisis messaging"
 
       Data
       ----------
@@ -438,47 +434,42 @@ const useSendVertexMessage = () => {
       
       Task
       ----------
-      Analyze the data above considering:
-      1. Overall performance metrics and trends
-      2. Copy effectiveness based on best practices
-      3. Category-specific insights
-      4. Device or platform-specific patterns
-      5. Temporal patterns if time data is present
-      
-      Format your response as a structured analysis with:
-      1. High-level performance summary
-      2. Copy insights and recommendations
-      3. Specific metrics highlighting key findings
-      4. Category or segment-specific observations
-    
-      Return the analysis in this markdown format:
+      Analyze the data to provide focused insights following these strict requirements:
+
+      1. Content Guidelines:
+         - Focus on specific data patterns in the results
+         - Use actual metrics and examples from the data
+         - Reference best practices only when directly supported by the data
+         - Avoid generic recommendations not tied to the data
+         - Include specific campaign examples with metrics
+         - Compare performance across different copy approaches, formats, and topics
+
+      2. Required Structure:
+         - Copy Performance Insight (1): Analyze how copy characteristics affect metrics
+         - Data Trend Insight (1): Identify a significant pattern in the data
+         - Supporting Examples: Provide specific examples from the data for both insights
+         - Action Item: One specific, data-backed recommendation
+
+      3. Formatting Requirements:
+         - Use "# Insights" as the only heading
+         - No empty bullet points
+         - No subheadings with ##
+         - Use bold for metric values and key terms using **
+         - Ensure all bullet points have content
+         - Keep insights concise and specific
+         
+      Output Format Example:
       # Insights
-      [Your comprehensive analysis here, integrating all the above elements]
-    `
-      const response = await sendMessage(contents, {})
-
-      const refinedContents = `
-      The following text represents a detailed analysis of promotional campaign data: 
-        ${response}
-
-        Refine this analysis for a presentation format that:
-        1. Emphasizes actionable insights about copy performance
-        2. Highlights specific metrics that support each finding
-        3. Provides clear patterns in user engagement
-        4. Notes any anomalies or unexpected trends
-        5. Suggests optimization opportunities
-
-        Format Requirements:
-        - Use the markdown format with a single "# Insights" section
-        - Present clear, bulleted findings
-        - Include specific metrics and percentages
-        - Focus on actionable observations
-        - Exclude any references to missing data or future analysis needs
-        - Keep all insights under the Insights heading only
+      • Copy Performance: [Specific finding about copy effectiveness with metrics]
+      • Trend Analysis: [Specific pattern identified in the data]
+      • Supporting Examples:
+        - [Specific example with metrics for copy insight]
+        - [Specific example with metrics for trend insight]
+      • Recommended Action: [One specific, data-driven recommendation]
       `
 
-      const refinedResponse = await sendMessage(refinedContents, {})
-      return refinedResponse
+      const response = await sendMessage(contents, {})
+      return response
     },
     [currentExplore],
   )
