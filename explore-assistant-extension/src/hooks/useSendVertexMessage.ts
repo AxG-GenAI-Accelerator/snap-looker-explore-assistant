@@ -330,7 +330,7 @@ const useSendVertexMessage = () => {
         'hpp_sample_full_data.accept',
         'hpp_sample_full_data.dismiss',
         'hpp_sample_full_data.approved_copy',
-        'hpp_sample_full_data.campaign_category_mapping'
+        'hpp_sample_full_data.campaign_category_mapping',
         'hpp_sample_full_data.campaign_description'
       ]
 
