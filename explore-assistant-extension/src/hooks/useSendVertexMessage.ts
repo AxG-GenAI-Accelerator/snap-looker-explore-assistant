@@ -325,12 +325,13 @@ const useSendVertexMessage = () => {
 
       // Always include these essential fields for promo analysis
       const essentialFields = [
-        'hpp_sample_full_data.CTR',
+        'hpp_sample_full_data.ctr',
         'hpp_sample_full_data.impression',
         'hpp_sample_full_data.accept',
         'hpp_sample_full_data.dismiss',
         'hpp_sample_full_data.approved_copy',
         'hpp_sample_full_data.campaign_category_mapping'
+        'hpp_sample_full_data.campaign_description'
       ]
 
       // Iterate over the parameters to fill the query object
@@ -390,22 +391,46 @@ const useSendVertexMessage = () => {
       ----------
       You are analyzing promotional campaign performance data. The data includes metrics about how users interact with promotional content across different platforms and regions.
 
-      Best Practices for Promotional Copy Analysis:
-      1. Action-Oriented Language: Look for copy that uses strong verbs and clear calls-to-action
-      2. Value Proposition: Identify copy that clearly communicates benefits or value to users
-      3. Length Impact: Note correlations between copy length and performance metrics
-      4. Audience Targeting: Consider how copy performance varies across different audience segments
-      5. Device Context: Account for how copy performs across different devices/platforms
-      6. Seasonality: Consider temporal patterns in copy performance
-      7. Category Performance: Analyze how different campaign categories influence metrics
+      Best Practices for Promotional Approved Copy Analysis:
+      1. Copy Effectiveness
+       - Keep copy informational and helpful, not promotional
+       - Analyze impact of copy length (desktop: 85 chars max, mobile: 45 chars max)
+       - Evaluate clarity and specificity of messaging
+       - Check correlation between copy length and performance
+
+    2. Format and Goals Alignment
+       - Assess format effectiveness (middle slot for awareness, push up for direct response)
+       - Match format performance to campaign objectives
+       - Analyze coordination with PR/media efforts
+       - Track end-to-end performance metrics
+
+    3. Content Strategy
+       - Identify performance of newsworthy/trending topics
+       - Evaluate effectiveness of awareness day campaigns
+       - Analyze educational vs promotional content impact
+       - Measure user engagement with different content types
+
+    4. User Experience Metrics
+       - Review time commitment messaging effectiveness
+       - Compare performance across devices/platforms
+       - Analyze accept/dismiss patterns
+       - Track downstream engagement metrics
+
+    5. Targeting & Relevance
+       - Evaluate audience targeting effectiveness
+       - Analyze geographic performance patterns
+       - Assess seasonal/temporal trends
+       - Review crisis response messaging performance
 
       Key Metrics Glossary:
       - CTR (Click-Through Rate): Primary success metric for promotional engagement
       - Impressions: Number of times the promotion was viewed
       - Accepts: Number of users who engaged with the promotion
       - Dismissals: Number of users who actively dismissed the promotion
-      - Approval Copy: The final approved promotional text
+      - Approved Copy: The final approved promotional text
       - Campaign Category: The business category/purpose of the campaign
+      - HPP Format: Promotion display format
+      - Device Type: Platform/device information
 
       Data
       ----------
@@ -465,56 +490,138 @@ const useSendVertexMessage = () => {
       insights: string,
       dimensions: any[],
       exploreGenerationExamples: any[]
-
     ) => {
-
-      const contents = `
-      Primer
-      ----------
-
-      You are an advanced assistant helping users analyze data. When a user submits a query, you will return relevant follow-up questions based on the most recent insights. 
-      Ensure that the questions are focused on the context of the data and provide ways for the user to explore deeper or comparative insights. 
-      You have access to a history of user prompts, the latest insights, and a list of sample questions to help you generate the new questions.
-
-      The types of follow-up questions you generate should help users:
-        •	Compare the current insights with historical data.
-        •	Break down the data by different categories (e.g., region, product, time).
-        •	Explore trends over time or based on other filters.
-        •	Understand the performance or impact of key metrics.
-
-  
-      Instructions
-      ------------
-      •	Use the most recent prompt and the insights returned to understand the current context.
-      •	Stay within the context of the most recent query and insights.
-      •	Review the historical prompts to avoid redundant questions.
-      •	Generate upcoming questions that are relevant and help the user explore deeper insights.
-      •	Return only 3 follow-up questions as a string separated by a “;” as a delimiter. Example: Suggested Question 1; Suggested Question 2; Suggested Question 3.
-      •	Ensure the questions are concise, relevant, and insightful.
-
+      // Get refinement examples from the current explore
+      const currentExploreKey = currentExplore.exploreKey;
+      const refinementExamples = examples.exploreRefinementExamples[currentExploreKey] || [];
       
-      Previous Prompt: ${prompt}
-      Prompt History: ${promptList}
-      Insights: ${insights}
-      Dimensions Used to group by information (follow the instructions in tags when using a specific field; if map used include a location or lat long dimension;):
+      // Get the most recent prompt for context
+      const mostRecentPrompt = prompt.trim();
+      const mostRecentInsights = insights.trim();
+  
+      // Format refinement examples dynamically
+      const formattedRefinements = refinementExamples
+        .map(example => {
+          if (Array.isArray(example.input) && example.input.length > 0) {
+            return `- Basic: "${example.input[0]}" 
+          Refined: "${example.output}"`;
+          }
+          return '';
+        })
+        .filter(Boolean)
+        .join('\n');
+  
+      const contents = `
+        Context
+        ----------
+        You are an analytics assistant helping users analyze promotional campaign performance data. 
+        Your role is to suggest focused, concise follow-up questions that directly build upon the user's most recent query.
+  
+        Most Recent User Context
+        ----------
+        Latest Question: "${mostRecentPrompt}"
+        Latest Insights: "${mostRecentInsights}"
+  
+        Key Metrics Available:
+        - CTR (Click-Through Rate): Engagement success rate
+        - Impressions: View count
+        - Accepts: Positive engagement count
+        - Dismissals: Negative engagement count
+        - Approve Copy: Promotional text content
+        - Campaign Categories: Business classification
+        - Device Types: Platform information
+        - Geographic Data: Regional performance
+        - Temporal Data: Time-based patterns
+  
+        Question Refinement Examples:
+        ----------
+        Learn from how these basic questions were improved:
+        ${formattedRefinements}
+  
+        Question Generation Guidelines:
+        1. Direct Relevance
+           - Questions must directly relate to the user's most recent query
+           - Focus on the specific metrics or dimensions just analyzed
+           - Build upon insights just discovered
+  
+        2. Conciseness
+           - Keep questions brief and focused
+           - Avoid compound questions
+           - Remove unnecessary words
+           - Use precise metric names
+  
+        3. Progressive Analysis
+           - Start with immediate follow-up to recent findings
+           - Add one new dimension or comparison
+           - Focus on logical next steps
+  
+        Previous Context
+        ----------
+        User's Current Prompt: ${prompt}
+        Previous Prompts: ${promptList}
+        Current Insights: ${insights}
+  
+        Available Dimensions:
         ${dimensions.map(formatContent).join('\n')}
-      Example:
+  
+        Example Query Patterns:
         ${exploreGenerationExamples && exploreGenerationExamples
           .map((item) => `input: "${item.input}" ; output: ${item.output}`)
           .join('\n')}
-
-      Output
-      ----------
-      Suggested Question 1; Suggested Question 2; Suggested Question 3
-
-    `
-    const response = await sendMessage(contents, {})
-
-    // return response === 'data summary'
-
-    console.log("From usesendvertex response", response?.split(';'))
-      return response?.split(';')
-    }, [])
+  
+        Task
+        ----------
+        Generate 3 concise follow-up questions that:
+        1. Directly relate to the user's most recent query: "${mostRecentPrompt}"
+        2. Build upon the latest insights provided
+        3. Keep each question focused on a single analytical aspect
+        4. Use precise metric names and clear language
+        5. Avoid verbose or compound questions
+        6. Maintain logical progression from the current analysis
+  
+        Question Requirements:
+        - Maximum 15 words per question
+        - Must directly relate to most recent query
+        - Include specific metrics mentioned in the latest analysis
+        - Focus on one clear analytical goal per question
+        - Avoid generic or tangential questions
+        - Skip basic questions already answered in the insights
+  
+        Output Format
+        ----------
+        Concise question about immediate follow-up; Focused question about key pattern; Brief question about optimization
+  
+        Response Format Requirements:
+        - Exactly 3 questions
+        - Separated by semicolons
+        - Each question under 15 words
+        - No explanatory text
+      `
+      const response = await sendMessage(contents, {})
+  
+      // Clean and validate response
+      if (!response) return []
+      
+      const questions = response.split(';')
+        .map(q => q.trim())
+        .filter(q => q.split(' ').length <= 15); // Enforce word limit
+      
+      // Ensure exactly 3 questions
+      if (questions.length > 3) {
+        return questions.slice(0, 3)
+      } else if (questions.length < 3) {
+        const defaultQuestions = [
+          "How do CTR trends vary across top campaign categories?",
+          "Which device type shows highest acceptance rate?",
+          "What copy length performs best for current audience?"
+        ]
+        return [...questions, ...defaultQuestions].slice(0, 3)
+      }
+      
+      return questions
+    },
+    [currentExplore, examples]
+  )
 
 
   const generateExploreUrl = useCallback(
