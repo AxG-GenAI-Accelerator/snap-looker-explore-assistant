@@ -46,5 +46,17 @@
   {
   "input": "What's the impressions, clicks, and dismisses for the campaign_id 19034584?",
   "output": "fields=hpp_sample_full_data.impression,hpp_sample_full_data.accept,hpp_sample_full_data.dismiss&f[hpp_sample_full_data.campaign_id]=19034584"
-  }
+  },
+  {
+    "input": "List out all campaigns with their respective click through rate",
+    "output": "fields=hpp_sample_full_data.campaign_id,hpp_sample_full_data.ctr,hpp_sample_full_data.campaign_description&sorts=hpp_sample_full_data.ctr desc&limit=500&vis={\"type\":\"looker_grid\",\"show_row_numbers\":true,\"truncate_text\":true,\"size_to_fit\":true,\"table_theme\":\"white\",\"header_text_alignment\":\"left\",\"header_font_size\":12,\"rows_font_size\":12}"
+  },
+  {
+    "input": "What copies have the worst CTR in LATAM region?",
+    "output": "fields=hpp_sample_full_data.ctr,hpp_sample_full_data.approved_copy,hpp_sample_full_data.region&f[hpp_sample_full_data.region]=LATAM&sorts=hpp_sample_full_data.ctr&limit=100&vis={\"type\":\"looker_column\",\"x_axis_gridlines\":false,\"y_axis_gridlines\":true,\"show_view_names\":false,\"show_y_axis_labels\":true,\"show_y_axis_ticks\":true,\"y_axis_tick_density\":\"default\",\"show_x_axis_label\":true,\"show_x_axis_ticks\":true,\"y_axis_scale_mode\":\"linear\",\"label_density\":25}"
+  },
+  {
+    "input": "Top 10 performing copies based on CTR",
+    "output": "fields=hpp_sample_full_data.ctr,hpp_sample_full_data.approved_copy&sorts=hpp_sample_full_data.ctr desc&limit=100&vis={\"type\":\"looker_column\",\"x_axis_gridlines\":false,\"y_axis_gridlines\":true,\"show_view_names\":false,\"show_y_axis_labels\":true,\"show_y_axis_ticks\":true,\"y_axis_tick_density\":\"default\",\"show_x_axis_label\":true,\"show_x_axis_ticks\":true,\"y_axis_scale_mode\":\"linear\",\"label_density\":25}"
+  },
 ]
