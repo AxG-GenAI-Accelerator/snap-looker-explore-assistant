@@ -1,14 +1,14 @@
 [
   {
-    "category": "Top Campaigns",
-    "prompt": "What are the top 10 campaigns by ctr?"
+    "category": "Top Product Areas",
+    "prompt": "What are the top 5 product areas by ctr?"
   },
   {
     "category": "Device Types",
-    "prompt": "Device type and ctr by region"
+    "prompt": "How does ctr vary by device type in each region?"
   },
   {
     "category": "Format ctr",
-    "prompt": "Compare ctr of formats over time"
+    "prompt": "How does ctr change over time for each HPP format?"
   }
 ]

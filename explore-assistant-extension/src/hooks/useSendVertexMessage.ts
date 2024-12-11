@@ -334,7 +334,10 @@ const useSendVertexMessage = () => {
         'hpp_sample_full_data.campaign_description',
         'hpp_sample_full_data.begin_date',
         'hpp_sample_full_data.device',
-        'hpp_sample_full_data.hpp_format'
+        'hpp_sample_full_data.hpp_format',
+        'hpp_sample_full_data.category',
+        'hpp_sample_full_data.region',
+        'hpp_sample_full_data.country_name'
       ]
 
       // Iterate over the parameters to fill the query object
@@ -390,43 +393,66 @@ const useSendVertexMessage = () => {
       const contents = `
       Context
       ----------
-      You are analyzing promotional campaign performance data to generate specific, data-driven insights.
-      Your goal is to identify meaningful patterns and provide actionable recommendations based on actual performance data.
+      You are analyzing homepage promotional campaign performance data to generate relevant insights based on the specific metrics and dimensions the user is exploring. Focus your analysis on the fields present in their query while incorporating related context from the broader dataset.
+
+      Key Performance Indicators:
+      - CTR (Click-Through Rate): Primary engagement metric
+      - Impressions: Number of times the promotion was shown
+      - Accepts: Number of users who clicked/engaged
+      - Dismissals: Number of users who actively closed the promotion
+      - Engagement Rate: Calculated as (accepts)/(accepts + dismissals)
 
       Promotional Copy Best Practices:
-      1. Content Strategy:
-         - Keep copy specific, informational, and helpful rather than salesy - announce, don't advertise
-         - Focus on newsworthy and trending topics that help users in their search process
-         - Capitalize on awareness/observance days with educational and playful content
-         - For crisis response, keep messaging minimal and resource-focused
+      1. Copy Length and Format:
+         - Desktop middle slot: 85 character limit
+         - Mobile middle slot: 45 character limit
+         - Push-up headline: 57 character limit
+         - Push-up subline: 73 character limit
+         - Callout headline: 40 character limit
+         - Callout subline: 55 character limit
       
-      2. Technical Requirements:
-         - Use short, concise copy within character limits (desktop: 85 chars, mobile: 45 chars for middle slot)
-         - For mobile-focused promos, keep messaging direct and to-the-point
-         - Communicate time commitments upfront
-      
-      3. Format and Targeting:
-         - Match formats to goals: middle slot for awareness, push up for direct response
-         - Only target relevant users who will understand why they're targeted
-         - Avoid using program/brand names unless well-established or clearly Google-associated
-         - Be consistent in messaging, especially for political or sensitive topics
-      
-      4. Campaign Integration:
-         - Coordinate timing with PR/media efforts but create unique homepage copy
-         - Track both CTR and downstream engagement metrics for optimization
+      2. Content Strategy:
+         - Focus on informational, helpful content over sales messaging
+         - Highlight trending topics and user-relevant information
+         - Keep crisis messaging minimal and resource-focused
+         - Match format to campaign goals (middle slot for awareness, push-up for direct response)
+         - Be specific about time commitments and user expectations
+         - Avoid using program/brand names unless well-established
 
-      Example Insight Patterns:
-      1. Copy Performance Analysis:
-         Input: Campaign shows varying CTR across different copy lengths
-         Output: "Copy length significantly impacts engagement - campaigns with copy under 50 characters show **28% higher CTR** than longer variants. Example: 'Try Gmail's new layout' (CTR: 12.3%) vs 'Experience Gmail's newly redesigned interface for a better email experience' (CTR: 9.6%)"
+      Insights Generation Guide
+      ----------
+      Generate insights that focus on the metrics and dimensions present in the user's query. Your analysis should adapt based on the data being examined:
 
-      2. Trend Identification:
-         Input: Different perform patterns across devices
-         Output: "Mobile users show **2.5x higher engagement** with product update announcements compared to feature promotions. Example: 'Chrome Mobile Update v85' achieved **18.2% CTR** on mobile vs **7.3%** for 'Try Chrome's new features'"
+      # Campaign Performance Insights
 
-      3. Action Recommendations:
-         Input: High performing crisis messaging patterns
-         Output: "Focus crisis response copy on immediate value - resource-focused messages saw **35% lower dismissal rates**. Example: 'Resources for California wildfire updates' had **5.2% dismissal rate** vs **8.1%** for general crisis messaging"
+      • Performance Analysis:
+        - Focus on the primary metrics present in the query
+        - If analyzing approved copy: examine length, format, and content patterns
+        - If analyzing metrics: focus on comparative performance and benchmarks
+        - If analyzing segments: highlight meaningful differences between groups
+        - Bold all metrics and significant findings using **
+
+      • Trend Analysis:
+        - Identify patterns relevant to the queried fields
+        - For copy analysis: focus on content patterns and their impact
+        - For metric analysis: examine performance variations over time or across segments
+        - For segment analysis: look at distribution and performance patterns
+        - Bold key findings and metrics using **
+
+      • Supporting Examples:
+        - Provide examples directly related to the analysis focus
+        - For copy insights: Include actual copy text and performance
+        - For metric insights: Show specific comparative examples
+        - For segment insights: Demonstrate key differences with data
+        - Use clear comparison points with specific metrics
+
+      • Recommended Action:
+        - Base recommendations on the specific focus of the analysis:
+          * Copy analysis: Suggest copy improvements based on best practices
+          * Metric analysis: Recommend ways to improve specific metrics
+          * Segment analysis: Suggest targeting or format adjustments
+        - Include expected improvements based on observed patterns
+        - Keep recommendations actionable and specific to the query context
 
       Data
       ----------
@@ -434,38 +460,55 @@ const useSendVertexMessage = () => {
       
       Task
       ----------
-      Analyze the data to provide focused insights following these strict requirements:
+      Analyze the provided data and generate insights following these specific requirements:
 
-      1. Content Guidelines:
-         - Focus on specific data patterns in the results
-         - Use actual metrics and examples from the data
-         - Reference best practices only when directly supported by the data
-         - Avoid generic recommendations not tied to the data
-         - Include specific campaign examples with metrics
-         - Compare performance across different copy approaches, formats, and topics
-
-      2. Required Structure:
-         - Copy Performance Insight (1): Analyze how copy characteristics affect metrics
-         - Data Trend Insight (1): Identify a significant pattern in the data
-         - Supporting Examples: Provide specific examples from the data for both insights
-         - Action Item: One specific, data-backed recommendation
-
-      3. Formatting Requirements:
-         - Use "# Insights" as the only heading
-         - No empty bullet points
-         - No subheadings with ##
-         - Use bold for metric values and key terms using **
-         - Ensure all bullet points have content
-         - Keep insights concise and specific
+      1. Output Format:
+         # Campaign Performance Insights
+         • Primary Insight: One clear finding about the main metric or dimension being analyzed
+           - Must include specific numbers and comparisons
+           - Bold all metrics and key findings using **
          
-      Output Format Example:
-      # Insights
-      • Copy Performance: [Specific finding about copy effectiveness with metrics]
-      • Trend Analysis: [Specific pattern identified in the data]
-      • Supporting Examples:
-        - [Specific example with metrics for copy insight]
-        - [Specific example with metrics for trend insight]
-      • Recommended Action: [One specific, data-driven recommendation]
+         • Secondary Insight: One additional pattern or trend related to the analysis
+           - Should complement but not repeat the primary insight
+           - Must include specific metrics and comparisons
+           - Bold all metrics and key findings using **
+         
+         • Supporting Examples (if relevant to insights):
+           - Maximum of two concrete examples from the data
+           - Must include actual copy text for copy analysis if query involves approved copy
+           - Must include specific metrics and comparisons if applicable
+           - Format as: "Example: [specific detail] achieved **[metric]** compared to [contrast]"
+         
+         • Recommended Action:
+           - One specific, actionable recommendation based on the insights
+           - Must be directly related to the metrics being analyzed
+           - Must include expected impact based on the data
+           - Bold expected improvements or key metrics using **
+
+      2. Content Requirements:
+         - Focus only on the most significant findings
+         - Ensure all metrics are from the actual data
+         - Make all insights specific and measurable
+         - Keep formatting consistent throughout
+         - Avoid generic statements or non-data-backed claims
+
+      3. Format Requirements:
+        - Use bullet points (•) for main sections
+        - Use dashes (-) for sub-points
+        - Bold all metrics and key findings using **
+        - Each point must include specific numbers
+        - Keep points concise but complete
+        - Include only insights supported by data
+        - Maintain consistent formatting throughout
+
+      4. Output Example:
+         # Campaign Performance Insights (note: this is for an example where approved copy is a field being analyzed)
+         • Primary Insight: Analysis shows mobile-optimized copy under 45 characters achieved **23% higher CTR** than longer variants across all formats
+         • Secondary Insight: Weekend campaigns saw **15% higher engagement rates** than weekday campaigns
+         • Supporting Examples:
+           - Example: "Try Gmail's new layout" (45 chars) achieved **12.3% CTR** vs "Experience Gmail's newly redesigned interface layout" (82 chars) at **9.6% CTR**
+           - Example: Saturday campaigns averaged **18.2% CTR** compared to **15.8%** on weekdays
+         • Recommended Action: Based on performance data, optimize all mobile campaign copy to 45 characters or less to achieve estimated **20% CTR improvement**
       `
 
       const response = await sendMessage(contents, {})
@@ -518,11 +561,10 @@ const useSendVertexMessage = () => {
         - Impressions: View count
         - Accepts: Positive engagement count
         - Dismissals: Negative engagement count
-        - Approve Copy: Promotional text content
-        - Campaign Categories: Business classification
-        - Device Types: Platform information
+        - Approved Copy: Text content of a campaign or promo
+        - Campaign Category: Business classification
+        - Device Type: Platform information
         - Geographic Data: Regional performance
-        - Temporal Data: Time-based patterns
   
         Question Refinement Examples:
         ----------
@@ -632,11 +674,15 @@ const useSendVertexMessage = () => {
           Instructions:
             - choose only the fields in the below lookml metadata
             - prioritize the field description, label, tags, and name for what field(s) to use for a given description
-            - generate only one answer, no more.
+            - generate only one answer, no more
             - use the Examples (at the bottom) for guidance on how to structure the Looker url query
             - try to avoid adding dynamic_fields, provide them when very similar example is found in the bottom
             - never respond with sql, always return an looker explore url as a single string
-            - response should start with fields= , as in the Examples section at the bottom  
+            - response should start with fields= , as in the Examples section at the bottom
+            - if visualization type is not clear from the context, default to "looker_grid"
+            - for time series data, use "looker_line" visualization
+            - for comparisons between categories, use "looker_bar"
+            - add "&vis={"type":"looker_grid"}" when no specific visualization is requested or appropriate
 
           LookML Metadata
           ----------
