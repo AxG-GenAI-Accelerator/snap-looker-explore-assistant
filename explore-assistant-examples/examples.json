@@ -21,7 +21,7 @@
   },
   {
     "input": "Top 10 copies of campaigns with highest engagement",
-    "output": "fields=hpp_sample_full_data.approved_copy,hpp_sample_full_data.ctr,hpp_sample_full_data.campaign_description,hpp_sample_full_data.country_name,hpp_sample_full_data.begin_date_date&sorts=hpp_sample_full_data.ctr desc&limit=10&vis={\"type\":\"looker_grid\",\"show_view_names\":false,\"truncate_text\":true,\"size_to_fit\":true}"
+    "output": "fields=hpp_sample_full_data.campaign_id,hpp_sample_full_data.approved_copy,hpp_sample_full_data.ctr,hpp_sample_full_data.campaign_description,hpp_sample_full_data.country_name,hpp_sample_full_data.begin_date_date&sorts=hpp_sample_full_data.ctr desc&limit=10&vis={\"type\":\"looker_grid\",\"show_view_names\":false,\"truncate_text\":true,\"size_to_fit\":true}"
   },
   {
     "input": "What device is mostly commonly used per country",
@@ -90,5 +90,9 @@
   {
     "input": "How does ctr change by launch date for each HPP format?",
     "output": "fields=hpp_sample_full_data.ctr,hpp_sample_full_data.begin_date_month,hpp_sample_full_data.hpp_format&pivots=hpp_sample_full_data.hpp_format&fill_fields=hpp_sample_full_data.begin_date_month&sorts=hpp_sample_full_data.hpp_format,hpp_sample_full_data.ctr desc&limit=500&vis={\"type\":\"looker_line\",\"show_view_names\":false,\"interpolation\":\"linear\"}"
-  }
+  },
+  {
+    "input": "What are the bottom 5 performing copies from 2023 within the EMEA region, not including blanks?",
+    "output": "fields=hpp_sample_full_data.campaign_id,hpp_sample_full_data.approved_copy,hpp_sample_full_data.ctr&f[hpp_sample_full_data.region]=EMEA&f[hpp_sample_full_data.approved_copy]=-EMPTY&f[hpp_sample_full_data.begin_date_year]=2023&sorts=hpp_sample_full_data.ctr&limit=5&vis={"type":"looker_grid","show_view_names":false,"show_row_numbers":true,"truncate_text":true,"size_to_fit":true,"minimum_column_width":75}"
+  },
 ]
