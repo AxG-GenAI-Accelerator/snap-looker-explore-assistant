@@ -1,0 +1,12 @@
+[{
+    "input": ["make a chart of sales by tier"],
+    "output": "make a chart of sales by tier make it a table"
+  },
+  {
+    "input": ["show me on a map"],
+    "output": "make a looker map using store_location"
+  },
+  {
+    "input": ["summarize"],
+    "output": "summarization"
+  }]

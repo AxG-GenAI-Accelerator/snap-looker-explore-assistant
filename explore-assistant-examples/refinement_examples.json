@@ -1,0 +1,62 @@
+[
+  {
+    "input": ["show campaign performance", "campaign metrics"],
+    "output": "show campaign metrics including CTR, impressions, accepts, and campaign description in a grid format with sorting"
+  },
+  {
+    "input": ["compare devices", "device performance", "mobile vs desktop"],
+    "output": "compare CTR and performance metrics between device types with pivoted columns and region breakdown"
+  },
+  {
+    "input": ["regional breakdown", "performance by region"],
+    "output": "analyze performance metrics by region showing CTR, impressions, and campaign counts with sorting"
+  },
+  {
+    "input": ["top performers", "best campaigns", "highest engagement"],
+    "output": "show top 10 campaigns by CTR including approved copy, campaign description, and country details"
+  },
+  {
+    "input": ["trend analysis", "performance over time"],
+    "output": "analyze CTR trends by HPP format over time using begin_date in a bar chart"
+  },
+  {
+    "input": ["campaign distribution", "geographic spread"],
+    "output": "show distribution of campaigns and performance metrics across countries and regions"
+  },
+  {
+    "input": ["copy performance", "content analysis"],
+    "output": "analyze approved copy performance with CTR, campaign details, and begin date in a sortable grid"
+  },
+  {
+    "input": ["format comparison", "hpp format analysis"],
+    "output": "compare metrics across HPP formats (pushup, callout, middleslot) with benchmark comparisons"
+  },
+  {
+    "input": ["benchmark analysis", "performance vs benchmark"],
+    "output": "compare CTR against regional, country, and global benchmarks in a looker grid"
+  },
+  {
+    "input": ["campaign details", "specific campaign lookup"],
+    "output": "show detailed campaign metrics including CTR, impressions, accepts, and approved copy for specific campaign IDs"
+  },
+  {
+    "input": ["worst performers", "underperforming campaigns"],
+    "output": "identify lowest performing campaigns by CTR with copy analysis and campaign details in a grid format"
+  },
+  {
+    "input": ["category analysis", "performance by category"],
+    "output": "analyze CTR and metrics by campaign category with country comparison"
+  },
+  {
+    "input": ["time period comparison", "quarterly analysis"],
+    "output": "compare campaign performance between quarters with format and region breakdown"
+  },
+  {
+    "input": ["grl analysis", "global vs regional vs local"],
+    "output": "analyze performance metrics filtered by GRL (Global, Regional, local) with format and device breakdown"
+  },
+  {
+    "input": ["experiment performance", "experimental campaigns"],
+    "output": "show performance metrics for experiment flagged campaigns with quarterly comparison"
+  }
+]

@@ -1,0 +1,4 @@
+[{
+    "input": "What are the top 100 T-mobile stores?",
+    "output": "fields=lookertestv8.store_id,lookertestv8.dma,lookertestv8.past_pixel_sales_unit&f[lookertestv8.partner]=T-Mobile&sorts=lookertestv8.past_pixel_sales_unit desc&limit=100&column_limit=100&vis={\"type\":\"looker_grid\""
+}]

@@ -1,0 +1,34 @@
+[
+  {
+    "input": "Top 10 products by total revenue",
+    "output": "fields=sanbox_sales_data.product_name,sanbox_sales_data.total_total_revenue&sorts=sanbox_sales_data.total_total_revenue desc&limit=10&vis={\"type\":\"looker_grid\",\"series_cell_visualizations\":{\"sanbox_sales_data.total_total_revenue\":{\"is_active\":\"true\",\"palette\":{\"palette_id\":\"0fb6d761-0476-4a6d-987f-15f890984d47\",\"collection_id\":\"80e60a97-c02b-4a41-aa05-83522ee2144b\"}}}}"
+  },
+  {
+    "input": "What are the top 5 product categories by total units sold?",
+    "output": "fields=sanbox_sales_data.product_category,sanbox_sales_data.total_units_sold&sorts=sanbox_sales_data.total_units_sold desc&limit=5&vis={\"type\":\"looker_column\",\"series_types\":{},\"stacking\":\"normal\"}"
+  },
+  {
+    "input": "Show me the average revenue per unit for each product category",
+    "output": "fields=sanbox_sales_data.product_category,sanbox_sales_data.revenue_per_unit&sorts=sanbox_sales_data.revenue_per_unit desc&limit=500&vis={\"type\":\"looker_bar\",\"series_types\":{},\"stacking\":\"normal\"}"
+  },
+  {
+    "input": "What are the top 5 payment methods by total revenue?",
+    "output": "fields=sanbox_sales_data.payment_method,sanbox_sales_data.total_total_revenue&sorts=sanbox_sales_data.total_total_revenue desc&limit=5&vis={\"type\":\"looker_pie\",\"series_colors\":{\"Credit Card\":\"#1A73E8\",\"PayPal\":\"#F8BE34\",\"Debit Card\":\"#E0E0E0\"}}"
+  },
+  {
+    "input": "Show me the trend of total revenue over time by month",
+    "output": "fields=sanbox_sales_data.date_month,sanbox_sales_data.total_total_revenue&sorts=sanbox_sales_data.date_month&limit=500&vis={\"type\":\"looker_line\",\"series_colors\":{}}"
+  },
+  {
+    "input": "What are the top 10 products with the highest average units sold per transaction?",
+    "output": "fields=sanbox_sales_data.product_name,sanbox_sales_data.average_units_sold&sorts=sanbox_sales_data.average_units_sold desc&limit=10&vis={\"type\":\"looker_grid\",\"series_cell_visualizations\":{\"sanbox_sales_data.average_units_sold\":{\"is_active\":\"true\",\"palette\":{\"palette_id\":\"0fb6d761-0476-4a6d-987f-15f890984d47\",\"collection_id\":\"80e60a97-c02b-4a41-aa05-83522ee2144b\"}}}}"
+  },
+  {
+    "input": "Which regions have the highest total revenue?",
+    "output": "fields=sanbox_sales_data.region,sanbox_sales_data.total_total_revenue&sorts=sanbox_sales_data.total_total_revenue desc&limit=500&vis={\"type\":\"looker_column\",\"series_types\":{}}"
+  },
+  {
+    "input": "Show me the distribution of unit prices",
+    "output": "fields=sanbox_sales_data.unit_price,sanbox_sales_data.count&sorts=sanbox_sales_data.unit_price&limit=500&vis={\"type\":\"looker_column\",\"series_types\":{},\"stacking\":\"normal\"}"
+  }
+]
