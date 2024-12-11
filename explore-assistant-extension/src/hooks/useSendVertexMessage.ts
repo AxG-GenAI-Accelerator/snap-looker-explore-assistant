@@ -309,7 +309,7 @@ const useSendVertexMessage = () => {
   const summarizeInsights = useCallback(
     async (exploreQueryArgs: string) => {
       const params = new URLSearchParams(exploreQueryArgs)
-
+  
       // Initialize an object to construct the query
       const queryParams: {
         fields: string[]
@@ -322,7 +322,7 @@ const useSendVertexMessage = () => {
         sorts: [],
         limit: '',
       }
-
+  
       // Always include these essential fields for promo analysis
       const essentialFields = [
         'hpp_sample_full_data.ctr',
@@ -330,16 +330,14 @@ const useSendVertexMessage = () => {
         'hpp_sample_full_data.accept',
         'hpp_sample_full_data.dismiss',
         'hpp_sample_full_data.approved_copy',
-        'hpp_sample_full_data.campaign_category_mapping',
-        'hpp_sample_full_data.campaign_description',
-        'hpp_sample_full_data.begin_date',
         'hpp_sample_full_data.device',
         'hpp_sample_full_data.hpp_format',
-        'hpp_sample_full_data.category',
         'hpp_sample_full_data.region',
-        'hpp_sample_full_data.country_name'
+        'hpp_sample_full_data.country_name',
+        'hpp_sample_full_data.campaign_category_mapping',
+        'hpp_sample_full_data.campaign_description'
       ]
-
+  
       // Iterate over the parameters to fill the query object
       params.forEach((value, key) => {
         if (key === 'fields') {
@@ -357,12 +355,12 @@ const useSendVertexMessage = () => {
           queryParams.limit = value
         }
       })
-
+  
       // If no fields were specified in the URL, use essential fields
       if (queryParams.fields.length === 0) {
         queryParams.fields = essentialFields
       }
-
+  
       // Get the query results
       const createQuery = await core40SDK.ok(
         core40SDK.create_query({
@@ -374,143 +372,96 @@ const useSendVertexMessage = () => {
           limit: queryParams.limit || '1000',
         }),
       )
-
+  
       const queryId = createQuery.id
       if (queryId === undefined || queryId === null) {
-        return 'There was an error!!'
+        return 'Error executing query'
       }
+      
       const result = await core40SDK.ok(
         core40SDK.run_query({
           query_id: queryId,
-          result_format: 'md',
+          result_format: 'json',
         }),
       )
-
-      if (result.length === 0) {
-        return 'There was an error!!'
+  
+      if (!result || result.length === 0) {
+        return 'No data found for analysis'
       }
-
+  
       const contents = `
       Context
       ----------
-      You are analyzing homepage promotional campaign performance data to generate relevant insights based on the specific metrics and dimensions the user is exploring. Focus your analysis on the fields present in their query while incorporating related context from the broader dataset.
-
-      Key Performance Indicators:
-      - CTR (Click-Through Rate): Primary engagement metric
-      - Impressions: Number of times the promotion was shown
-      - Accepts: Number of users who clicked/engaged
-      - Dismissals: Number of users who actively closed the promotion
-      - Engagement Rate: Calculated as (accepts)/(accepts + dismissals)
-
-      Promotional Copy Best Practices:
-      1. Copy Length and Format:
-         - Desktop middle slot: 85 character limit
-         - Mobile middle slot: 45 character limit
-         - Push-up headline: 57 character limit
-         - Push-up subline: 73 character limit
-         - Callout headline: 40 character limit
-         - Callout subline: 55 character limit
-      
-      2. Content Strategy:
-         - Focus on informational, helpful content over sales messaging
-         - Highlight trending topics and user-relevant information
-         - Keep crisis messaging minimal and resource-focused
-         - Match format to campaign goals (middle slot for awareness, push-up for direct response)
-         - Be specific about time commitments and user expectations
-         - Avoid using program/brand names unless well-established
-
-      Insights Generation Guide
+      You are analyzing homepage promotional campaign performance data focusing on metrics, copy performance, and best practices. Your analysis should synthesize performance data with copy writing guidelines to provide actionable insights.
+  
+      Copy Writing Best Practices
       ----------
-      Generate insights that focus on the metrics and dimensions present in the user's query. Your analysis should adapt based on the data being examined:
-
-      # Campaign Performance Insights
-
-      • Performance Analysis:
-        - Focus on the primary metrics present in the query
-        - If analyzing approved copy: examine length, format, and content patterns
-        - If analyzing metrics: focus on comparative performance and benchmarks
-        - If analyzing segments: highlight meaningful differences between groups
-        - Bold all metrics and significant findings using **
-
-      • Trend Analysis:
-        - Identify patterns relevant to the queried fields
-        - For copy analysis: focus on content patterns and their impact
-        - For metric analysis: examine performance variations over time or across segments
-        - For segment analysis: look at distribution and performance patterns
-        - Bold key findings and metrics using **
-
-      • Supporting Examples:
-        - Provide examples directly related to the analysis focus
-        - For copy insights: Include actual copy text and performance
-        - For metric insights: Show specific comparative examples
-        - For segment insights: Demonstrate key differences with data
-        - Use clear comparison points with specific metrics
-
-      • Recommended Action:
-        - Base recommendations on the specific focus of the analysis:
-          * Copy analysis: Suggest copy improvements based on best practices
-          * Metric analysis: Recommend ways to improve specific metrics
-          * Segment analysis: Suggest targeting or format adjustments
-        - Include expected improvements based on observed patterns
-        - Keep recommendations actionable and specific to the query context
-
-      Data
+      1. Format-Specific Character Limits:
+         • Desktop middle slot: 85 characters
+         • Mobile middle slot: 45 characters
+         • Push-up headline: 57 characters
+         • Push-up subline: 73 characters
+         • Callout headline: 40 characters
+         • Callout subline: 55 characters
+  
+      2. Content Guidelines:
+         • Focus on informational, helpful content over sales messaging
+         • Keep copy unique to homepage, not ATL copy
+         • Use specific, informational language
+         • Capitalize on trending topics when relevant
+         • Communicate time commitments upfront
+         • Be clear about user expectations
+         • Use program/brand names cautiously unless well-established
+         • Maintain consistency in messaging
+  
+      3. Format Selection:
+         • Middle slot: Best for awareness campaigns
+         • Push-up promos: Optimal for direct response
+         • Callouts: Use for specific user actions
+  
+      Performance Data
       ----------
-      ${result}
-      
+      ${JSON.stringify(result, null, 2)}
+  
       Task
       ----------
-      Analyze the provided data and generate insights following these specific requirements:
-
-      1. Output Format:
-         # Campaign Performance Insights
-         • Primary Insight: One clear finding about the main metric or dimension being analyzed
-           - Must include specific numbers and comparisons
-           - Bold all metrics and key findings using **
-         
-         • Secondary Insight: One additional pattern or trend related to the analysis
-           - Should complement but not repeat the primary insight
-           - Must include specific metrics and comparisons
-           - Bold all metrics and key findings using **
-         
-         • Supporting Examples (if relevant to insights):
-           - Maximum of two concrete examples from the data
-           - Must include actual copy text for copy analysis if query involves approved copy
-           - Must include specific metrics and comparisons if applicable
-           - Format as: "Example: [specific detail] achieved **[metric]** compared to [contrast]"
-         
-         • Recommended Action:
-           - One specific, actionable recommendation based on the insights
-           - Must be directly related to the metrics being analyzed
-           - Must include expected impact based on the data
-           - Bold expected improvements or key metrics using **
-
-      2. Content Requirements:
-         - Focus only on the most significant findings
-         - Ensure all metrics are from the actual data
-         - Make all insights specific and measurable
-         - Keep formatting consistent throughout
-         - Avoid generic statements or non-data-backed claims
-
-      3. Format Requirements:
-        - Use bullet points (•) for main sections
-        - Use dashes (-) for sub-points
-        - Bold all metrics and key findings using **
-        - Each point must include specific numbers
-        - Keep points concise but complete
-        - Include only insights supported by data
-        - Maintain consistent formatting throughout
-
-      4. Output Example:
-         # Campaign Performance Insights (note: this is for an example where approved copy is a field being analyzed)
-         • Primary Insight: Analysis shows mobile-optimized copy under 45 characters achieved **23% higher CTR** than longer variants across all formats
-         • Secondary Insight: Weekend campaigns saw **15% higher engagement rates** than weekday campaigns
-         • Supporting Examples:
-           - Example: "Try Gmail's new layout" (45 chars) achieved **12.3% CTR** vs "Experience Gmail's newly redesigned interface layout" (82 chars) at **9.6% CTR**
-           - Example: Saturday campaigns averaged **18.2% CTR** compared to **15.8%** on weekdays
-         • Recommended Action: Based on performance data, optimize all mobile campaign copy to 45 characters or less to achieve estimated **20% CTR improvement**
+      Generate comprehensive insights about campaign performance and copy effectiveness (if the query is related to the approved copy), based on provided date . Your analysis should:
+  
+      1. Analyze Performance Metrics:
+         • Compare CTR, acceptance, and dismissal rates and any other relevant fields from the user query
+         • Identify patterns across devices and regions
+         • Highlight top and bottom performers
+  
+      2. Evaluate Copy Effectiveness, if the user query is related to approved copy:
+         • Assess copy length against format-specific limits
+         • Analyze content against best practices
+         • Compare performance of different copy styles
+         • Identify patterns in high-performing copy
+  
+      Format Requirements:
+      # Campaign Performance Insights
+      • Primary Insight: Strongest pattern in performance or copy effectiveness
+      • Secondary Insight: Additional significant trend
+      • Copy Analysis (if applicable):
+        - Evaluate copy against best practices
+        - Identify successful patterns
+        - Note any character limit issues
+      • Supporting Examples:
+        - Include 2 specific examples (high/low performing)
+        - Show actual copy text with performance metrics
+      • Recommended Actions:
+        - Provide recommendations about trends analyzed with metrics, for example launching campaigns on weekends leads to higher ctr 
+        - Provide specific copy improvement suggestions if the approved copy is a field as part of the user query
+        - Suggest targeting adjustments if relevant
+  
+      Notes:
+      - Bold all metrics and key findings using **
+      - Include specific numbers from the data
+      - Reference character counts when discussing copy
+      - Make copy recommendations actionable
+      - Focus on statistically significant patterns
       `
-
+  
       const response = await sendMessage(contents, {})
       return response
     },
