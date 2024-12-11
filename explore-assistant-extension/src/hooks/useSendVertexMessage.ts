@@ -330,7 +330,11 @@ const useSendVertexMessage = () => {
         'hpp_sample_full_data.accept',
         'hpp_sample_full_data.approved_copy',
         'hpp_sample_full_data.country_name',
-        'hpp+sample_full_data.campaign_category'
+        'hpp_sample_full_data.campaign_category',
+        'hpp_sample_full_data.hpp_format',
+        'hpp_sample_full_data.device',
+        'hpp_sample_full_data.flag',
+        'hpp_sample_full_data.begin_date_month'
       ]
   
       // Iterate over the parameters to fill the query object
@@ -387,24 +391,43 @@ const useSendVertexMessage = () => {
       const contents = `
       Context
       ----------
-      You are analyzing homepage promotional campaign performance data. Your analysis should provide concise, aggregate-level insights that directly relate to the user's query.
+      You are analyzing homepage promotional campaign performance data. Your role is to uncover meaningful patterns and relationships between different aspects of campaign performance, focusing on aggregate-level insights that reveal strategic patterns.
   
-      Copy Writing Best Practices
+      Analysis Guidelines
       ----------
-      1. Format-Specific Character Limits:
+      1. Focus Areas:
+         • Multi-dimensional relationships (e.g., format effectiveness by region)
+         • Temporal patterns and trends
+         • Performance variations across segments
+         • Impact of campaign attributes on engagement
+         • Device and platform patterns
+         • Geographic insights
+  
+      2. Analysis Principles:
+         • Combine multiple dimensions to reveal deeper insights
+         • Focus on patterns and trends rather than individual data points
+         • Identify causation where possible, not just correlation
+         • Compare segments and categories rather than individual campaigns
+         • Look for unexpected relationships in the data
+  
+      3. Copy Writing Best Practices:
          • Desktop middle slot: 85 characters
          • Mobile middle slot: 45 characters
          • Push-up headline: 57 characters
          • Push-up subline: 73 characters
          • Callout headline: 40 characters
          • Callout subline: 55 characters
-  
-      2. Content Guidelines:
          • Focus on informational, helpful content over sales messaging
-         • Keep copy unique to homepage, not ATL copy
+         • Keep copy unique to homepage
          • Use specific, informational language
          • Capitalize on trending topics when relevant
-         • Communicate time commitments upfront
+  
+      4. What to Avoid:
+         • Individual campaign performance metrics
+         • Simple metric statements without context
+         • Direct comparisons between specific campaigns
+         • Raw CTR or metric values without analytical context
+         • Surface-level observations
   
       Performance Data
       ----------
@@ -412,33 +435,59 @@ const useSendVertexMessage = () => {
   
       Task
       ----------
-      Generate focused insights about campaign performance based on the user's specific query. Do not include irrelevant metrics or dimensions that weren't requested. If the query relates to copy performance, include a copy analysis section.
+      Generate a comprehensive analysis focusing on four key components: trend analysis, copy insights (if relevant), supporting examples, and actionable recommendations.
   
-      Format Requirements:
-      # Campaign Performance Insights
-      • Primary Insight: One key trend at the aggregate level, focused only on the metrics and dimensions in the query
-      • Copy Analysis (ONLY if query involves approved copy):
-        - Evaluate copy patterns against best practices
-        - Identify successful patterns
-      • Supporting Examples (if applicable):
-        - Include up to 2 specific examples that support the main insight
-      • Recommended Action:
-        - One clear, actionable recommendation based on the primary insight
+      Required Components:
+  
+      1. Trend Analysis:
+      Write 2 paragraphs that:
+      - Identify the most significant performance pattern or trend
+      - Explain relationships between multiple dimensions (e.g., geography, format, device)
+      - Support with aggregate performance data
+      - Explain the "why" behind the trend
+  
+      2. Copy Analysis (ONLY if query includes approved_copy):
+      Write 1-2 paragraphs that:
+      - Evaluate copy patterns against best practices
+      - Identify characteristics of high-performing copy
+      - Connect copy elements to performance metrics
+      - Consider format-specific requirements
+      Skip this section if approved_copy is not in the query.
+  
+      3. Supporting Examples:
+      Write 1 paragraph with:
+      - 2-3 specific examples that illustrate the main trend
+      - Focus on segment or category-level examples, not individual campaigns
+      - Use examples that combine multiple dimensions
+      - Connect examples to the larger pattern
+  
+      4. Actionable Recommendations:
+      Close with 1-2 paragraphs that:
+      - Provide clear, specific next steps based on the analysis
+      - Include copy optimization recommendations if copy was analyzed
+      - Suggest testing opportunities
+      - Tie recommendations to business impact
+  
+      Writing Style:
+      - Use **bold** for key metrics and findings
+      - Write in clear, analytical language
+      - Focus on explaining "why" and "how" rather than just "what"
+      - Connect insights to business impact
+      - Use transitions between sections
+      - Maintain a strategic, forward-looking perspective
   
       Notes:
-      - Bold metrics and key findings using **
-      - Focus only on dimensions and metrics relevant to the query
-      - Keep insights at an aggregate level
-      - Remove bullet point spacing in the output
-      - Exclude unnecessary field-by-field metrics
-      - Only include copy analysis if explicitly relevant to the query
+      - All sections should flow naturally together
+      - Each insight should build on the previous one
+      - Recommendations should directly relate to the analyzed patterns
+      - If copy is not part of the query, focus more on performance patterns
       `
   
       const response = await sendMessage(contents, {})
       return response
     },
     [currentExplore],
-)
+  )
 
   const sugQue = useCallback(
     async (
@@ -602,10 +651,6 @@ const useSendVertexMessage = () => {
             - try to avoid adding dynamic_fields, provide them when very similar example is found in the bottom
             - never respond with sql, always return an looker explore url as a single string
             - response should start with fields= , as in the Examples section at the bottom
-            - if visualization type is not clear from the context, default to "looker_grid"
-            - for time series data, use "looker_line" visualization
-            - for comparisons between categories, use "looker_bar"
-            - add "&vis={"type":"looker_grid"}" when no specific visualization is requested or appropriate
 
           LookML Metadata
           ----------
