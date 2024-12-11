@@ -464,7 +464,7 @@ const useSendVertexMessage = () => {
 
       Writing Style:
       - Use **bold** for key metrics when they support a larger insight
-      - Every point must explain "why" or "how" not just "what", unless the what is valuable
+      - Every point must explain "why" or "how" not just "what", unless the what is valuable by itself
       - Focus on insights that drive decision-making
       - No raw metrics without strategic context
       - Keep analytical but prioritize business relevance
