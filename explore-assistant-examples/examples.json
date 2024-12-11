@@ -1,102 +1,95 @@
 [
   {
     "input": "How many campaigns exist for a certain region?",
-    "output": "fields=hpp_sample_full_data.region,hpp_sample_full_data.count&sorts=hpp_sample_full_data.count desc&vis={\"type\":\"looker_bar\",\"x_axis_gridlines\":false,\"y_axis_gridlines\":true,\"show_view_names\":false,\"show_y_axis_labels\":true,\"show_y_axis_ticks\":true,\"y_axis_tick_density\":\"default\",\"show_x_axis_label\":true,\"show_x_axis_ticks\":true,\"bar_arms_length\":20,\"show_value_labels\":true,\"label_density\":25,\"legend_position\":\"center\",\"x_axis_label\":\"Region\",\"y_axis_label\":\"Number of Campaigns\"}"
+    "output": "fields=hpp_sample_full_data.total_campaigns,hpp_sample_full_data.region&sorts=hpp_sample_full_data.total_campaigns desc&limit=500&vis={"type":"looker_column","show_view_names":false}"
   },
   {
-    "input": "What was the click through rate (ctr) for campaign ID 12345?",
-    "output": "fields=hpp_sample_full_data.campaign_id,hpp_sample_full_data.ctr,hpp_sample_full_data.campaign_description&f[hpp_sample_full_data.campaign_id]=12345&vis={\"type\":\"single_value\",\"show_single_value_title\":true,\"single_value_title\":\"Campaign CTR\",\"value_format\":\"0.00%\",\"show_comparison\":false,\"custom_color\":\"#3EB0D5\",\"show_view_names\":false,\"font_size_main\":\"14\",\"hidden_fields\":[\"hpp_sample_full_data.campaign_id\"]}"
+    "input": "What was the click through rate (ctr) for campaign ID 19009731?",
+    "output": "fields=hpp_sample_full_data.ctr,hpp_sample_full_data.campaign_id,hpp_sample_full_data.campaign_description,hpp_sample_full_data.approved_copy&f[hpp_sample_full_data.campaign_id]=19009731&sorts=hpp_sample_full_data.ctr desc&limit=500&vis={"type":"looker_grid","show_view_names":false,"truncate_text":true,"size_to_fit":true}"
   },
   {
-    "input": "What percentage of campaigns are mobile?",
-    "output": "fields=hpp_sample_full_data.device,hpp_sample_full_data.count&vis={\"type\":\"looker_pie\",\"show_view_names\":false,\"value_labels\":\"percent\",\"label_type\":\"labPer\",\"colors\":[\"#3EB0D5\",\"#B1399E\",\"#C2DD67\"],\"show_value_labels\":true,\"font_size\":12,\"inner_radius\":50,\"series_colors\":{},\"label_value_format\":\"0.0%\"}"
+    "input": "What percentage of campaigns are mobile in the APAC region?",
+    "output": "fields=hpp_sample_full_data.total_campaigns,hpp_sample_full_data.device&f[hpp_sample_full_data.region]=APAC&sorts=hpp_sample_full_data.total_campaigns desc&limit=500&vis={"type":"looker_pie","show_view_names":false,"value_labels":"legend","label_type":"labPer"}"
   },
   {
-    "input": "Please provide the region with the highest ctr",
-    "output": "fields=hpp_sample_full_data.region,hpp_sample_full_data.ctr&sorts=hpp_sample_full_data.ctr desc&limit=1&vis={\"type\":\"single_value\",\"show_single_value_title\":true,\"single_value_title\":\"Top Region by CTR\",\"value_format\":\"0.00%\",\"custom_color\":\"#3EB0D5\",\"show_view_names\":false,\"font_size\":\"14\",\"series_types\":{},\"hidden_fields\":[\"hpp_sample_full_data.ctr\"]}"
+    "input": "Please provide the region with the highest average ctr",
+    "output": "fields=hpp_sample_full_data.region,hpp_sample_full_data.ctr&sorts=hpp_sample_full_data.ctr desc&limit=500&vis={"type":"looker_column","show_view_names":false}"
   },
   {
     "input": "What is the ctr for all mobile campaigns?",
-    "output": "fields=hpp_sample_full_data.ctr,hpp_sample_full_data.device,hpp_sample_full_data.begin_date_date&f[hpp_sample_full_data.device]=mobile&sorts=hpp_sample_full_data.begin_date_date&vis={\"type\":\"looker_line\",\"x_axis_gridlines\":false,\"y_axis_gridlines\":true,\"show_view_names\":false,\"point_style\":\"circle\",\"series_colors\":{\"hpp_sample_full_data.ctr\":\"#3EB0D5\"},\"show_value_labels\":true,\"label_density\":25,\"x_axis_scale\":\"auto\",\"x_axis_label\":\"Date\",\"y_axis_label\":\"CTR\",\"value_format\":\"0.00%\",\"show_null_points\":false}"
+    "output": "fields=hpp_sample_full_data.ctr,hpp_sample_full_data.device&sorts=hpp_sample_full_data.ctr desc&limit=500&vis={"type":"looker_column","show_view_names":false}"
   },
   {
     "input": "Top 10 copies of campaigns with highest engagement",
-    "output": "fields=hpp_sample_full_data.ctr,hpp_sample_full_data.approved_copy,hpp_sample_full_data.impression&sorts=hpp_sample_full_data.ctr desc&limit=10&vis={\"type\":\"looker_grid\",\"show_view_names\":false,\"show_row_numbers\":true,\"truncate_text\":true,\"table_theme\":\"white\",\"enable_conditional_formatting\":true,\"conditional_formatting\":[{\"type\":\"along a scale\",\"value\":\"CTR\",\"background_color\":\"#3EB0D5\",\"font_color\":\"#FFFFFF\",\"color_application\":{\"collection_id\":\"7c56cc21-66e4-41c9-81ce-a60e1c3967b2\",\"palette_id\":\"7c56cc21-66e4-41c9-81ce-a60e1c3967b2-diverging\",\"options\":{\"constraints\":{\"min\":{\"type\":\"minimum\"},\"mid\":{\"type\":\"number\",\"value\":0},\"max\":{\"type\":\"maximum\"}}},\"showScale\":true}}]}"
+    "output": "fields=hpp_sample_full_data.approved_copy,hpp_sample_full_data.ctr,hpp_sample_full_data.campaign_description,hpp_sample_full_data.country_name,hpp_sample_full_data.begin_date_date&sorts=hpp_sample_full_data.ctr desc&limit=10&vis={"type":"looker_grid","show_view_names":false,"truncate_text":true,"size_to_fit":true}"
   },
   {
     "input": "What device is mostly commonly used per country",
-    "output": "fields=hpp_sample_full_data.country_name,hpp_sample_full_data.device,hpp_sample_full_data.count&sorts=hpp_sample_full_data.count desc&vis={\"type\":\"looker_bar\",\"stacking\":\"normal\",\"show_value_labels\":true,\"label_density\":25,\"legend_position\":\"right\",\"x_axis_gridlines\":false,\"y_axis_gridlines\":true,\"show_view_names\":false,\"limit_displayed_rows\":false,\"y_axis_combined\":true,\"show_y_axis_labels\":true,\"show_y_axis_ticks\":true,\"y_axis_tick_density\":\"default\",\"show_x_axis_label\":true,\"show_x_axis_ticks\":true,\"x_axis_scale\":\"auto\",\"x_axis_label\":\"Country\",\"y_axis_label\":\"Number of Campaigns\",\"ordering\":\"none\",\"show_null_labels\":false,\"series_colors\":{\"Mobile\":\"#3EB0D5\",\"Desktop\":\"#B1399E\"}}"
-  },
-  {
-    "input": "What are the top 10 campaigns by ctr?",
-    "output": "fields=hpp_sample_full_data.campaign_id,hpp_sample_full_data.campaign_description,hpp_sample_full_data.country_name,hpp_sample_full_data.ctr&sorts=hpp_sample_full_data.ctr desc&limit=10&vis={\"type\":\"looker_grid\",\"show_view_names\":false,\"show_row_numbers\":true,\"truncate_text\":true,\"table_theme\":\"white\",\"size_to_fit\":true,\"header_font_size\":\"12\",\"rows_font_size\":\"12\"}"
+    "output": "fields=hpp_sample_full_data.country_name,hpp_sample_full_data.device,hpp_sample_full_data.ctr&pivots=hpp_sample_full_data.device&sorts=hpp_sample_full_data.device,hpp_sample_full_data.ctr desc&limit=5&vis={"type":"looker_column","show_view_names":false}"
   },
   {
     "input": "Device type by region",
-    "output": "fields=hpp_sample_full_data.ctr,hpp_sample_full_data.device,hpp_sample_full_data.region&pivots=hpp_sample_full_data.device&sorts=hpp_sample_full_data.device,hpp_sample_full_data.ctr desc&limit=5&vis={\"type\":\"looker_column\",\"series_colors\":{\"Desktop\":\"#3EB0D5\",\"Mobile\":\"#B1399E\"},\"x_axis_label\":\"Region\",\"y_axis_label\":\"Click Through Rate (ctr)\",\"value_format\":\"0.00%\"}"
+    "output": "fields=hpp_sample_full_data.device,hpp_sample_full_data.ctr,hpp_sample_full_data.region&pivots=hpp_sample_full_data.device&sorts=hpp_sample_full_data.device,hpp_sample_full_data.ctr desc&limit=5&vis={"type":"looker_column","show_view_names":false}"
   },
   {
-    "input": "ctr by format over time",
-    "output": "fields=hpp_sample_full_data.ctr,hpp_sample_full_data.begin_date_month,hpp_sample_full_data.hpp_format&pivots=hpp_sample_full_data.hpp_format&fill_fields=hpp_sample_full_data.begin_date_month&sorts=hpp_sample_full_data.hpp_format,hpp_sample_full_data.begin_date_month desc&limit=500&vis={\"type\":\"looker_line\",\"y_axes\":[{\"maxValue\":0.05,\"minValue\":0,\"series\":[{\"axisId\":\"hpp_sample_full_data.ctr\",\"id\":\"Callout - hpp_sample_full_data.ctr\",\"name\":\"Callout\"},{\"axisId\":\"hpp_sample_full_data.ctr\",\"id\":\"Middle - hpp_sample_full_data.ctr\",\"name\":\"Middle\"},{\"axisId\":\"hpp_sample_full_data.ctr\",\"id\":\"Pushup - hpp_sample_full_data.ctr\",\"name\":\"Pushup\"}]}],\"x_axis_zoom\":true,\"y_axis_zoom\":true}"
+    "input": "ctr by format by month",
+    "output": "fields=hpp_sample_full_data.hpp_format,hpp_sample_full_data.ctr,hpp_sample_full_data.begin_date_month&pivots=hpp_sample_full_data.hpp_format&fill_fields=hpp_sample_full_data.begin_date_month&sorts=hpp_sample_full_data.hpp_format,hpp_sample_full_data.begin_date_month desc&limit=5&vis={"type":"looker_column","show_view_names":false}"
   },
   {
     "input": "How did the campaigns in the Philippines perform?",
-    "output": "fields=hpp_sample_full_data.country_name,hpp_sample_full_data.ctr,hpp_sample_full_data.accept,hpp_sample_full_data.dismiss,hpp_sample_full_data.impression&f[hpp_sample_full_data.country_name]=Philippines"
+    "output": "fields=hpp_sample_full_data.ctr,hpp_sample_full_data.campaign_id,hpp_sample_full_data.campaign_description,hpp_sample_full_data.begin_date_date,hpp_sample_full_data.hpp_format,hpp_sample_full_data.accept,hpp_sample_full_data.impression,hpp_sample_full_data.approved_copy&f[hpp_sample_full_data.country_name]=Philippines&sorts=hpp_sample_full_data.ctr desc&limit=100&vis={"type":"looker_grid","show_view_names":false,"truncate_text":true,"size_to_fit":true,"minimum_column_width":75}"
   },
   {
     "input": "What's the impressions, clicks, and dismisses for the campaign_id 19034584?",
-    "output": "fields=hpp_sample_full_data.impression,hpp_sample_full_data.accept,hpp_sample_full_data.dismiss&f[hpp_sample_full_data.campaign_id]=19034584"
-  },
-  {
-    "input": "List out all campaigns with their respective click through rate",
-    "output": "fields=hpp_sample_full_data.campaign_id,hpp_sample_full_data.ctr,hpp_sample_full_data.campaign_description&sorts=hpp_sample_full_data.ctr desc&limit=500&vis={\"type\":\"looker_grid\",\"show_row_numbers\":true,\"truncate_text\":true,\"size_to_fit\":true,\"table_theme\":\"white\",\"header_text_alignment\":\"left\",\"header_font_size\":12,\"rows_font_size\":12}"
+    "output": "fields=hpp_sample_full_data.ctr,hpp_sample_full_data.campaign_description,hpp_sample_full_data.begin_date_date,hpp_sample_full_data.hpp_format,hpp_sample_full_data.accept,hpp_sample_full_data.impression,hpp_sample_full_data.campaign_id,hpp_sample_full_data.approved_copy&f[hpp_sample_full_data.campaign_id]=19034584&sorts=hpp_sample_full_data.ctr desc&limit=100&vis={"type":"looker_grid","show_view_names":false,"truncate_text":true,"size_to_fit":true,"minimum_column_width":75}"
   },
   {
     "input": "What copies have the worst ctr in LATAM region?",
-    "output": "fields=hpp_sample_full_data.ctr,hpp_sample_full_data.approved_copy,hpp_sample_full_data.region&f[hpp_sample_full_data.region]=LATAM&sorts=hpp_sample_full_data.ctr&limit=100&vis={\"type\":\"looker_column\",\"x_axis_gridlines\":false,\"y_axis_gridlines\":true,\"show_view_names\":false,\"show_y_axis_labels\":true,\"show_y_axis_ticks\":true,\"y_axis_tick_density\":\"default\",\"show_x_axis_label\":true,\"show_x_axis_ticks\":true,\"y_axis_scale_mode\":\"linear\",\"label_density\":25}"
-  },
-  {
-    "input": "Top 10 performing copies based on ctr",
-    "output": "fields=hpp_sample_full_data.ctr,hpp_sample_full_data.approved_copy&sorts=hpp_sample_full_data.ctr desc&limit=100&vis={\"type\":\"looker_column\",\"x_axis_gridlines\":false,\"y_axis_gridlines\":true,\"show_view_names\":false,\"show_y_axis_labels\":true,\"show_y_axis_ticks\":true,\"y_axis_tick_density\":\"default\",\"show_x_axis_label\":true,\"show_x_axis_ticks\":true,\"y_axis_scale_mode\":\"linear\",\"label_density\":25}"
-  },
-  {
-    "input": "Show me campaign performance by region",
-    "output": "fields=hpp_sample_full_data.region,hpp_sample_full_data.total_campaigns,hpp_sample_full_data.ctr,hpp_sample_full_data.impression&sorts=hpp_sample_full_data.ctr desc&vis={\"type\":\"looker_bar\",\"x_axis_gridlines\":false,\"y_axis_gridlines\":true,\"show_view_names\":false,\"show_y_axis_labels\":true,\"show_y_axis_ticks\":true,\"y_axis_tick_density\":\"default\",\"show_x_axis_label\":true,\"show_x_axis_ticks\":true,\"bar_arms_length\":20,\"show_value_labels\":true,\"label_density\":25,\"legend_position\":\"center\",\"x_axis_label\":\"Region\",\"y_axis_label\":\"CTR\",\"value_format\":\"0.00%\"}"
+    "output": "fields=hpp_sample_full_data.ctr,hpp_sample_full_data.hpp_format,hpp_sample_full_data.accept,hpp_sample_full_data.impression,hpp_sample_full_data.approved_copy,hpp_sample_full_data.campaign_description,hpp_sample_full_data.campaign_id,hpp_sample_full_data.begin_date_date&f[hpp_sample_full_data.region]=LATAM&sorts=hpp_sample_full_data.ctr&limit=10&vis={"type":"looker_grid","show_view_names":false,"truncate_text":true,"size_to_fit":true,"minimum_column_width":75}"
   },
   {
     "input": "What campaign copies have CTR below global benchmark?",
     "output": "fields=hpp_sample_full_data.approved_copy,hpp_sample_full_data.ctr,hpp_sample_full_data.global_ctr&sorts=hpp_sample_full_data.ctr&limit=100&vis={\"type\":\"looker_grid\",\"show_view_names\":false,\"show_row_numbers\":true,\"truncate_text\":true,\"table_theme\":\"white\",\"enable_conditional_formatting\":true,\"conditional_formatting\":[{\"type\":\"less than\",\"value\":0,\"background_color\":\"#EA4335\",\"font_color\":\"#FFFFFF\"}],\"conditional_formatting_include_totals\":false,\"conditional_formatting_include_nulls\":false}"
   },
   {
-    "input": "Compare mobile vs desktop CTR by country",
-    "output": "fields=hpp_sample_full_data.country_name,hpp_sample_full_data.ctr,hpp_sample_full_data.device&pivots=hpp_sample_full_data.device&sorts=hpp_sample_full_data.ctr desc&vis={\"type\":\"looker_column\",\"x_axis_gridlines\":false,\"y_axis_gridlines\":true,\"show_view_names\":false,\"show_y_axis_labels\":true,\"show_y_axis_ticks\":true,\"y_axis_tick_density\":\"default\",\"show_x_axis_label\":true,\"show_x_axis_ticks\":true,\"y_axis_scale_mode\":\"linear\",\"series_colors\":{\"Mobile - hpp_sample_full_data.ctr\":\"#4285F4\",\"Desktop - hpp_sample_full_data.ctr\":\"#34A853\"},\"value_format\":\"0.00%\"}"
-  },
-  {
-    "input": "Show me CTR for campaigns by category in January 2024",
-    "output": "fields=hpp_sample_full_data.category,hpp_sample_full_data.ctr,hpp_sample_full_data.total_campaigns,hpp_sample_full_data.impression&f[hpp_sample_full_data.begin_date_month]=2024-01&sorts=hpp_sample_full_data.ctr desc&vis={\"type\":\"looker_column\",\"x_axis_gridlines\":false,\"y_axis_gridlines\":true,\"show_view_names\":false,\"show_y_axis_labels\":true,\"show_y_axis_ticks\":true,\"y_axis_tick_density\":\"default\",\"show_x_axis_label\":true,\"show_x_axis_ticks\":true,\"y_axis_scale_mode\":\"linear\",\"series_colors\":{\"hpp_sample_full_data.ctr\":\"#4285F4\"},\"value_format\":\"0.00%\",\"y_axis_label\":\"Click Through Rate\",\"x_axis_label\":\"Campaign Category\"}"
-  },
-  {
-    "input": "Show performance metrics for evergreen campaigns",
-    "output": "fields=hpp_sample_full_data.campaign_id,hpp_sample_full_data.campaign_description,hpp_sample_full_data.ctr,hpp_sample_full_data.impression,hpp_sample_full_data.dismiss_rate&f[hpp_sample_full_data.flag]=Evergreen&sorts=hpp_sample_full_data.ctr desc&vis={\"type\":\"looker_grid\",\"show_view_names\":false,\"show_row_numbers\":true,\"truncate_text\":true,\"table_theme\":\"white\",\"enable_conditional_formatting\":true,\"conditional_formatting\":[{\"type\":\"along a scale\",\"value\":\"ctr\",\"background_color\":\"#34A853\",\"font_color\":\"#FFFFFF\"}]}"
-  },
-  {
-    "input": "What's the performance of local campaigns?",
-    "output": "fields=hpp_sample_full_data.campaign_id,hpp_sample_full_data.campaign_description,hpp_sample_full_data.ctr,hpp_sample_full_data.country_name,hpp_sample_full_data.region&f[hpp_sample_full_data.grl]=local&sorts=hpp_sample_full_data.ctr desc&vis={\"type\":\"looker_grid\",\"show_view_names\":false,\"show_row_numbers\":true,\"truncate_text\":true,\"table_theme\":\"white\",\"enable_conditional_formatting\":true,\"conditional_formatting\":[{\"type\":\"along a scale\",\"value\":\"ctr\",\"background_color\":\"#4285F4\",\"font_color\":\"#FFFFFF\"}]}"
-  },
-  {
-    "input": "Show me metrics for callout format campaigns",
-    "output": "fields=hpp_sample_full_data.campaign_id,hpp_sample_full_data.approved_copy,hpp_sample_full_data.ctr,hpp_sample_full_data.impression,hpp_sample_full_data.dismiss_rate&f[hpp_sample_full_data.hpp_format]=callout&sorts=hpp_sample_full_data.ctr desc&vis={\"type\":\"looker_grid\",\"show_view_names\":false,\"show_row_numbers\":true,\"truncate_text\":true,\"table_theme\":\"white\",\"enable_conditional_formatting\":true,\"conditional_formatting\":[{\"type\":\"along a scale\",\"value\":\"ctr\",\"background_color\":\"#EA4335\",\"font_color\":\"#FFFFFF\"}]}"
-  },
-  {
-    "input": "Compare campaign types by duration and CTR in Q1 2024",
-    "output": "fields=hpp_sample_full_data.flag,hpp_sample_full_data.ctr,hpp_sample_full_data.average_campaign_duration&f[hpp_sample_full_data.begin_date_quarter]=2024-Q1&pivots=hpp_sample_full_data.flag&sorts=hpp_sample_full_data.ctr desc&vis={\"type\":\"looker_column\",\"x_axis_gridlines\":false,\"y_axis_gridlines\":true,\"show_view_names\":false,\"show_y_axis_labels\":true,\"show_y_axis_ticks\":true,\"y_axis_tick_density\":\"default\",\"show_x_axis_label\":true,\"show_x_axis_ticks\":true,\"y_axis_scale_mode\":\"linear\",\"series_colors\":{\"Evergreen - hpp_sample_full_data.ctr\":\"#34A853\",\"Experiment - hpp_sample_full_data.ctr\":\"#4285F4\",\"Onetime - hpp_sample_full_data.ctr\":\"#EA4335\"},\"value_format\":\"0.00%\"}"
-  },
-  {
-    "input": "Show engagement metrics for pushup campaigns",
-    "output": "fields=hpp_sample_full_data.campaign_id,hpp_sample_full_data.approved_copy,hpp_sample_full_data.ctr,hpp_sample_full_data.dismiss_rate,hpp_sample_full_data.impression,hpp_sample_full_data.accept&f[hpp_sample_full_data.hpp_format]=pushup&sorts=hpp_sample_full_data.ctr desc&vis={\"type\":\"looker_grid\",\"show_view_names\":false,\"show_row_numbers\":true,\"truncate_text\":true,\"table_theme\":\"white\",\"enable_conditional_formatting\":true,\"conditional_formatting\":[{\"type\":\"along a scale\",\"value\":\"ctr\",\"background_color\":\"#4285F4\",\"font_color\":\"#FFFFFF\"}]}"
+    "input": "Show me CTR for campaigns by category that launched in January 2024",
+    "output": "fields=hpp_sample_full_data.ctr,hpp_sample_full_data.begin_date_date&fill_fields=hpp_sample_full_data.begin_date_date&f[hpp_sample_full_data.begin_date_month]=2024-01&sorts=hpp_sample_full_data.ctr&limit=500&vis={"type":"looker_column","show_view_names":false}"
   },
   {
     "input": "Compare HPP formats against benchmarks in APAC",
     "output": "fields=hpp_sample_full_data.hpp_format,hpp_sample_full_data.ctr,hpp_sample_full_data.region_ctr,hpp_sample_full_data.global_ctr,hpp_sample_full_data.impression,hpp_sample_full_data.dismiss_rate&f[hpp_sample_full_data.region]=APAC&pivots=hpp_sample_full_data.hpp_format&sorts=hpp_sample_full_data.ctr desc&vis={\"type\":\"looker_column\",\"x_axis_gridlines\":false,\"y_axis_gridlines\":true,\"show_view_names\":false,\"show_y_axis_labels\":true,\"show_y_axis_ticks\":true,\"y_axis_tick_density\":\"default\",\"show_x_axis_label\":true,\"show_x_axis_ticks\":true,\"y_axis_scale_mode\":\"linear\",\"series_colors\":{\"pushup - hpp_sample_full_data.ctr\":\"#4285F4\",\"middleslot - hpp_sample_full_data.ctr\":\"#34A853\",\"callout - hpp_sample_full_data.ctr\":\"#EA4335\"},\"value_format\":\"0.00%\"}"
+  },
+  {
+    "input": "Show impressions and ctrs for q2 24 one time campaigns by PA, HPP Format, Devices",
+    "output": "fields=hpp_sample_full_data.begin_date_quarter,hpp_sample_full_data.impression,hpp_sample_full_data.ctr,hpp_sample_full_data.cappa_product_area,hpp_sample_full_data.hpp_format,hpp_sample_full_data.device&f[hpp_sample_full_data.flag]=Onetime&f[hpp_sample_full_data.begin_date_quarter]=2024-Q2&sorts=hpp_sample_full_data.hpp_format desc&limit=500&vis={"type":"looker_grid","show_view_names":false,"truncate_text":true,"size_to_fit":true,"minimum_column_width":75}"
+  },
+  {
+    "input": "Show impressions and ctrs for q2 24 one time campaigns by PA, HPP Format, Devices, only show for Global and US GRL",
+    "output": "fields=hpp_sample_full_data.begin_date_quarter,hpp_sample_full_data.impression,hpp_sample_full_data.ctr,hpp_sample_full_data.cappa_product_area,hpp_sample_full_data.hpp_format,hpp_sample_full_data.device,hpp_sample_full_data.grl&f[hpp_sample_full_data.flag]=Onetime&f[hpp_sample_full_data.begin_date_quarter]=2023-Q2&f[hpp_sample_full_data.grl]=Global,Regional&sorts=hpp_sample_full_data.hpp_format desc&limit=500&vis={"type":"looker_grid","show_view_names":false,"truncate_text":true,"size_to_fit":true,"minimum_column_width":75}"
+  },
+  {
+    "input": "Show me the campaign IDs and approved copies of blank PAs",
+    "output": "fields=hpp_sample_full_data.begin_date_quarter,hpp_sample_full_data.cappa_product_area,hpp_sample_full_data.device,hpp_sample_full_data.grl,hpp_sample_full_data.hpp_format,hpp_sample_full_data.approved_copy,hpp_sample_full_data.impression,hpp_sample_full_data.ctr,hpp_sample_full_data.campaign_id&f[hpp_sample_full_data.cappa_product_area]=EMPTY&sorts=hpp_sample_full_data.begin_date_quarter desc&limit=500&vis={"type":"looker_grid","show_view_names":false,"truncate_text":true,"size_to_fit":true,"minimum_column_width":75}"
+  },
+  {
+    "input": "How do metrics compare between countries for different categories?",
+    "output": "fields=hpp_sample_full_data.ctr,hpp_sample_full_data.country_name,hpp_sample_full_data.category&pivots=hpp_sample_full_data.category&sorts=hpp_sample_full_data.category,hpp_sample_full_data.ctr desc&limit=5&vis={"type":"looker_column","show_view_names":false,"x_axis_zoom":true,"y_axis_zoom":true}"
+  },
+  {
+    "input": "How do experiment campaigns perform when launched in Q3 versus Q4 for North America?",
+    "output": "fields=hpp_sample_full_data.ctr,hpp_sample_full_data.begin_date_quarter&fill_fields=hpp_sample_full_data.begin_date_quarter&f[hpp_sample_full_data.region]=NORTHAM&f[hpp_sample_full_data.flag]=Experiment&sorts=hpp_sample_full_data.ctr desc&limit=5&vis={"type":"looker_line","show_view_names":false,"point_style":"circle","x_axis_zoom":true,"y_axis_zoom":true,"interpolation":"linear"}"
+  },
+  {
+    "input": "What are the top product areas by ctr for onetime campaigns launched in Q2 2023?",
+    "output": "fields=hpp_sample_full_data.cappa_product_area,hpp_sample_full_data.ctr,hpp_sample_full_data.flag&pivots=hpp_sample_full_data.cappa_product_area&f[hpp_sample_full_data.flag]=Onetime&f[hpp_sample_full_data.begin_date_quarter]=2023-Q2&sorts=hpp_sample_full_data.cappa_product_area,hpp_sample_full_data.ctr desc&limit=500&vis={"type":"looker_column","show_view_names":false}"
+  },
+  {
+    "input": "How does ctr vary by device type in each region?",
+    "output": "fields=hpp_sample_full_data.ctr,hpp_sample_full_data.region,hpp_sample_full_data.device&pivots=hpp_sample_full_data.device&sorts=hpp_sample_full_data.device,hpp_sample_full_data.ctr desc&limit=500&vis={"type":"looker_column","show_view_names":false}"
+  },
+  {
+    "input": "How does ctr change by launch date for each HPP format?",
+    "output": "fields=hpp_sample_full_data.ctr,hpp_sample_full_data.begin_date_month,hpp_sample_full_data.hpp_format&pivots=hpp_sample_full_data.hpp_format&fill_fields=hpp_sample_full_data.begin_date_month&sorts=hpp_sample_full_data.hpp_format,hpp_sample_full_data.ctr desc&limit=500&vis={"type":"looker_line","show_view_names":false,"interpolation":"linear"}"
   }
 ]
+
