@@ -42,8 +42,8 @@ view: hpp_sample_full_data {
     type: time
     timeframes: [date, week, month, quarter, year]
     datatype: date
-    sql: ${TABLE}.begin_date ;;
-    label: "Begin Date"
+    sql: DATE(${TABLE}.begin_date) ;;
+    label: "Begin"
     description: "Start date of the campaign"
     tags: ["date", "campaign", "timing"]
   }
@@ -138,8 +138,8 @@ view: hpp_sample_full_data {
     type: time
     timeframes: [date, week, month, quarter, year]
     datatype: date
-    sql: ${TABLE}.end_date ;;
-    label: "End Date"
+    sql: DATE(${TABLE}.end_date) ;;
+    label: "End"
     description: "End date of the campaign"
     tags: ["date", "campaign", "timing"]
   }
