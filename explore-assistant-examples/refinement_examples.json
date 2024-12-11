@@ -1,62 +1,62 @@
 [
   {
-    "input": ["show campaign performance", "campaign metrics", "how are campaigns doing"],
-    "output": "show comprehensive campaign performance metrics including ctr, impressions, accepts, and dismissals in a table format"
+    "input": ["show campaign performance", "campaign metrics"],
+    "output": "show campaign metrics including CTR, impressions, accepts, and campaign description in a grid format with sorting"
   },
   {
-    "input": ["compare devices", "mobile vs desktop", "device performance"],
-    "output": "compare ctr, accept rates, and impression counts between mobile and desktop devices in a stacked bar chart with time series analysis"
+    "input": ["compare devices", "device performance", "mobile vs desktop"],
+    "output": "compare CTR and performance metrics between device types with pivoted columns and region breakdown"
   },
   {
-    "input": ["regional breakdown", "performance by region", "regional analysis"],
-    "output": "show performance metrics by region in a table with ctr, impressions, accepts, and dismissals, sorted by ctr in descending order"
+    "input": ["regional breakdown", "performance by region"],
+    "output": "analyze performance metrics by region showing CTR, impressions, and campaign counts with sorting"
   },
   {
-    "input": ["top performers", "best campaigns", "highest ctr"],
-    "output": "display top 10 performing campaigns by ctr in descending order, including campaign description and country details"
+    "input": ["top performers", "best campaigns", "highest engagement"],
+    "output": "show top 10 campaigns by CTR including approved copy, campaign description, and country details"
   },
   {
-    "input": ["trend analysis", "performance over time", "temporal analysis"],
-    "output": "analyze ctr trends over time with begin_date in a line chart, segmented by hpp_format with zoom capabilities"
+    "input": ["trend analysis", "performance over time"],
+    "output": "analyze CTR trends by HPP format over time using begin_date in a bar chart"
   },
   {
-    "input": ["campaign distribution", "geographic spread", "country breakdown"],
-    "output": "visualize distribution of campaigns across regions and countries with a combination of pie chart and bar chart showing campaign counts"
+    "input": ["campaign distribution", "geographic spread"],
+    "output": "show distribution of campaigns and performance metrics across countries and regions"
   },
   {
-    "input": ["engagement metrics", "user interaction", "engagement analysis"],
-    "output": "create a summary dashboard showing key engagement metrics including impressions, accepts, dismissals, and derived metrics like dismiss-to-accept ratio"
+    "input": ["copy performance", "content analysis"],
+    "output": "analyze approved copy performance with CTR, campaign details, and begin date in a sortable grid"
   },
   {
-    "input": ["copy performance", "content analysis", "message effectiveness"],
-    "output": "analyze approved copy performance with ctr, impressions, and engagement metrics in a sortable grid with top and bottom performers"
+    "input": ["format comparison", "hpp format analysis"],
+    "output": "compare metrics across HPP formats (pushup, callout, middleslot) with benchmark comparisons"
   },
   {
-    "input": ["format comparison", "hpp format analysis", "format performance"],
-    "output": "compare performance metrics across different HPP formats (pushup, callout, middleslot) with time series analysis and format-specific benchmarks"
+    "input": ["benchmark analysis", "performance vs benchmark"],
+    "output": "compare CTR against regional, country, and global benchmarks in a looker grid"
   },
   {
-    "input": ["benchmark comparison", "performance vs benchmark", "relative performance"],
-    "output": "compare ctr against regional, country, category, and global benchmarks with visual indicators for over/under performance"
+    "input": ["campaign details", "specific campaign lookup"],
+    "output": "show detailed campaign metrics including CTR, impressions, accepts, and approved copy for specific campaign IDs"
   },
   {
-    "input": ["device by region", "regional device mix", "device distribution"],
-    "output": "analyze device type distribution and performance by region with pivoted columns and performance metrics"
+    "input": ["worst performers", "underperforming campaigns"],
+    "output": "identify lowest performing campaigns by CTR with copy analysis and campaign details in a grid format"
   },
   {
-    "input": ["campaign details", "specific campaign", "campaign lookup"],
-    "output": "show detailed metrics for specific campaign IDs including all performance metrics and campaign metadata"
+    "input": ["category analysis", "performance by category"],
+    "output": "analyze CTR and metrics by campaign category with country comparison"
   },
   {
-    "input": ["worst performers", "underperforming campaigns", "low engagement"],
-    "output": "identify bottom performing campaigns by ctr with analysis of potential contributing factors"
+    "input": ["time period comparison", "quarterly analysis"],
+    "output": "compare campaign performance between quarters with format and region breakdown"
   },
   {
-    "input": ["category analysis", "performance by category", "category breakdown"],
-    "output": "analyze performance metrics grouped by campaign category with benchmarking against category averages"
+    "input": ["grl analysis", "global vs regional vs local"],
+    "output": "analyze performance metrics filtered by GRL (Global, Regional, local) with format and device breakdown"
   },
   {
-    "input": ["time period analysis", "date range performance", "period comparison"],
-    "output": "compare performance metrics across different time periods with period-over-period growth analysis"
+    "input": ["experiment performance", "experimental campaigns"],
+    "output": "show performance metrics for experiment flagged campaigns with quarterly comparison"
   }
 ]
