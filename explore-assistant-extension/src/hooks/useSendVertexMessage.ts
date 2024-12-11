@@ -450,8 +450,8 @@ const useSendVertexMessage = () => {
         - Include 2 specific examples (high/low performing)
         - Show actual copy text with performance metrics
       • Recommended Actions:
-        - Provide specific copy improvement suggestions
-        - Include format optimization recommendations
+        - Provide recommendations about trends analyzed with metrics, for example launching campaigns on weekends leads to higher ctr 
+        - Provide specific copy improvement suggestions if the approved copy is a field as part of the user query
         - Suggest targeting adjustments if relevant
   
       Notes:
