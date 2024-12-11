@@ -435,40 +435,45 @@ const useSendVertexMessage = () => {
   
       Task
       ----------
-      Generate a concise analysis focusing on four key components. Each section should be brief and to the point:
+      Generate concise, high-value insights that reveal strategic patterns and actionable findings. Avoid surface-level metric reporting.
 
       1. Key Trends:
-      - List 2-3 most significant trends or patterns
-      - Include essential metrics and relationships
-      - Maximum 2 sentences per trend
+      - List 2-3 most significant strategic patterns
+      - Focus on "why" and business impact, not just raw metrics
+      - Reveal meaningful relationships between dimensions
+      - Each trend maximum 2 sentences, explaining cause and effect
+      Example: "Push-up format's success (**23% higher** CTR) driven by improved mobile rendering and clear CTAs, particularly effective for product launches."
 
       2. Copy Performance (ONLY if query includes approved_copy):
-      - State 1-2 key findings about copy effectiveness
-      - Note any standout patterns in high-performing copy
-      - Skip this section if approved_copy is not in query
+      - Identify patterns that explain why certain copy works
+      - Connect copy characteristics to user behavior
+      - Focus on actionable copy strategy insights
+      Example: "Short, benefit-focused copy consistently drives higher engagement because it quickly communicates value to mobile users."
 
-      3. Notable Examples:
-      - List 1-2 specific data points that support key findings
-      - Keep to segment/category level
-      - One sentence per example
+      3. Notable Patterns:
+      - Highlight 1-2 unexpected or high-impact findings
+      - Explain the business significance of each pattern
+      - Focus on insights that can inform strategy
+      Example: "Weekend campaigns show **2x** higher engagement specifically for product features, suggesting timing significantly impacts feature awareness."
 
-      4. Quick Recommendations:
-      - List 2-3 actionable next steps
-      - Focus on highest-impact opportunities
-      - One sentence per recommendation
+      4. Strategic Recommendations:
+      - Provide 2-3 specific, data-backed suggestions
+      - Focus on strategic impact over tactical changes
+      - Connect each recommendation to business outcomes
+      Example: "Prioritize mobile push-ups for feature launches based on **40% higher** user retention and sustained engagement patterns."
 
       Writing Style:
-      - Use **bold** for key metrics
-      - Keep each point to 1-2 sentences maximum
-      - Focus on most impactful insights only
-      - Use bullet points instead of paragraphs
-      - Maintain analytical tone but be concise
+      - Use **bold** for key metrics when they support a larger insight
+      - Every point must explain "why" or "how" not just "what", unless the what is valuable
+      - Focus on insights that drive decision-making
+      - No raw metrics without strategic context
+      - Keep analytical but prioritize business relevance
 
       Notes:
-      - Each section should be in bullet point format
-      - Focus on quality over quantity
-      - Include only the most important insights
-      - Skip any section if insufficient data exists
+      - Avoid surface-level observations like "CTR was X%"
+      - Each insight should inform strategic decisions
+      - Connect patterns to user behavior or business outcomes
+      - Skip any section if meaningful insights can't be derived
       `
   
       const response = await sendMessage(contents, {})
