@@ -24,7 +24,7 @@ view: hpp_sample_full_data {
   measure: accept {
     type: sum
     sql: ${TABLE}.accept ;;
-    label: "Total Accepts"
+    label: "Accepts"
     description: "Total number of times the promotion was accepted; sum of users per day who click on the promo"
     tags: ["engagement", "metrics", "acceptance"]
   }
@@ -42,25 +42,16 @@ view: hpp_sample_full_data {
     type: time
     timeframes: [date, week, month, quarter, year]
     datatype: date
-    sql: ${TABLE}.begin_date ;;
-    label: "Campaign Begin"
+    sql: DATE(${TABLE}.begin_date) ;;
+    label: "Begin"
     description: "Start date of the campaign"
     tags: ["date", "campaign", "timing"]
-  }
-
-  # Keep categorical/mapping fields as dimensions
-  dimension: campaign_category_mapping {
-    type: string
-    sql: ${TABLE}.campaign_category_mapping ;;
-    label: "Campaign Category Mapping"
-    description: "Mapping of campaign to specific categories"
-    tags: ["campaign", "category", "mapping"]
   }
 
   dimension: campaign_description {
     type: string
     sql: ${TABLE}.campaign_description ;;
-    label: "Campaign Description"
+    label: "Description"
     description: "Detailed description of the marketing campaign, including the campaign type (pushup, middleslot, callout), short description, and date"
     tags: ["campaign", "description", "details"]
   }
@@ -103,7 +94,7 @@ view: hpp_sample_full_data {
   dimension: category {
     type: string
     sql: ${TABLE}.category ;;
-    label: "Campaign Category"
+    label: "Category"
     description: "Category classification of the campaign"
     tags: ["category", "classification", "campaign"]
   }
@@ -111,7 +102,7 @@ view: hpp_sample_full_data {
   dimension: country_name {
     type: string
     sql: ${TABLE}.country_name ;;
-    label: "Country Name"
+    label: "Country"
     description: "Name of the country where the campaign was run"
     tags: ["geography", "location", "country"]
   }
@@ -129,7 +120,7 @@ view: hpp_sample_full_data {
   dimension: device {
     type: string
     sql: ${TABLE}.device ;;
-    label: "Device Type"
+    label: "Device"
     description: "Type of device where the promotion was displayed"
     tags: ["device", "platform", "technical"]
   }
@@ -138,7 +129,7 @@ view: hpp_sample_full_data {
   measure: dismiss {
     type: sum
     sql: ${TABLE}.dismiss ;;
-    label: "Total Dismissals"
+    label: "Dismissals"
     description: "Total number of times the promotion was dismissed; sum of users who exit out of a promo"
     tags: ["engagement", "metrics", "dismissal"]
   }
@@ -147,8 +138,8 @@ view: hpp_sample_full_data {
     type: time
     timeframes: [date, week, month, quarter, year]
     datatype: date
-    sql: ${TABLE}.end_date ;;
-    label: "Campaign End"
+    sql: DATE(${TABLE}.end_date) ;;
+    label: "End"
     description: "End date of the campaign"
     tags: ["date", "campaign", "timing"]
   }
@@ -156,8 +147,8 @@ view: hpp_sample_full_data {
   dimension: flag {
     type: string
     sql: ${TABLE}.flag ;;
-    label: "Flag"
-    description: "Flag indicator for campaign status or special conditions"
+    label: "Type"
+    description: "Type indicator for campaign status or special conditions"
     tags: ["status", "indicator", "campaign"]
   }
 
@@ -172,7 +163,7 @@ view: hpp_sample_full_data {
   dimension: hpp_format {
     type: string
     sql: ${TABLE}.hpp_format ;;
-    label: "Home Page Promotion Format"
+    label: "HPP Format"
     description: "Format type of the campaign: pushup, callout, or middleslot"
     tags: ["promotion", "format", "homepage", "campaign"]
   }
@@ -181,7 +172,7 @@ view: hpp_sample_full_data {
   measure: impression {
     type: sum
     sql: ${TABLE}.impression ;;
-    label: "Total Impressions"
+    label: "Impressions"
     description: "Total number of times the promotion was viewed; sum of users who view the promo for any amount of time"
     tags: ["engagement", "metrics", "views"]
   }
@@ -264,7 +255,7 @@ view: hpp_sample_full_data {
   measure: dismiss_rate {
     type: number
     sql: SAFE_DIVIDE(${dismiss}, ${impression}) ;;
-    label: "Dismiss Rate"
+    label: "Dismissal Rate"
     description: "Rate of dismissals per impression"
     value_format_name: percent_2
     tags: ["rate", "dismissal", "engagement"]
