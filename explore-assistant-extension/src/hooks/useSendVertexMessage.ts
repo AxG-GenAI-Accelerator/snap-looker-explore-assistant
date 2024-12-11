@@ -625,7 +625,7 @@ const useSendVertexMessage = () => {
       
       return questions
     },
-    [currentExplore, examples]
+    [currentExplore, examples],
   )
 
 
