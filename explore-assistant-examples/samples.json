@@ -8,7 +8,7 @@
     "prompt": "How does ctr vary by device type in each region?"
   },
   {
-    "category": "Format ctr",
+    "category": "Format ctr over time",
     "prompt": "How does ctr change by launch date for each HPP format?"
   }
 ]

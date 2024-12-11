@@ -435,52 +435,40 @@ const useSendVertexMessage = () => {
   
       Task
       ----------
-      Generate a comprehensive analysis focusing on four key components: trend analysis, copy insights (if relevant), supporting examples, and actionable recommendations.
-  
-      Required Components:
-  
-      1. Trend Analysis:
-      Write 2 paragraphs that:
-      - Identify the most significant performance pattern or trend
-      - Explain relationships between multiple dimensions (e.g., geography, format, device)
-      - Support with aggregate performance data
-      - Explain the "why" behind the trend
-  
-      2. Copy Analysis (ONLY if query includes approved_copy):
-      Write 1-2 paragraphs that:
-      - Evaluate copy patterns against best practices
-      - Identify characteristics of high-performing copy
-      - Connect copy elements to performance metrics
-      - Consider format-specific requirements
-      Skip this section if approved_copy is not in the query.
-  
-      3. Supporting Examples:
-      Write 1 paragraph with:
-      - 2-3 specific examples that illustrate the main trend
-      - Focus on segment or category-level examples, not individual campaigns
-      - Use examples that combine multiple dimensions
-      - Connect examples to the larger pattern
-  
-      4. Actionable Recommendations:
-      Close with 1-2 paragraphs that:
-      - Provide clear, specific next steps based on the analysis
-      - Include copy optimization recommendations if copy was analyzed
-      - Suggest testing opportunities
-      - Tie recommendations to business impact
-  
+      Generate a concise analysis focusing on four key components. Each section should be brief and to the point:
+
+      1. Key Trends:
+      - List 2-3 most significant trends or patterns
+      - Include essential metrics and relationships
+      - Maximum 2 sentences per trend
+
+      2. Copy Performance (ONLY if query includes approved_copy):
+      - State 1-2 key findings about copy effectiveness
+      - Note any standout patterns in high-performing copy
+      - Skip this section if approved_copy is not in query
+
+      3. Notable Examples:
+      - List 1-2 specific data points that support key findings
+      - Keep to segment/category level
+      - One sentence per example
+
+      4. Quick Recommendations:
+      - List 2-3 actionable next steps
+      - Focus on highest-impact opportunities
+      - One sentence per recommendation
+
       Writing Style:
-      - Use **bold** for key metrics and findings
-      - Write in clear, analytical language
-      - Focus on explaining "why" and "how" rather than just "what"
-      - Connect insights to business impact
-      - Use transitions between sections
-      - Maintain a strategic, forward-looking perspective
-  
+      - Use **bold** for key metrics
+      - Keep each point to 1-2 sentences maximum
+      - Focus on most impactful insights only
+      - Use bullet points instead of paragraphs
+      - Maintain analytical tone but be concise
+
       Notes:
-      - All sections should flow naturally together
-      - Each insight should build on the previous one
-      - Recommendations should directly relate to the analyzed patterns
-      - If copy is not part of the query, focus more on performance patterns
+      - Each section should be in bullet point format
+      - Focus on quality over quantity
+      - Include only the most important insights
+      - Skip any section if insufficient data exists
       `
   
       const response = await sendMessage(contents, {})

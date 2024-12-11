@@ -93,6 +93,10 @@
   },
   {
     "input": "What are the bottom 5 performing copies from 2023 within the EMEA region, not including blanks?",
-    "output": "fields=hpp_sample_full_data.campaign_id,hpp_sample_full_data.approved_copy,hpp_sample_full_data.ctr&f[hpp_sample_full_data.region]=EMEA&f[hpp_sample_full_data.approved_copy]=-EMPTY&f[hpp_sample_full_data.begin_date_year]=2023&sorts=hpp_sample_full_data.ctr&limit=5&vis={"type":"looker_grid","show_view_names":false,"show_row_numbers":true,"truncate_text":true,"size_to_fit":true,"minimum_column_width":75}"
+    "output": "fields=hpp_sample_full_data.campaign_id,hpp_sample_full_data.promo_id,hpp_sample_full_data.approved_copy,hpp_sample_full_data.ctr&f[hpp_sample_full_data.region]=EMEA&f[hpp_sample_full_data.approved_copy]=-EMPTY&f[hpp_sample_full_data.begin_date_year]=2023&sorts=hpp_sample_full_data.ctr&limit=5&vis={"type":"looker_grid","show_view_names":false,"show_row_numbers":true,"truncate_text":true,"size_to_fit":true,"minimum_column_width":75}"
+  },
+  {
+    "input": "What are the performance metrics at a promo level?",
+    "output": "fields=hpp_sample_full_data.campaign_id,hpp_sample_full_data.promo_id,hpp_sample_full_data.campaign_description,hpp_sample_full_data.cappa_product_area,hpp_sample_full_data.approved_copy,hpp_sample_full_data.begin_date_date,hpp_sample_full_data.flag,hpp_sample_full_data.hpp_format,hpp_sample_full_data.device,hpp_sample_full_data.country_name,hpp_sample_full_data.ctr,hpp_sample_full_data.accept,hpp_sample_full_data.impression,hpp_sample_full_data.dismiss&sorts=hpp_sample_full_data.begin_date_date desc&limit=500&vis={"type":"table"}"
   },
 ]
