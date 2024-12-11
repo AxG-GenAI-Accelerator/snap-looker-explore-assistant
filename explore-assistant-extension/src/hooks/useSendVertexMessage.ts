@@ -328,14 +328,9 @@ const useSendVertexMessage = () => {
         'hpp_sample_full_data.ctr',
         'hpp_sample_full_data.impression',
         'hpp_sample_full_data.accept',
-        'hpp_sample_full_data.dismiss',
         'hpp_sample_full_data.approved_copy',
-        'hpp_sample_full_data.device',
-        'hpp_sample_full_data.hpp_format',
-        'hpp_sample_full_data.region',
         'hpp_sample_full_data.country_name',
-        'hpp_sample_full_data.campaign_category_mapping',
-        'hpp_sample_full_data.campaign_description'
+        'hpp+sample_full_data.campaign_category'
       ]
   
       // Iterate over the parameters to fill the query object
@@ -392,7 +387,7 @@ const useSendVertexMessage = () => {
       const contents = `
       Context
       ----------
-      You are analyzing homepage promotional campaign performance data focusing on metrics, copy performance, and best practices. Your analysis should synthesize performance data with copy writing guidelines to provide actionable insights.
+      You are analyzing homepage promotional campaign performance data. Your analysis should provide concise, aggregate-level insights that directly relate to the user's query.
   
       Copy Writing Best Practices
       ----------
@@ -410,14 +405,6 @@ const useSendVertexMessage = () => {
          • Use specific, informational language
          • Capitalize on trending topics when relevant
          • Communicate time commitments upfront
-         • Be clear about user expectations
-         • Use program/brand names cautiously unless well-established
-         • Maintain consistency in messaging
-  
-      3. Format Selection:
-         • Middle slot: Best for awareness campaigns
-         • Push-up promos: Optimal for direct response
-         • Callouts: Use for specific user actions
   
       Performance Data
       ----------
@@ -425,48 +412,33 @@ const useSendVertexMessage = () => {
   
       Task
       ----------
-      Generate comprehensive insights about campaign performance and copy effectiveness (if the query is related to the approved copy), based on provided date . Your analysis should:
-  
-      1. Analyze Performance Metrics:
-         • Compare CTR, acceptance, and dismissal rates and any other relevant fields from the user query
-         • Identify patterns across devices and regions
-         • Highlight top and bottom performers
-  
-      2. Evaluate Copy Effectiveness, if the user query is related to approved copy:
-         • Assess copy length against format-specific limits
-         • Analyze content against best practices
-         • Compare performance of different copy styles
-         • Identify patterns in high-performing copy
+      Generate focused insights about campaign performance based on the user's specific query. Do not include irrelevant metrics or dimensions that weren't requested. If the query relates to copy performance, include a copy analysis section.
   
       Format Requirements:
       # Campaign Performance Insights
-      • Primary Insight: Strongest pattern in performance or copy effectiveness
-      • Secondary Insight: Additional significant trend
-      • Copy Analysis (if applicable):
-        - Evaluate copy against best practices
+      • Primary Insight: One key trend at the aggregate level, focused only on the metrics and dimensions in the query
+      • Copy Analysis (ONLY if query involves approved copy):
+        - Evaluate copy patterns against best practices
         - Identify successful patterns
-        - Note any character limit issues
-      • Supporting Examples:
-        - Include 2 specific examples (high/low performing)
-        - Show actual copy text with performance metrics
-      • Recommended Actions:
-        - Provide recommendations about trends analyzed with metrics, for example launching campaigns on weekends leads to higher ctr 
-        - Provide specific copy improvement suggestions if the approved copy is a field as part of the user query
-        - Suggest targeting adjustments if relevant
+      • Supporting Examples (if applicable):
+        - Include up to 2 specific examples that support the main insight
+      • Recommended Action:
+        - One clear, actionable recommendation based on the primary insight
   
       Notes:
-      - Bold all metrics and key findings using **
-      - Include specific numbers from the data
-      - Reference character counts when discussing copy
-      - Make copy recommendations actionable
-      - Focus on statistically significant patterns
+      - Bold metrics and key findings using **
+      - Focus only on dimensions and metrics relevant to the query
+      - Keep insights at an aggregate level
+      - Remove bullet point spacing in the output
+      - Exclude unnecessary field-by-field metrics
+      - Only include copy analysis if explicitly relevant to the query
       `
   
       const response = await sendMessage(contents, {})
       return response
     },
     [currentExplore],
-  )
+)
 
   const sugQue = useCallback(
     async (
