@@ -27,11 +27,8 @@ const generateSQL = (
   prompt: string,
   parameters: ModelParameters,
 ) => {
-  //console.log('Generating SQL with model_id:', model_id);
   const escapedPrompt = UtilsHelper.escapeQueryAll(prompt)
   const subselect = `SELECT '` + escapedPrompt + `' AS prompt`
-  //console.log('Escaped prompt:', escapedPrompt);
-  //console.log('subselect: ', subselect);
   return `
   
     SELECT ml_generate_text_llm_result AS generated_content
@@ -50,7 +47,6 @@ const generateSQL = (
       )
   
       `
-     
 }
 
 function formatContent(field: {
@@ -73,7 +69,6 @@ function formatContent(field: {
 }
 
 const useSendVertexMessage = () => {
-
   const { showBoundary } = useErrorBoundary()
   // cloud function
   const VERTEX_AI_ENDPOINT = process.env.VERTEX_AI_ENDPOINT || ''
@@ -138,12 +133,12 @@ const useSendVertexMessage = () => {
         'Content-Type': 'application/json',
         'X-Signature': signature,
       },
-
       body: body,
     })
     const response = await responseData.text()
     return response.trim()
   }
+
   const summarizePrompts = useCallback(
     async (promptList: string[]) => {
       const contents = `
@@ -210,97 +205,11 @@ const useSendVertexMessage = () => {
     const response = await sendMessage(contents, {})
     return response === 'data summary'
   }
-  
 
   const summarizeExplore = useCallback(
     async (exploreQueryArgs: string) => {
       const params = new URLSearchParams(exploreQueryArgs)
 
-      // Initialize an object to construct the query
-    //   const queryParams: {
-    //     fields: string[]
-    //     filters: Record<string, string>
-    //     sorts: string[]
-    //     limit: string
-    //   } = {
-    //     fields: [],
-    //     filters: {},
-    //     sorts: [],
-    //     limit: '',
-    //   }
-
-    //   // Iterate over the parameters to fill the query object
-    //   params.forEach((value, key) => {
-    //     if (key === 'fields') {
-    //       queryParams.fields = value.split(',')
-    //     } else if (key.startsWith('f[')) {
-    //       const filterKey = key.match(/\[(.*?)\]/)?.[1]
-    //       if (filterKey) {
-    //         queryParams.filters[filterKey] = value
-    //       }
-    //     } else if (key === 'sorts') {
-    //       queryParams.sorts = value.split(',')
-    //     } else if (key === 'limit') {
-    //       queryParams.limit = value
-    //     }
-    //   })
-
-    //   // console.log("useSendVertexMessage summarizeExplore params: ", params)
-
-    //   // get the contents of the explore query
-    //   const createQuery = await core40SDK.ok(
-    //     core40SDK.create_query({
-    //       model: currentExplore.modelName,
-    //       view: currentExplore.exploreId,
-
-    //       fields: queryParams.fields || [],
-    //       filters: queryParams.filters || {},
-    //       sorts: queryParams.sorts || [],
-    //       limit: queryParams.limit || '1000',
-    //     }),
-    //   )
-
-    //   const queryId = createQuery.id
-    //   if (queryId === undefined || queryId === null) {
-    //     return 'There was an error!!'
-    //   }
-    //   const result = await core40SDK.ok(
-    //     core40SDK.run_query({
-    //       query_id: queryId,
-    //       result_format: 'md',
-    //     }),
-    //   )
-
-    //   if (result.length === 0) {
-    //     return 'There was an error!!'
-    //   }
-
-    //   const contents = `
-    //   Data
-    //   ----------
-
-    //   ${result}
-      
-    //   Task
-    //   ----------
-    //   Summarize the data above
-    
-    // `
-    //   const response = await sendMessage(contents, {})
-
-    //   const refinedContents = `
-    //   The following text represents summaries of a given dashboard's data. 
-    //     Summaries: ${response}
-
-    //     Make this much more concise for a slide presentation using the following format. 
-    //     The summary should be a markdown documents that contains only 1 section for key observantion also called insights, it should have the following details: a section title called insights , for the given part of the summary, and key points which a list of key points for the concise summary. 
-    //     Data should be returned in Insights section, you will be penalized if it doesn't adhere to this format. 
-    //     Each summary should only be included once. Do not include the same summary twice.
-    //     Do not include points having words like missing data or future analysis
-    //     `
-
-    //   const refinedResponse = await sendMessage(refinedContents, {})
-    //   return refinedResponse
       return ''
     },
     [currentExplore],
@@ -323,26 +232,32 @@ const useSendVertexMessage = () => {
         limit: '',
       }
   
-      // Always include these essential fields for promo analysis
+      // Define essential fields for context
       const essentialFields = [
         'hpp_sample_full_data.ctr',
         'hpp_sample_full_data.impression',
         'hpp_sample_full_data.accept',
-        'hpp_sample_full_data.approved_copy',
         'hpp_sample_full_data.country_name',
         'hpp_sample_full_data.campaign_category',
         'hpp_sample_full_data.hpp_format',
-        'hpp_sample_full_data.device',
-        'hpp_sample_full_data.flag',
-        'hpp_sample_full_data.begin_date_month'
+        'hpp_sample_full_data.flag'
+       
       ]
   
       // Iterate over the parameters to fill the query object
       params.forEach((value, key) => {
         if (key === 'fields') {
-          const existingFields = value.split(',')
-          // Combine and deduplicate fields
-          queryParams.fields = [...new Set([...existingFields, ...essentialFields])]
+          const userFields = value.split(',')
+          // If user specified fields, use those primarily and only add essential fields
+          // that provide critical context and aren't already included
+          const requiredContextFields = essentialFields.filter(field => {
+            // Include essential field only if it provides critical context for analysis
+            const isContextRequired = field.includes('ctr') || 
+                                    field.includes('impression') ||
+                                    field.includes('accept')
+            return isContextRequired && !userFields.includes(field)
+          })
+          queryParams.fields = [...new Set([...userFields, ...requiredContextFields])]
         } else if (key.startsWith('f[')) {
           const filterKey = key.match(/\[(.*?)\]/)?.[1]
           if (filterKey) {
@@ -354,11 +269,6 @@ const useSendVertexMessage = () => {
           queryParams.limit = value
         }
       })
-  
-      // If no fields were specified in the URL, use essential fields
-      if (queryParams.fields.length === 0) {
-        queryParams.fields = essentialFields
-      }
   
       // Get the query results
       const createQuery = await core40SDK.ok(
@@ -387,93 +297,90 @@ const useSendVertexMessage = () => {
       if (!result || result.length === 0) {
         return 'No data found for analysis'
       }
-  
+
       const contents = `
       Context
       ----------
-      You are analyzing homepage promotional campaign performance data. Your role is to uncover meaningful patterns and relationships between different aspects of campaign performance, focusing on aggregate-level insights that reveal strategic patterns.
-  
+      You are analyzing homepage promotional campaign performance data, focusing specifically on the metrics and dimensions the user has queried.
+
+      Query Context
+      ----------
+      Fields Requested: ${queryParams.fields.join(', ')}
+      Filters Applied: ${Object.entries(queryParams.filters).map(([k, v]) => `${k}=${v}`).join(', ')}
+      Sort Order: ${queryParams.sorts.join(', ')}
+
       Analysis Guidelines
       ----------
-      1. Focus Areas:
-         • Multi-dimensional relationships (e.g., format effectiveness by region)
-         • Temporal patterns and trends
-         • Performance variations across segments
-         • Impact of campaign attributes on engagement
-         • Device and platform patterns
-         • Geographic insights
-  
-      2. Analysis Principles:
-         • Combine multiple dimensions to reveal deeper insights
-         • Focus on patterns and trends rather than individual data points
-         • Identify causation where possible, not just correlation
-         • Compare segments and categories rather than individual campaigns
-         • Look for unexpected relationships in the data
-  
-      3. Copy Writing Best Practices:
+      1. Primary Focus:
+         • Analyze relationships only between explicitly requested fields
+         • Prioritize insights about ${queryParams.fields.join(', ')}
+         • Focus on temporal patterns if date fields are included
+         • Compare formats only if format-specific fields are queried
+
+      2. Analysis Hierarchy:
+         • Start with direct relationships between queried fields
+         • Include context metrics only when they explain key patterns
+         • Maintain focus on user's specific question
+         • Skip any sections not relevant to queried fields
+
+      3. Copy Writing Best Practices (if copy analysis requested):
          • Desktop middle slot: 85 characters
          • Mobile middle slot: 45 characters
          • Push-up headline: 57 characters
          • Push-up subline: 73 characters
-         • Callout headline: 40 characters
-         • Callout subline: 55 characters
-         • Focus on informational, helpful content over sales messaging
          • Keep copy unique to homepage
          • Use specific, informational language
-         • Capitalize on trending topics when relevant
-  
+
       4. What to Avoid:
+         • Insights about fields not in the query
+         • Generic observations not related to requested metrics
+         • Raw metrics without analytical context
+         • Tangential analysis beyond query scope
          • Individual campaign performance metrics
-         • Simple metric statements without context
-         • Direct comparisons between specific campaigns
-         • Raw CTR or metric values without analytical context
          • Surface-level observations
-  
+
       Performance Data
       ----------
       ${JSON.stringify(result, null, 2)}
-  
+
       Task
       ----------
-      Generate concise, high-value insights that reveal strategic patterns and actionable findings. Avoid surface-level metric reporting.
+      Generate concise, high-value insights focused on queried fields. Structure as follows:
 
-      1. Key Trends:
-      - List 2-3 most significant strategic patterns
-      - Focus on "why" and business impact, not just raw metrics
-      - Reveal meaningful relationships between dimensions
-      - Each trend maximum 2 sentences, explaining cause and effect
-      Example: "Push-up format's success (**23% higher** CTR) driven by improved mobile rendering and clear CTAs, particularly effective for product launches."
+      1. Key Trends (strictly within query scope):
+         • Primary patterns between requested dimensions
+         • Impact analysis of filters applied
+         • Each trend maximum 2 sentences with cause and effect
+         Example: "Push-up format's success (**23% higher** CTR) in queried segments driven by improved mobile rendering."
 
-      2. Copy Performance (ONLY if query includes approved_copy):
-      - Identify patterns that explain why certain copy works
-      - Connect copy characteristics to user behavior
-      - Focus on actionable copy strategy insights
-      Example: "Short, benefit-focused copy consistently drives higher engagement because it quickly communicates value to mobile users."
+      2. Copy Performance (ONLY if approved_copy in query):
+         • Patterns connecting copy characteristics to queried metrics
+         • Skip if approved_copy not in query
+         Example: "Short, benefit-focused copy shows **2x** higher engagement in analyzed segments."
 
-      3. Notable Patterns:
-      - Highlight 1-2 unexpected or high-impact findings
-      - Explain the business significance of each pattern
-      - Focus on insights that can inform strategy
-      Example: "Weekend campaigns show **2x** higher engagement specifically for product features, suggesting timing significantly impacts feature awareness."
+      3. Notable Patterns (based on query focus):
+         • Unexpected findings within queried dimensions
+         • Clear business impact explanation
+         Example: "Weekend campaigns show **2x** higher engagement for queried formats."
 
       4. Strategic Recommendations:
-      - Provide 2-3 specific, data-backed suggestions
-      - Focus on strategic impact over tactical changes
-      - Connect each recommendation to business outcomes
-      Example: "Prioritize mobile push-ups for feature launches based on **40% higher** user retention and sustained engagement patterns."
+         • 2-3 specific, data-backed suggestions
+         • Focus only on analyzed dimensions
+         • Connect to business outcomes
+         Example: "Prioritize mobile push-ups based on **40% higher** engagement in analyzed segments."
 
       Writing Style:
-      - Use **bold** for key metrics when they support a larger insight
-      - Every point must explain "why" or "how" not just "what", unless the what is valuable by itself
-      - Focus on insights that drive decision-making
-      - No raw metrics without strategic context
-      - Keep analytical but prioritize business relevance
+         • Use **bold** for key metrics of queried fields
+         • Every insight must explain "why" or "how"
+         • Focus on patterns that drive decisions
+         • Keep analytical but prioritize business relevance
+         • Connect insights to user behavior
+         • Skip sections if not relevant to query
 
-      Notes:
-      - Avoid surface-level observations like "CTR was X%"
-      - Each insight should inform strategic decisions
-      - Connect patterns to user behavior or business outcomes
-      - Skip any section if meaningful insights can't be derived
+      Requirements:
+         • Every insight must directly relate to queried fields
+         • Only bold metrics for queried dimensions
+         • Maintain laser focus on user's specific question
       `
   
       const response = await sendMessage(contents, {})
@@ -621,7 +528,6 @@ const useSendVertexMessage = () => {
     [currentExplore, examples],
   )
 
-
   const generateExploreUrl = useCallback(
     async (
       prompt: string,
@@ -673,7 +579,6 @@ const useSendVertexMessage = () => {
         const parameters = {
           max_output_tokens: 1000,
         }
-        //console.log("GenerateExploreURL Prompt: ", contents)
         const response = await sendMessage(contents, parameters)
         return unquoteResponse(response)
       }
@@ -741,8 +646,6 @@ const useSendVertexMessage = () => {
         `
         let getExplanation = await sendMessage(contents, {})
         getExplanation = unquoteResponse(getExplanation)
-        // console.log('Explanation Given:', getExplanation)
-        // console.log('Final newExploreUrl:', newExploreUrl)
         return {newExploreUrl, getExplanation}
       } catch (error) {
         console.error(
@@ -777,6 +680,7 @@ const useSendVertexMessage = () => {
       return
     }
   }
+
   return {
     generateExploreUrl,
     sendMessage,
