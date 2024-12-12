@@ -51,15 +51,19 @@ const ExploreMessage = ({
     let currentSection = ''
 
     lines.forEach(line => {
-      if (line.includes('Key Trends')) {
+      const trimmedLine = line.trim()
+      
+      // Match markdown headers
+      if (trimmedLine.startsWith('### 1. Key Trends')) {
         currentSection = 'keyTrends'
-      } else if (line.includes('Notable Patterns')) {
+      } else if (trimmedLine.startsWith('### 2. Notable Patterns')) {
         currentSection = 'notablePatterns'
-      } else if (line.includes('Strategic Recommendations')) {
+      } else if (trimmedLine.startsWith('### 3. Strategic Recommendations')) {
         currentSection = 'recommendations'
-      } else if (line.trim().startsWith('•') || line.trim().startsWith('-')) {
-        const cleanLine = line.replace(/^[•-]\s*/, '').trim()
-        if (cleanLine && currentSection) {
+      } else if (trimmedLine.startsWith('*') && currentSection) {
+        // Remove the markdown bullet point and trim
+        const cleanLine = trimmedLine.substring(1).trim()
+        if (cleanLine) {
           sections[currentSection].push(cleanLine)
         }
       }
