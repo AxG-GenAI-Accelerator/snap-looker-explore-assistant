@@ -353,17 +353,12 @@ const useSendVertexMessage = () => {
          • Each trend maximum 2 sentences with cause and effect
          Example: "Push-up format's success (**23% higher** CTR) in queried segments driven by improved mobile rendering."
 
-      2. Copy Performance (ONLY if approved_copy in query):
-         • Patterns connecting copy characteristics to queried metrics
-         • Skip if approved_copy not in query
-         Example: "Short, benefit-focused copy shows **2x** higher engagement in analyzed segments."
-
-      3. Notable Patterns (based on query focus):
+      2. Notable Patterns (based on query focus):
          • Unexpected findings within queried dimensions
          • Clear business impact explanation
          Example: "Weekend campaigns show **2x** higher engagement for queried formats."
 
-      4. Strategic Recommendations:
+      3. Strategic Recommendations:
          • 2-3 specific, data-backed suggestions
          • Focus only on analyzed dimensions
          • Connect to business outcomes
