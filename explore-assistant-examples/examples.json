@@ -99,4 +99,12 @@
     "input": "What are the performance metrics at a promo level?",
     "output": "fields=hpp_sample_full_data.campaign_id,hpp_sample_full_data.promo_id,hpp_sample_full_data.campaign_description,hpp_sample_full_data.cappa_product_area,hpp_sample_full_data.approved_copy,hpp_sample_full_data.begin_date_date,hpp_sample_full_data.flag,hpp_sample_full_data.hpp_format,hpp_sample_full_data.device,hpp_sample_full_data.country_name,hpp_sample_full_data.ctr,hpp_sample_full_data.accept,hpp_sample_full_data.impression,hpp_sample_full_data.dismiss&sorts=hpp_sample_full_data.begin_date_date desc&limit=500&vis={\"type\":\"table\"}"
   },
+  {
+    "input": "How have campaigns about the 'WNBA Finals' performed?",
+    "output": "fields=hpp_sample_full_data.promo_id,hpp_sample_full_data.campaign_id,hpp_sample_full_data.campaign_description,hpp_sample_full_data.approved_copy,hpp_sample_full_data.product,hpp_sample_full_data.ctr,hpp_sample_full_data.dismiss,hpp_sample_full_data.impression,hpp_sample_full_data.accept&f[hpp_sample_full_data.campaign_description]=%25WNBA Finals%25&sorts=hpp_sample_full_data.ctr+desc&limit=500"
+  },
+  {
+    "input": "Can we see CTR by device type for specific campaign categories in LATAM?",
+    "output": "fields=hpp_sample_full_data.ctr,hpp_sample_full_data.device,hpp_sample_full_data.category&pivots=hpp_sample_full_data.device&f[hpp_sample_full_data.region]=LATAM&sorts=hpp_sample_full_data.device,hpp_sample_full_data.ctr+desc&limit=5&vis={\"type\":\"looker_column\"}"
+  }
 ]
