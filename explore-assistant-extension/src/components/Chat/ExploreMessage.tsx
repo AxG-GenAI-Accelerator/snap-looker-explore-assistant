@@ -41,6 +41,17 @@ const ExploreMessage = ({
 
   // Parse insights_n into sections
   const parseInsights = (text: string) => {
+
+    if (text === 'No data found for analysis') {
+      return {
+        noData: true,
+        message: 'No data was returned for this query. This typically occurs when filters are too specific. Please try broadening your search criteria or starting a new chat.',
+        keyTrends: [] as string[],
+        notablePatterns: [] as string[],
+        recommendations: [] as string[]
+      }
+    }
+
     const sections = {
       keyTrends: [] as string[],
       notablePatterns: [] as string[],
@@ -134,46 +145,58 @@ const ExploreMessage = ({
           </div>
           <hr />
           <div className="mt-4">
-            {/* Key Trends */}
-            {insightSections.keyTrends.length > 0 && (
-              <div className="mb-4">
-                <h3 className="font-semibold mb-2">Key Trends</h3>
-                <ul className="list-disc pl-4">
-                  {insightSections.keyTrends.map((trend, idx) => (
-                    <li key={idx} className="mb-2">{renderMarkdown(trend)}</li>
-                  ))}
-                </ul>
+            {insightSections.noData ? (
+              <div className="p-4 bg-gray-50 rounded-md text-gray-700">
+                <div className="flex items-center mb-2">
+                  <span className="mr-2">⚠️</span>
+                  <span className="font-medium">No Data Available</span>
+                </div>
+                <p>{insightSections.message}</p>
               </div>
-            )}
-            
-            {/* Notable Patterns */}
-            {insightSections.notablePatterns.length > 0 && (
-              <div className="mb-4">
-                <h3 className="font-semibold mb-2">Notable Patterns</h3>
-                <ul className="list-disc pl-4">
-                  {insightSections.notablePatterns.map((pattern, idx) => (
-                    <li key={idx} className="mb-2">{renderMarkdown(pattern)}</li>
-                  ))}
-                </ul>
-              </div>
-            )}
-            
-            {/* Strategic Recommendations */}
-            {insightSections.recommendations.length > 0 && (
-              <div className="mb-4">
-                <h3 className="font-semibold mb-2">Strategic Recommendations</h3>
-                <ul className="list-disc pl-4">
-                  {insightSections.recommendations.map((rec, idx) => (
-                    <li key={idx} className="mb-2">{renderMarkdown(rec)}</li>
-                  ))}
-                </ul>
-              </div>
+            ) : (
+              <>
+                {/* Key Trends */}
+                {insightSections.keyTrends.length > 0 && (
+                  <div className="mb-4">
+                    <h3 className="font-semibold mb-2">Key Trends</h3>
+                    <ul className="list-disc pl-4">
+                      {insightSections.keyTrends.map((trend, idx) => (
+                        <li key={idx} className="mb-2">{renderMarkdown(trend)}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+                
+                {/* Notable Patterns */}
+                {insightSections.notablePatterns.length > 0 && (
+                  <div className="mb-4">
+                    <h3 className="font-semibold mb-2">Notable Patterns</h3>
+                    <ul className="list-disc pl-4">
+                      {insightSections.notablePatterns.map((pattern, idx) => (
+                        <li key={idx} className="mb-2">{renderMarkdown(pattern)}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+                
+                {/* Strategic Recommendations */}
+                {insightSections.recommendations.length > 0 && (
+                  <div className="mb-4">
+                    <h3 className="font-semibold mb-2">Strategic Recommendations</h3>
+                    <ul className="list-disc pl-4">
+                      {insightSections.recommendations.map((rec, idx) => (
+                        <li key={idx} className="mb-2">{renderMarkdown(rec)}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </>
             )}
           </div>
         </div>
-
+  
         <hr />
-
+  
         {/* SQL Generation Logic Section */}
         <div
           className="mt-2 cursor-pointer text-sm flex items-center justify-between"

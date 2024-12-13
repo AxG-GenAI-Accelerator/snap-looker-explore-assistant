@@ -46,29 +46,43 @@ const ExploreMessage = ({
       notablePatterns: [] as string[],
       recommendations: [] as string[]
     }
-
+  
     const lines = text.split('\n')
     let currentSection = ''
-
+  
     lines.forEach(line => {
       const trimmedLine = line.trim()
       
-      // Match markdown headers
-      if (trimmedLine.startsWith('### 1. Key Trends')) {
+      // More flexible header matching
+      if (trimmedLine.match(/[#*]+\s*1\.\s*Key\s*Trends/i)) {
         currentSection = 'keyTrends'
-      } else if (trimmedLine.startsWith('### 2. Notable Patterns')) {
+      } else if (trimmedLine.match(/[#*]+\s*2\.\s*Notable\s*Patterns/i)) {
         currentSection = 'notablePatterns'
-      } else if (trimmedLine.startsWith('### 3. Strategic Recommendations')) {
+      } else if (trimmedLine.match(/[#*]+\s*3\.\s*Strategic\s*Recommendations/i)) {
         currentSection = 'recommendations'
-      } else if (trimmedLine.startsWith('*') && currentSection) {
-        // Remove the markdown bullet point and trim
+      } else if ((trimmedLine.startsWith('*') || trimmedLine.startsWith('•') || trimmedLine.startsWith('-')) && currentSection) {
+        // Handle different bullet point characters
         const cleanLine = trimmedLine.substring(1).trim()
         if (cleanLine) {
           sections[currentSection].push(cleanLine)
         }
       }
     })
-
+  
+    // Add fallback for empty sections
+    if (Object.values(sections).every(arr => arr.length === 0)) {
+      // If no sections were parsed, try to extract any bullet points
+      lines.forEach(line => {
+        const trimmedLine = line.trim()
+        if (trimmedLine.startsWith('*') || trimmedLine.startsWith('•') || trimmedLine.startsWith('-')) {
+          const cleanLine = trimmedLine.substring(1).trim()
+          if (cleanLine) {
+            sections.keyTrends.push(cleanLine)
+          }
+        }
+      })
+    }
+  
     return sections
   }
 
