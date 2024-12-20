@@ -298,6 +298,10 @@ const useSendVertexMessage = () => {
         return 'No data found for analysis'
       }
 
+      if (Array.isArray(result) && result[0] && Object.keys(result[0]).length === 0) {
+        return 'No data found for analysis'
+}
+
       const contents = `
       Context
       ----------
@@ -463,7 +467,7 @@ const useSendVertexMessage = () => {
   
         Available Dimensions:
         ${dimensions.map(formatContent).join('\n')}
-  
+        
         Example Query Patterns:
         ${exploreGenerationExamples && exploreGenerationExamples
           .map((item) => `input: "${item.input}" ; output: ${item.output}`)

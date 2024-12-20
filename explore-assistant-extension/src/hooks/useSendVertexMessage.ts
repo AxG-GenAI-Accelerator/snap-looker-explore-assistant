@@ -327,13 +327,18 @@ const useSendVertexMessage = () => {
          • Maintain focus on user's specific question
          • Skip any sections not relevant to queried fields
 
-      3. Copy Writing Best Practices (if copy analysis requested):
-         • Desktop middle slot: 85 characters
-         • Mobile middle slot: 45 characters
-         • Push-up headline: 57 characters
-         • Push-up subline: 73 characters
-         • Keep copy unique to homepage
-         • Use specific, informational language
+      3. Copy Writing Best Practices (only if approved copy analysis requested):
+         • Keep copy specific, informational, and helpful rather than salesy - promos should announce, not advertise
+         • Use short, concise copy that fits character limits (desktop: 85 characterss, mobile: 45 characters for middle slot)
+         • Focus on newsworthy and trending topics that help users in their search process
+         • Communicate time commitments upfront and only target relevant users
+         • Avoid using program/brand names unless well-established or clearly associated with Google
+         • Be consistent in messaging, especially for political or sensitive topics
+         • Coordinate timing with PR and media efforts but create unique copy for homepage
+         • Track and optimize based on both CTR and downstream engagement metrics
+         • Capitalize on awareness/observance days while keeping content educational and playful
+         • For crisis response, keep messaging minimal and resource-focused
+         • For mobile-focused promos, keep messaging direct and to-the-point
 
       4. What to Avoid:
          • Insights about fields not in the query
@@ -467,7 +472,7 @@ const useSendVertexMessage = () => {
   
         Available Dimensions:
         ${dimensions.map(formatContent).join('\n')}
-  
+        
         Example Query Patterns:
         ${exploreGenerationExamples && exploreGenerationExamples
           .map((item) => `input: "${item.input}" ; output: ${item.output}`)
