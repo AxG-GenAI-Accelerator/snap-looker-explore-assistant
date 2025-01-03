@@ -130,5 +130,13 @@
   {
     "input": "How have chess campaigns performed?",
     "output": "fields=hpp_sample_full_data.campaign_id,hpp_sample_full_data.promo_id,hpp_sample_full_data.approved_copy,hpp_sample_full_data.campaign_description,hpp_sample_full_data.hpp_format,hpp_sample_full_data.region,hpp_sample_full_data.accept,hpp_sample_full_data.ctr,hpp_sample_full_data.impression,hpp_sample_full_data.begin_date_quarter&pivots=hpp_sample_full_data.begin_date_quarter&fill_fields=hpp_sample_full_data.begin_date_quarter&f[hpp_sample_full_data.campaign_description]=%chess%,%Chess%&f[hpp_sample_full_data.approved_copy]=%chess%,%Chess%&sorts=hpp_sample_full_data.begin_date_quarter,hpp_sample_full_data.accept+desc&limit=500&vis={\"type\":\"looker_grid\",\"show_view_names\":false,\"truncate_text\":true,\"size_to_fit\":true,\"minimum_column_width\":75}"
+  },
+  {
+    "input": "Can you show me the top Chrome campaigns with the highest CTR",
+    "output": "fields=hpp_sample_full_data.campaign_id,hpp_sample_full_data.approved_copy,hpp_sample_full_data.campaign_description,hpp_sample_full_data.cappa_product_area,hpp_sample_full_data.cappa_product,hpp_sample_full_data.ctr,hpp_sample_full_data.begin_date_date&f[hpp_sample_full_data.cappa_product]=Chrome&sorts=hpp_sample_full_data.ctr+desc&limit=10&vis=column"
+  },
+  {
+    "input": "What is the average CTR for Chrome campaigns?",
+    "output": "fields=hpp_sample_full_data.campaign_id,hpp_sample_full_data.approved_copy,hpp_sample_full_data.cappa_product,hpp_sample_full_data.ctr,hpp_sample_full_data.begin_date_date,hpp_sample_full_data.average_ctr,hpp_sample_full_data.product,hpp_sample_full_data.campaign_description&f[hpp_sample_full_data.product]=CHROME&sorts=hpp_sample_full_data.average_ctr+desc&limit=500&vis=table"
   }
 ]

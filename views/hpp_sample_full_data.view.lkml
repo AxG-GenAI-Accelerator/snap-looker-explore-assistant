@@ -117,6 +117,15 @@ view: hpp_sample_full_data {
     tags: ["metric", "ctr", "performance"]
   }
 
+  measure: average_ctr {
+    type: number
+    sql: AVG(SAFE_DIVIDE(SUM(${TABLE}.accept), SUM(${TABLE}.impression))) OVER () ;;
+    label: "Average CTR"
+    description: "Average CTR across all campaigns in the current filtered result set"
+    value_format_name: percent_2
+    tags: ["metric", "ctr", "performance", "average"]
+  }
+
   dimension: device {
     type: string
     sql: ${TABLE}.device ;;
