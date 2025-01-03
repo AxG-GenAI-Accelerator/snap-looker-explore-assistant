@@ -120,7 +120,7 @@ view: hpp_sample_full_data {
   measure: average_ctr {
     type: number
     sql: AVG(SAFE_DIVIDE(SUM(${TABLE}.accept), SUM(${TABLE}.impression))) OVER () ;;
-    label: "Average CTR of Filtered Campaigns"
+    label: "Average CTR"
     description: "Average CTR across all campaigns in the current filtered result set"
     value_format_name: percent_2
     tags: ["metric", "ctr", "performance", "average"]
