@@ -162,5 +162,21 @@
   {
     "input": "can you show me a list of HPPs in emea in q4 2024 in a table by name and launch date?",
     "output": "fields=hpp_sample_full_data.campaign_id,hpp_sample_full_data.promo_id,hpp_sample_full_data.campaign_description,hpp_sample_full_data.approved_copy,hpp_sample_full_data.begin_date_date,hpp_sample_full_data.ctr,hpp_sample_full_data.region&f[hpp_sample_full_data.region]=%EMEA%&f[hpp_sample_full_data.begin_date_quarter]=2024-Q4&sorts=hpp_sample_full_data.begin_date_date+desc&limit=500&vis={\"type\":\"looker_grid\"}"
+  },
+  {
+    "input": "Top performing campaigns where the impressions are higher than 5000",
+    "output": "fields=hpp_sample_full_data.campaign_id,hpp_sample_full_data.campaign_description,hpp_sample_full_data.approved_copy,hpp_sample_full_data.ctr,hpp_sample_full_data.impression&f[hpp_sample_full_data.impression]=>5000&sorts=hpp_sample_full_data.ctr+desc&limit=500&vis={\"type\":\"looker_grid\"}"
+  },
+  {
+    "input": "Top performing campaigns where the accepts are higher than 5000",
+    "output": "fields=hpp_sample_full_data.campaign_id,hpp_sample_full_data.campaign_description,hpp_sample_full_data.approved_copy,hpp_sample_full_data.ctr,hpp_sample_full_data.accept&f[hpp_sample_full_data.accept]=>5000&sorts=hpp_sample_full_data.ctr+desc&limit=500&vis={\"type\":\"looker_grid\"}"
+  },
+  {
+    "input": "Top performing campaigns where the impressions are higher than 5000",
+    "output": "fields=hpp_sample_full_data.campaign_id,hpp_sample_full_data.campaign_description,hpp_sample_full_data.approved_copy,hpp_sample_full_data.ctr,hpp_sample_full_data.impression&f[hpp_sample_full_data.impression]=>5000&sorts=hpp_sample_full_data.ctr+desc&limit=500&vis={\"type\":\"looker_grid\"}"
+  },
+  {
+    "input": "Top performing HPPs where the ctr is less than 10%",
+    "output": "fields=hpp_sample_full_data.ctr,hpp_sample_full_data.impression,hpp_sample_full_data.campaign_id,hpp_sample_full_data.campaign_description,hpp_sample_full_data.approved_copy,hpp_sample_full_data.accept&f[hpp_sample_full_data.ctr]=%3C=0.1&sorts=hpp_sample_full_data.ctr+desc&limit=500&vis={\"type\":\"looker_grid\"}"
   }
 ]
