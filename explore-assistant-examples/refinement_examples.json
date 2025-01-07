@@ -58,5 +58,17 @@
   {
     "input": ["experiment performance", "experimental campaigns"],
     "output": "show performance metrics for experiment flagged campaigns with quarterly comparison"
+  },
+  {
+    "input": ["What are the top chrome campaigns?", "Output the top Chrome campaigns by ctr"],
+    "output": "can you show me the top Chrome campaigns with the highest CTR"
+  },
+  {
+    "input": ["What are the top campaigns from APAC?", "Best APAC campaigns"],
+    "output": "output the top performing apac campaigns by ctr"
+  },
+  {
+    "input": ["Approved copy of top campaigns", "campaigns and approved copy for highest ctr"],
+    "output": "show the campaigns with the highest ctr and include their approved copy and campaign id"
   }
 ]
