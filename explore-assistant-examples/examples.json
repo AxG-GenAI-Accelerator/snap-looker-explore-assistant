@@ -133,10 +133,34 @@
   },
   {
     "input": "Can you show me the top Chrome campaigns with the highest CTR",
-    "output": "fields=hpp_sample_full_data.campaign_id,hpp_sample_full_data.approved_copy,hpp_sample_full_data.campaign_description,hpp_sample_full_data.cappa_product_area,hpp_sample_full_data.cappa_product,hpp_sample_full_data.ctr,hpp_sample_full_data.begin_date_date&f[hpp_sample_full_data.cappa_product]=Chrome&sorts=hpp_sample_full_data.ctr+desc&limit=10&vis=column"
+    "output": "fields=hpp_sample_full_data.campaign_id,hpp_sample_full_data.approved_copy,hpp_sample_full_data.campaign_description,hpp_sample_full_data.cappa_product_area,hpp_sample_full_data.cappa_product,hpp_sample_full_data.ctr,hpp_sample_full_data.begin_date_date&f[hpp_sample_full_data.cappa_product]=%Chrome%&sorts=hpp_sample_full_data.ctr+desc&limit=10&vis=column"
   },
   {
     "input": "What is the average CTR for Chrome campaigns?",
-    "output": "fields=hpp_sample_full_data.campaign_id,hpp_sample_full_data.approved_copy,hpp_sample_full_data.cappa_product,hpp_sample_full_data.ctr,hpp_sample_full_data.begin_date_date,hpp_sample_full_data.average_ctr,hpp_sample_full_data.product,hpp_sample_full_data.campaign_description&f[hpp_sample_full_data.product]=CHROME&sorts=hpp_sample_full_data.average_ctr+desc&limit=500&vis=table"
+    "output": "fields=hpp_sample_full_data.campaign_id,hpp_sample_full_data.approved_copy,hpp_sample_full_data.cappa_product,hpp_sample_full_data.ctr,hpp_sample_full_data.begin_date_date,hpp_sample_full_data.average_ctr,hpp_sample_full_data.cappa_product,hpp_sample_full_data.campaign_description&f[hpp_sample_full_data.cappa_product]=%Chrome%&sorts=hpp_sample_full_data.average_ctr+desc&limit=500&vis=table"
+  },
+  {
+    "input": "Can you show me the best performing HPP in 2024 in EMEA with the CTR, the format of the HPP, the CTR,country, and the copy",
+    "output": "fields=hpp_sample_full_data.campaign_id,hpp_sample_full_data.promo_id,hpp_sample_full_data.ctr,hpp_sample_full_data.campaign_description,hpp_sample_full_data.hpp_format,hpp_sample_full_data.country_name,hpp_sample_full_data.approved_copy&f[hpp_sample_full_data.begin_date_year]=2024&f[hpp_sample_full_data.region]=EMEA&sorts=hpp_sample_full_data.ctr+desc&limit=10&vis={\"type\":\"looker_grid\"}"
+  },
+  {
+    "input": "what was the best performing Gemini pushup HPP in 2024 and in which country was it best performing?",
+    "output": "fields=hpp_sample_full_data.campaign_id,hpp_sample_full_data.promo_id,hpp_sample_full_data.campaign_description,hpp_sample_full_data.hpp_format,hpp_sample_full_data.approved_copy,hpp_sample_full_data.country_name,hpp_sample_full_data.cappa_product,hpp_sample_full_data.ctr&f[hpp_sample_full_data.cappa_product]=%Gemini%&f[hpp_sample_full_data.begin_date_year]=2024&sorts=hpp_sample_full_data.ctr+desc&limit=10&vis={\"type\":\"looker_grid\"}"
+  },
+  {
+    "input": "what was the best performing pushup HPP in 2024?",
+    "output": "fields=hpp_sample_full_data.campaign_id,hpp_sample_full_data.promo_id,hpp_sample_full_data.approved_copy,hpp_sample_full_data.campaign_description,hpp_sample_full_data.ctr,hpp_sample_full_data.hpp_format&f[hpp_sample_full_data.hpp_format]=%Pushup%&f[hpp_sample_full_data.begin_date_year]=2024&sorts=hpp_sample_full_data.ctr+desc&limit=500&vis={\"type\":\"looker_grid\"}"
+  },
+  {
+    "input": "what is the highest performing HPP in 2024 in EMEA",
+    "output": "fields=hpp_sample_full_data.campaign_id,hpp_sample_full_data.promo_id,hpp_sample_full_data.approved_copy,hpp_sample_full_data.campaign_description,hpp_sample_full_data.ctr,hpp_sample_full_data.hpp_format,hpp_sample_full_data.region&f[hpp_sample_full_data.begin_date_year]=2024&f[hpp_sample_full_data.region]=%EMEA%&sorts=hpp_sample_full_data.ctr+desc&limit=500&vis={\"type\":\"looker_grid\"}"
+  },
+  {
+    "input": "What is the highest performing HPP format in EMEA?",
+    "output": "fields=hpp_sample_full_data.hpp_format,hpp_sample_full_data.region,hpp_sample_full_data.ctr&f[hpp_sample_full_data.region]=%EMEA%&sorts=hpp_sample_full_data.ctr+desc&limit=500&vis={\"type\":\"looker_column\"}"
+  },
+  {
+    "input": "can you show me a list of HPPs in emea in q4 2024 in a table by name and launch date?",
+    "output": "fields=hpp_sample_full_data.campaign_id,hpp_sample_full_data.promo_id,hpp_sample_full_data.campaign_description,hpp_sample_full_data.approved_copy,hpp_sample_full_data.begin_date_date,hpp_sample_full_data.ctr,hpp_sample_full_data.region&f[hpp_sample_full_data.region]=%EMEA%&f[hpp_sample_full_data.begin_date_quarter]=2024-Q4&sorts=hpp_sample_full_data.begin_date_date+desc&limit=500&vis={\"type\":\"looker_grid\"}"
   }
 ]

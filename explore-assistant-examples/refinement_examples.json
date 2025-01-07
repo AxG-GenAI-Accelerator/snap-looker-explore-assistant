@@ -70,5 +70,41 @@
   {
     "input": ["Approved copy of top campaigns", "campaigns and approved copy for highest ctr"],
     "output": "show the campaigns with the highest ctr and include their approved copy and campaign id"
+  },
+  {
+    "input": ["HPP performance", "HPP metrics", "HPP analysis"],
+    "output": "analyze campaign metrics including promo_id, campaign_id, approved_copy, CTR, impressions, accepts, and campaign description in a grid format with sorting"
+  },
+  {
+     "input": ["best hpps", "top hpps"],
+     "output": "show top performing campaigns by ctr"
+  },
+  {
+     "input": ["what was the best performing callout HPP in 2024?"],
+     "output": "Show top performing Callout campaigns with campaign_id, promo_id, description, ctr, and approved copy in 2024"
+  },
+  {
+     "input": ["what was the best performing middleslot HPP in 2024?","top pushup HPPs in 2024"],
+     "output": "Show top performing Middleslot campaigns with campaign_id, promo_id, description, ctr, and approved copy in 2024"
+  },
+  {
+     "input": ["Best mobile campaigns", "top mobile campaigns", "mobile campaigns by top CTR"],
+     "output": "Show top performing campaigns with Mobile device, show campaign_id, approved_copy, description, device, and ctr"
+  },
+  {
+     "input": ["Best desktop campaigns", "top desktop campaigns", "mobile desktop by top CTR"],
+     "output": "Show top performing campaigns with Desktop device, show campaign_id, approved_copy, description, device, and ctr"
+  },
+  {
+     "input": ["mobile vs desktop campaign performance"],
+     "output": "Show a plot with device, including average ctr"
+  },
+  {
+     "input": ["top performing ads/b2b campaigns", "top performing ads b2b campaigns"],
+     "output": "Show campaign_id, description, approved copy, cappa_product_area, and ctr for the Ads/B2B cappa product area campaigns"
+  },
+  {
+     "input": ["top performing platforms campaigns", "top performing platforms & devices campaigns", "top performing platforms and devices campaigns", "best Platforms campaigns"],
+     "output": "Show campaign_id, description, approved copy, cappa_product_area, and ctr for the Platforms & Devices cappa product area campaigns"
   }
 ]
