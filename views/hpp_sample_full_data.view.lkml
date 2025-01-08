@@ -81,6 +81,7 @@ view: hpp_sample_full_data {
     label: "CAPPA Product"
     description: "Product classification in CAPPA system"
     tags: ["product", "classification", "cappa"]
+    suggestions: ["AI", "About", "Account", "Ads Marketing", "Android", "Arts and Culture", "Be Internet Awesome", "Career Certificates", "Chrome", "Chromebook", "Civics", "Devices and Services", "Digital Responsibility", "Digital Wellbeing", "Digital Workshop", "Diversity & Inclusion", "Doodles", "Drive", "Economic Opportunity", "Education", "Family Link", "Fitbit", "Gemini Basic", "Google (GSA)", "Google Analytics", "Google Business Profile", "Google Cloud Platform", "Google Fi", "Google Lens", "Google Maps", "Google Nest", "Google One", "Google Photos", "Google Play Gift Cards", "Google Pixel", "Google Play", "Google Research", "Google Search", "Google Shopping", "Google Store", "Google TV", "Google Wifi", "Google Workspace", "Google.org", "Growth", "GwG", "Kids & Family", "Learning", "Merchant Center", "My Ad Center", "Nest Renew", "Other", "Payments", "Privacy", "Privacy B2B", "SMB", "Security", "Sustainability", "The Keyword", "Think With Google", "Translate", "Wallet"]
   }
 
   dimension: cappa_product_area {
@@ -89,6 +90,7 @@ view: hpp_sample_full_data {
     label: "CAPPA Product Area"
     description: "Product area classification in CAPPA system"
     tags: ["product", "area", "cappa"]
+    suggestions: ["Ads/B2B", "Brand & Reputation", "Consumer Apps Marketing", "Google Cloud", "Grow with Google", "HPP Initiatives", "Non-PA: Account", "Non-PA: Growth", "Platforms & Devices", "YouTube"]
   }
 
   dimension: category {
@@ -97,6 +99,7 @@ view: hpp_sample_full_data {
     label: "Category"
     description: "Category classification of the campaign"
     tags: ["category", "classification", "campaign"]
+    suggestions: ["Brand Perception - Brand Awareness", "Brand Perception - Celebrations & Commerations", "Brand Perception - Community Initiatives", "Critical Information - Civics & Politics", "Critical Information - Health & Safety", "Critical Information - SOS & Public Alerts", "Other", "Product Updates - Business Apps", "Product Updates - Consumer Apps", "Product Updates - Devices & Services", "Product Updates - Other", "Product Updates - Security & Trust", "Product Updates - YouTube"]
   }
 
   dimension: country_name {
@@ -105,6 +108,7 @@ view: hpp_sample_full_data {
     label: "Country"
     description: "Name of the country where the campaign was run"
     tags: ["geography", "location", "country"]
+    suggestions: ["Algeria", "Angola", "Anguilla", "Antigua & Barbuda", "Argentina", "Armenia", "Australia", "Austria", "Azerbaijan", "Bahrain", "Bangladesh", "Belarus", "Belgium", "Benin", "Bolivia", "Botswana", "Brazil", "Bulgaria", "Burkina Faso", "Burundi", "Cameroon", "Canada", "Cape Verde", "Central African Republic", "Chad", "Chile", "China", "Colombia", "Congo (DRC)", "Congo (Republic)", "Costa Rica", "Croatia", "Cuba", "Cyprus", "Czech Republic", "Côte d'Ivoire", "Denmark", "Djibouti", "Dominican Republic", "Ecuador", "Egypt", "El Salvador", "Estonia", "Ethiopia", "Finland", "France", "French Guiana", "French Polynesia", "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Gibraltar", "Global", "Greece", "Greenland", "Guadeloupe", "Guam", "Guatemala", "Guernsey", "Guyana", "Honduras", "Hong Kong", "Hungary", "Iceland", "India", "Indonesia", "Iran", "Iraq", "Ireland", "Israel", "Italy", "Jamaica", "Japan", "Jersey", "Jordan", "Kazakhstan", "Kenya", "Kuwait", "Kyrgyzstan", "Latvia", "Lebanon", "Lesotho", "Libya", "Liechtenstein", "Lithuania", "Luxembourg", "Madagascar", "Malawi", "Malaysia", "Mali", "Malta", "Mauritania", "Mauritius", "Mayotte", "Mexico", "Moldova", "Morocco", "Mozambique", "Namibia", "Nepal", "Netherlands", "New Caledonia", "New Zealand", "Nicaragua", "Niger", "Nigeria", "Norway", "Oman", "Pakistan", "Palestine", "Panama", "Paraguay", "Peru", "Philippines", "Poland", "Portugal", "Puerto Rico", "Qatar", "Reunion Island", "Romania", "Russia", "Rwanda", "Saudi Arabia", "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "Somalia", "South Africa", "South Korea", "Spain", "Sri Lanka", "Sudan", "Sweden", "Switzerland", "Taiwan", "Tajikistan", "Tanzania", "Thailand", "Togo", "Trinidad & Tobago", "Tunisia", "Turkey", "Turkmenistan", "U.S. Virgin Islands", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States", "Uruguay", "Uzbekistan", "Venezuela", "Vietnam","Yemen", "Zambia", "Zimbabwe"]
   }
 
   # Convert CTR to number - can be calculated from accepts and impressions
@@ -132,6 +136,7 @@ view: hpp_sample_full_data {
     label: "Device"
     description: "Type of device where the promotion was displayed"
     tags: ["device", "platform", "technical"]
+    suggestions: ["Desktop", "Mobile"]
   }
 
   # Convert to measure - represents count of dismissal events
@@ -159,6 +164,7 @@ view: hpp_sample_full_data {
     label: "Type"
     description: "Type indicator for campaign status or special conditions"
     tags: ["status", "indicator", "campaign"]
+    suggestions: ["Evergreen", "Experiment", "Onetime"]
   }
 
   dimension: grl {
@@ -167,6 +173,7 @@ view: hpp_sample_full_data {
     label: "GRL"
     description: "Indicates whether the campaign is targeted locally or globally"
     tags: ["identifier", "global", "resource"]
+    suggestions: ["Global","Local","Regional"]
   }
 
   dimension: hpp_format {
@@ -175,6 +182,7 @@ view: hpp_sample_full_data {
     label: "HPP Format"
     description: "Format type of the campaign: pushup, callout, or middleslot"
     tags: ["promotion", "format", "homepage", "campaign"]
+    suggestions: ["Callout","Middle","Pushup"]
   }
 
   # Convert to measure - represents count of impression events
@@ -200,6 +208,7 @@ view: hpp_sample_full_data {
     label: "Mobile OS Mapping"
     description: "Mobile operating system targeting mapping, such as Mobile OS, Android, Desktop, etc."
     tags: ["mobile", "os", "desktop"]
+    suggestions: ["All Mobile OS", "Android and iOS", "Android only", "Desktop", "iOS only"]
   }
 
   dimension: product {
@@ -208,6 +217,7 @@ view: hpp_sample_full_data {
     label: "Product"
     description: "Product category of the promo"
     tags: ["product", "category"]
+    suggestions: ["CHROME", "GMAIL", "MY_ACCOUNT", "MY_ACTIVITY", "OTHER", "SEARCH", "SIGN_IN_WITH_GOOGLE", "UNKNOWN"]
   }
 
   dimension: promo_id {
@@ -225,6 +235,7 @@ view: hpp_sample_full_data {
     label: "Properties"
     description: "Properties associated with the campaign"
     tags: ["properties", "attributes", "campaign"]
+    suggestions: ["Calendar", "Calendar, Gmail, Inbox, Drive", "Catalog, Compare, Offers, Sites, Social Good, Play Games, Support Content (Help center), Play", "Chrome New Tab", "Docs", "Docs, Slides, Sheets", "Drive", "Drive, Docs, Sheets, Slides", "Drive, Docs, Slides, Sheets", "Drive, Gmail", "Drive, Gmail, Inbox, Calendar", "Drive, Sheets, Docs, Slides", "Gmail", "Gmail, Calendar, Inbox", "Gmail, Drive", "Maps", "Maps, Search HP, Search HP (image), Search HP (video)", "News (news.google.com), Search HP (news)", "Others", "Photos", "Play", "Search HP", "Search HP (image)", "Search HP (image), Search HP (video)", "Search HP (image), Search HP (video), Search HP", "Search HP (image), Search HP Search HP (video)", "Search HP (video), Search HP (image), Search HP", "Search HP (video), Search HP (image), Search HP, Gmail", "Search HP, Chrome New Tab", "Search HP, Search HP (image)", "Search HP, Search HP (image), Search HP (video)", "Search HP, Search HP (image), Search HP (video), Chrome New Tab", "Search HP, Search HP (image), Search HP (video), Drive, Gmail, Photos, Maps", "Search HP, Search HP (image), Search HP (video), Gmail", "Search HP Search HP (video), Search HP (image)", "Sheets", "Sheets, Slides, Docs, Drive", "Shopping HP, Maps, Search HP, Gmail, Chrome New Tab", "Slides", "Slides, Sheets, Docs, Drive", "Translate"]
   }
 
   dimension: region {
@@ -233,6 +244,7 @@ view: hpp_sample_full_data {
     label: "Region"
     description: "Geographic region where the campaign was targeted"
     tags: ["geography", "region", "location"]
+    suggestions: ["APAC", "EMEA", "Global", "LATAM", "NORTHAM"]
   }
 
   dimension: targeted_properties {
@@ -241,6 +253,7 @@ view: hpp_sample_full_data {
     label: "Targeted Properties"
     description: "Specific mediums/properties targeted by the promotional ad, such as Search HP"
     tags: ["targeting", "properties"]
+    suggestions: ["Chrome New Tab", "Others", "Search HP"]
   }
 
   # Additional useful measures
