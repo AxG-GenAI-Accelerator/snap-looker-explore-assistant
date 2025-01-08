@@ -5,7 +5,7 @@
   },
   {
     "category": "Device Types",
-    "prompt": "How does ctr vary by device type in each region?"
+    "prompt": "How does ctr vary by device in each region?"
   },
   {
     "category": "Format ctr over time",
