@@ -84,8 +84,8 @@
      "output": "Show top performing Callout campaigns with campaign_id, promo_id, description, ctr, and approved copy in 2024"
   },
   {
-     "input": ["what was the best performing middleslot HPP in 2024?","top pushup HPPs in 2024"],
-     "output": "Show top performing Middleslot campaigns with campaign_id, promo_id, description, ctr, and approved copy in 2024"
+     "input": ["what was the best performing middleslot HPP in 2024?","top middle HPPs in 2024"],
+     "output": "Show top performing Middle campaigns with campaign_id, promo_id, description, ctr, and approved copy in 2024"
   },
   {
      "input": ["Best mobile campaigns", "top mobile campaigns", "mobile campaigns by top CTR"],
