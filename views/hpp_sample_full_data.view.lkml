@@ -110,23 +110,12 @@ view: hpp_sample_full_data {
     tags: ["geography", "location", "country"]
   }
 
-  # Convert CTR to number - can be calculated from accepts and impressions
   measure: ctr {
-    type: number
-    sql: SAFE_DIVIDE(SUM(${TABLE}.accept), SUM(${TABLE}.impression)) ;;
-    label: "CTR"
-    description: "Click-through rate calculated as accepts divided by impressions"
-    value_format_name: percent_2
-    tags: ["metric", "ctr", "performance"]
-  }
-
-  measure: average_ctr {
     type: average
-    sql: SAFE_DIVIDE(${TABLE}.accept, ${TABLE}.impression) ;;
-    label: "Average CTR"
-    description: "Average CTR per grouping (day of week, etc)"
+    sql: ${TABLE}.ctr ;;    # Use the pre-calculated CTR from table
+    label: "CTR"
+    description: "Average CTR across filtered campaigns"
     value_format_name: percent_2
-    tags: ["metric", "ctr", "performance", "average"]
   }
 
   dimension: device {
