@@ -121,10 +121,10 @@ view: hpp_sample_full_data {
   }
 
   measure: average_ctr {
-    type: number
-    sql: AVG(SAFE_DIVIDE(SUM(${TABLE}.accept), SUM(${TABLE}.impression))) OVER () ;;
+    type: average
+    sql: SAFE_DIVIDE(${TABLE}.accept, ${TABLE}.impression) ;;
     label: "Average CTR"
-    description: "Average CTR across all campaigns in the current filtered result set"
+    description: "Average CTR per grouping (day of week, etc)"
     value_format_name: percent_2
     tags: ["metric", "ctr", "performance", "average"]
   }
@@ -338,4 +338,32 @@ view: hpp_sample_full_data {
     sql: EXTRACT(DAYOFWEEK FROM ${begin_date_date}) ;;
     hidden: yes  # This dimension is just for sorting, not for display
   }
+  measure: average_impressions {
+    type: average
+    sql: ${TABLE}.impression ;;
+    label: "Average Impressions"
+    description: "Average number of impressions per grouped dimension (e.g., per day of week)"
+    value_format_name: decimal_0
+    tags: ["engagement", "metrics", "views", "average"]
+  }
+
+  measure: average_accepts {
+    type: average
+    sql: ${TABLE}.accept ;;
+    label: "Average Accepts"
+    description: "Average number of accepts per grouped dimension (e.g., per day of week)"
+    value_format_name: decimal_0
+    tags: ["engagement", "metrics", "acceptance", "average"]
+  }
+
+  measure: average_dismissals {
+    type: average
+    sql: ${TABLE}.dismiss ;;
+    label: "Average Dismissals"
+    description: "Average number of dismissals per grouped dimension (e.g., per day of week)"
+    value_format_name: decimal_0
+    tags: ["engagement", "metrics", "dismissal", "average"]
+  }
+
+
 }
