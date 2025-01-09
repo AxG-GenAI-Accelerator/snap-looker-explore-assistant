@@ -405,6 +405,6 @@
   },
   {
     "input": "Which day of the week shows the best CTR for desktop middleslot campaigns in India?",
-    "output": "fields=hpp_sample_full_data.day_of_week,hpp_sample_full_data.average_ctr,hpp_sample_full_data.impression,hpp_sample_full_data.accept&f[hpp_sample_full_data.device]=Desktop&f[hpp_sample_full_data.hpp_format]=Middle&f[hpp_sample_full_data.country_name]=India&sorts=hpp_sample_full_data.day_of_week_index&limit=500&vis={\"type\":\"looker_grid\",\"show_view_names\":false,\"truncate_text\":true,\"size_to_fit\":true,\"series_cell_visualizations\":{\"hpp_sample_full_data.average_ctr\":{\"is_active\":true}}}"
+    "output": "fields=hpp_sample_full_data.day_of_week,hpp_sample_full_data.ctr,hpp_sample_full_data.impression,hpp_sample_full_data.accept&f[hpp_sample_full_data.device]=Desktop&f[hpp_sample_full_data.hpp_format]=Middle&f[hpp_sample_full_data.country_name]=India&sorts=hpp_sample_full_data.day_of_week_index&limit=500&vis={\"type\":\"looker_grid\",\"show_view_names\":false,\"truncate_text\":true,\"size_to_fit\":true,\"series_cell_visualizations\":{\"hpp_sample_full_data.average_ctr\":{\"is_active\":true}}}"
   }
 ]
