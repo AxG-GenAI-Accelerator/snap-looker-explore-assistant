@@ -178,5 +178,17 @@
   {
     "input": "Top performing HPPs where the ctr is less than 10%",
     "output": "fields=hpp_sample_full_data.ctr,hpp_sample_full_data.impression,hpp_sample_full_data.campaign_id,hpp_sample_full_data.campaign_description,hpp_sample_full_data.approved_copy,hpp_sample_full_data.accept&f[hpp_sample_full_data.ctr]=%3C=0.1&sorts=hpp_sample_full_data.ctr+desc&limit=500&vis={\"type\":\"looker_grid\"}"
+  },
+  {
+    "input": "Give me the average CTR for Callout format, Middleslot format, Desktop and Mobile, and pushups for 2024. Break this down by regions.",
+    "output": "fields=hpp_sample_full_data.ctr,hpp_sample_full_data.hpp_format,hpp_sample_full_data.region,hpp_sample_full_data.device&pivots=hpp_sample_full_data.hpp_format&f[hpp_sample_full_data.begin_date_year]=2024&sorts=hpp_sample_full_data.hpp_format,hpp_sample_full_data.ctr+desc&limit=500&vis={\"type\":\"looker_grid\",\"show_view_names\":false}"
+  },
+  {
+    "input": "What is the average ctr of Middleslot campaigns in 2024 by region?",
+    "output": "fields=hpp_sample_full_data.ctr,hpp_sample_full_data.hpp_format,hpp_sample_full_data.region&pivots=hpp_sample_full_data.hpp_format&f[hpp_sample_full_data.begin_date_year]=2024&f[hpp_sample_full_data.hpp_format]=Middle&sorts=hpp_sample_full_data.hpp_format,hpp_sample_full_data.ctr+desc&limit=500&vis={\"type\":\"looker_column\",\"show_view_names\":false}"
+  },
+  {
+    "input": "Can you show me a month by month line chart of middleslot CTR performance for India campaigns in 2024",
+    "output": "fields=hpp_sample_full_data.begin_date_month,hpp_sample_full_data.ctr&fill_fields=hpp_sample_full_data.begin_date_month&f[hpp_sample_full_data.hpp_format]=Middle&f[hpp_sample_full_data.country_name]=India&f[hpp_sample_full_data.begin_date_year]=2024&sorts=hpp_sample_full_data.begin_date_month+desc&limit=500&vis={\"type\":\"looker_line\",\"show_view_names\":false}"
   }
 ]
