@@ -316,4 +316,26 @@ view: hpp_sample_full_data {
     value_format_name: percent_2
     tags: ["metric", "ctr", "performance", "global", "benchmark"]
   }
+  dimension: day_of_week {
+    type: string
+    sql: CASE EXTRACT(DAYOFWEEK FROM ${begin_date_date})
+          WHEN 1 THEN 'Sunday'
+          WHEN 2 THEN 'Monday'
+          WHEN 3 THEN 'Tuesday'
+          WHEN 4 THEN 'Wednesday'
+          WHEN 5 THEN 'Thursday'
+          WHEN 6 THEN 'Friday'
+          WHEN 7 THEN 'Saturday'
+         END ;;
+    label: "Day of Week"
+    description: "The day of the week for the campaign begin date"
+    tags: ["date", "campaign", "timing", "day_of_week"]
+    order_by_field: day_of_week_index  # This will ensure proper day ordering
+  }
+
+  dimension: day_of_week_index {
+    type: number
+    sql: EXTRACT(DAYOFWEEK FROM ${begin_date_date}) ;;
+    hidden: yes  # This dimension is just for sorting, not for display
+  }
 }
