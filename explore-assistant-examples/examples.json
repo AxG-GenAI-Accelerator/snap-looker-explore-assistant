@@ -178,5 +178,233 @@
   {
     "input": "Top performing HPPs where the ctr is less than 10%",
     "output": "fields=hpp_sample_full_data.ctr,hpp_sample_full_data.impression,hpp_sample_full_data.campaign_id,hpp_sample_full_data.campaign_description,hpp_sample_full_data.approved_copy,hpp_sample_full_data.accept&f[hpp_sample_full_data.ctr]=%3C=0.1&sorts=hpp_sample_full_data.ctr+desc&limit=500&vis={\"type\":\"looker_grid\"}"
+  },
+  {
+    "input": "Give me the average CTR for Callout format, Middleslot format, Desktop and Mobile, and pushups for 2024. Break this down by regions.",
+    "output": "fields=hpp_sample_full_data.ctr,hpp_sample_full_data.hpp_format,hpp_sample_full_data.region,hpp_sample_full_data.device&pivots=hpp_sample_full_data.hpp_format&f[hpp_sample_full_data.begin_date_year]=2024&sorts=hpp_sample_full_data.hpp_format,hpp_sample_full_data.ctr+desc&limit=500&vis={\"type\":\"looker_grid\",\"show_view_names\":false}"
+  },
+  {
+    "input": "What is the average ctr of Middleslot campaigns in 2024 by region?",
+    "output": "fields=hpp_sample_full_data.ctr,hpp_sample_full_data.hpp_format,hpp_sample_full_data.region&pivots=hpp_sample_full_data.hpp_format&f[hpp_sample_full_data.begin_date_year]=2024&f[hpp_sample_full_data.hpp_format]=Middle&sorts=hpp_sample_full_data.hpp_format,hpp_sample_full_data.ctr+desc&limit=500&vis={\"type\":\"looker_column\",\"show_view_names\":false}"
+  },
+  {
+    "input": "Can you show me a month by month line chart of middleslot CTR performance for India campaigns in 2024",
+    "output": "fields=hpp_sample_full_data.begin_date_month,hpp_sample_full_data.ctr&fill_fields=hpp_sample_full_data.begin_date_month&f[hpp_sample_full_data.hpp_format]=Middle&f[hpp_sample_full_data.country_name]=India&f[hpp_sample_full_data.begin_date_year]=2024&sorts=hpp_sample_full_data.begin_date_month+desc&limit=500&vis={\"type\":\"looker_line\",\"show_view_names\":false}"
+  },
+  {
+    "input": "How many campaigns exist for a certain region?",
+    "output": "fields=hpp_sample_full_data.total_campaigns,hpp_sample_full_data.region&sorts=hpp_sample_full_data.total_campaigns desc&limit=500&vis={\"type\":\"looker_column\",\"show_view_names\":false}"
+  },
+  {
+    "input": "What was the click through rate (ctr) for campaign ID 19009731?",
+    "output": "fields=hpp_sample_full_data.ctr,hpp_sample_full_data.campaign_id,hpp_sample_full_data.campaign_description,hpp_sample_full_data.approved_copy&f[hpp_sample_full_data.campaign_id]=19009731&sorts=hpp_sample_full_data.ctr desc&limit=500&vis={\"type\":\"looker_grid\",\"show_view_names\":false,\"truncate_text\":true,\"size_to_fit\":true}"
+  },
+  {
+    "input": "What percentage of campaigns are mobile in the APAC region?",
+    "output": "fields=hpp_sample_full_data.total_campaigns,hpp_sample_full_data.device&f[hpp_sample_full_data.region]=APAC&sorts=hpp_sample_full_data.total_campaigns desc&limit=500&vis={\"type\":\"looker_pie\",\"show_view_names\":false,\"value_labels\":\"legend\",\"label_type\":\"labPer\"}"
+  },
+  {
+    "input": "Please provide the region with the highest average ctr",
+    "output": "fields=hpp_sample_full_data.region,hpp_sample_full_data.ctr&sorts=hpp_sample_full_data.ctr desc&limit=500&vis={\"type\":\"looker_column\",\"show_view_names\":false}"
+  },
+  {
+    "input": "What is the ctr for all mobile campaigns?",
+    "output": "fields=hpp_sample_full_data.ctr,hpp_sample_full_data.device&sorts=hpp_sample_full_data.ctr desc&limit=500&vis={\"type\":\"looker_column\",\"show_view_names\":false}"
+  },
+  {
+    "input": "Top 10 copies of campaigns with highest engagement",
+    "output": "fields=hpp_sample_full_data.campaign_id,hpp_sample_full_data.approved_copy,hpp_sample_full_data.ctr,hpp_sample_full_data.campaign_description,hpp_sample_full_data.country_name,hpp_sample_full_data.begin_date_date&sorts=hpp_sample_full_data.ctr desc&limit=10&vis={\"type\":\"looker_grid\",\"show_view_names\":false,\"truncate_text\":true,\"size_to_fit\":true}"
+  },
+  {
+    "input": "What device is mostly commonly used per country",
+    "output": "fields=hpp_sample_full_data.country_name,hpp_sample_full_data.device,hpp_sample_full_data.ctr&pivots=hpp_sample_full_data.device&sorts=hpp_sample_full_data.device,hpp_sample_full_data.ctr desc&limit=5&vis={\"type\":\"looker_column\",\"show_view_names\":false}"
+  },
+  {
+    "input": "Device type by region",
+    "output": "fields=hpp_sample_full_data.device,hpp_sample_full_data.ctr,hpp_sample_full_data.region&pivots=hpp_sample_full_data.device&sorts=hpp_sample_full_data.device,hpp_sample_full_data.ctr desc&limit=5&vis={\"type\":\"looker_column\",\"show_view_names\":false}"
+  },
+  {
+    "input": "ctr by format by month",
+    "output": "fields=hpp_sample_full_data.hpp_format,hpp_sample_full_data.ctr,hpp_sample_full_data.begin_date_month&pivots=hpp_sample_full_data.hpp_format&fill_fields=hpp_sample_full_data.begin_date_month&sorts=hpp_sample_full_data.hpp_format,hpp_sample_full_data.begin_date_month desc&limit=5&vis={\"type\":\"looker_column\",\"show_view_names\":false}"
+  },
+  {
+    "input": "How did the campaigns in the Philippines perform?",
+    "output": "fields=hpp_sample_full_data.ctr,hpp_sample_full_data.campaign_id,hpp_sample_full_data.campaign_description,hpp_sample_full_data.begin_date_date,hpp_sample_full_data.hpp_format,hpp_sample_full_data.accept,hpp_sample_full_data.impression,hpp_sample_full_data.approved_copy&f[hpp_sample_full_data.country_name]=Philippines&sorts=hpp_sample_full_data.ctr desc&limit=100&vis={\"type\":\"looker_grid\",\"show_view_names\":false,\"truncate_text\":true,\"size_to_fit\":true,\"minimum_column_width\":75}"
+  },
+  {
+    "input": "What's the impressions, clicks, and dismisses for the campaign_id 19034584?",
+    "output": "fields=hpp_sample_full_data.ctr,hpp_sample_full_data.campaign_description,hpp_sample_full_data.begin_date_date,hpp_sample_full_data.hpp_format,hpp_sample_full_data.accept,hpp_sample_full_data.impression,hpp_sample_full_data.campaign_id,hpp_sample_full_data.approved_copy&f[hpp_sample_full_data.campaign_id]=19034584&sorts=hpp_sample_full_data.ctr desc&limit=100&vis={\"type\":\"looker_grid\",\"show_view_names\":false,\"truncate_text\":true,\"size_to_fit\":true,\"minimum_column_width\":75}"
+  },
+  {
+    "input": "What copies have the worst ctr in LATAM region?",
+    "output": "fields=hpp_sample_full_data.ctr,hpp_sample_full_data.hpp_format,hpp_sample_full_data.accept,hpp_sample_full_data.impression,hpp_sample_full_data.approved_copy,hpp_sample_full_data.campaign_description,hpp_sample_full_data.campaign_id,hpp_sample_full_data.begin_date_date&f[hpp_sample_full_data.region]=LATAM&sorts=hpp_sample_full_data.ctr&limit=10&vis={\"type\":\"looker_grid\",\"show_view_names\":false,\"truncate_text\":true,\"size_to_fit\":true,\"minimum_column_width\":75}"
+  },
+  {
+    "input": "What campaign copies have CTR below global benchmark?",
+    "output": "fields=hpp_sample_full_data.approved_copy,hpp_sample_full_data.ctr,hpp_sample_full_data.global_ctr&sorts=hpp_sample_full_data.ctr&limit=100&vis={\"type\":\"looker_grid\",\"show_view_names\":false,\"show_row_numbers\":true,\"truncate_text\":true,\"table_theme\":\"white\",\"enable_conditional_formatting\":true,\"conditional_formatting\":[{\"type\":\"less than\",\"value\":0,\"background_color\":\"#EA4335\",\"font_color\":\"#FFFFFF\"}],\"conditional_formatting_include_totals\":false,\"conditional_formatting_include_nulls\":false}"
+  },
+  {
+    "input": "Show me CTR for campaigns by category that launched in January 2024",
+    "output": "fields=hpp_sample_full_data.ctr,hpp_sample_full_data.begin_date_date&fill_fields=hpp_sample_full_data.begin_date_date&f[hpp_sample_full_data.begin_date_month]=2024-01&sorts=hpp_sample_full_data.ctr&limit=500&vis={\"type\":\"looker_column\",\"show_view_names\":false}"
+  },
+  {
+    "input": "Compare HPP formats against benchmarks in APAC",
+    "output": "fields=hpp_sample_full_data.hpp_format,hpp_sample_full_data.ctr,hpp_sample_full_data.region_ctr,hpp_sample_full_data.global_ctr,hpp_sample_full_data.impression,hpp_sample_full_data.dismiss_rate&f[hpp_sample_full_data.region]=APAC&pivots=hpp_sample_full_data.hpp_format&sorts=hpp_sample_full_data.ctr desc&vis={\"type\":\"looker_column\",\"x_axis_gridlines\":false,\"y_axis_gridlines\":true,\"show_view_names\":false,\"show_y_axis_labels\":true,\"show_y_axis_ticks\":true,\"y_axis_tick_density\":\"default\",\"show_x_axis_label\":true,\"show_x_axis_ticks\":true,\"y_axis_scale_mode\":\"linear\",\"series_colors\":{\"pushup - hpp_sample_full_data.ctr\":\"#4285F4\",\"middleslot - hpp_sample_full_data.ctr\":\"#34A853\",\"callout - hpp_sample_full_data.ctr\":\"#EA4335\"},\"value_format\":\"0.00%\"}"
+  },
+  {
+    "input": "Show impressions and ctrs for q2 24 one time campaigns by PA, HPP Format, Devices",
+    "output": "fields=hpp_sample_full_data.begin_date_quarter,hpp_sample_full_data.impression,hpp_sample_full_data.ctr,hpp_sample_full_data.cappa_product_area,hpp_sample_full_data.hpp_format,hpp_sample_full_data.device&f[hpp_sample_full_data.flag]=Onetime&f[hpp_sample_full_data.begin_date_quarter]=2024-Q2&sorts=hpp_sample_full_data.hpp_format desc&limit=500&vis={\"type\":\"looker_grid\",\"show_view_names\":false,\"truncate_text\":true,\"size_to_fit\":true,\"minimum_column_width\":75}"
+  },
+  {
+    "input": "Show impressions and ctrs for q2 24 one time campaigns by PA, HPP Format, Devices, only show for Global and US GRL",
+    "output": "fields=hpp_sample_full_data.begin_date_quarter,hpp_sample_full_data.impression,hpp_sample_full_data.ctr,hpp_sample_full_data.cappa_product_area,hpp_sample_full_data.hpp_format,hpp_sample_full_data.device,hpp_sample_full_data.grl&f[hpp_sample_full_data.flag]=Onetime&f[hpp_sample_full_data.begin_date_quarter]=2023-Q2&f[hpp_sample_full_data.grl]=Global,Regional&sorts=hpp_sample_full_data.hpp_format desc&limit=500&vis={\"type\":\"looker_grid\",\"show_view_names\":false,\"truncate_text\":true,\"size_to_fit\":true,\"minimum_column_width\":75}"
+  },
+  {
+    "input": "Show me the campaign IDs and approved copies of blank PAs",
+    "output": "fields=hpp_sample_full_data.begin_date_quarter,hpp_sample_full_data.cappa_product_area,hpp_sample_full_data.device,hpp_sample_full_data.grl,hpp_sample_full_data.hpp_format,hpp_sample_full_data.approved_copy,hpp_sample_full_data.impression,hpp_sample_full_data.ctr,hpp_sample_full_data.campaign_id&f[hpp_sample_full_data.cappa_product_area]=EMPTY&sorts=hpp_sample_full_data.begin_date_quarter desc&limit=500&vis={\"type\":\"looker_grid\",\"show_view_names\":false,\"truncate_text\":true,\"size_to_fit\":true,\"minimum_column_width\":75}"
+  },
+  {
+    "input": "How do metrics compare between countries for different categories?",
+    "output": "fields=hpp_sample_full_data.ctr,hpp_sample_full_data.country_name,hpp_sample_full_data.category&pivots=hpp_sample_full_data.category&sorts=hpp_sample_full_data.category,hpp_sample_full_data.ctr desc&limit=5&vis={\"type\":\"looker_column\",\"show_view_names\":false,\"x_axis_zoom\":true,\"y_axis_zoom\":true}"
+  },
+  {
+    "input": "How do experiment campaigns perform when launched in Q3 versus Q4 for North America?",
+    "output": "fields=hpp_sample_full_data.ctr,hpp_sample_full_data.begin_date_quarter&fill_fields=hpp_sample_full_data.begin_date_quarter&f[hpp_sample_full_data.region]=NORTHAM&f[hpp_sample_full_data.flag]=Experiment&sorts=hpp_sample_full_data.ctr desc&limit=5&vis={\"type\":\"looker_line\",\"show_view_names\":false,\"point_style\":\"circle\",\"x_axis_zoom\":true,\"y_axis_zoom\":true,\"interpolation\":\"linear\"}"
+  },
+  {
+    "input": "What are the top product areas by ctr for onetime campaigns launched in Q1 2023?",
+    "output": "fields=hpp_sample_full_data.cappa_product_area,hpp_sample_full_data.ctr,hpp_sample_full_data.flag&pivots=hpp_sample_full_data.cappa_product_area&f[hpp_sample_full_data.flag]=Onetime&f[hpp_sample_full_data.begin_date_quarter]=2023-Q1&sorts=hpp_sample_full_data.cappa_product_area,hpp_sample_full_data.ctr desc&limit=500&vis={\"type\":\"looker_column\",\"show_view_names\":false}"
+  },
+  {
+    "input": "How does ctr vary by device in each region?",
+    "output": "fields=hpp_sample_full_data.ctr,hpp_sample_full_data.region,hpp_sample_full_data.device&pivots=hpp_sample_full_data.device&sorts=hpp_sample_full_data.device,hpp_sample_full_data.ctr desc&limit=500&vis={\"type\":\"looker_column\",\"show_view_names\":false}"
+  },
+  {
+    "input": "How does ctr change by launch date for each HPP format?",
+    "output": "fields=hpp_sample_full_data.ctr,hpp_sample_full_data.begin_date_month,hpp_sample_full_data.hpp_format&pivots=hpp_sample_full_data.hpp_format&fill_fields=hpp_sample_full_data.begin_date_month&sorts=hpp_sample_full_data.hpp_format,hpp_sample_full_data.ctr desc&limit=500&vis={\"type\":\"looker_line\",\"show_view_names\":false,\"interpolation\":\"linear\"}"
+  },
+  {
+    "input": "What are the bottom 5 performing copies from 2023 within the EMEA region, not including blanks?",
+    "output": "fields=hpp_sample_full_data.campaign_id,hpp_sample_full_data.promo_id,hpp_sample_full_data.approved_copy,hpp_sample_full_data.ctr&f[hpp_sample_full_data.region]=EMEA&f[hpp_sample_full_data.approved_copy]=-EMPTY&f[hpp_sample_full_data.begin_date_year]=2023&sorts=hpp_sample_full_data.ctr&limit=5&vis={\"type\":\"looker_grid\",\"show_view_names\":false,\"show_row_numbers\":true,\"truncate_text\":true,\"size_to_fit\":true,\"minimum_column_width\":75}"
+  },
+  {
+    "input": "What are the performance metrics at a promo level?",
+    "output": "fields=hpp_sample_full_data.campaign_id,hpp_sample_full_data.promo_id,hpp_sample_full_data.campaign_description,hpp_sample_full_data.cappa_product_area,hpp_sample_full_data.approved_copy,hpp_sample_full_data.begin_date_date,hpp_sample_full_data.flag,hpp_sample_full_data.hpp_format,hpp_sample_full_data.device,hpp_sample_full_data.country_name,hpp_sample_full_data.ctr,hpp_sample_full_data.accept,hpp_sample_full_data.impression,hpp_sample_full_data.dismiss&sorts=hpp_sample_full_data.begin_date_date desc&limit=500&vis={\"type\":\"table\"}"
+  },
+  {
+    "input": "How have campaigns about the 'WNBA Finals' performed?",
+    "output": "fields=hpp_sample_full_data.campaign_id,hpp_sample_full_data.promo_id, hpp_sample_full_data.campaign_description,hpp_sample_full_data.approved_copy,hpp_sample_full_data.hpp_format,hpp_sample_full_data.ctr,hpp_sample_full_data.impression,hpp_sample_full_data.accept&f[hpp_sample_full_data.campaign_description]=%WNBA Finals%&f[hpp_sample_full_data.approved_copy]=%WNBA Finals%&sorts=hpp_sample_full_data.ctr+desc&limit=500"
+  },
+  {
+    "input": "Can we see CTR by device type for specific campaign categories in LATAM?",
+    "output": "fields=hpp_sample_full_data.ctr,hpp_sample_full_data.device,hpp_sample_full_data.category&pivots=hpp_sample_full_data.device&f[hpp_sample_full_data.region]=LATAM&sorts=hpp_sample_full_data.device,hpp_sample_full_data.ctr+desc&limit=5&vis={\"type\":\"looker_column\"}"
+  },
+  {
+    "input": "How did the Black Friday campaigns perform?",
+    "output": "fields=hpp_sample_full_data.campaign_id,hpp_sample_full_data.promo_id,hpp_sample_full_data.approved_copy,hpp_sample_full_data.campaign_description,hpp_sample_full_data.hpp_format,hpp_sample_full_data.region,hpp_sample_full_data.accept,hpp_sample_full_data.ctr,hpp_sample_full_data.impression&f[hpp_sample_full_data.campaign_description]=%Black Friday%,%black friday%&f[hpp_sample_full_data.approved_copy]=%Black Friday%,%black friday%&sorts=hpp_sample_full_data.accept+desc&limit=500&vis={\"type\":\"looker_grid\",\"show_view_names\":false,\"truncate_text\":true,\"size_to_fit\":true,\"minimum_column_width\":75}"
+  },
+  {
+    "input": "How did the Black Friday campaigns perform in 2023 versus 2024?",
+    "output": "fields=hpp_sample_full_data.campaign_id,hpp_sample_full_data.promo_id,hpp_sample_full_data.approved_copy,hpp_sample_full_data.campaign_description,hpp_sample_full_data.hpp_format,hpp_sample_full_data.region,hpp_sample_full_data.accept,hpp_sample_full_data.ctr,hpp_sample_full_data.impression,hpp_sample_full_data.begin_date_year&pivots=hpp_sample_full_data.begin_date_year&fill_fields=hpp_sample_full_data.begin_date_year&f[hpp_sample_full_data.campaign_description]=%Black Friday%,%black friday%&f[hpp_sample_full_data.approved_copy]=%Black Friday%,%black friday%&f[hpp_sample_full_data.begin_date_year]=2023,2024&sorts=hpp_sample_full_data.begin_date_year,hpp_sample_full_data.accept+desc&limit=500&vis={\"type\":\"looker_grid\",\"show_view_names\":false,\"truncate_text\":true,\"size_to_fit\":true,\"minimum_column_width\":75}"
+  },
+  {
+    "input": "How did the Diwali campaigns perform now vs last year?",
+    "output": "fields=hpp_sample_full_data.campaign_id,hpp_sample_full_data.promo_id,hpp_sample_full_data.approved_copy,hpp_sample_full_data.campaign_description,hpp_sample_full_data.hpp_format,hpp_sample_full_data.region,hpp_sample_full_data.accept,hpp_sample_full_data.ctr,hpp_sample_full_data.impression,hpp_sample_full_data.begin_date_year&pivots=hpp_sample_full_data.begin_date_year&fill_fields=hpp_sample_full_data.begin_date_year&f[hpp_sample_full_data.campaign_description]=%Diwali%,%diwali%&f[hpp_sample_full_data.approved_copy]=%Diwali%&f[hpp_sample_full_data.begin_date_year]=2023,2024&sorts=hpp_sample_full_data.begin_date_year,hpp_sample_full_data.accept+desc&limit=500&vis={\"type\":\"looker_grid\",\"show_view_names\":false,\"truncate_text\":true,\"size_to_fit\":true,\"minimum_column_width\":75}"
+  },
+  {
+    "input": "What is the performance change for campaigns about security in the past quarter?",
+    "output": "fields=hpp_sample_full_data.campaign_id,hpp_sample_full_data.promo_id,hpp_sample_full_data.approved_copy,hpp_sample_full_data.campaign_description,hpp_sample_full_data.hpp_format,hpp_sample_full_data.region,hpp_sample_full_data.accept,hpp_sample_full_data.ctr,hpp_sample_full_data.impression,hpp_sample_full_data.begin_date_quarter&pivots=hpp_sample_full_data.begin_date_quarter&fill_fields=hpp_sample_full_data.begin_date_quarter&f[hpp_sample_full_data.campaign_description]=%security%,%Security%&f[hpp_sample_full_data.approved_copy]=%security%,%Security%&sorts=hpp_sample_full_data.begin_date_quarter,hpp_sample_full_data.accept+desc&limit=500&vis={\"type\":\"looker_grid\",\"show_view_names\":false,\"truncate_text\":true,\"size_to_fit\":true,\"minimum_column_width\":75}"
+  },
+  {
+    "input": "Show me campaigns that contain the word 'Nest'",
+    "output": "fields=hpp_sample_full_data.campaign_id,hpp_sample_full_data.promo_id,hpp_sample_full_data.approved_copy,hpp_sample_full_data.campaign_description,hpp_sample_full_data.hpp_format,hpp_sample_full_data.region,hpp_sample_full_data.accept,hpp_sample_full_data.ctr,hpp_sample_full_data.impression,hpp_sample_full_data.begin_date_quarter&pivots=hpp_sample_full_data.begin_date_quarter&fill_fields=hpp_sample_full_data.begin_date_quarter&f[hpp_sample_full_data.campaign_description]=%nest%,%Nest%&f[hpp_sample_full_data.approved_copy]=%nest%,%Nest%&sorts=hpp_sample_full_data.begin_date_quarter,hpp_sample_full_data.accept+desc&limit=500&vis={\"type\":\"looker_grid\",\"show_view_names\":false,\"truncate_text\":true,\"size_to_fit\":true,\"minimum_column_width\":75}"
+  },
+  {
+    "input": "How have chess campaigns performed?",
+    "output": "fields=hpp_sample_full_data.campaign_id,hpp_sample_full_data.promo_id,hpp_sample_full_data.approved_copy,hpp_sample_full_data.campaign_description,hpp_sample_full_data.hpp_format,hpp_sample_full_data.region,hpp_sample_full_data.accept,hpp_sample_full_data.ctr,hpp_sample_full_data.impression,hpp_sample_full_data.begin_date_quarter&pivots=hpp_sample_full_data.begin_date_quarter&fill_fields=hpp_sample_full_data.begin_date_quarter&f[hpp_sample_full_data.campaign_description]=%chess%,%Chess%&f[hpp_sample_full_data.approved_copy]=%chess%,%Chess%&sorts=hpp_sample_full_data.begin_date_quarter,hpp_sample_full_data.accept+desc&limit=500&vis={\"type\":\"looker_grid\",\"show_view_names\":false,\"truncate_text\":true,\"size_to_fit\":true,\"minimum_column_width\":75}"
+  },
+  {
+    "input": "Can you show me the top Chrome campaigns with the highest CTR",
+    "output": "fields=hpp_sample_full_data.campaign_id,hpp_sample_full_data.approved_copy,hpp_sample_full_data.campaign_description,hpp_sample_full_data.cappa_product_area,hpp_sample_full_data.cappa_product,hpp_sample_full_data.ctr,hpp_sample_full_data.begin_date_date&f[hpp_sample_full_data.cappa_product]=%Chrome%&sorts=hpp_sample_full_data.ctr+desc&limit=10&vis=column"
+  },
+  {
+    "input": "What is the average CTR for Chrome campaigns?",
+    "output": "fields=hpp_sample_full_data.campaign_id,hpp_sample_full_data.approved_copy,hpp_sample_full_data.cappa_product,hpp_sample_full_data.ctr,hpp_sample_full_data.begin_date_date,hpp_sample_full_data.average_ctr,hpp_sample_full_data.cappa_product,hpp_sample_full_data.campaign_description&f[hpp_sample_full_data.cappa_product]=%Chrome%&sorts=hpp_sample_full_data.average_ctr+desc&limit=500&vis=table"
+  },
+  {
+    "input": "Can you show me the best performing HPP in 2024 in EMEA with the CTR, the format of the HPP, the CTR,country, and the copy",
+    "output": "fields=hpp_sample_full_data.campaign_id,hpp_sample_full_data.promo_id,hpp_sample_full_data.ctr,hpp_sample_full_data.campaign_description,hpp_sample_full_data.hpp_format,hpp_sample_full_data.country_name,hpp_sample_full_data.approved_copy&f[hpp_sample_full_data.begin_date_year]=2024&f[hpp_sample_full_data.region]=EMEA&sorts=hpp_sample_full_data.ctr+desc&limit=10&vis={\"type\":\"looker_grid\"}"
+  },
+  {
+    "input": "what was the best performing Gemini pushup HPP in 2024 and in which country was it best performing?",
+    "output": "fields=hpp_sample_full_data.campaign_id,hpp_sample_full_data.promo_id,hpp_sample_full_data.campaign_description,hpp_sample_full_data.hpp_format,hpp_sample_full_data.approved_copy,hpp_sample_full_data.country_name,hpp_sample_full_data.cappa_product,hpp_sample_full_data.ctr&f[hpp_sample_full_data.cappa_product]=%Gemini%&f[hpp_sample_full_data.begin_date_year]=2024&sorts=hpp_sample_full_data.ctr+desc&limit=10&vis={\"type\":\"looker_grid\"}"
+  },
+  {
+    "input": "what was the best performing pushup HPP in 2024?",
+    "output": "fields=hpp_sample_full_data.campaign_id,hpp_sample_full_data.promo_id,hpp_sample_full_data.approved_copy,hpp_sample_full_data.campaign_description,hpp_sample_full_data.ctr,hpp_sample_full_data.hpp_format&f[hpp_sample_full_data.hpp_format]=%Pushup%&f[hpp_sample_full_data.begin_date_year]=2024&sorts=hpp_sample_full_data.ctr+desc&limit=500&vis={\"type\":\"looker_grid\"}"
+  },
+  {
+    "input": "what is the highest performing HPP in 2024 in EMEA",
+    "output": "fields=hpp_sample_full_data.campaign_id,hpp_sample_full_data.promo_id,hpp_sample_full_data.approved_copy,hpp_sample_full_data.campaign_description,hpp_sample_full_data.ctr,hpp_sample_full_data.hpp_format,hpp_sample_full_data.region&f[hpp_sample_full_data.begin_date_year]=2024&f[hpp_sample_full_data.region]=%EMEA%&sorts=hpp_sample_full_data.ctr+desc&limit=500&vis={\"type\":\"looker_grid\"}"
+  },
+  {
+    "input": "What is the highest performing HPP format in EMEA?",
+    "output": "fields=hpp_sample_full_data.hpp_format,hpp_sample_full_data.region,hpp_sample_full_data.ctr&f[hpp_sample_full_data.region]=%EMEA%&sorts=hpp_sample_full_data.ctr+desc&limit=500&vis={\"type\":\"looker_column\"}"
+  },
+  {
+    "input": "can you show me a list of HPPs in emea in q4 2024 in a table by name and launch date?",
+    "output": "fields=hpp_sample_full_data.campaign_id,hpp_sample_full_data.promo_id,hpp_sample_full_data.campaign_description,hpp_sample_full_data.approved_copy,hpp_sample_full_data.begin_date_date,hpp_sample_full_data.ctr,hpp_sample_full_data.region&f[hpp_sample_full_data.region]=%EMEA%&f[hpp_sample_full_data.begin_date_quarter]=2024-Q4&sorts=hpp_sample_full_data.begin_date_date+desc&limit=500&vis={\"type\":\"looker_grid\"}"
+  },
+  {
+    "input": "Top performing campaigns where the impressions are higher than 5000",
+    "output": "fields=hpp_sample_full_data.campaign_id,hpp_sample_full_data.campaign_description,hpp_sample_full_data.approved_copy,hpp_sample_full_data.ctr,hpp_sample_full_data.impression&f[hpp_sample_full_data.impression]=>5000&sorts=hpp_sample_full_data.ctr+desc&limit=500&vis={\"type\":\"looker_grid\"}"
+  },
+  {
+    "input": "Top performing campaigns where the accepts are higher than 5000",
+    "output": "fields=hpp_sample_full_data.campaign_id,hpp_sample_full_data.campaign_description,hpp_sample_full_data.approved_copy,hpp_sample_full_data.ctr,hpp_sample_full_data.accept&f[hpp_sample_full_data.accept]=>5000&sorts=hpp_sample_full_data.ctr+desc&limit=500&vis={\"type\":\"looker_grid\"}"
+  },
+  {
+    "input": "Top performing campaigns where the impressions are higher than 5000",
+    "output": "fields=hpp_sample_full_data.campaign_id,hpp_sample_full_data.campaign_description,hpp_sample_full_data.approved_copy,hpp_sample_full_data.ctr,hpp_sample_full_data.impression&f[hpp_sample_full_data.impression]=>5000&sorts=hpp_sample_full_data.ctr+desc&limit=500&vis={\"type\":\"looker_grid\"}"
+  },
+  {
+    "input": "Top performing HPPs where the ctr is less than 10%",
+    "output": "fields=hpp_sample_full_data.ctr,hpp_sample_full_data.impression,hpp_sample_full_data.campaign_id,hpp_sample_full_data.campaign_description,hpp_sample_full_data.approved_copy,hpp_sample_full_data.accept&f[hpp_sample_full_data.ctr]=%3C=0.1&sorts=hpp_sample_full_data.ctr+desc&limit=500&vis={\"type\":\"looker_grid\"}"
+  },
+  {
+    "input": "Give me the average CTR for Callout format, Middleslot format, Desktop and Mobile, and pushups for 2024. Break this down by regions.",
+    "output": "fields=hpp_sample_full_data.ctr,hpp_sample_full_data.hpp_format,hpp_sample_full_data.region,hpp_sample_full_data.device&pivots=hpp_sample_full_data.hpp_format&f[hpp_sample_full_data.begin_date_year]=2024&sorts=hpp_sample_full_data.hpp_format,hpp_sample_full_data.ctr+desc&limit=500&vis={\"type\":\"looker_grid\",\"show_view_names\":false}"
+  },
+  {
+    "input": "What is the average ctr of Middleslot campaigns in 2024 by region?",
+    "output": "fields=hpp_sample_full_data.ctr,hpp_sample_full_data.hpp_format,hpp_sample_full_data.region&pivots=hpp_sample_full_data.hpp_format&f[hpp_sample_full_data.begin_date_year]=2024&f[hpp_sample_full_data.hpp_format]=Middle&sorts=hpp_sample_full_data.hpp_format,hpp_sample_full_data.ctr+desc&limit=500&vis={\"type\":\"looker_column\",\"show_view_names\":false}"
+  },
+  {
+    "input": "Can you show me a month by month line chart of middleslot CTR performance for India campaigns in 2024",
+    "output": "fields=hpp_sample_full_data.begin_date_month,hpp_sample_full_data.ctr&fill_fields=hpp_sample_full_data.begin_date_month&f[hpp_sample_full_data.hpp_format]=Middle&f[hpp_sample_full_data.country_name]=India&f[hpp_sample_full_data.begin_date_year]=2024&sorts=hpp_sample_full_data.begin_date_month+desc&limit=500&vis={\"type\":\"looker_line\",\"show_view_names\":false}"
+  },
+  {
+    "input": "What are the average impressions for each day of the week for campaigns in India?",
+    "output": "fields=hpp_sample_full_data.day_of_week,hpp_sample_full_data.average_impressions&f[hpp_sample_full_data.country_name]=India&sorts=hpp_sample_full_data.day_of_week_index&limit=500&vis={\"type\":\"looker_column\",\"show_view_names\":false,\"x_axis_gridlines\":false,\"y_axis_gridlines\":true,\"show_y_axis_labels\":true,\"show_y_axis_ticks\":true}"
+  },
+  {
+    "input": "Show me the daily average accepts vs dismissals for Desktop campaigns in EMEA",
+    "output": "fields=hpp_sample_full_data.day_of_week,hpp_sample_full_data.average_accepts,hpp_sample_full_data.average_dismissals&f[hpp_sample_full_data.device]=Desktop&f[hpp_sample_full_data.region]=EMEA&sorts=hpp_sample_full_data.day_of_week_index&limit=500&vis={\"type\":\"looker_bar\",\"show_view_names\":false,\"series_colors\":{\"hpp_sample_full_data.average_accepts\":\"#34A853\",\"hpp_sample_full_data.average_dismissals\":\"#EA4335\"}}"
+  },
+  {
+    "input": "Compare average daily performance metrics (accepts, dismissals, impressions) for pushup vs middleslot formats",
+    "output": "fields=hpp_sample_full_data.day_of_week,hpp_sample_full_data.average_accepts,hpp_sample_full_data.average_dismissals,hpp_sample_full_data.average_impressions,hpp_sample_full_data.hpp_format&pivots=hpp_sample_full_data.hpp_format&f[hpp_sample_full_data.hpp_format]=Pushup,Middle&sorts=hpp_sample_full_data.day_of_week_index&limit=500&vis={\"type\":\"looker_grid\",\"show_view_names\":false,\"truncate_text\":true,\"size_to_fit\":true}"
+  },
+  {
+    "input": "Which weekday has the highest average accepts for mobile Gemini campaigns?",
+    "output": "fields=hpp_sample_full_data.day_of_week,hpp_sample_full_data.average_accepts&f[hpp_sample_full_data.device]=Mobile&f[hpp_sample_full_data.cappa_product]=Gemini Basic&sorts=hpp_sample_full_data.average_accepts desc&limit=500&vis={\"type\":\"looker_column\",\"show_view_names\":false,\"value_labels\":\"values\"}"
+  },
+  {
+    "input": "Show the weekday performance trends for average impressions vs average accepts in Q1 2024",
+    "output": "fields=hpp_sample_full_data.day_of_week,hpp_sample_full_data.average_impressions,hpp_sample_full_data.average_accepts&f[hpp_sample_full_data.begin_date_quarter]=2024-Q1&sorts=hpp_sample_full_data.day_of_week_index&limit=500&vis={\"type\":\"looker_line\",\"show_view_names\":false,\"point_style\":\"circle\",\"interpolation\":\"linear\"}"
+  },
+  {
+    "input": "Which day of the week shows the best CTR for desktop middleslot campaigns in India?",
+    "output": "fields=hpp_sample_full_data.day_of_week,hpp_sample_full_data.average_ctr,hpp_sample_full_data.impression,hpp_sample_full_data.accept&f[hpp_sample_full_data.device]=Desktop&f[hpp_sample_full_data.hpp_format]=Middle&f[hpp_sample_full_data.country_name]=India&sorts=hpp_sample_full_data.day_of_week_index&limit=500&vis={\"type\":\"looker_grid\",\"show_view_names\":false,\"truncate_text\":true,\"size_to_fit\":true,\"series_cell_visualizations\":{\"hpp_sample_full_data.average_ctr\":{\"is_active\":true}}}"
   }
 ]
