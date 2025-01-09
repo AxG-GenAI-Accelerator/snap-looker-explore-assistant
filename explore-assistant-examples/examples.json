@@ -137,7 +137,7 @@
   },
   {
     "input": "What is the average CTR for Chrome campaigns?",
-    "output": "fields=hpp_sample_full_data.campaign_id,hpp_sample_full_data.approved_copy,hpp_sample_full_data.cappa_product,hpp_sample_full_data.ctr,hpp_sample_full_data.begin_date_date,hpp_sample_full_data.average_ctr,hpp_sample_full_data.cappa_product,hpp_sample_full_data.campaign_description&f[hpp_sample_full_data.cappa_product]=%Chrome%&sorts=hpp_sample_full_data.average_ctr+desc&limit=500&vis=table"
+    "output": "fields=hpp_sample_full_data.campaign_id,hpp_sample_full_data.approved_copy,hpp_sample_full_data.cappa_product,hpp_sample_full_data.ctr,hpp_sample_full_data.begin_date_date,hpp_sample_full_data.cappa_product,hpp_sample_full_data.campaign_description&f[hpp_sample_full_data.cappa_product]=%Chrome%&sorts=hpp_sample_full_data.ctr+desc&limit=500&vis=table"
   },
   {
     "input": "Can you show me the best performing HPP in 2024 in EMEA with the CTR, the format of the HPP, the CTR,country, and the copy",
@@ -329,7 +329,7 @@
   },
   {
     "input": "What is the average CTR for Chrome campaigns?",
-    "output": "fields=hpp_sample_full_data.campaign_id,hpp_sample_full_data.approved_copy,hpp_sample_full_data.cappa_product,hpp_sample_full_data.ctr,hpp_sample_full_data.begin_date_date,hpp_sample_full_data.average_ctr,hpp_sample_full_data.cappa_product,hpp_sample_full_data.campaign_description&f[hpp_sample_full_data.cappa_product]=%Chrome%&sorts=hpp_sample_full_data.average_ctr+desc&limit=500&vis=table"
+    "output": "fields=hpp_sample_full_data.campaign_id,hpp_sample_full_data.approved_copy,hpp_sample_full_data.cappa_product,hpp_sample_full_data.ctr,hpp_sample_full_data.begin_date_date,hpp_sample_full_data.cappa_product,hpp_sample_full_data.campaign_description&f[hpp_sample_full_data.cappa_product]=%Chrome%&sorts=hpp_sample_full_data.ctr+desc&limit=500&vis=table"
   },
   {
     "input": "Can you show me the best performing HPP in 2024 in EMEA with the CTR, the format of the HPP, the CTR,country, and the copy",
@@ -405,6 +405,6 @@
   },
   {
     "input": "Which day of the week shows the best CTR for desktop middleslot campaigns in India?",
-    "output": "fields=hpp_sample_full_data.day_of_week,hpp_sample_full_data.ctr,hpp_sample_full_data.impression,hpp_sample_full_data.accept&f[hpp_sample_full_data.device]=Desktop&f[hpp_sample_full_data.hpp_format]=Middle&f[hpp_sample_full_data.country_name]=India&sorts=hpp_sample_full_data.day_of_week_index&limit=500&vis={\"type\":\"looker_grid\",\"show_view_names\":false,\"truncate_text\":true,\"size_to_fit\":true,\"series_cell_visualizations\":{\"hpp_sample_full_data.average_ctr\":{\"is_active\":true}}}"
+    "output": "fields=hpp_sample_full_data.day_of_week,hpp_sample_full_data.ctr,hpp_sample_full_data.impression,hpp_sample_full_data.accept&f[hpp_sample_full_data.device]=Desktop&f[hpp_sample_full_data.hpp_format]=Middle&f[hpp_sample_full_data.country_name]=India&sorts=hpp_sample_full_data.day_of_week_index&limit=500&vis={\"type\":\"looker_grid\",\"show_view_names\":false,\"truncate_text\":true,\"size_to_fit\":true,\"series_cell_visualizations\":{\"hpp_sample_full_data.ctr\":{\"is_active\":true}}}"
   }
 ]
