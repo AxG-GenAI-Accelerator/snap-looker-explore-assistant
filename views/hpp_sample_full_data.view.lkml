@@ -111,8 +111,8 @@ view: hpp_sample_full_data {
   }
 
   measure: ctr {
-    type: average
-    sql: ${TABLE}.ctr ;;    # Use the pre-calculated CTR from table
+    type: number
+    sql: SAFE_DIVIDE(SUM(${TABLE}.accept), SUM(${TABLE}.impression)) ;;    # Use the pre-calculated CTR from table
     label: "CTR"
     description: "Average CTR across filtered campaigns"
     value_format_name: percent_2
