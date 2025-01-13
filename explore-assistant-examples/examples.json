@@ -81,7 +81,7 @@
   },
   {
     "input": "What are the top product areas by ctr for onetime campaigns launched in Q1 2023?",
-    "output": "fields=hpp_sample_full_data.cappa_product_area,hpp_sample_full_data.ctr,hpp_sample_full_data.flag&pivots=hpp_sample_full_data.cappa_product_area&f[hpp_sample_full_data.flag]=Onetime&f[hpp_sample_full_data.begin_date_quarter]=2023-Q1&sorts=hpp_sample_full_data.cappa_product_area,hpp_sample_full_data.ctr desc&limit=500&vis={\"type\":\"looker_column\",\"show_view_names\":false}"
+    "output": "fields=hpp_sample_full_data.cappa_product_area,hpp_sample_full_data.ctr&pivots=hpp_sample_full_data.cappa_product_area&f[hpp_sample_full_data.flag]=Onetime&f[hpp_sample_full_data.begin_date_quarter]=2023-Q1&sorts=hpp_sample_full_data.cappa_product_area,hpp_sample_full_data.ctr desc&limit=500&vis={\"type\":\"looker_column\",\"show_view_names\":false}"
   },
   {
     "input": "How does ctr vary by device in each region?",
