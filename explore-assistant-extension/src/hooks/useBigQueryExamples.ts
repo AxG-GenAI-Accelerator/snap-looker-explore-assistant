@@ -29,26 +29,29 @@ export const useBigQueryExamples = () => {
 
   const runSQLQuery = async (sql: string) => {
     try {
-      const createSqlQuery = await core40SDK.ok(
-        core40SDK.create_sql_query({
-          connection_name: connectionName,
-          sql: sql,
-        }),
-      )
-      const { slug } = await createSqlQuery
-      if (slug) {
-        const runSQLQuery = await core40SDK.ok(
-          core40SDK.run_sql_query(slug, 'json'),
-        )
-        const examples = await runSQLQuery
-        return examples
+      return await retryOperation(async () => {
+        const createSqlQuery = await core40SDK.ok(
+          core40SDK.create_sql_query({
+            connection_name: connectionName,
+            sql: sql,
+          }),
+        );
+        const { slug } = await createSqlQuery;
+        if (slug) {
+          return await core40SDK.ok(
+            core40SDK.run_sql_query(slug, 'json'),
+          );
+        }
+        return [];
+      });
+    } catch (error) {
+      // Only show truly critical errors
+      if (error.message.includes('critical') || error.message.includes('permission')) {
+        showBoundary(error);
       }
-      return []
-    } catch(error) {
-      showBoundary(error)
-      throw new Error('error')
+      return [];
     }
-  }
+  };
 
   const getExamplePrompts = async () => {
     const sql = `
