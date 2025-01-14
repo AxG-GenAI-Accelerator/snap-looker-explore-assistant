@@ -80,15 +80,15 @@
     "output": "fields=hpp_sample_full_data.ctr,hpp_sample_full_data.begin_date_quarter&fill_fields=hpp_sample_full_data.begin_date_quarter&f[hpp_sample_full_data.region]=NORTHAM&f[hpp_sample_full_data.flag]=Experiment&sorts=hpp_sample_full_data.ctr desc&limit=5&vis={\"type\":\"looker_line\",\"show_view_names\":false,\"point_style\":\"circle\",\"x_axis_zoom\":true,\"y_axis_zoom\":true,\"interpolation\":\"linear\"}"
   },
   {
-    "input": "What are the top product areas by ctr for onetime campaigns launched in Q1 2023?",
+    "input": "What are the top cappa product areas by ctr for onetime campaigns launched in Q1 2023?",
     "output": "fields=hpp_sample_full_data.cappa_product_area,hpp_sample_full_data.ctr&pivots=hpp_sample_full_data.cappa_product_area&f[hpp_sample_full_data.flag]=Onetime&f[hpp_sample_full_data.begin_date_quarter]=2023-Q1&sorts=hpp_sample_full_data.cappa_product_area,hpp_sample_full_data.ctr desc&limit=500&vis={\"type\":\"looker_column\",\"show_view_names\":false}"
   },
   {
-    "input": "How does ctr vary by device in each region?",
+    "input": "How does ctr vary by device type in each region?",
     "output": "fields=hpp_sample_full_data.ctr,hpp_sample_full_data.region,hpp_sample_full_data.device&pivots=hpp_sample_full_data.device&sorts=hpp_sample_full_data.device,hpp_sample_full_data.ctr desc&limit=500&vis={\"type\":\"looker_column\",\"show_view_names\":false}"
   },
   {
-    "input": "How does ctr change by launch date for each HPP format?",
+    "input": "How does ctr change by launch month for each HPP format?",
     "output": "fields=hpp_sample_full_data.ctr,hpp_sample_full_data.begin_date_month,hpp_sample_full_data.hpp_format&pivots=hpp_sample_full_data.hpp_format&fill_fields=hpp_sample_full_data.begin_date_month&sorts=hpp_sample_full_data.hpp_format,hpp_sample_full_data.ctr desc&limit=500&vis={\"type\":\"looker_line\",\"show_view_names\":false,\"interpolation\":\"linear\"}"
   },
   {
@@ -97,7 +97,7 @@
   },
   {
     "input": "What are the performance metrics at a promo level?",
-    "output": "fields=hpp_sample_full_data.campaign_id,hpp_sample_full_data.promo_id,hpp_sample_full_data.campaign_description,hpp_sample_full_data.cappa_product_area,hpp_sample_full_data.approved_copy,hpp_sample_full_data.begin_date_date,hpp_sample_full_data.flag,hpp_sample_full_data.hpp_format,hpp_sample_full_data.device,hpp_sample_full_data.country_name,hpp_sample_full_data.ctr,hpp_sample_full_data.accept,hpp_sample_full_data.impression,hpp_sample_full_data.dismiss&sorts=hpp_sample_full_data.begin_date_date desc&limit=500&vis={\"type\":\"table\"}"
+    "output": "fields=hpp_sample_full_data.campaign_id,hpp_sample_full_data.promo_id,hpp_sample_full_data.campaign_description,hpp_sample_full_data.cappa_product_area,hpp_sample_full_data.approved_copy,hpp_sample_full_data.begin_date_date,hpp_sample_full_data.flag,hpp_sample_full_data.hpp_format,hpp_sample_full_data.device,hpp_sample_full_data.country_name,hpp_sample_full_data.ctr,hpp_sample_full_data.accept,hpp_sample_full_data.impression&sorts=hpp_sample_full_data.begin_date_date desc&limit=500&vis={\"type\":\"table\"}"
   },
   {
     "input": "How have campaigns about the 'WNBA Finals' performed?",
@@ -392,8 +392,8 @@
     "output": "fields=hpp_sample_full_data.day_of_week,hpp_sample_full_data.average_accepts,hpp_sample_full_data.average_dismissals&f[hpp_sample_full_data.device]=Desktop&f[hpp_sample_full_data.region]=EMEA&sorts=hpp_sample_full_data.day_of_week_index&limit=500&vis={\"type\":\"looker_bar\",\"show_view_names\":false,\"series_colors\":{\"hpp_sample_full_data.average_accepts\":\"#34A853\",\"hpp_sample_full_data.average_dismissals\":\"#EA4335\"}}"
   },
   {
-    "input": "Compare average daily performance metrics (accepts, dismissals, impressions) for pushup vs middleslot formats",
-    "output": "fields=hpp_sample_full_data.day_of_week,hpp_sample_full_data.average_accepts,hpp_sample_full_data.average_dismissals,hpp_sample_full_data.average_impressions,hpp_sample_full_data.hpp_format&pivots=hpp_sample_full_data.hpp_format&f[hpp_sample_full_data.hpp_format]=Pushup,Middle&sorts=hpp_sample_full_data.day_of_week_index&limit=500&vis={\"type\":\"looker_grid\",\"show_view_names\":false,\"truncate_text\":true,\"size_to_fit\":true}"
+    "input": "Compare average daily performance metrics (accepts, impressions) for pushup vs middleslot formats",
+    "output": "fields=hpp_sample_full_data.day_of_week,hpp_sample_full_data.average_accepts,hpp_sample_full_data.average_impressions,hpp_sample_full_data.hpp_format&pivots=hpp_sample_full_data.hpp_format&f[hpp_sample_full_data.hpp_format]=Pushup,Middle&sorts=hpp_sample_full_data.day_of_week_index&limit=500&vis={\"type\":\"looker_grid\",\"show_view_names\":false,\"truncate_text\":true,\"size_to_fit\":true}"
   },
   {
     "input": "Which weekday has the highest average accepts for mobile Gemini campaigns?",

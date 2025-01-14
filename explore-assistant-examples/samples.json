@@ -1,7 +1,7 @@
 [
   {
     "category": "Top Product Areas",
-    "prompt": "What are the top product areas by ctr for Onetime campaigns launched in Q1 2023?"
+    "prompt": "What are the top cappa product areas by ctr for Onetime campaigns launched in Q1 2023?"
   },
   {
     "category": "Device Types",
@@ -9,6 +9,6 @@
   },
   {
     "category": "Format Performance",
-    "prompt": "How does ctr change by launch date for each HPP format?"
+    "prompt": "How does ctr change by launch month for each HPP format?"
   }
 ]
