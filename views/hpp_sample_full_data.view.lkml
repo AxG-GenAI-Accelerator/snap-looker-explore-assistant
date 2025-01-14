@@ -9,6 +9,7 @@ view: hpp_sample_full_data {
     description: "Rate of promotion dismissals per impression"
     value_format_name: percent_2
     tags: ["rate", "dismissal", "engagement"]
+    case_sensitive: no
   }
 
   dimension: __dismiss_to_accept_rate__1 {
@@ -36,6 +37,7 @@ view: hpp_sample_full_data {
     label: "Approved Copy"
     description: "Copy, or wording, of the promo that was approved and launched as"
     tags: ["content", "copy", "approval"]
+    case_sensitive: no
   }
 
   dimension_group: begin_date {
@@ -54,6 +56,7 @@ view: hpp_sample_full_data {
     label: "Description"
     description: "Detailed description of the marketing campaign, including the campaign type (pushup, middleslot, callout), short description, and date"
     tags: ["campaign", "description", "details"]
+    case_sensitive: no
   }
 
   dimension: campaign_id {
@@ -82,6 +85,7 @@ view: hpp_sample_full_data {
     description: "Product classification in CAPPA system"
     tags: ["product", "classification", "cappa"]
     suggestions: ["AI", "About", "Account", "Ads Marketing", "Android", "Arts and Culture", "Be Internet Awesome", "Career Certificates", "Chrome", "Chromebook", "Civics", "Devices and Services", "Digital Responsibility", "Digital Wellbeing", "Digital Workshop", "Diversity & Inclusion", "Doodles", "Drive", "Economic Opportunity", "Education", "Family Link", "Fitbit", "Gemini Basic", "Google (GSA)", "Google Analytics", "Google Business Profile", "Google Cloud Platform", "Google Fi", "Google Lens", "Google Maps", "Google Nest", "Google One", "Google Photos", "Google Play Gift Cards", "Google Pixel", "Google Play", "Google Research", "Google Search", "Google Shopping", "Google Store", "Google TV", "Google Wifi", "Google Workspace", "Google.org", "Growth", "GwG", "Kids & Family", "Learning", "Merchant Center", "My Ad Center", "Nest Renew", "Other", "Payments", "Privacy", "Privacy B2B", "SMB", "Security", "Sustainability", "The Keyword", "Think With Google", "Translate", "Wallet"]
+    case_sensitive: no
   }
 
   dimension: cappa_product_area {
@@ -91,6 +95,7 @@ view: hpp_sample_full_data {
     description: "Product area classification in CAPPA system"
     tags: ["product", "area", "cappa"]
     suggestions: ["Ads/B2B", "Brand & Reputation", "Consumer Apps Marketing", "Google Cloud", "Grow with Google", "HPP Initiatives", "Non-PA: Account", "Non-PA: Growth", "Platforms & Devices", "YouTube"]
+    case_sensitive: no
   }
 
   dimension: category {
@@ -100,6 +105,7 @@ view: hpp_sample_full_data {
     description: "Category classification of the campaign"
     tags: ["category", "classification", "campaign"]
     suggestions: ["Brand Perception - Brand Awareness", "Brand Perception - Celebrations & Commerations", "Brand Perception - Community Initiatives", "Critical Information - Civics & Politics", "Critical Information - Health & Safety", "Critical Information - SOS & Public Alerts", "Other", "Product Updates - Business Apps", "Product Updates - Consumer Apps", "Product Updates - Devices & Services", "Product Updates - Other", "Product Updates - Security & Trust", "Product Updates - YouTube"]
+    case_sensitive: no
   }
 
   dimension: country_name {
@@ -108,25 +114,15 @@ view: hpp_sample_full_data {
     label: "Country"
     description: "Name of the country where the campaign was run"
     tags: ["geography", "location", "country"]
+    case_sensitive: no
   }
 
-  # Convert CTR to number - can be calculated from accepts and impressions
   measure: ctr {
     type: number
-    sql: SAFE_DIVIDE(SUM(${TABLE}.accept), SUM(${TABLE}.impression)) ;;
+    sql: SAFE_DIVIDE(SUM(${TABLE}.accept), SUM(${TABLE}.impression)) ;;    # Use the pre-calculated CTR from table
     label: "CTR"
-    description: "Click-through rate calculated as accepts divided by impressions"
+    description: "Average CTR across filtered campaigns"
     value_format_name: percent_2
-    tags: ["metric", "ctr", "performance"]
-  }
-
-  measure: average_ctr {
-    type: average
-    sql: SAFE_DIVIDE(${TABLE}.accept, ${TABLE}.impression) ;;
-    label: "Average CTR"
-    description: "Average CTR per grouping (day of week, etc)"
-    value_format_name: percent_2
-    tags: ["metric", "ctr", "performance", "average"]
   }
 
   dimension: device {
@@ -136,6 +132,7 @@ view: hpp_sample_full_data {
     description: "Type of device where the promotion was displayed"
     tags: ["device", "platform", "technical"]
     suggestions: ["Desktop", "Mobile"]
+    case_sensitive: no
   }
 
   # Convert to measure - represents count of dismissal events
@@ -164,6 +161,7 @@ view: hpp_sample_full_data {
     description: "Type indicator for campaign status or special conditions"
     tags: ["status", "indicator", "campaign"]
     suggestions: ["Evergreen", "Experiment", "Onetime"]
+    case_sensitive: no
   }
 
   dimension: grl {
@@ -173,6 +171,7 @@ view: hpp_sample_full_data {
     description: "Indicates whether the campaign is targeted locally or globally"
     tags: ["identifier", "global", "resource"]
     suggestions: ["Global","Local","Regional"]
+    case_sensitive: no
   }
 
   dimension: hpp_format {
@@ -182,6 +181,7 @@ view: hpp_sample_full_data {
     description: "Format type of the campaign: pushup, callout, or middleslot"
     tags: ["promotion", "format", "homepage", "campaign"]
     suggestions: ["Callout","Middle","Pushup"]
+    case_sensitive: no
   }
 
   # Convert to measure - represents count of impression events
@@ -199,6 +199,7 @@ view: hpp_sample_full_data {
     label: "Metadata Countries"
     description: "2-character code for where the campaign was run"
     tags: ["geography", "metadata", "location"]
+    case_sensitive: no
   }
 
   dimension: mobileOS_mapping {
@@ -208,6 +209,7 @@ view: hpp_sample_full_data {
     description: "Mobile operating system targeting mapping, such as Mobile OS, Android, Desktop, etc."
     tags: ["mobile", "os", "desktop"]
     suggestions: ["All Mobile OS", "Android and iOS", "Android only", "Desktop", "iOS only"]
+    case_sensitive: no
   }
 
   dimension: product {
@@ -217,6 +219,7 @@ view: hpp_sample_full_data {
     description: "Product category of the promo"
     tags: ["product", "category"]
     suggestions: ["CHROME", "GMAIL", "MY_ACCOUNT", "MY_ACTIVITY", "OTHER", "SEARCH", "SIGN_IN_WITH_GOOGLE", "UNKNOWN"]
+    case_sensitive: no
   }
 
   dimension: promo_id {
@@ -235,6 +238,7 @@ view: hpp_sample_full_data {
     description: "Properties associated with the campaign"
     tags: ["properties", "attributes", "campaign"]
     suggestions: ["Calendar", "Calendar, Gmail, Inbox, Drive", "Catalog, Compare, Offers, Sites, Social Good, Play Games, Support Content (Help center), Play", "Chrome New Tab", "Docs", "Docs, Slides, Sheets", "Drive", "Drive, Docs, Sheets, Slides", "Drive, Docs, Slides, Sheets", "Drive, Gmail", "Drive, Gmail, Inbox, Calendar", "Drive, Sheets, Docs, Slides", "Gmail", "Gmail, Calendar, Inbox", "Gmail, Drive", "Maps", "Maps, Search HP, Search HP (image), Search HP (video)", "News (news.google.com), Search HP (news)", "Others", "Photos", "Play", "Search HP", "Search HP (image)", "Search HP (image), Search HP (video)", "Search HP (image), Search HP (video), Search HP", "Search HP (image), Search HP Search HP (video)", "Search HP (video), Search HP (image), Search HP", "Search HP (video), Search HP (image), Search HP, Gmail", "Search HP, Chrome New Tab", "Search HP, Search HP (image)", "Search HP, Search HP (image), Search HP (video)", "Search HP, Search HP (image), Search HP (video), Chrome New Tab", "Search HP, Search HP (image), Search HP (video), Drive, Gmail, Photos, Maps", "Search HP, Search HP (image), Search HP (video), Gmail", "Search HP Search HP (video), Search HP (image)", "Sheets", "Sheets, Slides, Docs, Drive", "Shopping HP, Maps, Search HP, Gmail, Chrome New Tab", "Slides", "Slides, Sheets, Docs, Drive", "Translate"]
+    case_sensitive: no
   }
 
   dimension: region {
@@ -244,6 +248,7 @@ view: hpp_sample_full_data {
     description: "Geographic region where the campaign was targeted"
     tags: ["geography", "region", "location"]
     suggestions: ["APAC", "EMEA", "Global", "LATAM", "NORTHAM"]
+    case_sensitive: no
   }
 
   dimension: targeted_properties {
@@ -253,6 +258,7 @@ view: hpp_sample_full_data {
     description: "Specific mediums/properties targeted by the promotional ad, such as Search HP"
     tags: ["targeting", "properties"]
     suggestions: ["Chrome New Tab", "Others", "Search HP"]
+    case_sensitive: no
   }
 
   # Additional useful measures
