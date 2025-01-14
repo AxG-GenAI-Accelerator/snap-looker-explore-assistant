@@ -667,17 +667,30 @@ const useSendVertexMessage = () => {
     [settings, sendMessage, showBoundary]
   )
 
+
+  const retryOperation = async (operation: () => Promise<any>, maxRetries = 3) => {
+    for (let attempt = 1; attempt <= maxRetries; attempt++) {
+      try {
+        return await operation();
+      } catch (error) {
+        if (attempt === maxRetries) throw error;
+        // Brief pause between retries
+        await new Promise(resolve => setTimeout(resolve, 1000));
+      }
+    }
+  };
+
+  
   const sendMessage = async (message: string, parameters: ModelParameters) => {
     try {
       let response = ''
       if (VERTEX_AI_ENDPOINT) {
-        response = await vertextCloudFunction(message, parameters)
+        response = await retryOperation(() => vertextCloudFunction(message, parameters));
       }
 
       if (VERTEX_BIGQUERY_LOOKER_CONNECTION_NAME && VERTEX_BIGQUERY_MODEL_ID) {
-        response = await vertextBigQuery(message, parameters)
+        response = await retryOperation(() => vertextBigQuery(message, parameters))
       }
-
       return response
     } catch (error) {
       showBoundary(error)
