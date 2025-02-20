@@ -106,5 +106,9 @@
   {
      "input": ["top performing platforms campaigns", "top performing platforms & devices campaigns", "top performing platforms and devices campaigns", "best Platforms campaigns"],
      "output": "Show campaign_id, description, approved copy, cappa_product_area, and ctr for the Platforms & Devices cappa product area campaigns"
-  }
+  },
+  {
+    "input": ["executive report", "senior executive", "yearly report"],
+    "output": "Show campaign_id, description, approved_copy, cappa_product_area, ctr, impressions, and accepts for 2024"
+ }
 ]
