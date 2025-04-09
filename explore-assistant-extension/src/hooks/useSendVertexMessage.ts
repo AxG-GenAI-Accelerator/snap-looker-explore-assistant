@@ -291,15 +291,8 @@ const useSendVertexMessage = () => {
         core40SDK.run_query({
           query_id: queryId,
           result_format: 'json',
-          body: {
-            model: 'darpabq',
-            view: 'galileo_sov_data',
-            fields: ['essential_columns'],
-            // filters: { static_list: 'option_1' },
-          },
         }),
       )
-      console.log('Result:', result)
   
       if (!result || result.length === 0) {
         return 'No data found for analysis'
@@ -339,13 +332,7 @@ const useSendVertexMessage = () => {
          • Use short, concise copy that fits character limits (desktop: 85 characterss, mobile: 45 characters for middle slot)
          • Focus on newsworthy and trending topics that help users in their search process
          • Communicate time commitments upfront and only target relevant users
-         • Avoid using program/brand names unless well-established or clearly associated with Google
          • Be consistent in messaging, especially for political or sensitive topics
-         • Coordinate timing with PR and media efforts but create unique copy for homepage
-         • Track and optimize based on both CTR and downstream engagement metrics
-         • Capitalize on awareness/observance days while keeping content educational and playful
-         • For crisis response, keep messaging minimal and resource-focused
-         • For mobile-focused promos, keep messaging direct and to-the-point
 
       4. What to Avoid:
          • Insights about fields not in the query
@@ -367,18 +354,15 @@ const useSendVertexMessage = () => {
          • Primary patterns between requested dimensions
          • Impact analysis of filters applied
          • Each trend maximum 2 sentences with cause and effect
-         Example: "Push-up format's success (**23% higher** CTR) in queried segments driven by improved mobile rendering."
 
       2. Notable Patterns (based on query focus):
          • Unexpected findings within queried dimensions
          • Clear business impact explanation
-         Example: "Weekend campaigns show **2x** higher engagement for queried formats."
 
       3. Strategic Recommendations:
          • 2-3 specific, data-backed suggestions
          • Focus only on analyzed dimensions
          • Connect to business outcomes
-         Example: "Prioritize mobile push-ups based on **40% higher** engagement in analyzed segments."
 
       Writing Style:
          • Use **bold** for key metrics of queried fields
@@ -431,23 +415,12 @@ const useSendVertexMessage = () => {
       const contents = `
         Context
         ----------
-        You are an analytics assistant helping users analyze promotional campaign performance data. 
-        Your role is to suggest focused, concise follow-up questions that directly build upon the user's most recent query.
+       Your role is to suggest focused, concise follow-up questions that directly build upon the user's most recent query.
   
         Most Recent User Context
         ----------
         Latest Question: "${mostRecentPrompt}"
         Latest Insights: "${mostRecentInsights}"
-  
-        Key Metrics Available:
-        - CTR (Click-Through Rate): Engagement success rate
-        - Impressions: View count
-        - Accepts: Positive engagement count
-        - Dismissals: Negative engagement count
-        - Approved Copy: Text content of a campaign or promo
-        - Campaign Category: Business classification
-        - Device Type: Platform information
-        - Geographic Data: Regional performance
   
         Question Refinement Examples:
         ----------
@@ -502,6 +475,7 @@ const useSendVertexMessage = () => {
         - Focus on one clear analytical goal per question
         - Avoid generic or tangential questions
         - Skip basic questions already answered in the insights
+        - Avoid comparison questions
   
         Output Format
         ----------
@@ -527,9 +501,9 @@ const useSendVertexMessage = () => {
         return questions.slice(0, 3)
       } else if (questions.length < 3) {
         const defaultQuestions = [
-          "How do CTR trends vary across top campaign categories?",
-          "Which device type shows highest acceptance rate?",
-          "What copy length performs best for current audience?"
+          "What is turn around time for market?",
+          "What is average AHT per agent in all locations?",
+          "What is average output per agent in all locations?"
         ]
         return [...questions, ...defaultQuestions].slice(0, 3)
       }
