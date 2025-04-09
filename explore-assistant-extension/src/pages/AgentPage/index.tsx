@@ -143,7 +143,8 @@ const AgentPage = () => {
       return
     }
 
-    const { dimensions, measures } = semanticModels[exploreKey]
+    const { dimensions, measures, essential_columns } = semanticModels[exploreKey]
+    const essentialColumnsList = essential_columns.split(',')
     const exploreGenerationExamples =
       examples.exploreGenerationExamples[exploreKey]
 
@@ -151,6 +152,7 @@ const AgentPage = () => {
       promptSummary,
       dimensions,
       measures,
+      essentialColumnsList,
       exploreGenerationExamples,
     )
     console.log('New Explore URL: ', newExploreUrl)

@@ -291,8 +291,15 @@ const useSendVertexMessage = () => {
         core40SDK.run_query({
           query_id: queryId,
           result_format: 'json',
+          body: {
+            model: 'darpabq',
+            view: 'galileo_sov_data',
+            fields: ['essential_columns'],
+            // filters: { static_list: 'option_1' },
+          },
         }),
       )
+      console.log('Result:', result)
   
       if (!result || result.length === 0) {
         return 'No data found for analysis'
