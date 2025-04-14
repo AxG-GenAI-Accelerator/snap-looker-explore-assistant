@@ -216,10 +216,8 @@ const useSendVertexMessage = () => {
   )
 
   const summarizeInsights = useCallback(
-    async (exploreQueryArgs: string) => {
-      const params = new URLSearchParams(exploreQueryArgs)
-  
-      // Initialize an object to construct the query
+      async (exploreQueryArgs: string) => {const params = new URLSearchParams(exploreQueryArgs)
+      const allFields = await core40SDK.ok(core40SDK.lookml_model_explore(currentExplore.model, currentExplore.exploreId))
       const queryParams: {
         fields: string[]
         filters: Record<string, string>
@@ -229,35 +227,20 @@ const useSendVertexMessage = () => {
         fields: [],
         filters: {},
         sorts: [],
-        limit: '',
+        limit: '1000',
       }
   
-      // Define essential fields for context
-      const essentialFields = [
-        'hpp_sample_full_data.ctr',
-        'hpp_sample_full_data.impression',
-        'hpp_sample_full_data.accept',
-        'hpp_sample_full_data.country_name',
-        'hpp_sample_full_data.campaign_category',
-        'hpp_sample_full_data.hpp_format',
-        'hpp_sample_full_data.flag'
-       
-      ]
-  
-      // Iterate over the parameters to fill the query object
+      // ✅ Dynamically get all fields tagged as 'essential'
+      const essentialFields = allFields.filter(field => field.tags?.includes('essential')).map(field => field.name)
+      console.log('Essential Fields:', essentialFields)
       params.forEach((value, key) => {
         if (key === 'fields') {
-          const userFields = value.split(',')
-          // If user specified fields, use those primarily and only add essential fields
-          // that provide critical context and aren't already included
-          const requiredContextFields = essentialFields.filter(field => {
-            // Include essential field only if it provides critical context for analysis
-            const isContextRequired = field.includes('ctr') || 
-                                    field.includes('impression') ||
-                                    field.includes('accept')
-            return isContextRequired && !userFields.includes(field)
-          })
-          queryParams.fields = [...new Set([...userFields, ...requiredContextFields])]
+          const userFields = value.split(',').map(f => f.trim())
+          
+          // ✅ Add essential fields not already included by user
+          const requiredFields = essentialFields.filter(field => !userFields.includes(field))
+  
+          queryParams.fields = [...new Set([...userFields, ...requiredFields])]
         } else if (key.startsWith('f[')) {
           const filterKey = key.match(/\[(.*?)\]/)?.[1]
           if (filterKey) {
@@ -269,7 +252,7 @@ const useSendVertexMessage = () => {
           queryParams.limit = value
         }
       })
-  
+
       // Get the query results
       const createQuery = await core40SDK.ok(
         core40SDK.create_query({
@@ -332,13 +315,7 @@ const useSendVertexMessage = () => {
          • Use short, concise copy that fits character limits (desktop: 85 characterss, mobile: 45 characters for middle slot)
          • Focus on newsworthy and trending topics that help users in their search process
          • Communicate time commitments upfront and only target relevant users
-         • Avoid using program/brand names unless well-established or clearly associated with Google
          • Be consistent in messaging, especially for political or sensitive topics
-         • Coordinate timing with PR and media efforts but create unique copy for homepage
-         • Track and optimize based on both CTR and downstream engagement metrics
-         • Capitalize on awareness/observance days while keeping content educational and playful
-         • For crisis response, keep messaging minimal and resource-focused
-         • For mobile-focused promos, keep messaging direct and to-the-point
 
       4. What to Avoid:
          • Insights about fields not in the query
@@ -360,18 +337,15 @@ const useSendVertexMessage = () => {
          • Primary patterns between requested dimensions
          • Impact analysis of filters applied
          • Each trend maximum 2 sentences with cause and effect
-         Example: "Push-up format's success (**23% higher** CTR) in queried segments driven by improved mobile rendering."
 
       2. Notable Patterns (based on query focus):
          • Unexpected findings within queried dimensions
          • Clear business impact explanation
-         Example: "Weekend campaigns show **2x** higher engagement for queried formats."
 
       3. Strategic Recommendations:
          • 2-3 specific, data-backed suggestions
          • Focus only on analyzed dimensions
          • Connect to business outcomes
-         Example: "Prioritize mobile push-ups based on **40% higher** engagement in analyzed segments."
 
       Writing Style:
          • Use **bold** for key metrics of queried fields
@@ -424,23 +398,12 @@ const useSendVertexMessage = () => {
       const contents = `
         Context
         ----------
-        You are an analytics assistant helping users analyze promotional campaign performance data. 
-        Your role is to suggest focused, concise follow-up questions that directly build upon the user's most recent query.
+       Your role is to suggest focused, concise follow-up questions that directly build upon the user's most recent query.
   
         Most Recent User Context
         ----------
         Latest Question: "${mostRecentPrompt}"
         Latest Insights: "${mostRecentInsights}"
-  
-        Key Metrics Available:
-        - CTR (Click-Through Rate): Engagement success rate
-        - Impressions: View count
-        - Accepts: Positive engagement count
-        - Dismissals: Negative engagement count
-        - Approved Copy: Text content of a campaign or promo
-        - Campaign Category: Business classification
-        - Device Type: Platform information
-        - Geographic Data: Regional performance
   
         Question Refinement Examples:
         ----------
@@ -495,6 +458,7 @@ const useSendVertexMessage = () => {
         - Focus on one clear analytical goal per question
         - Avoid generic or tangential questions
         - Skip basic questions already answered in the insights
+        - Avoid comparison questions
   
         Output Format
         ----------
@@ -520,9 +484,9 @@ const useSendVertexMessage = () => {
         return questions.slice(0, 3)
       } else if (questions.length < 3) {
         const defaultQuestions = [
-          "How do CTR trends vary across top campaign categories?",
-          "Which device type shows highest acceptance rate?",
-          "What copy length performs best for current audience?"
+          "What is turn around time for market?",
+          "What is average AHT per agent in all locations?",
+          "What is average output per agent in all locations?"
         ]
         return [...questions, ...defaultQuestions].slice(0, 3)
       }
