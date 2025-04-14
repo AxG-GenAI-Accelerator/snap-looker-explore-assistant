@@ -216,8 +216,10 @@ const useSendVertexMessage = () => {
   )
 
   const summarizeInsights = useCallback(
-      async (exploreQueryArgs: string) => {const params = new URLSearchParams(exploreQueryArgs)
-      const allFields = await core40SDK.ok(core40SDK.lookml_model_explore(currentExplore.model, currentExplore.exploreId))
+    async (exploreQueryArgs: string) => {
+      const params = new URLSearchParams(exploreQueryArgs)
+  
+      // Initialize an object to construct the query
       const queryParams: {
         fields: string[]
         filters: Record<string, string>
@@ -227,20 +229,35 @@ const useSendVertexMessage = () => {
         fields: [],
         filters: {},
         sorts: [],
-        limit: '1000',
+        limit: '',
       }
   
-      // ✅ Dynamically get all fields tagged as 'essential'
-      const essentialFields = allFields.filter(field => field.tags?.includes('essential')).map(field => field.name)
-      console.log('Essential Fields:', essentialFields)
+      // Define essential fields for context
+      const essentialFields = [
+        'hpp_sample_full_data.ctr',
+        'hpp_sample_full_data.impression',
+        'hpp_sample_full_data.accept',
+        'hpp_sample_full_data.country_name',
+        'hpp_sample_full_data.campaign_category',
+        'hpp_sample_full_data.hpp_format',
+        'hpp_sample_full_data.flag'
+       
+      ]
+  
+      // Iterate over the parameters to fill the query object
       params.forEach((value, key) => {
         if (key === 'fields') {
-          const userFields = value.split(',').map(f => f.trim())
-          
-          // ✅ Add essential fields not already included by user
-          const requiredFields = essentialFields.filter(field => !userFields.includes(field))
-  
-          queryParams.fields = [...new Set([...userFields, ...requiredFields])]
+          const userFields = value.split(',')
+          // If user specified fields, use those primarily and only add essential fields
+          // that provide critical context and aren't already included
+          const requiredContextFields = essentialFields.filter(field => {
+            // Include essential field only if it provides critical context for analysis
+            const isContextRequired = field.includes('ctr') || 
+                                    field.includes('impression') ||
+                                    field.includes('accept')
+            return isContextRequired && !userFields.includes(field)
+          })
+          queryParams.fields = [...new Set([...userFields, ...requiredContextFields])]
         } else if (key.startsWith('f[')) {
           const filterKey = key.match(/\[(.*?)\]/)?.[1]
           if (filterKey) {
@@ -252,7 +269,7 @@ const useSendVertexMessage = () => {
           queryParams.limit = value
         }
       })
-
+  
       // Get the query results
       const createQuery = await core40SDK.ok(
         core40SDK.create_query({
