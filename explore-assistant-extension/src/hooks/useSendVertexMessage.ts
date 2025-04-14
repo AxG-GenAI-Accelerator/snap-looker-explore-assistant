@@ -70,6 +70,7 @@ function formatContent(field: {
 
 const useSendVertexMessage = () => {
   const { showBoundary } = useErrorBoundary()
+  
   // cloud function
   const VERTEX_AI_ENDPOINT = process.env.VERTEX_AI_ENDPOINT || ''
   const VERTEX_CF_AUTH_TOKEN = process.env.VERTEX_CF_AUTH_TOKEN || ''
@@ -85,6 +86,10 @@ const useSendVertexMessage = () => {
 
   const currentExploreKey = currentExplore.exploreKey
   const exploreRefinementExamples = examples.exploreRefinementExamples[currentExploreKey]
+
+  const semanticModels = useSelector((state: RootState) => 
+    state.assistant?.semanticModels ?? {}
+  )
 
   const vertextBigQuery = async (
     contents: string,
@@ -231,19 +236,21 @@ const useSendVertexMessage = () => {
         sorts: [],
         limit: '',
       }
-  
-      // Define essential fields for context
-      const essentialFields = [
-        'hpp_sample_full_data.ctr',
-        'hpp_sample_full_data.impression',
-        'hpp_sample_full_data.accept',
-        'hpp_sample_full_data.country_name',
-        'hpp_sample_full_data.campaign_category',
-        'hpp_sample_full_data.hpp_format',
-        'hpp_sample_full_data.flag'
-       
-      ]
-  
+      const currentSemanticModel = semanticModels[currentExploreKey]
+      const essentialFields = currentSemanticModel 
+        ? [
+            ...currentSemanticModel.dimensions, 
+            ...currentSemanticModel.measures
+          ].filter(field => {
+            console.log('Field:', field)
+            console.log('Field tags:', field.tags)
+            return field.tags?.includes('essential')
+          })
+          .map(field => field.name)
+        : []
+
+      console.log('Current Semantic Model:', currentSemanticModel)
+      console.log('Essential Fields:', essentialFields)
       // Iterate over the parameters to fill the query object
       params.forEach((value, key) => {
         if (key === 'fields') {
@@ -252,10 +259,7 @@ const useSendVertexMessage = () => {
           // that provide critical context and aren't already included
           const requiredContextFields = essentialFields.filter(field => {
             // Include essential field only if it provides critical context for analysis
-            const isContextRequired = field.includes('ctr') || 
-                                    field.includes('impression') ||
-                                    field.includes('accept')
-            return isContextRequired && !userFields.includes(field)
+            return !userFields.includes(field)
           })
           queryParams.fields = [...new Set([...userFields, ...requiredContextFields])]
         } else if (key.startsWith('f[')) {
@@ -381,7 +385,7 @@ const useSendVertexMessage = () => {
       const response = await sendMessage(contents, {})
       return response
     },
-    [currentExplore],
+    [currentExplore,semanticModels],
   )
 
   const sugQue = useCallback(
