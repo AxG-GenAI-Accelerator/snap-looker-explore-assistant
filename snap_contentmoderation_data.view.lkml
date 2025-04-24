@@ -5,7 +5,7 @@ view: snap_contentmoderation_data {
     type: number
     sql: ${TABLE}.`Creation Timestamp Hour of Day` ;;
     label: "Creation Hour"
-    tags: ["creation_hour"]
+    tags: ["creation_hour","essential"]
     description: "Creation Hour of content in our Moderation tool. Helps analyze hourly trends."
   }
 
@@ -21,7 +21,7 @@ view: snap_contentmoderation_data {
     type: string
     sql: ${TABLE}.Market ;;
     label: "Market"
-    tags: ["location", "market"]
+    tags: ["location", "market","essential"]
     description: "Market where the content was processed. Examples include English, Arabic markets."
   }
 
@@ -37,7 +37,7 @@ view: snap_contentmoderation_data {
     type: string
     sql: ${TABLE}.`Moderator ID` ;;
     label: "Moderator ID"
-    tags: ["moderator_id"]
+    tags: ["moderator_id","Agent"]
     description: "ID of ACN employee who processed the item. Helps analyze top contributors."
   }
 
@@ -53,7 +53,7 @@ view: snap_contentmoderation_data {
     type: string
     sql: ${TABLE}.Location ;;
     label: "Location"
-    tags: ["location", "user"]
+    tags: ["location", "user","essential"]
     description: "Location from which the ACN employee is working. Used to analyze contributor trends."
   }
 
@@ -69,7 +69,7 @@ view: snap_contentmoderation_data {
     type: number
     sql: ${TABLE}.`Duration Secs` ;;
     label: "Duration (Secs)"
-    tags: ["time", "performance"]
+    tags: ["time"]
     description: "Time taken to process content. Used to derive AHT and sum handle time."
   }
 
@@ -77,7 +77,7 @@ view: snap_contentmoderation_data {
     type: number
     sql: ${TABLE}.`Num Tasks` ;;
     label: "Number of Tasks"
-    tags: ["performance", "count"]
+    tags: ["count"]
     description: "Number of content items processed in an interval. Used for volume analysis."
   }
 
@@ -119,12 +119,19 @@ view: snap_contentmoderation_data {
     tags: ["performance", "AHT"]
     description: "Average time taken to moderate an item. Used for AHT analysis."
   }
-  measure: avg_output{
+  measure: sum_output{
     type: number
-    sql:  AVG(${num_tasks});;
-    label: "Average Output"
-    tags: ["output_average"]
-    description: "Average Number of content processed in that interval (OUTPUT)"
+    sql:  SUM(${num_tasks});;
+    label: "Total Number of Task"
+    tags: ["Total Task","Agent Performance"]
+    description: "Total Number of Task compeleted by agents"
+  }
+  measure: Total_agent{
+    type: number
+    sql:  Count(${moderator_id});;
+    label: "Total Count Agent"
+    tags: ["output_agent"]
+    description: "Total Count of agent"
   }
   measure: target{
     type: number
