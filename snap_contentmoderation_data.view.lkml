@@ -1,5 +1,6 @@
 view: snap_contentmoderation_data {
   sql_table_name: `oxjytxr-mss-mkt-genai-accel.snap_looker.snap_contentmoderation_data` ;;
+  label: "Content Moderation Data"
 
   dimension: creation_timestamp_hour_of_day {
     type: number

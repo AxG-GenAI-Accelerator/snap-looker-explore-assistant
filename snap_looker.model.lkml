@@ -5,6 +5,7 @@ include: "*.view.lkml"
 explore: snap_contentmoderation_data {
   view_name: snap_contentmoderation_data
   label: "Content Moderation Data"
+  view_label: "Content Moderation Data"
 }
 # include all views in the views/ folder in this project
 # include: "/**/*.view.lkml"                 # include all views in this project
