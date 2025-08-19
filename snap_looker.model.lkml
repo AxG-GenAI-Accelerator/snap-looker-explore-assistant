@@ -2,7 +2,7 @@ connection: "darpabq"
 
 include: "*.view.lkml"
 
-explore: snap_contentmoderation_data {
+explore: contentmoderation_data{
   view_name: snap_contentmoderation_data
   label: "Content Moderation Data"
   view_label: "Content Moderation Data"
